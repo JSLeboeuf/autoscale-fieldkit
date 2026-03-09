@@ -1,0 +1,1134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#09090b" />
+    <title>Terms of Service — AutoScale AI</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --green: #60a5fa;
+        --green-2: #3b82f6;
+        --green-dim: rgba(96, 165, 250, 0.07);
+        --green-glow: rgba(96, 165, 250, 0.15);
+        --gold: #fbbf24;
+        --gold-dim: rgba(251, 191, 36, 0.08);
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+        scroll-padding-top: 24px;
+      }
+
+      body {
+        font-family:
+          'Plus Jakarta Sans',
+          -apple-system,
+          system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 20px 100px;
+        position: relative;
+        font-weight: 400;
+      }
+
+      /* Subtle noise texture */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 28px 0 24px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 8px;
+      }
+
+      .header-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        transition: color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .back-link:hover {
+        color: var(--green);
+      }
+
+      .back-link svg {
+        width: 14px;
+        height: 14px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo-text {
+        font-family: 'Michroma', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .page-eyebrow {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--green);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.1);
+        padding: 5px 12px;
+        border-radius: 6px;
+        margin-bottom: 12px;
+      }
+
+      .page-title {
+        font-size: clamp(26px, 5vw, 36px);
+        font-weight: 800;
+        letter-spacing: -0.8px;
+        line-height: 1.1;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+
+      .page-meta {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .page-meta strong {
+        color: var(--text-2);
+        font-weight: 600;
+      }
+
+      /* ── TABLE OF CONTENTS ── */
+      .toc {
+        margin: 28px 0;
+        padding: 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+
+      .toc-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      .toc-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .toc-list li {
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+      }
+
+      .toc-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--green);
+        flex-shrink: 0;
+        min-width: 20px;
+      }
+
+      .toc-list a {
+        font-size: 13px;
+        color: var(--text-2);
+        text-decoration: none;
+        transition: color 0.15s;
+        font-weight: 500;
+      }
+
+      .toc-list a:hover {
+        color: var(--green);
+      }
+
+      /* ── LEGAL SECTIONS ── */
+      .legal-section {
+        margin-top: 40px;
+        scroll-margin-top: 24px;
+      }
+
+      .section-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 20px 22px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(135deg, var(--surface-2), var(--surface));
+      }
+
+      .section-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.12);
+        border-radius: 6px;
+        padding: 4px 10px;
+        flex-shrink: 0;
+        letter-spacing: 0.06em;
+      }
+
+      .section-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.2px;
+      }
+
+      .section-body {
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .section-body p {
+        font-size: 14px;
+        color: var(--text-2);
+        line-height: 1.7;
+        font-weight: 400;
+      }
+
+      .section-body p strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      /* ── HIGHLIGHT BOXES ── */
+      .highlight-box {
+        padding: 16px 18px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        line-height: 1.65;
+        font-weight: 500;
+      }
+
+      .highlight-box.blue {
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.14);
+        color: var(--text-2);
+      }
+
+      .highlight-box.blue strong {
+        color: var(--green);
+      }
+
+      .highlight-box.gold {
+        background: var(--gold-dim);
+        border: 1px solid rgba(251, 191, 36, 0.15);
+        color: var(--text-2);
+      }
+
+      .highlight-box.gold strong {
+        color: var(--gold);
+      }
+
+      /* ── DEFINITION LIST ── */
+      .def-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .def-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px 14px;
+        align-items: baseline;
+        padding: 12px 16px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .def-term {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+
+      .def-desc {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.6;
+      }
+
+      /* ── CHECKLIST ── */
+      .check-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .check-item {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.6;
+      }
+
+      .check-icon {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        flex-shrink: 0;
+        margin-top: 3px;
+        display: grid;
+        place-items: center;
+      }
+
+      .check-icon::after {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+        margin: 4px 0;
+      }
+
+      /* ── CONTACT BLOCK ── */
+      .contact-block {
+        margin-top: 40px;
+        padding: 24px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        text-align: center;
+      }
+
+      .contact-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .contact-company {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+
+      .contact-address {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.6;
+        margin-bottom: 14px;
+      }
+
+      .contact-email {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        border-radius: var(--radius-sm);
+        color: var(--green);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: 'JetBrains Mono', monospace;
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .contact-email:hover {
+        background: rgba(96, 165, 250, 0.12);
+        border-color: rgba(96, 165, 250, 0.25);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 60px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .footer-left {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .footer-links a {
+        font-size: 12px;
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+
+      .footer-links a:hover {
+        color: var(--green);
+      }
+
+      .footer-links a.active {
+        color: var(--text-2);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 480px) {
+        .section-header {
+          padding: 16px 18px;
+        }
+
+        .section-body {
+          padding: 18px;
+        }
+
+        .footer {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        .def-item {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Skip to content -->
+    <a
+      href="#main-content"
+      style="
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 999;
+        padding: 8px 16px;
+        background: var(--green);
+        color: var(--bg);
+        font-weight: 700;
+        border-radius: 0 0 8px 0;
+        text-decoration: none;
+      "
+      onfocus="this.style.left = '0'"
+      >Skip to content</a
+    >
+
+    <!-- HEADER -->
+    <header class="header" role="banner">
+      <div class="header-top">
+        <a href="index.html" class="back-link" aria-label="Back to Field Kit">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Field Kit
+        </a>
+        <div class="logo-row">
+          <span class="logo-text">AutoScale AI</span>
+        </div>
+      </div>
+
+      <div class="page-eyebrow">Legal Document</div>
+      <h1 class="page-title">Terms of Service</h1>
+      <p class="page-meta">
+        <strong>Effective Date:</strong> March 1, 2026 &nbsp;&middot;&nbsp; Last updated: March 2026
+      </p>
+    </header>
+
+    <!-- MAIN -->
+    <main id="main-content">
+      <!-- TABLE OF CONTENTS -->
+      <nav class="toc" aria-label="Table of contents">
+        <p class="toc-title">Sections</p>
+        <ol class="toc-list">
+          <li><span class="toc-num">01</span><a href="#definitions">Definitions</a></li>
+          <li><span class="toc-num">02</span><a href="#service">Service Description</a></li>
+          <li>
+            <span class="toc-num">03</span><a href="#subscription">Subscription &amp; Billing</a>
+          </li>
+          <li>
+            <span class="toc-num">04</span><a href="#termination">Termination &amp; Early Exit</a>
+          </li>
+          <li><span class="toc-num">05</span><a href="#guarantee">Performance Guarantee</a></li>
+          <li><span class="toc-num">06</span><a href="#overages">Overage Charges</a></li>
+          <li><span class="toc-num">07</span><a href="#data">Data &amp; Call Recordings</a></li>
+          <li><span class="toc-num">08</span><a href="#acceptable-use">Acceptable Use</a></li>
+          <li><span class="toc-num">09</span><a href="#liability">Limitation of Liability</a></li>
+          <li><span class="toc-num">10</span><a href="#governing-law">Governing Law</a></li>
+          <li><span class="toc-num">11</span><a href="#contact">Contact</a></li>
+        </ol>
+      </nav>
+
+      <!-- SECTION 1: DEFINITIONS -->
+      <section class="legal-section" id="definitions" aria-labelledby="s1-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 01</span>
+            <h2 class="section-name" id="s1-title">Definitions</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              The following terms have specific meanings throughout this Agreement. When
+              capitalized, they refer to the definitions below.
+            </p>
+            <div class="def-list">
+              <div class="def-item">
+                <span class="def-term">"AutoScale"</span>
+                <span class="def-desc"
+                  >9satisfait Inc. d/b/a AutoScale AI, a company registered in Quebec, Canada (170
+                  rue Principale, apt 228, Saint-Zotique, QC J0P 1Z0, NEQ: 2280833916).</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">"Client"</span>
+                <span class="def-desc"
+                  >The business entity or individual who purchases or activates the Service.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">"Service"</span>
+                <span class="def-desc"
+                  >The AI-powered virtual receptionist platform ("Alex") and associated features
+                  provided by AutoScale, including call answering, booking automation, and
+                  reporting.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">"Subscription Term"</span>
+                <span class="def-desc"
+                  >The period during which Client has paid access to the Service, beginning on the
+                  Activation Date.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">"Activation Date"</span>
+                <span class="def-desc"
+                  >The date on which Client's account is provisioned and the AI receptionist is
+                  deployed on the Client's phone number.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">"Agreement"</span>
+                <span class="def-desc"
+                  >These Terms of Service, together with any executed Order Form or Service
+                  Agreement, constitute the full agreement between the parties.</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: SERVICE -->
+      <section class="legal-section" id="service" aria-labelledby="s2-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 02</span>
+            <h2 class="section-name" id="s2-title">Service Description</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              AutoScale provides an AI-powered virtual receptionist ("Alex") that answers inbound
+              phone calls on behalf of the Client's business, qualifies callers, captures leads, and
+              books appointments into the Client's calendar system.
+            </p>
+            <div class="check-list">
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span>24/7 inbound call answering with natural language AI conversation</span>
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span>Lead qualification and intake according to Client's business criteria</span>
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Appointment booking integrated with Client's calendar (Google, Cal.com, or
+                  equivalent)</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span>Call summary and lead data delivered via email and dashboard</span>
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >SMS follow-up confirmation to callers (where applicable and legally
+                  permitted)</span
+                >
+              </div>
+            </div>
+            <p>
+              AutoScale may modify, enhance, or discontinue specific features of the Service with 30
+              days' written notice. Core call-answering functionality will not be removed without
+              providing an equivalent replacement.
+            </p>
+            <div class="highlight-box blue">
+              <strong>Uptime Target:</strong> AutoScale targets 99.5% monthly uptime for call
+              routing infrastructure. Scheduled maintenance windows will be communicated with at
+              least 24 hours' notice where feasible.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: SUBSCRIPTION & BILLING -->
+      <section class="legal-section" id="subscription" aria-labelledby="s3-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 03</span>
+            <h2 class="section-name" id="s3-title">Subscription &amp; Billing</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              <strong>Initial Term.</strong> The standard Subscription Term is
+              <strong>12 months</strong> from the Activation Date. The first monthly payment is due
+              upon signing. Subsequent monthly payments are automatically charged on the same
+              calendar day each month.
+            </p>
+            <p>
+              <strong>Auto-Renewal.</strong> Upon expiration of the initial 12-month term, the
+              Agreement automatically converts to a <strong>month-to-month</strong> arrangement at
+              the same monthly rate, unless either party provides written notice of non-renewal at
+              least 30 days prior to expiration.
+            </p>
+            <p>
+              <strong>Payment Methods.</strong> AutoScale accepts credit card, ACH/bank transfer,
+              and approved invoicing. All fees are quoted and charged in USD unless otherwise stated
+              in the Order Form. Payments are non-refundable except as expressly stated in Section 5
+              (Performance Guarantee).
+            </p>
+            <p>
+              <strong>Late Payments.</strong> Invoices unpaid after 15 days of the due date accrue
+              interest at 1.5% per month. AutoScale reserves the right to suspend Service for
+              accounts more than 30 days past due, following written notice.
+            </p>
+            <div class="highlight-box gold">
+              <strong>Activation Fee:</strong> A one-time setup and activation fee is charged at the
+              time of signing. This fee covers onboarding, AI configuration, phone number
+              provisioning, and the 30-day performance guarantee period.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: TERMINATION -->
+      <section class="legal-section" id="termination" aria-labelledby="s4-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 04</span>
+            <h2 class="section-name" id="s4-title">Termination &amp; Early Exit</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              <strong>Cancellation After Initial Term.</strong> During the month-to-month period
+              following the 12-month initial term, Client may cancel with
+              <strong>30 days' written notice</strong> sent to contact@autoscaleai.ca. No early
+              termination fee applies after the initial term.
+            </p>
+            <p>
+              <strong>Early Termination During Initial Term.</strong> If Client cancels before the
+              end of the 12-month initial term, an early termination fee equal to
+              <strong>50% of the remaining monthly fees</strong> for the balance of the term is due.
+              This fee compensates AutoScale for the dedicated infrastructure and setup costs
+              incurred on the Client's behalf.
+            </p>
+            <p>
+              <strong>Example:</strong> A Client on a $697/month plan who cancels after month 4
+              would owe 50% × 8 remaining months × $697 = <strong>$2,788</strong> as an early
+              termination fee.
+            </p>
+            <p>
+              <strong>Termination by AutoScale.</strong> AutoScale may terminate this Agreement
+              immediately upon written notice if: (a) Client violates the Acceptable Use Policy
+              (Section 8); (b) Client engages in fraud or misrepresentation; or (c) Client fails to
+              pay fees after receiving proper notice and a 15-day cure period.
+            </p>
+            <p>
+              <strong>Effect of Termination.</strong> Upon termination, Client's access to the
+              Service ceases. AutoScale will provide a final export of Client's lead data and call
+              summaries within 30 days of termination. Call recordings are subject to the retention
+              policy in Section 7.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: GUARANTEE -->
+      <section class="legal-section" id="guarantee" aria-labelledby="s5-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 05</span>
+            <h2 class="section-name" id="s5-title">Performance Guarantee</h2>
+          </div>
+          <div class="section-body">
+            <div class="highlight-box blue">
+              <strong>Standard Guarantee:</strong> If Alex fails to achieve a 90% or greater call
+              answer rate during the first 30 days of active use, Client is entitled to a full
+              refund of the one-time activation fee. Monthly subscription fees already paid are
+              non-refundable under this guarantee.
+            </div>
+            <p>
+              The 90% call answer rate is measured as the percentage of inbound calls to the
+              Client's AutoScale-provisioned number that are answered by Alex and result in a
+              completed interaction (not dropped, not voicemail-only due to Client-side
+              misconfiguration).
+            </p>
+            <div class="highlight-box gold">
+              <strong>Small Business Guarantee:</strong> For businesses receiving fewer than 20
+              inbound calls per month, AutoScale guarantees a minimum of
+              <strong>5 qualified bookings</strong> within the first 60 days of active use, or the
+              activation fee is refunded in full.
+            </div>
+            <p>
+              To claim a guarantee refund, Client must submit a written request to
+              contact@autoscaleai.ca within 15 days of the guarantee period expiration, including
+              the account identifier and a description of the performance shortfall.
+            </p>
+            <p>
+              <strong>Exclusions.</strong> Guarantees do not apply where underperformance results
+              from: Client-side call forwarding misconfiguration, Client-requested custom AI
+              behaviors that reduce answer rates, force majeure events, or periods during which
+              Client's account is suspended due to non-payment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: OVERAGES -->
+      <section class="legal-section" id="overages" aria-labelledby="s6-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 06</span>
+            <h2 class="section-name" id="s6-title">Overage Charges</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              Each subscription plan includes a defined monthly allotment of AI call minutes. When
+              usage exceeds the included minutes, per-minute overage charges apply at the rate
+              specified in Client's Order Form.
+            </p>
+            <p>
+              <strong>Billing Cycle.</strong> Overage charges are calculated at the end of each
+              calendar month and billed in arrears on the following month's invoice date, or charged
+              to the payment method on file.
+            </p>
+            <p>
+              <strong>Notification.</strong> AutoScale will send an email alert when Client's
+              monthly usage reaches 80% of the included minute allotment. Clients may request a
+              usage cap to prevent overage charges; doing so will cause calls to go unanswered once
+              the cap is reached.
+            </p>
+            <div class="check-list">
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Overage rates are listed in the signed Order Form and do not change during the
+                  initial 12-month term</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span>Unused minutes do not roll over to the following month</span>
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Plan upgrades to a higher minute tier can be made at any time and take effect
+                  immediately</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7: DATA & RECORDINGS -->
+      <section class="legal-section" id="data" aria-labelledby="s7-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 07</span>
+            <h2 class="section-name" id="s7-title">Data &amp; Call Recordings</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              <strong>Call Recording.</strong> AutoScale records calls answered by Alex for quality
+              assurance, AI training, compliance, and dispute resolution purposes. By activating the
+              Service, Client acknowledges this recording practice and agrees to provide appropriate
+              notice to their callers as required by applicable law.
+            </p>
+            <p>
+              <strong>Consent Notice.</strong> Alex delivers a consent disclosure at the start of
+              each call (e.g., "This call may be recorded for quality and training purposes"). It is
+              Client's responsibility to ensure this disclosure satisfies the wiretapping and
+              recording laws applicable in their jurisdiction, including two-party consent states.
+            </p>
+            <p>
+              <strong>Data Storage.</strong> Call recordings, transcripts, and associated metadata
+              are stored on servers located in the United States (primary) and Canada (backup).
+              AutoScale uses commercially reasonable encryption in transit and at rest.
+            </p>
+            <p>
+              <strong>HIPAA.</strong> AutoScale is HIPAA-aware and will execute a Business Associate
+              Agreement (BAA) with healthcare clients upon written request. Standard accounts are
+              not HIPAA-certified by default.
+            </p>
+            <div class="def-list">
+              <div class="def-item">
+                <span class="def-term">Recordings</span>
+                <span class="def-desc"
+                  >Retained for 90 days from the date of the call, then permanently deleted.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">Transcripts</span>
+                <span class="def-desc"
+                  >Retained for the duration of the Subscription Term plus 12 months.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">Lead Data</span>
+                <span class="def-desc"
+                  >Retained for the duration of the Subscription Term. Exported to Client upon
+                  request.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">Billing Records</span>
+                <span class="def-desc"
+                  >Retained for 7 years as required by applicable tax law.</span
+                >
+              </div>
+            </div>
+            <p>
+              Clients may request deletion of call data outside these retention schedules by
+              emailing contact@autoscaleai.ca. Requests are processed within 30 days, subject to
+              legal retention obligations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 8: ACCEPTABLE USE -->
+      <section class="legal-section" id="acceptable-use" aria-labelledby="s8-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 08</span>
+            <h2 class="section-name" id="s8-title">Acceptable Use</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              Client agrees to use the Service only for lawful purposes in connection with their
+              legitimate business operations. The following uses are expressly prohibited:
+            </p>
+            <div class="check-list">
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Using the AI to engage in deceptive, fraudulent, or misleading practices with
+                  callers</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Collecting personal information beyond what is necessary for the stated business
+                  purpose</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Routing the AI to handle medical, legal, or financial advice without appropriate
+                  disclaimers</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Attempting to reverse-engineer, extract, or replicate AutoScale's AI models or
+                  prompts</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Reselling access to the Service to third parties without written authorization
+                  from AutoScale</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Using the Service in industries or jurisdictions where AI call automation is
+                  prohibited by law</span
+                >
+              </div>
+            </div>
+            <p>
+              Client is solely responsible for ensuring their use of the Service complies with the
+              Telephone Consumer Protection Act (TCPA), CRTC regulations, GDPR, and all other
+              applicable telecommunications and data protection laws.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 9: LIABILITY -->
+      <section class="legal-section" id="liability" aria-labelledby="s9-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 09</span>
+            <h2 class="section-name" id="s9-title">Limitation of Liability</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              <strong>Disclaimer of Warranties.</strong> THE SERVICE IS PROVIDED "AS IS" AND "AS
+              AVAILABLE." AUTOSCALE MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+              LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+              NON-INFRINGEMENT. AUTOSCALE DOES NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED,
+              ERROR-FREE, OR FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
+            </p>
+            <p>
+              <strong>Liability Cap.</strong> TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW,
+              AUTOSCALE'S TOTAL CUMULATIVE LIABILITY ARISING OUT OF OR RELATED TO THIS AGREEMENT
+              (WHETHER IN CONTRACT, TORT, OR OTHERWISE) SHALL NOT EXCEED THE TOTAL FEES PAID BY
+              CLIENT TO AUTOSCALE IN THE TWELVE (12) MONTHS IMMEDIATELY PRECEDING THE EVENT GIVING
+              RISE TO THE CLAIM.
+            </p>
+            <p>
+              <strong>Exclusion of Consequential Damages.</strong> IN NO EVENT WILL AUTOSCALE BE
+              LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES,
+              INCLUDING LOSS OF PROFITS, LOSS OF DATA, BUSINESS INTERRUPTION, OR LOSS OF GOODWILL,
+              EVEN IF AUTOSCALE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+            </p>
+            <p>
+              <strong>Indemnification.</strong> Client agrees to indemnify, defend, and hold
+              harmless AutoScale and its officers, directors, employees, and agents from any claims,
+              damages, or expenses arising out of: (a) Client's breach of this Agreement; (b)
+              Client's violation of applicable law; or (c) any claims by Client's customers or
+              callers related to Client's business practices.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 10: GOVERNING LAW -->
+      <section class="legal-section" id="governing-law" aria-labelledby="s10-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 10</span>
+            <h2 class="section-name" id="s10-title">Governing Law</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              <strong>Jurisdiction.</strong> This Agreement shall be governed by and construed in
+              accordance with the laws of the <strong>State of Delaware, USA</strong>, without
+              regard to its conflict of law provisions. The parties submit to the exclusive
+              jurisdiction of the state and federal courts located in Delaware for resolution of any
+              disputes arising under this Agreement.
+            </p>
+            <p>
+              <strong>Dispute Resolution.</strong> Before initiating formal legal proceedings, the
+              parties agree to attempt to resolve any dispute through good-faith negotiation for a
+              period of 30 days. If unresolved, disputes may be submitted to binding arbitration
+              administered by the American Arbitration Association (AAA) under its Commercial
+              Arbitration Rules.
+            </p>
+            <p>
+              <strong>Class Action Waiver.</strong> TO THE EXTENT PERMITTED BY LAW, CLIENT WAIVES
+              ANY RIGHT TO PARTICIPATE IN A CLASS ACTION LAWSUIT OR CLASS-WIDE ARBITRATION AGAINST
+              AUTOSCALE.
+            </p>
+            <p>
+              <strong>Entire Agreement.</strong> This Agreement, together with any signed Order
+              Form, constitutes the entire agreement between the parties and supersedes all prior
+              negotiations, representations, or agreements. Any modification must be in writing and
+              signed by an authorized representative of AutoScale.
+            </p>
+            <p>
+              <strong>Severability.</strong> If any provision of this Agreement is held
+              unenforceable, the remaining provisions shall continue in full force and effect.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 11: CONTACT -->
+      <section class="legal-section" id="contact" aria-labelledby="s11-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 11</span>
+            <h2 class="section-name" id="s11-title">Contact</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              For questions about these Terms, billing disputes, data requests, or notices under
+              this Agreement, contact AutoScale at:
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT BLOCK -->
+      <div class="contact-block">
+        <p class="contact-label">AutoScale AI — Legal</p>
+        <p class="contact-company">9satisfait Inc. d/b/a AutoScale AI</p>
+        <p class="contact-address">
+          170 rue Principale, apt 228<br />
+          Saint-Zotique, QC J0P 1Z0<br />
+          Canada
+        </p>
+        <a
+          href="mailto:contact@autoscaleai.ca"
+          class="contact-email"
+          aria-label="Email AutoScale AI legal team"
+        >
+          contact@autoscaleai.ca
+        </a>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" role="contentinfo">
+      <p class="footer-left">&copy; 2026 AutoScale AI</p>
+      <nav class="footer-links" aria-label="Legal navigation">
+        <a href="terms.html" class="active" aria-current="page">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="index.html">Field Kit</a>
+      </nav>
+    </footer>
+  </body>
+</html>

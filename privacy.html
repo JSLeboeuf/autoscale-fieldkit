@@ -1,0 +1,1452 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#09090b" />
+    <title>Privacy Policy — AutoScale AI</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --green: #60a5fa;
+        --green-2: #3b82f6;
+        --green-dim: rgba(96, 165, 250, 0.07);
+        --green-glow: rgba(96, 165, 250, 0.15);
+        --gold: #fbbf24;
+        --gold-dim: rgba(251, 191, 36, 0.08);
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+        scroll-padding-top: 24px;
+      }
+
+      body {
+        font-family:
+          'Plus Jakarta Sans',
+          -apple-system,
+          system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 20px 100px;
+        position: relative;
+        font-weight: 400;
+      }
+
+      /* Subtle noise texture */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 28px 0 24px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 8px;
+      }
+
+      .header-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        transition: color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .back-link:hover {
+        color: var(--green);
+      }
+
+      .back-link svg {
+        width: 14px;
+        height: 14px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo-text {
+        font-family: 'Michroma', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .page-eyebrow {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--green);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.1);
+        padding: 5px 12px;
+        border-radius: 6px;
+        margin-bottom: 12px;
+      }
+
+      .page-title {
+        font-size: clamp(26px, 5vw, 36px);
+        font-weight: 800;
+        letter-spacing: -0.8px;
+        line-height: 1.1;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+
+      .page-meta {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .page-meta strong {
+        color: var(--text-2);
+        font-weight: 600;
+      }
+
+      /* ── TABLE OF CONTENTS ── */
+      .toc {
+        margin: 28px 0;
+        padding: 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+
+      .toc-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      .toc-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .toc-list li {
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+      }
+
+      .toc-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--green);
+        flex-shrink: 0;
+        min-width: 20px;
+      }
+
+      .toc-list a {
+        font-size: 13px;
+        color: var(--text-2);
+        text-decoration: none;
+        transition: color 0.15s;
+        font-weight: 500;
+      }
+
+      .toc-list a:hover {
+        color: var(--green);
+      }
+
+      /* ── LEGAL SECTIONS ── */
+      .legal-section {
+        margin-top: 40px;
+        scroll-margin-top: 24px;
+      }
+
+      .section-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 20px 22px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(135deg, var(--surface-2), var(--surface));
+      }
+
+      .section-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.12);
+        border-radius: 6px;
+        padding: 4px 10px;
+        flex-shrink: 0;
+        letter-spacing: 0.06em;
+      }
+
+      .section-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.2px;
+      }
+
+      .section-body {
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .section-body p {
+        font-size: 14px;
+        color: var(--text-2);
+        line-height: 1.7;
+        font-weight: 400;
+      }
+
+      .section-body p strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      /* ── HIGHLIGHT BOXES ── */
+      .highlight-box {
+        padding: 16px 18px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        line-height: 1.65;
+        font-weight: 500;
+      }
+
+      .highlight-box.blue {
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.14);
+        color: var(--text-2);
+      }
+
+      .highlight-box.blue strong {
+        color: var(--green);
+      }
+
+      .highlight-box.gold {
+        background: var(--gold-dim);
+        border: 1px solid rgba(251, 191, 36, 0.15);
+        color: var(--text-2);
+      }
+
+      .highlight-box.gold strong {
+        color: var(--gold);
+      }
+
+      /* ── DATA TABLE ── */
+      .data-table {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+      }
+
+      .data-row {
+        display: grid;
+        grid-template-columns: 1fr 1.6fr;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .data-row:last-child {
+        border-bottom: none;
+      }
+
+      .data-row.header-row {
+        background: var(--surface-2);
+      }
+
+      .data-cell {
+        padding: 11px 14px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--text-2);
+        border-right: 1px solid var(--border);
+      }
+
+      .data-cell:last-child {
+        border-right: none;
+      }
+
+      .data-cell.th {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .data-cell.label {
+        font-weight: 600;
+        color: var(--text);
+        font-size: 13px;
+      }
+
+      /* ── THIRD PARTY LIST ── */
+      .third-party-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .tp-item {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 16px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        transition: border-color 0.15s;
+      }
+
+      .tp-item:hover {
+        border-color: var(--border-2);
+      }
+
+      .tp-badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.1);
+        border-radius: 5px;
+        padding: 3px 8px;
+        white-space: nowrap;
+        letter-spacing: 0.04em;
+      }
+
+      .tp-info {
+        min-width: 0;
+      }
+
+      .tp-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 2px;
+      }
+
+      .tp-role {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.4;
+      }
+
+      .tp-link {
+        font-size: 11px;
+        color: var(--green);
+        text-decoration: none;
+        font-weight: 600;
+        white-space: nowrap;
+        font-family: 'JetBrains Mono', monospace;
+        opacity: 0.7;
+        transition: opacity 0.15s;
+      }
+
+      .tp-link:hover {
+        opacity: 1;
+      }
+
+      /* ── CHECKLIST ── */
+      .check-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .check-item {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.6;
+      }
+
+      .check-icon {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        flex-shrink: 0;
+        margin-top: 3px;
+        display: grid;
+        place-items: center;
+      }
+
+      .check-icon::after {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      /* ── RIGHTS GRID ── */
+      .rights-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .right-item {
+        padding: 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .right-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 4px;
+        letter-spacing: -0.1px;
+      }
+
+      .right-desc {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* ── DEFINITION LIST ── */
+      .def-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .def-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px 14px;
+        align-items: baseline;
+        padding: 12px 16px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .def-term {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+
+      .def-desc {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.6;
+      }
+
+      /* ── CONTACT BLOCK ── */
+      .contact-block {
+        margin-top: 40px;
+        padding: 24px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        text-align: center;
+      }
+
+      .contact-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .contact-company {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+
+      .contact-address {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.6;
+        margin-bottom: 14px;
+      }
+
+      .contact-email {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        border-radius: var(--radius-sm);
+        color: var(--green);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: 'JetBrains Mono', monospace;
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .contact-email:hover {
+        background: rgba(96, 165, 250, 0.12);
+        border-color: rgba(96, 165, 250, 0.25);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 60px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .footer-left {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .footer-links a {
+        font-size: 12px;
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+
+      .footer-links a:hover {
+        color: var(--green);
+      }
+
+      .footer-links a.active {
+        color: var(--text-2);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 540px) {
+        .rights-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .data-row {
+          grid-template-columns: 1fr;
+        }
+
+        .data-cell {
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+          padding: 10px 14px;
+        }
+
+        .data-row:last-child .data-cell:last-child {
+          border-bottom: none;
+        }
+
+        .tp-item {
+          grid-template-columns: auto 1fr;
+          grid-template-rows: auto auto;
+        }
+
+        .tp-link {
+          grid-column: 1 / -1;
+          justify-self: start;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .section-header {
+          padding: 16px 18px;
+        }
+
+        .section-body {
+          padding: 18px;
+        }
+
+        .footer {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        .def-item {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Skip to content -->
+    <a
+      href="#main-content"
+      style="
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 999;
+        padding: 8px 16px;
+        background: var(--green);
+        color: var(--bg);
+        font-weight: 700;
+        border-radius: 0 0 8px 0;
+        text-decoration: none;
+      "
+      onfocus="this.style.left = '0'"
+      >Skip to content</a
+    >
+
+    <!-- HEADER -->
+    <header class="header" role="banner">
+      <div class="header-top">
+        <a href="index.html" class="back-link" aria-label="Back to Field Kit">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Field Kit
+        </a>
+        <div class="logo-row">
+          <span class="logo-text">AutoScale AI</span>
+        </div>
+      </div>
+
+      <div class="page-eyebrow">Legal Document</div>
+      <h1 class="page-title">Privacy Policy</h1>
+      <p class="page-meta">
+        <strong>Effective Date:</strong> March 1, 2026 &nbsp;&middot;&nbsp; Last updated: March 2026
+      </p>
+    </header>
+
+    <!-- MAIN -->
+    <main id="main-content">
+      <!-- TABLE OF CONTENTS -->
+      <nav class="toc" aria-label="Table of contents">
+        <p class="toc-title">Sections</p>
+        <ol class="toc-list">
+          <li><span class="toc-num">01</span><a href="#overview">Overview</a></li>
+          <li><span class="toc-num">02</span><a href="#data-collected">Data We Collect</a></li>
+          <li><span class="toc-num">03</span><a href="#how-used">How We Use Your Data</a></li>
+          <li><span class="toc-num">04</span><a href="#third-parties">Third-Party Services</a></li>
+          <li><span class="toc-num">05</span><a href="#retention">Data Retention</a></li>
+          <li><span class="toc-num">06</span><a href="#your-rights">Your Rights</a></li>
+          <li><span class="toc-num">07</span><a href="#ccpa">CCPA — California Residents</a></li>
+          <li><span class="toc-num">08</span><a href="#no-sale">No Sale of Personal Data</a></li>
+          <li><span class="toc-num">09</span><a href="#security">Security</a></li>
+          <li><span class="toc-num">10</span><a href="#children">Children's Privacy</a></li>
+          <li><span class="toc-num">11</span><a href="#changes">Policy Changes</a></li>
+          <li><span class="toc-num">12</span><a href="#contact">Contact &amp; Data Requests</a></li>
+        </ol>
+      </nav>
+
+      <!-- SECTION 1: OVERVIEW -->
+      <section class="legal-section" id="overview" aria-labelledby="s1-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 01</span>
+            <h2 class="section-name" id="s1-title">Overview</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              9satisfait Inc. d/b/a AutoScale AI ("AutoScale," "we," "us," or "our") operates an
+              AI-powered virtual receptionist platform for businesses. This Privacy Policy explains
+              how we collect, use, share, and protect personal data in connection with our Service.
+            </p>
+            <p>
+              This policy applies to: (a) business clients ("Clients") who subscribe to the Service;
+              and (b) individuals who interact with the AI receptionist by calling a Client's
+              AutoScale-provisioned phone number ("Callers").
+            </p>
+            <div class="highlight-box blue">
+              <strong>Plain Language Summary:</strong> We collect business contact information, call
+              recordings, and interaction data to operate the Service. We do not sell personal data.
+              Callers are notified of recording at the start of each call. You can request deletion
+              of your data at any time.
+            </div>
+            <p>
+              AutoScale acts as both a <strong>data controller</strong> (for data we collect
+              directly from Clients) and a <strong>data processor</strong> (for Caller data we
+              process on behalf of Clients). Clients are responsible for their own compliance with
+              privacy laws applicable to their use of the Service.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: DATA COLLECTED -->
+      <section class="legal-section" id="data-collected" aria-labelledby="s2-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 02</span>
+            <h2 class="section-name" id="s2-title">Data We Collect</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              We collect different categories of data depending on whether you are a Client (the
+              subscribing business) or a Caller (someone who calls a Client's AutoScale number).
+            </p>
+            <div class="data-table" role="table" aria-label="Data collection breakdown">
+              <div class="data-row header-row" role="row">
+                <div class="data-cell th" role="columnheader">Category</div>
+                <div class="data-cell th" role="columnheader">Examples</div>
+              </div>
+              <div class="data-row" role="row">
+                <div class="data-cell label" role="cell">Business Identity</div>
+                <div class="data-cell" role="cell">
+                  Business name, industry, address, website URL
+                </div>
+              </div>
+              <div class="data-row" role="row">
+                <div class="data-cell label" role="cell">Contact Information</div>
+                <div class="data-cell" role="cell">
+                  Name, email address, phone number of account holder and authorized users
+                </div>
+              </div>
+              <div class="data-row" role="row">
+                <div class="data-cell label" role="cell">Call Recordings</div>
+                <div class="data-cell" role="cell">
+                  Full audio recordings of inbound calls answered by Alex
+                </div>
+              </div>
+              <div class="data-row" role="row">
+                <div class="data-cell label" role="cell">Call Metadata</div>
+                <div class="data-cell" role="cell">
+                  Caller phone number, call duration, timestamp, outcome (booked, lead, no-answer),
+                  disposition
+                </div>
+              </div>
+              <div class="data-row" role="row">
+                <div class="data-cell label" role="cell">Transcriptions</div>
+                <div class="data-cell" role="cell">
+                  Text transcripts of call conversations, AI-generated summaries, extracted lead
+                  data (name, service interest, availability)
+                </div>
+              </div>
+              <div class="data-row" role="row">
+                <div class="data-cell label" role="cell">Billing Data</div>
+                <div class="data-cell" role="cell">
+                  Payment method type, last 4 digits, billing address, invoice history (full card
+                  numbers are handled by Stripe — not stored by AutoScale)
+                </div>
+              </div>
+              <div class="data-row" role="row">
+                <div class="data-cell label" role="cell">Usage &amp; Analytics</div>
+                <div class="data-cell" role="cell">
+                  Dashboard access logs, feature usage, API call volumes, error logs (no personally
+                  identifiable content in logs)
+                </div>
+              </div>
+              <div class="data-row" role="row">
+                <div class="data-cell label" role="cell">Configuration Data</div>
+                <div class="data-cell" role="cell">
+                  AI persona settings, business hours, booking rules, calendar integration tokens
+                  (stored encrypted)
+                </div>
+              </div>
+            </div>
+            <p>
+              We do not intentionally collect sensitive personal data such as Social Security
+              numbers, government IDs, health records (absent a HIPAA BAA), or financial account
+              credentials.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: HOW USED -->
+      <section class="legal-section" id="how-used" aria-labelledby="s3-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 03</span>
+            <h2 class="section-name" id="s3-title">How We Use Your Data</h2>
+          </div>
+          <div class="section-body">
+            <p>We use the data we collect for the following purposes:</p>
+            <div class="check-list">
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Service Delivery</strong> — Operate the AI receptionist, route calls,
+                  book appointments, and deliver call summaries to Clients</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>AI Model Improvement</strong> — Anonymized and aggregated call
+                  transcripts may be used to improve conversation quality, reduce errors, and train
+                  new AI capabilities. No personally identifiable Caller information is used in
+                  model training without explicit consent</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Billing &amp; Payments</strong> — Process subscription fees, overage
+                  charges, and issue invoices</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Customer Support</strong> — Diagnose technical issues, respond to support
+                  requests, and resolve disputes using call recordings as evidence</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Performance Reporting</strong> — Generate call analytics, booking
+                  conversion rates, and usage dashboards for Client accounts</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Legal &amp; Compliance</strong> — Comply with applicable laws, respond to
+                  lawful requests from authorities, and enforce our Terms of Service</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Security</strong> — Detect fraud, unauthorized access, and abuse of the
+                  platform</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Communications</strong> — Send transactional emails (receipts, alerts,
+                  booking confirmations) and, with consent, product updates and feature
+                  announcements</span
+                >
+              </div>
+            </div>
+            <div class="highlight-box gold">
+              <strong>Legal Basis (GDPR):</strong> For EU/UK customers, our lawful bases are:
+              performance of a contract (service delivery), legitimate interests (security, fraud
+              prevention, AI improvement), compliance with legal obligations, and consent (marketing
+              communications).
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: THIRD PARTIES -->
+      <section class="legal-section" id="third-parties" aria-labelledby="s4-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 04</span>
+            <h2 class="section-name" id="s4-title">Third-Party Services</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              AutoScale uses the following third-party sub-processors to operate the Service. Each
+              has agreed to data processing terms consistent with our privacy obligations.
+            </p>
+            <div class="third-party-list">
+              <div class="tp-item">
+                <span class="tp-badge">Voice</span>
+                <div class="tp-info">
+                  <p class="tp-name">VAPI</p>
+                  <p class="tp-role">
+                    AI voice infrastructure — handles real-time call routing and conversation
+                    processing
+                  </p>
+                </div>
+                <a
+                  href="https://vapi.ai/privacy"
+                  class="tp-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="VAPI privacy policy (opens in new tab)"
+                  >Privacy &rarr;</a
+                >
+              </div>
+              <div class="tp-item">
+                <span class="tp-badge">TTS</span>
+                <div class="tp-info">
+                  <p class="tp-name">Cartesia</p>
+                  <p class="tp-role">
+                    Text-to-speech synthesis — converts AI responses to natural-sounding voice audio
+                  </p>
+                </div>
+                <a
+                  href="https://cartesia.ai/privacy"
+                  class="tp-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Cartesia privacy policy (opens in new tab)"
+                  >Privacy &rarr;</a
+                >
+              </div>
+              <div class="tp-item">
+                <span class="tp-badge">Database</span>
+                <div class="tp-info">
+                  <p class="tp-name">Supabase</p>
+                  <p class="tp-role">
+                    Cloud database and authentication — stores lead data, call records, and account
+                    information
+                  </p>
+                </div>
+                <a
+                  href="https://supabase.com/privacy"
+                  class="tp-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Supabase privacy policy (opens in new tab)"
+                  >Privacy &rarr;</a
+                >
+              </div>
+              <div class="tp-item">
+                <span class="tp-badge">Payments</span>
+                <div class="tp-info">
+                  <p class="tp-name">Stripe</p>
+                  <p class="tp-role">
+                    Payment processing — handles all credit card and ACH transactions on behalf of
+                    AutoScale
+                  </p>
+                </div>
+                <a
+                  href="https://stripe.com/privacy"
+                  class="tp-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Stripe privacy policy (opens in new tab)"
+                  >Privacy &rarr;</a
+                >
+              </div>
+              <div class="tp-item">
+                <span class="tp-badge">Contracts</span>
+                <div class="tp-info">
+                  <p class="tp-name">SignNow</p>
+                  <p class="tp-role">
+                    Electronic signature — Client service agreements and authorization forms are
+                    signed through SignNow
+                  </p>
+                </div>
+                <a
+                  href="https://www.signnow.com/privacy"
+                  class="tp-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="SignNow privacy policy (opens in new tab)"
+                  >Privacy &rarr;</a
+                >
+              </div>
+            </div>
+            <p>
+              We do not share personal data with third parties for their own marketing purposes.
+              Sharing is limited to what is operationally necessary to deliver the Service.
+            </p>
+            <p>
+              <strong>Law Enforcement.</strong> We may disclose information when required by law,
+              court order, or lawful government request. Where permitted, we will notify affected
+              Clients before disclosure.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: RETENTION -->
+      <section class="legal-section" id="retention" aria-labelledby="s5-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 05</span>
+            <h2 class="section-name" id="s5-title">Data Retention</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              We retain data only as long as necessary for the purposes outlined in this policy, or
+              as required by law.
+            </p>
+            <div class="def-list">
+              <div class="def-item">
+                <span class="def-term">Call Recordings</span>
+                <span class="def-desc"
+                  >Retained for 90 days from the date of the call, then permanently and irreversibly
+                  deleted from all storage systems.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">Transcripts</span>
+                <span class="def-desc"
+                  >Retained for the duration of the active Subscription Term plus 12 months
+                  following termination.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">Lead &amp; Contact Data</span>
+                <span class="def-desc"
+                  >Retained for the duration of the active Subscription Term. Exported to Client
+                  upon request at termination.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">Account &amp; Billing Records</span>
+                <span class="def-desc"
+                  >Retained for 7 years following account closure, as required by applicable tax and
+                  financial regulations.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">Usage Logs</span>
+                <span class="def-desc"
+                  >System and access logs retained for 90 days for security monitoring, then
+                  aggregated (PII removed) and retained for 12 months.</span
+                >
+              </div>
+              <div class="def-item">
+                <span class="def-term">Anonymized Analytics</span>
+                <span class="def-desc"
+                  >Aggregated, de-identified performance data may be retained indefinitely for
+                  product improvement.</span
+                >
+              </div>
+            </div>
+            <p>
+              Upon account deletion or subscription termination, all personal data within the
+              retention schedules above is queued for deletion. Deletion is completed within 30 days
+              of the scheduled date, except where legal hold obligations apply.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: YOUR RIGHTS -->
+      <section class="legal-section" id="your-rights" aria-labelledby="s6-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 06</span>
+            <h2 class="section-name" id="s6-title">Your Rights</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              Depending on your location, you may have the following rights regarding your personal
+              data. To exercise any of these rights, email contact@autoscaleai.ca with your account
+              information and the specific request.
+            </p>
+            <div class="rights-grid" role="list">
+              <div class="right-item" role="listitem">
+                <p class="right-title">Access</p>
+                <p class="right-desc">Request a copy of the personal data we hold about you</p>
+              </div>
+              <div class="right-item" role="listitem">
+                <p class="right-title">Correction</p>
+                <p class="right-desc">Request correction of inaccurate or incomplete data</p>
+              </div>
+              <div class="right-item" role="listitem">
+                <p class="right-title">Deletion</p>
+                <p class="right-desc">
+                  Request erasure of your personal data, subject to legal retention obligations
+                </p>
+              </div>
+              <div class="right-item" role="listitem">
+                <p class="right-title">Portability</p>
+                <p class="right-desc">
+                  Receive your data in a machine-readable format (JSON or CSV)
+                </p>
+              </div>
+              <div class="right-item" role="listitem">
+                <p class="right-title">Restriction</p>
+                <p class="right-desc">
+                  Request that we limit processing of your data in certain circumstances
+                </p>
+              </div>
+              <div class="right-item" role="listitem">
+                <p class="right-title">Objection</p>
+                <p class="right-desc">
+                  Object to processing based on legitimate interests, including AI model training
+                </p>
+              </div>
+            </div>
+            <p>
+              We will respond to all verified requests within <strong>30 days</strong>. We may
+              require identity verification before processing requests. We will not discriminate
+              against you for exercising your privacy rights.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7: CCPA -->
+      <section class="legal-section" id="ccpa" aria-labelledby="s7-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 07</span>
+            <h2 class="section-name" id="s7-title">CCPA — California Residents</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              If you are a California resident, the California Consumer Privacy Act (CCPA) and
+              California Privacy Rights Act (CPRA) grant you additional rights.
+            </p>
+            <div class="check-list">
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Right to Know:</strong> You may request disclosure of the categories and
+                  specific pieces of personal information we have collected about you in the past 12
+                  months</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Right to Delete:</strong> You may request deletion of personal
+                  information we have collected from you, subject to certain exceptions (legal
+                  obligations, fraud prevention, etc.)</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Right to Correct:</strong> You may request correction of inaccurate
+                  personal information we hold</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Right to Opt-Out:</strong> You may opt out of the sale or sharing of
+                  personal information — though AutoScale does not sell personal data (see Section
+                  8)</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  ><strong>Right to Limit:</strong> You may limit the use and disclosure of
+                  sensitive personal information</span
+                >
+              </div>
+            </div>
+            <p>
+              To exercise CCPA rights, submit a request to contact@autoscaleai.ca with the subject
+              line "CCPA Request." We will verify your identity and respond within 45 days
+              (extendable by 45 additional days with notice). You may designate an authorized agent
+              to submit requests on your behalf.
+            </p>
+            <div class="highlight-box gold">
+              <strong>Non-Discrimination:</strong> We will not deny service, charge different
+              prices, or provide a different level of service to you because you exercised your
+              privacy rights under the CCPA.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 8: NO SALE -->
+      <section class="legal-section" id="no-sale" aria-labelledby="s8-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 08</span>
+            <h2 class="section-name" id="s8-title">No Sale of Personal Data</h2>
+          </div>
+          <div class="section-body">
+            <div class="highlight-box blue">
+              <strong>AutoScale does not sell personal data.</strong> We do not sell, rent, lease,
+              or exchange personal information about our Clients or their Callers to any third party
+              for monetary consideration or other valuable consideration.
+            </div>
+            <p>
+              We do not share personal data with advertisers, data brokers, or marketing platforms.
+              The only sharing of personal data that occurs is with sub-processors listed in Section
+              4, solely for the purpose of operating the Service on behalf of our Clients.
+            </p>
+            <p>
+              In the event AutoScale is acquired or merges with another company, personal data may
+              be transferred as part of that transaction. In such an event, we will notify affected
+              Clients and the acquiring entity will be required to honor this Privacy Policy or
+              provide equivalent protections.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 9: SECURITY -->
+      <section class="legal-section" id="security" aria-labelledby="s9-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 09</span>
+            <h2 class="section-name" id="s9-title">Security</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              AutoScale implements commercially reasonable technical and organizational security
+              measures to protect personal data against unauthorized access, disclosure, alteration,
+              and destruction.
+            </p>
+            <div class="check-list">
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span>TLS 1.2+ encryption for all data in transit</span>
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >AES-256 encryption for sensitive data at rest (recordings, credentials,
+                  tokens)</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Role-based access controls — employees access only the data necessary for their
+                  function</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span>Row-level security policies on all database tables</span>
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span>Regular security reviews and penetration testing</span>
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Incident response plan with Client notification within 72 hours of confirmed data
+                  breach</span
+                >
+              </div>
+            </div>
+            <p>
+              No system is completely secure. In the event of a data breach that is likely to result
+              in a risk to your rights and freedoms, we will notify affected Clients within 72 hours
+              of becoming aware of the breach, as required by applicable law.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 10: CHILDREN -->
+      <section class="legal-section" id="children" aria-labelledby="s10-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 10</span>
+            <h2 class="section-name" id="s10-title">Children's Privacy</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              The AutoScale Service is designed for use by businesses and their adult clients. We do
+              not knowingly collect personal information from individuals under 18 years of age.
+            </p>
+            <p>
+              If we become aware that we have inadvertently collected personal information from a
+              minor, we will take steps to delete such information promptly. If you believe we have
+              collected data from a minor, please contact us at contact@autoscaleai.ca.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 11: CHANGES -->
+      <section class="legal-section" id="changes" aria-labelledby="s11-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 11</span>
+            <h2 class="section-name" id="s11-title">Policy Changes</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              We may update this Privacy Policy periodically to reflect changes in our practices,
+              technology, legal requirements, or business operations. When we make material changes,
+              we will:
+            </p>
+            <div class="check-list">
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span>Post the updated policy on this page with a revised "Last updated" date</span>
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span
+                  >Send an email notification to the primary contact on file for active Client
+                  accounts</span
+                >
+              </div>
+              <div class="check-item">
+                <span class="check-icon" aria-hidden="true"></span>
+                <span>Provide at least 14 days' notice before material changes take effect</span>
+              </div>
+            </div>
+            <p>
+              Your continued use of the Service after the effective date of the updated policy
+              constitutes acceptance of the changes. If you do not agree to the updated policy, you
+              may terminate your subscription per the Terms of Service.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 12: CONTACT -->
+      <section class="legal-section" id="contact" aria-labelledby="s12-title">
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-num">§ 12</span>
+            <h2 class="section-name" id="s12-title">Contact &amp; Data Requests</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              For any questions about this Privacy Policy, to exercise your data rights, or to
+              submit a formal data deletion or access request, contact our Privacy team at:
+            </p>
+            <p>
+              Please include in your request: your full name, company name (if a Client), the email
+              address associated with your account, and a description of your request. We will
+              respond within 30 days.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT BLOCK -->
+      <div class="contact-block">
+        <p class="contact-label">AutoScale AI — Privacy</p>
+        <p class="contact-company">9satisfait Inc. d/b/a AutoScale AI</p>
+        <p class="contact-address">
+          170 rue Principale, apt 228<br />
+          Saint-Zotique, QC J0P 1Z0<br />
+          Canada
+        </p>
+        <a
+          href="mailto:contact@autoscaleai.ca"
+          class="contact-email"
+          aria-label="Email AutoScale AI privacy team"
+        >
+          contact@autoscaleai.ca
+        </a>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" role="contentinfo">
+      <p class="footer-left">&copy; 2026 AutoScale AI</p>
+      <nav class="footer-links" aria-label="Legal navigation">
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html" class="active" aria-current="page">Privacy</a>
+        <a href="index.html">Field Kit</a>
+      </nav>
+    </footer>
+  </body>
+</html>

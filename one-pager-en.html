@@ -1,0 +1,1079 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <title>AutoScale AI — Meet Alex</title>
+    <style>
+      @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      @page {
+        size: letter;
+        margin: 0;
+      }
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: 'Satoshi', system-ui, sans-serif;
+        color: #e5e5e5;
+        background: #0a0a0f;
+        line-height: 1.45;
+      }
+
+      .page {
+        width: 8.5in;
+        max-width: 100%;
+        height: auto;
+        min-height: 11in;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: #0a0a0f;
+        position: relative;
+      }
+
+      @media (max-width: 816px) {
+        .page {
+          width: 100%;
+          min-height: auto;
+          padding: 0 8px;
+        }
+      }
+
+      @media print {
+        .page {
+          width: 8.5in;
+          height: 11in;
+          max-width: none;
+          padding: 0;
+        }
+      }
+
+      /* ── DOT GRID + GRAIN ── */
+      .page::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.08;
+        pointer-events: none;
+        z-index: 1;
+        background-image: radial-gradient(circle, rgba(0, 217, 255, 0.3) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+      .page::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.05;
+        pointer-events: none;
+        z-index: 2;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 256px 256px;
+      }
+
+      .z {
+        position: relative;
+        z-index: 5;
+      }
+
+      /* ── GRADIENT BORDER CARDS ── */
+      .glow-card {
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.25), rgba(0, 102, 179, 0.12));
+        border-radius: 12px;
+        padding: 1.5px;
+      }
+      .glow-card-inner {
+        background: #0d0d14;
+        border-radius: 11px;
+        height: 100%;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 220px;
+        gap: 20px;
+        padding: 40px 44px 24px;
+        position: relative;
+      }
+      .hero-glow {
+        position: absolute;
+        top: -60px;
+        right: -40px;
+        width: 380px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(0, 217, 255, 0.1), transparent 65%);
+        border-radius: 50%;
+        z-index: 0;
+      }
+      .hero-left {
+        z-index: 5;
+      }
+      .hero-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .logo-mark svg {
+        width: 36px;
+        height: 36px;
+      }
+      .logo-text {
+        font-family: 'Satoshi', sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #888;
+        font-weight: 700;
+      }
+      .logo-text .cy {
+        color: #00d9ff;
+      }
+      .hero-headline {
+        font-family: 'Clash Display', sans-serif;
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 0.98;
+        letter-spacing: -1.5px;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+      .hero-headline .cy {
+        color: #00d9ff;
+      }
+      .hero-sub {
+        font-size: 11px;
+        font-weight: 300;
+        color: #999;
+        max-width: 370px;
+        line-height: 1.55;
+      }
+
+      /* ── RIGHT COL ── */
+      .hero-right {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        z-index: 5;
+      }
+      .phone-wrap {
+        background: linear-gradient(135deg, #00d9ff, #0066b3);
+        border-radius: 12px;
+        padding: 1.5px;
+        box-shadow:
+          0 0 24px rgba(0, 217, 255, 0.2),
+          0 0 60px rgba(0, 217, 255, 0.06);
+      }
+      .phone-inner {
+        background: #0a0b12;
+        border-radius: 11px;
+        padding: 10px 14px;
+        text-align: center;
+      }
+      .phone-number {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 17px;
+        font-weight: 700;
+        color: #00d9ff;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.02em;
+      }
+      .phone-number a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .phone-sub {
+        font-size: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: rgba(0, 217, 255, 0.5);
+        font-weight: 700;
+        margin-top: 2px;
+      }
+      .stat-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 8px 12px;
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .sv {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: -0.5px;
+        font-variant-numeric: tabular-nums;
+        flex-shrink: 0;
+      }
+      .sv.cr {
+        color: #ff4d6a;
+      }
+      .sv.cy {
+        color: #00d9ff;
+      }
+      .sv.wh {
+        color: #fff;
+      }
+      .sm {
+        font-size: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #888;
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      /* ── PAIN STRIP ── */
+      .pain-strip {
+        background: linear-gradient(90deg, #ff4d6a, #ff6b82);
+        padding: 14px 44px;
+        text-align: center;
+        font-size: 10.5px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .pain-strip span {
+        font-weight: 300;
+        opacity: 0.75;
+      }
+
+      /* ── COMPARISON ── */
+      .comparison {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 22px 44px;
+      }
+      .cmp-card {
+        border-radius: 12px;
+        padding: 1.5px;
+      }
+      .cmp-card.before {
+        background: linear-gradient(135deg, rgba(255, 77, 106, 0.3), rgba(255, 77, 106, 0.06));
+      }
+      .cmp-card.after {
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.3), rgba(0, 217, 255, 0.06));
+      }
+      .cmp-inner {
+        background: #0b0b12;
+        border-radius: 11px;
+        padding: 14px 16px;
+      }
+      .cmp-label {
+        font-family: 'Clash Display', sans-serif;
+        font-size: 8px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 5px;
+      }
+      .cmp-card.before .cmp-label {
+        color: #ff4d6a;
+      }
+      .cmp-card.after .cmp-label {
+        color: #00d9ff;
+      }
+      .cmp-inner ul {
+        list-style: none;
+        font-size: 9.5px;
+        line-height: 1.65;
+      }
+      .cmp-card.before ul {
+        color: rgba(255, 77, 106, 0.6);
+      }
+      .cmp-card.after ul {
+        color: rgba(0, 217, 255, 0.65);
+      }
+      .cmp-inner li {
+        padding-left: 14px;
+        position: relative;
+      }
+      .cmp-card.before li::before {
+        content: '\2715';
+        position: absolute;
+        left: 0;
+        font-size: 8px;
+        font-weight: 700;
+        color: #ff4d6a;
+      }
+      .cmp-card.after li::before {
+        content: '\2713';
+        position: absolute;
+        left: 0;
+        font-size: 8px;
+        font-weight: 700;
+        color: #00d9ff;
+      }
+      .cmp-inner li strong {
+        font-weight: 700;
+      }
+
+      /* ── ROI CENTREPIECE ── */
+      .roi-wrap {
+        padding: 0 44px;
+        margin: 14px 0;
+      }
+      .roi-outer {
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.3), rgba(0, 102, 179, 0.15));
+        border-radius: 14px;
+        padding: 1.5px;
+        box-shadow: 0 0 30px rgba(0, 217, 255, 0.08);
+      }
+      .roi-inner {
+        background: linear-gradient(135deg, #0e0e18, #0a0a12);
+        border-radius: 13px;
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .roi-left {
+        flex: 1;
+      }
+      .roi-title {
+        font-family: 'Clash Display', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 6px;
+        letter-spacing: -0.3px;
+      }
+      .roi-math {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .roi-num {
+        text-align: center;
+      }
+      .roi-nv {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.1;
+        font-variant-numeric: tabular-nums;
+      }
+      .roi-nv.cr {
+        color: #ff4d6a;
+      }
+      .roi-nv.dm {
+        color: #999;
+      }
+      .roi-nv.loss {
+        color: #ff4d6a;
+      }
+      .roi-nl {
+        font-size: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #777;
+        margin-top: 2px;
+        font-weight: 600;
+      }
+      .roi-op {
+        font-size: 14px;
+        color: #666;
+        font-weight: 300;
+        padding-bottom: 8px;
+      }
+      .roi-result {
+        text-align: center;
+        padding: 14px 18px;
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.15), rgba(0, 217, 255, 0.05));
+        border: 1px solid rgba(0, 217, 255, 0.25);
+        border-radius: 12px;
+        flex-shrink: 0;
+      }
+      .roi-rv {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 26px;
+        font-weight: 700;
+        color: #00d9ff;
+        line-height: 1;
+        letter-spacing: -1px;
+        font-variant-numeric: tabular-nums;
+      }
+      .roi-rv span {
+        font-size: 12px;
+        opacity: 0.45;
+      }
+      .roi-rs {
+        font-size: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(0, 217, 255, 0.55);
+        margin-top: 3px;
+        font-weight: 700;
+      }
+
+      /* ── HOW ── */
+      .how-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 16px 44px;
+        font-size: 9.5px;
+        color: #999;
+      }
+      .how-step {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .how-num {
+        width: 16px;
+        height: 16px;
+        background: #00d9ff;
+        color: #0a0a0f;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 8px;
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+      .how-text {
+        font-weight: 600;
+        color: #e5e5e5;
+        font-size: 9px;
+      }
+      .how-arrow {
+        color: #666;
+        font-size: 11px;
+      }
+      .how-tail {
+        color: #666;
+        margin-left: 4px;
+        font-size: 8px;
+        font-weight: 300;
+      }
+
+      .divider {
+        height: 1px;
+        margin: 4px 44px;
+        background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.15), transparent);
+      }
+
+      /* ── TESTIMONIALS ── */
+      .testimonials {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 18px 44px;
+      }
+      .tst-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+      .tst-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+      }
+      .tst-stars {
+        color: #fbbf24;
+        font-size: 9px;
+        letter-spacing: 0.5px;
+      }
+      .tst-name {
+        font-family: 'Clash Display', sans-serif;
+        font-size: 9px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .tst-role {
+        font-size: 8px;
+        color: #888;
+      }
+      .tst-quote {
+        font-size: 9.5px;
+        font-style: italic;
+        color: #999;
+        line-height: 1.55;
+      }
+      .tst-quote strong {
+        color: #00d9ff;
+        font-style: normal;
+      }
+
+      /* ── TRUST ── */
+      .trust-strip {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        padding: 16px 44px;
+        align-items: center;
+      }
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 8px;
+        color: #888;
+        font-weight: 600;
+      }
+      .trust-dot {
+        width: 5px;
+        height: 5px;
+        background: #00d9ff;
+        border-radius: 50%;
+        flex-shrink: 0;
+        box-shadow: 0 0 6px rgba(0, 217, 255, 0.5);
+      }
+
+      .spacer {
+        flex-grow: 1;
+      }
+
+      /* ── CTA ── */
+      .cta-footer {
+        background: linear-gradient(135deg, #00d9ff, #0077cc);
+        padding: 20px 44px;
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 16px;
+        align-items: center;
+      }
+      .cta-left h2 {
+        font-family: 'Clash Display', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #0a0a0f;
+        letter-spacing: -0.5px;
+        margin-bottom: 1px;
+      }
+      .cta-left p {
+        font-size: 8px;
+        font-weight: 500;
+        color: rgba(10, 10, 15, 0.55);
+      }
+      .cta-phone-box {
+        background: #0a0a0f;
+        padding: 8px 16px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      }
+      .cta-phone-label {
+        font-size: 8px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: rgba(0, 217, 255, 0.5);
+        margin-bottom: 1px;
+      }
+      .cta-phone-number {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 15px;
+        font-weight: 700;
+        color: #00d9ff;
+        font-variant-numeric: tabular-nums;
+      }
+      .cta-phone-number a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .cta-qr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+      }
+      .cta-qr svg {
+        width: 52px;
+        height: 52px;
+        border-radius: 6px;
+        background: #fff;
+        padding: 3px;
+      }
+      .cta-qr-label {
+        font-size: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(10, 10, 15, 0.45);
+      }
+
+      /* ── BOTTOM ── */
+      .bottom-bar {
+        background: #0055a0;
+        padding: 5px 44px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        font-size: 8px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .bottom-bar-brand {
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .bottom-bar-sep {
+        width: 3px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+      }
+      .bottom-bar-url {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      /* ── CLIENT LOGOS ── */
+      .client-logos {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 4px 44px 0;
+      }
+      .client-logos-label {
+        font-size: 7px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: #555;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .client-logos-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .client-logo-badge {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 6px;
+        padding: 4px 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 32px;
+      }
+      .client-logo {
+        object-fit: contain;
+        max-height: 22px;
+        opacity: 0.85;
+      }
+
+      @media print {
+        body {
+          background: #0a0a0f;
+        }
+        .page {
+          height: 11in;
+          width: 8.5in;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- HERO -->
+      <div class="hero z">
+        <div class="hero-glow"></div>
+        <div class="hero-left">
+          <div class="hero-top">
+            <div class="logo-mark">
+              <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#0066B3" />
+                    <stop offset="100%" stop-color="#00D9FF" />
+                  </linearGradient>
+                </defs>
+                <rect width="128" height="128" fill="#0A0A0F" rx="24" />
+                <g transform="translate(14, 36) scale(0.25)">
+                  <path
+                    d="M240 200 C180 130 80 130 80 200 C80 270 180 270 240 200 C300 130 400 130 400 200 C400 270 300 270 240 200 Z"
+                    fill="url(#ig)"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div class="logo-text">AUTOSCALE <span class="cy">AI</span></div>
+          </div>
+          <h1 class="hero-headline">
+            Stop losing<br />customers to<br />voicemail.<br /><span class="cy">Meet Alex.</span>
+          </h1>
+          <p class="hero-sub">
+            Your AI receptionist that picks up every call, answers questions, and books appointments
+            — 24/7/365.
+          </p>
+        </div>
+        <div class="hero-right">
+          <div class="phone-wrap">
+            <div class="phone-inner">
+              <div class="phone-number"><a href="tel:+12073049892">(207) 304-9892</a></div>
+              <div class="phone-sub">Call to hear Alex live</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="sv cr">85%</div>
+            <div class="sm">of callers who hit voicemail<br />never call back</div>
+          </div>
+          <div class="stat-card">
+            <div class="sv wh">$4K<span style="font-size: 13px; opacity: 0.4">+</span></div>
+            <div class="sm">lost per month<br />in missed calls</div>
+          </div>
+          <div class="stat-card">
+            <div class="sv cy">24/7</div>
+            <div class="sm">Alex never<br />misses a call</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAIN STRIP -->
+      <div class="pain-strip z">
+        Your phone rings. Nobody answers. That customer calls your competitor.
+        <span>85% never call back.</span>
+      </div>
+
+      <!-- COMPARISON -->
+      <div class="comparison z">
+        <div class="cmp-card before">
+          <div class="cmp-inner">
+            <div class="cmp-label">Without Alex</div>
+            <ul>
+              <li>Calls go to <strong>voicemail</strong> — customers hang up</li>
+              <li>Missed calls = <strong>missed revenue</strong> (avg. $300/call)</li>
+              <li>No bookings on <strong>nights, weekends &amp; holidays</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="cmp-card after">
+          <div class="cmp-inner">
+            <div class="cmp-label">With Alex</div>
+            <ul>
+              <li><strong>Every call answered</strong> — 24/7/365, naturally</li>
+              <li>Appointments booked <strong>straight into your calendar</strong></li>
+              <li>Every lead captured and sent to <strong>your CRM</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROI CENTREPIECE -->
+      <div class="roi-wrap z">
+        <div class="roi-outer">
+          <div class="roi-inner">
+            <div class="roi-left">
+              <div class="roi-title">The math speaks for itself</div>
+              <div class="roi-math">
+                <div class="roi-num">
+                  <div class="roi-nv cr">10</div>
+                  <div class="roi-nl">Missed calls/wk</div>
+                </div>
+                <div class="roi-op">&times;</div>
+                <div class="roi-num">
+                  <div class="roi-nv dm">$300</div>
+                  <div class="roi-nl">Avg. job value</div>
+                </div>
+                <div class="roi-op">=</div>
+                <div class="roi-num">
+                  <div class="roi-nv loss">
+                    $4,000<span style="font-size: 11px; opacity: 0.5">+</span>
+                  </div>
+                  <div class="roi-nl">Lost every month</div>
+                </div>
+              </div>
+            </div>
+            <div class="roi-result">
+              <div class="roi-rv">$697<span>/mo</span></div>
+              <div class="roi-rs">Less than $24/day &bull; 500 min included</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOW -->
+      <div class="how-row z">
+        <div class="how-step">
+          <div class="how-num">1</div>
+          <div class="how-text">We learn your business</div>
+        </div>
+        <div class="how-arrow">&rarr;</div>
+        <div class="how-step">
+          <div class="how-num">2</div>
+          <div class="how-text">Alex goes live</div>
+        </div>
+        <div class="how-arrow">&rarr;</div>
+        <div class="how-step">
+          <div class="how-num">3</div>
+          <div class="how-text">You get more bookings</div>
+        </div>
+        <div class="how-tail">— live in 48 hours</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- TESTIMONIALS -->
+      <div class="testimonials z">
+        <div class="tst-card">
+          <div class="tst-top">
+            <div class="tst-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div>
+              <div class="tst-name">Amanda T.</div>
+              <div class="tst-role">Veterinary Clinic &bull; Portland, ME</div>
+            </div>
+          </div>
+          <div class="tst-quote">
+            "We were losing 15+ calls a week. Alex booked
+            <strong>$8,000 in appointments</strong> the first month."
+          </div>
+        </div>
+        <div class="tst-card">
+          <div class="tst-top">
+            <div class="tst-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div>
+              <div class="tst-name">Marcus R.</div>
+              <div class="tst-role">HVAC Company &bull; Denver, CO</div>
+            </div>
+          </div>
+          <div class="tst-quote">
+            "Nights and weekends used to be dead. Now Alex books
+            <strong>12 extra jobs per month</strong> while we sleep."
+          </div>
+        </div>
+      </div>
+
+      <!-- PRICING STRIP -->
+      <div
+        class="pricing-strip z"
+        style="
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          padding: 14px 44px;
+          align-items: center;
+        "
+      >
+        <div style="text-align: center">
+          <div
+            style="
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 11px;
+              font-weight: 700;
+              color: #00d9ff;
+            "
+          >
+            $500
+          </div>
+          <div
+            style="
+              font-size: 8px;
+              color: #888;
+              text-transform: uppercase;
+              letter-spacing: 0.1em;
+              font-weight: 600;
+            "
+          >
+            One-time activation
+          </div>
+        </div>
+        <div style="width: 1px; height: 28px; background: rgba(255, 255, 255, 0.08)"></div>
+        <div style="text-align: center">
+          <div
+            style="
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 11px;
+              font-weight: 700;
+              color: #fff;
+            "
+          >
+            $697<span style="font-size: 8px; opacity: 0.4">/mo</span>
+          </div>
+          <div
+            style="
+              font-size: 8px;
+              color: #888;
+              text-transform: uppercase;
+              letter-spacing: 0.1em;
+              font-weight: 600;
+            "
+          >
+            500 minutes included
+          </div>
+        </div>
+        <div style="width: 1px; height: 28px; background: rgba(255, 255, 255, 0.08)"></div>
+        <div style="text-align: center">
+          <div
+            style="
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 11px;
+              font-weight: 700;
+              color: #fff;
+            "
+          >
+            $0.25<span style="font-size: 8px; opacity: 0.4">/min</span>
+          </div>
+          <div
+            style="
+              font-size: 8px;
+              color: #888;
+              text-transform: uppercase;
+              letter-spacing: 0.1em;
+              font-weight: 600;
+            "
+          >
+            Overage rate
+          </div>
+        </div>
+      </div>
+
+      <!-- TRUST -->
+      <div class="trust-strip z">
+        <div class="trust-item">
+          <div class="trust-dot"></div>
+          30-day money-back
+        </div>
+        <div class="trust-item">
+          <div class="trust-dot"></div>
+          Live in 48 hours
+        </div>
+        <div class="trust-item">
+          <div class="trust-dot"></div>
+          150+ businesses
+        </div>
+        <div class="trust-item">
+          <div class="trust-dot"></div>
+          15% off annual
+        </div>
+        <div class="trust-item">
+          <div class="trust-dot"></div>
+          HIPAA-ready
+        </div>
+      </div>
+
+      <!-- CLIENT LOGOS -->
+      <div class="client-logos z">
+        <div class="client-logos-label">Trusted by</div>
+        <div class="client-logos-row">
+          <div class="client-logo-badge">
+            <img
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAALCAYAAAAjg+5nAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAPKADAAQAAAABAAAACwAAAACY3o3KAAAELElEQVRIDWXVWYzNVxzA8Xt1aJmxb8VYWkQEoTSqxowIkiaCB8QLEg9EhMRLGw9FkHqg6UsTgkgf2mhaQSyJECSmMtpkLDVEBMG4M5axzaJjFm6/3zv3N7kZv+TjnHvO+Z/9jGQ6ne6cSCTG4BlqkslkmvSDoF13CofiCfxmOlpQyjd11H9CvgT5+Debjia9ggKYr6DtXdJM8E1PMrOQRKdMYds/KZIafAHnE3OyzX+4iiIY79uS9u9L+T0B9p3bZyO/zyYcFOexDV+hP5xAJsgXYCxWw3YlmIt6vMAKdMJsVMHyNfgOj2H9Dli+Ifo15fdEuFm1eJhjD/nlqMYz+K1t/H0Zjp+C/Tdkmbe+CP/Ab2wT/fpdzzzGdYfGYirm4QROUVlJ2gvFWATr/f0D3DlPzdiI2/geg2F0xT1cQwM8fdt3QW7YjzfH0/wNcVrekAfYD2/VSlThAGrh3Kyzz/XwgPze038KT9c6y57DeI1mF2w48AWcxCwswCMMQhPK8Dc2I64X2UybgaQH0Q8uciRaUZzNO4mI3G+jzEV2xghE/Wmufjm/y9n4GaQrUUnZFtKIrdQ55ioksZP6GsrcVH/bVyHcUMOn1xgL/oiCFM7AN3gdnvpF/IW+8BQ6hid4H+7yr3AQF2xqn6MxBO9gWN4xYnK+sah3wyLsx7Bdx4j5Wx5524W35O3XaPGfaGTene6DhbiEH/E1/CM1B+cREYO/oeBnuKifsBwdIwa3fDInEG389jGs9xbdQCy4N/mIGCvSKI/Ucm9oblhmX3fgFTdaPX0XbIUnMA4O5K6sxR7419v3VAo3xIj2Tvgd1+QuHW0lrSBdRpnlnlBzNu/ORr6E/CQYLnY76uEbj40gm3n7p8wQzs0+46Qsi3Ac61xw7vx8RpoPxzZe4pgLdkJ/YCZcqGVOoCsu4hVmoAK+8RTsfBc8FeNmW5I4R9oA318lXIzPoxqeojvvFXXT6vAQ9mOZ79iw7wdm2EAX8gg7YR/tQZ199cBuuCmN2TK/34u+iPdsmRvTksfJNNFwEz+GYQ6WwgbGN3AB7m4ZfLNecW+D5df4djppIekVUhfhTtqmP27BK1WC3+EN8l3/Ccewnxc4jCnwSR2C128u6XAcgX9pb1H2GWkR7sONWId9cHFLcBSL4WYfxyKcxKewr2Z3MMGia72SZH/BKnyLenjCLvIg9a9RDSdaiIFIYwIGYwQsn4J8uKOeqjfFTbGsO7wt3einldT2k5EHx2umvAme2CgYjjcNA+CGfYli+F/PEPitm+xa7NPx/bYAU5E7br7X4oNgJ3tR6BvohrrsItvbUe9EP0YKw+Bp3oaDmL8DJ+KV8tQ9letwUmNQ5sLoZyh5T7wcXut8yu3T62x5LbwBM1GFGgyC/XjCLt5+G+AB+O14+HfIJ+CCrXcen6Psf2+DD8lrtsflAAAAAElFTkSuQmCC"
+              alt="Milette Portes & Fenêtres"
+              class="client-logo"
+              style="height: 18px"
+            />
+          </div>
+          <div class="client-logo-badge">
+            <img
+              src="data:image/png;base64,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"
+              alt="Bloom Comptabilité"
+              class="client-logo"
+              style="height: 26px; border-radius: 4px"
+            />
+          </div>
+          <div class="client-logo-badge">
+            <img
+              src="data:image/png;base64,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"
+              alt="Clinique Vétérinaire de Valleyfield"
+              class="client-logo"
+              style="height: 28px"
+            />
+          </div>
+          <div class="client-logo-badge">
+            <img
+              src="data:image/png;base64,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"
+              alt="VETA Vétérinaire"
+              class="client-logo"
+              style="height: 26px; border-radius: 4px"
+            />
+          </div>
+          <div class="client-logo-badge">
+            <img
+              src="data:image/png;base64,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"
+              alt="Émondage BP"
+              class="client-logo"
+              style="height: 28px"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <!-- CTA -->
+      <div class="cta-footer z">
+        <div class="cta-left">
+          <h2>Hear it yourself. Call Alex now.</h2>
+          <p>30 seconds. No commitment. Just listen.</p>
+        </div>
+        <div class="cta-phone-box">
+          <div class="cta-phone-label">Tap to call — Live Demo</div>
+          <div class="cta-phone-number"><a href="tel:+12073049892">(207) 304-9892</a></div>
+        </div>
+        <div class="cta-qr">
+          <svg viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg">
+            <rect width="39" height="39" fill="white" />
+            <path
+              fill="black"
+              d="M1,1H2V2H1zM2,1H3V2H2zM3,1H4V2H3zM4,1H5V2H4zM5,1H6V2H5zM6,1H7V2H6zM7,1H8V2H7zM9,1H10V2H9zM12,1H13V2H12zM13,1H14V2H13zM14,1H15V2H14zM15,1H16V2H15zM18,1H19V2H18zM21,1H22V2H21zM22,1H23V2H22zM23,1H24V2H23zM24,1H25V2H24zM27,1H28V2H27zM31,1H32V2H31zM32,1H33V2H32zM33,1H34V2H33zM34,1H35V2H34zM35,1H36V2H35zM36,1H37V2H36zM37,1H38V2H37zM1,2H2V3H1zM7,2H8V3H7zM10,2H11V3H10zM12,2H13V3H12zM13,2H14V3H13zM16,2H17V3H16zM18,2H19V3H18zM19,2H20V3H19zM21,2H22V3H21zM22,2H23V3H22zM23,2H24V3H23zM26,2H27V3H26zM27,2H28V3H27zM29,2H30V3H29zM31,2H32V3H31zM37,2H38V3H37zM1,3H2V4H1zM3,3H4V4H3zM4,3H5V4H4zM5,3H6V4H5zM7,3H8V4H7zM9,3H10V4H9zM10,3H11V4H10zM15,3H16V4H15zM16,3H17V4H16zM19,3H20V4H19zM22,3H23V4H22zM24,3H25V4H24zM27,3H28V4H27zM28,3H29V4H28zM31,3H32V4H31zM33,3H34V4H33zM34,3H35V4H34zM35,3H36V4H35zM37,3H38V4H37zM1,4H2V5H1zM3,4H4V5H3zM4,4H5V5H4zM5,4H6V5H5zM7,4H8V5H7zM11,4H12V5H11zM15,4H16V5H15zM17,4H18V5H17zM21,4H22V5H21zM23,4H24V5H23zM26,4H27V5H26zM29,4H30V5H29zM31,4H32V5H31zM33,4H34V5H33zM34,4H35V5H34zM35,4H36V5H35zM37,4H38V5H37zM1,5H2V6H1zM3,5H4V6H3zM4,5H5V6H4zM5,5H6V6H5zM7,5H8V6H7zM9,5H10V6H9zM16,5H17V6H16zM17,5H18V6H17zM19,5H20V6H19zM20,5H21V6H20zM21,5H22V6H21zM23,5H24V6H23zM25,5H26V6H25zM26,5H27V6H26zM27,5H28V6H27zM31,5H32V6H31zM33,5H34V6H33zM34,5H35V6H34zM35,5H36V6H35zM37,5H38V6H37zM1,6H2V7H1zM7,6H8V7H7zM10,6H11V7H10zM13,6H14V7H13zM14,6H15V7H14zM17,6H18V7H17zM19,6H20V7H19zM20,6H21V7H20zM25,6H26V7H25zM26,6H27V7H26zM27,6H28V7H27zM29,6H30V7H29zM31,6H32V7H31zM37,6H38V7H37zM1,7H2V8H1zM2,7H3V8H2zM3,7H4V8H3zM4,7H5V8H4zM5,7H6V8H5zM6,7H7V8H6zM7,7H8V8H7zM9,7H10V8H9zM11,7H12V8H11zM13,7H14V8H13zM15,7H16V8H15zM17,7H18V8H17zM19,7H20V8H19zM21,7H22V8H21zM23,7H24V8H23zM25,7H26V8H25zM27,7H28V8H27zM29,7H30V8H29zM31,7H32V8H31zM32,7H33V8H32zM33,7H34V8H33zM34,7H35V8H34zM35,7H36V8H35zM36,7H37V8H36zM37,7H38V8H37z"
+            />
+          </svg>
+          <div class="cta-qr-label">Scan to book</div>
+        </div>
+      </div>
+
+      <!-- BOTTOM -->
+      <div class="bottom-bar z">
+        <div class="bottom-bar-brand">9satisfait Inc. d/b/a AutoScale AI</div>
+        <div class="bottom-bar-sep"></div>
+        <div>Dentists &bull; Lawyers &bull; HVAC &bull; Plumbers &bull; Salons &amp; more</div>
+        <div class="bottom-bar-sep"></div>
+        <div class="bottom-bar-url">autoscaleai.com</div>
+      </div>
+    </div>
+
+    <footer
+      style="
+        text-align: center;
+        padding: 24px 16px 32px;
+        font-size: 12px;
+        color: rgba(200, 210, 220, 0.35);
+        font-family: 'Satoshi', system-ui, sans-serif;
+      "
+    >
+      <nav
+        aria-label="Footer navigation"
+        style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px"
+      >
+        <a href="/" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Field Kit</a>
+        <a href="/terms" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Terms</a>
+        <a href="/privacy" style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
+          >Privacy</a
+        >
+      </nav>
+      <span>&copy; 2026 AutoScale AI</span>
+    </footer>
+  </body>
+</html>

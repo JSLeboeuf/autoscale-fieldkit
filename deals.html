@@ -1,0 +1,2651 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#09090b" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>AutoScale AI — Deal Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ── RESET ── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --green: #60a5fa;
+        --green-2: #3b82f6;
+        --green-dim: rgba(96, 165, 250, 0.07);
+        --green-glow: rgba(96, 165, 250, 0.15);
+        --gold: #fbbf24;
+        --gold-dim: rgba(251, 191, 36, 0.08);
+        --gold-border: rgba(251, 191, 36, 0.22);
+        --red: #f87171;
+        --red-dim: rgba(248, 113, 113, 0.06);
+        --purple: #a78bfa;
+        --purple-dim: rgba(167, 139, 250, 0.08);
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+        color-scheme: dark;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-2) transparent;
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-2);
+        border-radius: 99px;
+      }
+
+      body {
+        font-family:
+          'Plus Jakarta Sans',
+          -apple-system,
+          system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        position: relative;
+        font-weight: 400;
+      }
+
+      /* Noise texture */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Subtle grid */
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(var(--border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--border) 1px, transparent 1px);
+        background-size: 48px 48px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      /* ── LAYOUT WRAPPER ── */
+      .page-wrapper {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 24px 80px;
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 28px 0 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 32px;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .logo-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+        border: 1px solid var(--border-2);
+      }
+
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .header-titles {
+      }
+
+      .logo-text {
+        font-family: 'Michroma', sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--muted);
+        line-height: 1;
+        margin-bottom: 3px;
+      }
+
+      .page-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 28px;
+        letter-spacing: 0.08em;
+        color: var(--text);
+        line-height: 1;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 8px 14px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        transition:
+          color 0.15s,
+          border-color 0.15s,
+          background 0.15s;
+      }
+
+      .back-link:hover {
+        color: var(--text);
+        border-color: var(--border-2);
+        background: var(--surface-2);
+      }
+
+      .back-link svg {
+        flex-shrink: 0;
+      }
+
+      .refresh-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .refresh-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--green);
+        animation: pulse-dot 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.4;
+          transform: scale(0.8);
+        }
+      }
+
+      /* ── SUMMARY CARDS ── */
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+
+      .stat-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px 20px 18px;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+
+      .stat-card:hover {
+        border-color: var(--border-2);
+      }
+
+      .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        border-radius: var(--radius) var(--radius) 0 0;
+      }
+
+      .stat-card.blue::before {
+        background: linear-gradient(90deg, transparent, var(--green), transparent);
+      }
+      .stat-card.gold::before {
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      }
+      .stat-card.purple::before {
+        background: linear-gradient(90deg, transparent, var(--purple), transparent);
+      }
+      .stat-card.accent::before {
+        background: linear-gradient(90deg, transparent, #4ade80, transparent);
+      }
+
+      .stat-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+
+      .stat-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .stat-card.gold .stat-value {
+        color: var(--gold);
+      }
+      .stat-card.accent .stat-value {
+        color: #4ade80;
+      }
+
+      .stat-meta {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      /* Skeleton loading */
+      .skeleton {
+        background: linear-gradient(
+          90deg,
+          var(--surface-2) 25%,
+          var(--border) 50%,
+          var(--surface-2) 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.4s ease-in-out infinite;
+        border-radius: 6px;
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      .stat-value.skeleton {
+        height: 36px;
+        width: 80px;
+      }
+      .stat-meta.skeleton {
+        height: 14px;
+        width: 100px;
+      }
+
+      /* ── FILTERS BAR ── */
+      .filters-bar {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 18px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        flex: 1;
+        min-width: 140px;
+      }
+
+      .filter-group.narrow {
+        flex: 0 1 160px;
+      }
+      .filter-group.date {
+        flex: 0 1 150px;
+      }
+
+      .filter-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .filter-input,
+      .filter-select {
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--text);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 9px 12px;
+        outline: none;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+        width: 100%;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .filter-input::placeholder {
+        color: var(--muted);
+      }
+
+      .filter-input:focus,
+      .filter-select:focus {
+        border-color: var(--green);
+        box-shadow: 0 0 0 3px var(--green-dim);
+      }
+
+      .filter-select {
+        background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%238e8ea0' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 32px;
+        cursor: pointer;
+      }
+
+      .filter-select option {
+        background: var(--surface-2);
+        color: var(--text);
+      }
+
+      .filter-actions {
+        display: flex;
+        gap: 8px;
+        align-items: flex-end;
+        flex-shrink: 0;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 9px 18px;
+        border-radius: var(--radius-sm);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        transition: all 0.15s;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .btn:focus-visible {
+        box-shadow: 0 0 0 3px var(--green-glow);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--green-2), var(--green));
+        color: #fff;
+      }
+      .btn-primary:hover {
+        filter: brightness(1.1);
+        transform: translateY(-1px);
+      }
+      .btn-primary:active {
+        transform: translateY(0);
+        filter: brightness(0.95);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--muted);
+        border: 1px solid var(--border);
+      }
+      .btn-ghost:hover {
+        color: var(--text);
+        border-color: var(--border-2);
+        background: var(--surface-2);
+      }
+
+      /* ── TABLE SECTION ── */
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        gap: 12px;
+      }
+
+      .section-title {
+        font-family: 'Michroma', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .deal-count-badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        border-radius: 99px;
+        padding: 2px 10px;
+      }
+
+      /* Desktop table */
+      .table-wrapper {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      thead th {
+        padding: 13px 16px;
+        text-align: left;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+        background: var(--surface);
+      }
+
+      thead th:first-child {
+        padding-left: 20px;
+      }
+      thead th:last-child {
+        padding-right: 20px;
+        text-align: center;
+      }
+
+      tbody tr {
+        border-bottom: 1px solid var(--border);
+        transition: background 0.12s;
+      }
+
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: var(--green-dim);
+      }
+
+      tbody td {
+        padding: 14px 16px;
+        font-size: 13px;
+        color: var(--text-2);
+        vertical-align: middle;
+      }
+
+      tbody td:first-child {
+        padding-left: 20px;
+      }
+      tbody td:last-child {
+        padding-right: 20px;
+        text-align: center;
+      }
+
+      .td-date {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .td-business {
+        font-weight: 600;
+        color: var(--text);
+        max-width: 200px;
+      }
+
+      .td-business span {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .td-plan {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+      }
+
+      .td-fee {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .td-fee.setup {
+        color: var(--gold);
+      }
+      .td-fee.monthly {
+        color: var(--green);
+      }
+
+      .td-rep {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-2);
+      }
+
+      /* Status badges */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 10px;
+        border-radius: 99px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .badge::before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .badge-sent {
+        background: rgba(96, 165, 250, 0.1);
+        color: #60a5fa;
+        border: 1px solid rgba(96, 165, 250, 0.2);
+      }
+      .badge-sent::before {
+        background: #60a5fa;
+      }
+      .badge-signed {
+        background: var(--gold-dim);
+        color: var(--gold);
+        border: 1px solid var(--gold-border);
+      }
+      .badge-signed::before {
+        background: var(--gold);
+      }
+      .badge-onboarding {
+        background: var(--purple-dim);
+        color: var(--purple);
+        border: 1px solid rgba(167, 139, 250, 0.2);
+      }
+      .badge-onboarding::before {
+        background: var(--purple);
+        box-shadow: 0 0 4px var(--purple);
+        animation: pulse-dot 1.5s infinite;
+      }
+      .badge-active {
+        background: rgba(74, 222, 128, 0.08);
+        color: #4ade80;
+        border: 1px solid rgba(74, 222, 128, 0.2);
+      }
+      .badge-active::before {
+        background: #4ade80;
+        box-shadow: 0 0 4px #4ade80;
+        animation: pulse-dot 2s infinite;
+      }
+      .badge-churned {
+        background: var(--red-dim);
+        color: var(--red);
+        border: 1px solid rgba(248, 113, 113, 0.15);
+      }
+      .badge-churned::before {
+        background: var(--red);
+        opacity: 0.6;
+      }
+
+      /* Actions dropdown */
+      .action-wrap {
+        position: relative;
+        display: inline-block;
+      }
+
+      .action-btn {
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--muted);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 6px 12px 6px 10px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        outline: none;
+        transition: all 0.15s;
+      }
+
+      .action-btn:hover {
+        border-color: var(--border-2);
+        color: var(--text);
+        background: var(--surface-2);
+      }
+      .action-btn:focus-visible {
+        box-shadow: 0 0 0 3px var(--green-dim);
+      }
+
+      .action-dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 4px);
+        background: var(--surface-2);
+        border: 1px solid var(--border-2);
+        border-radius: var(--radius-sm);
+        padding: 4px;
+        min-width: 160px;
+        z-index: 100;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        display: none;
+      }
+
+      .action-dropdown.open {
+        display: block;
+        animation: dropdown-in 0.12s ease;
+      }
+
+      @keyframes dropdown-in {
+        from {
+          opacity: 0;
+          transform: translateY(-4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .action-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 8px 10px;
+        border: none;
+        background: transparent;
+        color: var(--text-2);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 7px;
+        text-align: left;
+        transition:
+          background 0.1s,
+          color 0.1s;
+        outline: none;
+      }
+
+      .action-item:hover {
+        background: var(--border);
+        color: var(--text);
+      }
+      .action-item:focus-visible {
+        box-shadow: 0 0 0 2px var(--green);
+      }
+
+      .action-item-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* Skeleton rows */
+      .skeleton-row td {
+        padding: 16px 16px;
+      }
+      .skeleton-cell {
+        height: 14px;
+        border-radius: 6px;
+      }
+      .skeleton-cell.w-20 {
+        width: 20%;
+      }
+      .skeleton-cell.w-30 {
+        width: 30%;
+      }
+      .skeleton-cell.w-15 {
+        width: 15%;
+      }
+      .skeleton-cell.w-10 {
+        width: 10%;
+      }
+      .skeleton-cell.w-50 {
+        width: 50%;
+      }
+
+      /* Empty state */
+      .empty-state {
+        padding: 64px 24px;
+        text-align: center;
+        display: none;
+      }
+
+      .empty-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .empty-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+
+      .empty-body {
+        font-size: 13px;
+        color: var(--muted);
+        max-width: 280px;
+        margin: 0 auto 20px;
+        line-height: 1.7;
+      }
+
+      /* Error state */
+      .error-state {
+        padding: 48px 24px;
+        text-align: center;
+        display: none;
+      }
+
+      .error-icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+      }
+
+      .error-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--red);
+        margin-bottom: 6px;
+      }
+
+      .error-body {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 20px;
+      }
+
+      /* Mobile cards */
+      .mobile-cards {
+        display: none;
+      }
+
+      .deal-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px;
+        margin-bottom: 12px;
+        transition: border-color 0.15s;
+      }
+
+      .deal-card:hover {
+        border-color: var(--border-2);
+      }
+
+      .deal-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .deal-card-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.3;
+      }
+
+      .deal-card-plan {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .deal-card-meta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .meta-item {
+      }
+
+      .meta-item-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 2px;
+      }
+
+      .meta-item-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .meta-item-value.green {
+        color: var(--green);
+      }
+      .meta-item-value.gold {
+        color: var(--gold);
+      }
+
+      .deal-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+      }
+
+      .deal-card-rep {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      /* ── COMMISSIONS SECTION ── */
+      .commissions-section {
+        margin-top: 40px;
+      }
+
+      .commissions-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .commissions-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px;
+        letter-spacing: 0.1em;
+        color: var(--text);
+      }
+
+      .commissions-subtitle {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .formula-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--gold-dim);
+        border: 1px solid var(--gold-border);
+        border-radius: var(--radius-sm);
+        padding: 6px 12px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--gold);
+        margin-left: auto;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .commission-summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+
+      .commission-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+
+      .commission-card:hover {
+        border-color: var(--gold-border);
+        transform: translateY(-2px);
+      }
+
+      .commission-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at top, var(--gold-dim), transparent 60%);
+        pointer-events: none;
+      }
+
+      .commission-card-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+
+      .commission-card-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+
+      .commission-card-sub {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      /* Commission breakdown table */
+      .commission-table-wrapper {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-bottom: 24px;
+      }
+
+      .commission-table-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .commission-table-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .toggle-btn {
+        background: transparent;
+        border: none;
+        color: var(--green);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 6px;
+        transition: background 0.15s;
+        outline: none;
+      }
+
+      .toggle-btn:hover {
+        background: var(--green-dim);
+      }
+      .toggle-btn:focus-visible {
+        box-shadow: 0 0 0 2px var(--green);
+      }
+
+      table.commission-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      table.commission-table thead th {
+        padding: 11px 16px;
+        text-align: left;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      table.commission-table thead th:first-child {
+        padding-left: 20px;
+      }
+      table.commission-table thead th:last-child {
+        padding-right: 20px;
+        text-align: right;
+      }
+
+      table.commission-table tbody tr {
+        border-bottom: 1px solid var(--border);
+        transition: background 0.12s;
+      }
+
+      table.commission-table tbody tr:last-child {
+        border-bottom: none;
+      }
+      table.commission-table tbody tr:hover {
+        background: var(--gold-dim);
+      }
+
+      table.commission-table tbody td {
+        padding: 13px 16px;
+        font-size: 12px;
+        color: var(--text-2);
+        vertical-align: middle;
+      }
+
+      table.commission-table tbody td:first-child {
+        padding-left: 20px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      table.commission-table tbody td:last-child {
+        padding-right: 20px;
+        text-align: right;
+      }
+
+      .td-commission {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gold);
+      }
+
+      .td-gp {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: var(--green);
+        font-weight: 500;
+      }
+
+      .td-mono {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: var(--text-2);
+      }
+
+      /* Team rep breakdown */
+      .rep-breakdown {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .rep-breakdown-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .rep-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.12s;
+      }
+
+      .rep-row:last-child {
+        border-bottom: none;
+      }
+      .rep-row:hover {
+        background: var(--gold-dim);
+      }
+
+      .rep-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .rep-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--green-2), var(--green));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 800;
+        color: #fff;
+        flex-shrink: 0;
+      }
+
+      .rep-stats {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        text-align: right;
+      }
+
+      .rep-stat {
+      }
+
+      .rep-stat-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 2px;
+      }
+
+      .rep-stat-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .rep-stat-value.gold {
+        color: var(--gold);
+      }
+
+      /* Mobile commission cards */
+      .commission-mobile-cards {
+        display: none;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        margin-top: 48px;
+        padding: 28px 0 24px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .footer-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+      }
+
+      .footer-link {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+
+      .footer-link:hover {
+        color: var(--text);
+      }
+
+      .footer-copy {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      /* ── TOAST ── */
+      #toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--surface-2);
+        border: 1px solid var(--border-2);
+        border-radius: var(--radius-sm);
+        padding: 12px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        z-index: 9999;
+        transition:
+          transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.25s;
+        opacity: 0;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        pointer-events: none;
+      }
+
+      #toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 1024px) {
+        .summary-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .commission-summary {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .page-wrapper {
+          padding: 0 16px 60px;
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 16px;
+          padding: 20px 0 24px;
+        }
+
+        .summary-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+
+        .stat-value {
+          font-size: 24px;
+        }
+
+        .filters-bar {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .filter-group {
+          min-width: 100%;
+          flex: 1 0 100%;
+        }
+        .filter-group.narrow,
+        .filter-group.date {
+          flex: 1 0 calc(50% - 5px);
+          min-width: 0;
+        }
+        .filter-actions {
+          width: 100%;
+        }
+        .filter-actions .btn {
+          flex: 1;
+          justify-content: center;
+        }
+
+        /* Hide table, show cards */
+        .table-wrapper {
+          display: none;
+        }
+        .mobile-cards {
+          display: block;
+        }
+
+        .commission-summary {
+          grid-template-columns: 1fr;
+        }
+        .commission-table-wrapper table {
+          display: none;
+        }
+        .commission-mobile-cards {
+          display: block;
+        }
+
+        .rep-breakdown .rep-row {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+        .rep-stats {
+          width: 100%;
+          justify-content: flex-start;
+          gap: 16px;
+          text-align: left;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .page-wrapper {
+          padding: 0 12px 60px;
+          overflow-x: hidden;
+        }
+        .summary-grid {
+          grid-template-columns: 1fr;
+        }
+        .commission-summary {
+          grid-template-columns: 1fr;
+        }
+        .commissions-header {
+          flex-wrap: wrap;
+        }
+        .formula-badge {
+          white-space: normal;
+          flex-shrink: 1;
+          font-size: 10px;
+        }
+        .filter-group {
+          min-width: 0;
+        }
+        .filters-bar .filter-group.date {
+          flex: 1 0 100%;
+        }
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- HEADER -->
+      <header class="header" role="banner">
+        <div class="header-left">
+          <div class="logo-mark" aria-hidden="true">
+            <img src="logo.png" alt="" />
+          </div>
+          <div class="header-titles">
+            <div class="logo-text">AutoScale AI</div>
+            <h1 class="page-title">Deal Tracker</h1>
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="refresh-badge" aria-live="polite" aria-label="Auto-refresh status">
+            <span class="refresh-dot" aria-hidden="true"></span>
+            <span id="refresh-label">Refreshes in <span id="countdown">60</span>s</span>
+          </div>
+          <a href="index.html" class="back-link" aria-label="Back to Field Kit">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path
+                d="M7.5 9L4.5 6L7.5 3"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Field Kit
+          </a>
+        </div>
+      </header>
+
+      <!-- SUMMARY CARDS -->
+      <section aria-label="Summary statistics">
+        <div class="summary-grid" id="summary-grid">
+          <!-- Skeleton cards shown by default -->
+          <div class="stat-card blue" id="card-total">
+            <div class="stat-label">Total Deals</div>
+            <div class="stat-value skeleton" id="val-total" aria-live="polite">&nbsp;</div>
+            <div class="stat-meta skeleton" id="meta-total">&nbsp;</div>
+          </div>
+          <div class="stat-card gold" id="card-pending">
+            <div class="stat-label">Pending Signatures</div>
+            <div class="stat-value skeleton" id="val-pending" aria-live="polite">&nbsp;</div>
+            <div class="stat-meta skeleton" id="meta-pending">&nbsp;</div>
+          </div>
+          <div class="stat-card purple" id="card-active">
+            <div class="stat-label">Active Clients</div>
+            <div class="stat-value skeleton" id="val-active" aria-live="polite">&nbsp;</div>
+            <div class="stat-meta skeleton" id="meta-active">&nbsp;</div>
+          </div>
+          <div class="stat-card accent" id="card-mrr">
+            <div class="stat-label">Monthly Revenue</div>
+            <div class="stat-value skeleton" id="val-mrr" aria-live="polite">&nbsp;</div>
+            <div class="stat-meta skeleton" id="meta-mrr">&nbsp;</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FILTERS -->
+      <section aria-label="Filter deals">
+        <div class="filters-bar" role="search">
+          <div class="filter-group narrow">
+            <label for="filter-status" class="filter-label">Status</label>
+            <select id="filter-status" class="filter-select" aria-label="Filter by status">
+              <option value="">All Statuses</option>
+              <option value="sent">Sent</option>
+              <option value="signed">Signed</option>
+              <option value="onboarding">Onboarding</option>
+              <option value="active">Active</option>
+              <option value="churned">Churned</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-rep" class="filter-label">Rep Name</label>
+            <input
+              type="text"
+              id="filter-rep"
+              class="filter-input"
+              placeholder="Search rep..."
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+          <div class="filter-group">
+            <label for="filter-business" class="filter-label">Business Name</label>
+            <input
+              type="text"
+              id="filter-business"
+              class="filter-input"
+              placeholder="Search business..."
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+          <div class="filter-group date">
+            <label for="filter-from" class="filter-label">From</label>
+            <input type="date" id="filter-from" class="filter-input" />
+          </div>
+          <div class="filter-group date">
+            <label for="filter-to" class="filter-label">To</label>
+            <input type="date" id="filter-to" class="filter-input" />
+          </div>
+          <div class="filter-actions">
+            <button class="btn btn-primary" id="btn-apply" aria-label="Apply filters">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path
+                  d="M1 3h10M3 6h6M5 9h2"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+              Apply
+            </button>
+            <button class="btn btn-ghost" id="btn-clear" aria-label="Clear all filters">
+              Clear
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEALS TABLE -->
+      <section aria-label="Deals list">
+        <div class="section-header">
+          <span class="section-title">Deals</span>
+          <span class="deal-count-badge" id="deal-count-badge" aria-live="polite">—</span>
+        </div>
+
+        <!-- Desktop table -->
+        <div class="table-wrapper" role="region" aria-label="Deals table" tabindex="0">
+          <table id="deals-table" aria-label="Deals">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Business</th>
+                <th scope="col">Plan</th>
+                <th scope="col">Setup Fee</th>
+                <th scope="col">Monthly</th>
+                <th scope="col">Status</th>
+                <th scope="col">Rep</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="table-body" aria-live="polite" aria-busy="true">
+              <!-- Skeleton rows -->
+              <tr class="skeleton-row">
+                <td><div class="skeleton-cell skeleton w-20"></div></td>
+                <td><div class="skeleton-cell skeleton w-50"></div></td>
+                <td><div class="skeleton-cell skeleton w-15"></div></td>
+                <td><div class="skeleton-cell skeleton w-10"></div></td>
+                <td><div class="skeleton-cell skeleton w-10"></div></td>
+                <td><div class="skeleton-cell skeleton w-20"></div></td>
+                <td><div class="skeleton-cell skeleton w-30"></div></td>
+                <td></td>
+              </tr>
+              <tr class="skeleton-row">
+                <td><div class="skeleton-cell skeleton w-20"></div></td>
+                <td><div class="skeleton-cell skeleton w-50"></div></td>
+                <td><div class="skeleton-cell skeleton w-15"></div></td>
+                <td><div class="skeleton-cell skeleton w-10"></div></td>
+                <td><div class="skeleton-cell skeleton w-10"></div></td>
+                <td><div class="skeleton-cell skeleton w-20"></div></td>
+                <td><div class="skeleton-cell skeleton w-30"></div></td>
+                <td></td>
+              </tr>
+              <tr class="skeleton-row">
+                <td><div class="skeleton-cell skeleton w-20"></div></td>
+                <td><div class="skeleton-cell skeleton w-50"></div></td>
+                <td><div class="skeleton-cell skeleton w-15"></div></td>
+                <td><div class="skeleton-cell skeleton w-10"></div></td>
+                <td><div class="skeleton-cell skeleton w-10"></div></td>
+                <td><div class="skeleton-cell skeleton w-20"></div></td>
+                <td><div class="skeleton-cell skeleton w-30"></div></td>
+                <td></td>
+              </tr>
+              <tr class="skeleton-row">
+                <td><div class="skeleton-cell skeleton w-20"></div></td>
+                <td><div class="skeleton-cell skeleton w-50"></div></td>
+                <td><div class="skeleton-cell skeleton w-15"></div></td>
+                <td><div class="skeleton-cell skeleton w-10"></div></td>
+                <td><div class="skeleton-cell skeleton w-10"></div></td>
+                <td><div class="skeleton-cell skeleton w-20"></div></td>
+                <td><div class="skeleton-cell skeleton w-30"></div></td>
+                <td></td>
+              </tr>
+              <tr class="skeleton-row">
+                <td><div class="skeleton-cell skeleton w-20"></div></td>
+                <td><div class="skeleton-cell skeleton w-50"></div></td>
+                <td><div class="skeleton-cell skeleton w-15"></div></td>
+                <td><div class="skeleton-cell skeleton w-10"></div></td>
+                <td><div class="skeleton-cell skeleton w-10"></div></td>
+                <td><div class="skeleton-cell skeleton w-20"></div></td>
+                <td><div class="skeleton-cell skeleton w-30"></div></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="empty-state" id="empty-state" role="status" aria-label="No deals found">
+            <div class="empty-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                  stroke="#8e8ea0"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <div class="empty-title" id="empty-title">No deals yet</div>
+            <div class="empty-body" id="empty-body">
+              Close your first deal and it will appear here. Head to the field kit to get started.
+            </div>
+            <a href="index.html" class="btn btn-primary" style="display: inline-flex"
+              >View Field Kit</a
+            >
+          </div>
+          <div class="error-state" id="error-state" role="alert">
+            <div class="error-icon" aria-hidden="true">⚠</div>
+            <div class="error-title">Failed to load deals</div>
+            <div class="error-body" id="error-msg">
+              Could not reach the server. Check your connection and try again.
+            </div>
+            <button class="btn btn-ghost" id="btn-retry" aria-label="Retry loading deals">
+              Retry
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile cards -->
+        <div class="mobile-cards" id="mobile-cards" aria-live="polite"></div>
+      </section>
+
+      <!-- COMMISSIONS SECTION -->
+      <section class="commissions-section" aria-label="Commission calculator">
+        <div class="commissions-header">
+          <div>
+            <h2 class="commissions-title">Commissions</h2>
+            <div class="commissions-subtitle">Auto-calculated from active deals</div>
+          </div>
+          <div
+            class="formula-badge"
+            aria-label="Commission formula: 50% of setup fee plus 10% monthly residual"
+          >
+            50% setup fee &nbsp;+&nbsp; 10% monthly residual
+          </div>
+        </div>
+
+        <!-- Commission summary cards -->
+        <div class="commission-summary" id="commission-summary">
+          <div class="commission-card">
+            <div class="commission-card-label">This Month</div>
+            <div
+              class="commission-card-value skeleton"
+              id="comm-month"
+              style="height: 36px; width: 120px; margin: 0 auto 8px"
+            >
+              &nbsp;
+            </div>
+            <div
+              class="commission-card-sub skeleton"
+              id="comm-month-sub"
+              style="height: 14px; width: 80px; margin: 0 auto"
+            >
+              &nbsp;
+            </div>
+          </div>
+          <div class="commission-card">
+            <div class="commission-card-label">All Time</div>
+            <div
+              class="commission-card-value skeleton"
+              id="comm-total"
+              style="height: 36px; width: 120px; margin: 0 auto 8px"
+            >
+              &nbsp;
+            </div>
+            <div
+              class="commission-card-sub skeleton"
+              id="comm-total-sub"
+              style="height: 14px; width: 80px; margin: 0 auto"
+            >
+              &nbsp;
+            </div>
+          </div>
+          <div class="commission-card">
+            <div class="commission-card-label">Active Clients</div>
+            <div
+              class="commission-card-value skeleton"
+              id="comm-active-count"
+              style="height: 36px; width: 120px; margin: 0 auto 8px"
+            >
+              &nbsp;
+            </div>
+            <div
+              class="commission-card-sub skeleton"
+              id="comm-active-sub"
+              style="height: 14px; width: 80px; margin: 0 auto"
+            >
+              &nbsp;
+            </div>
+          </div>
+        </div>
+
+        <!-- Per-deal breakdown -->
+        <div class="commission-table-wrapper">
+          <div class="commission-table-header">
+            <span class="commission-table-title">Per-Deal Breakdown (Active Clients)</span>
+            <button
+              class="toggle-btn"
+              id="btn-toggle-breakdown"
+              aria-expanded="true"
+              aria-controls="commission-breakdown-body"
+            >
+              Hide
+            </button>
+          </div>
+          <table
+            class="commission-table"
+            id="commission-breakdown"
+            aria-label="Commission breakdown by deal"
+          >
+            <thead>
+              <tr>
+                <th scope="col">Business</th>
+                <th scope="col">Plan</th>
+                <th scope="col">Monthly Fee</th>
+                <th scope="col">Setup (50%)</th>
+                <th scope="col">Residual (10%/mo)</th>
+              </tr>
+            </thead>
+            <tbody id="commission-breakdown-body" aria-live="polite">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+          <!-- Mobile commission cards -->
+          <div class="commission-mobile-cards" id="commission-mobile-cards"></div>
+        </div>
+
+        <!-- Team rep breakdown -->
+        <div class="rep-breakdown" id="rep-breakdown-section">
+          <div class="rep-breakdown-header">
+            <span class="commission-table-title">Team Breakdown — By Rep</span>
+            <span class="deal-count-badge" id="rep-count-badge" aria-live="polite">—</span>
+          </div>
+          <div id="rep-breakdown-body" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/terms.html" class="footer-link">Terms</a>
+          <a href="/privacy.html" class="footer-link">Privacy</a>
+          <a href="index.html" class="footer-link">Field Kit</a>
+        </nav>
+        <div class="footer-copy">&copy; 2026 AutoScale AI. All rights reserved.</div>
+      </footer>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script>
+      'use strict';
+
+      /* ─────────────────────────────────────────
+         CONFIG
+      ───────────────────────────────────────── */
+      const API_URL = 'https://autoscale-ai-backend.fly.dev/api/deals';
+      const SETUP_COMMISSION_RATE = 0.5; // 50% of setup fee
+      const MONTHLY_RESIDUAL_RATE = 0.1; // 10% of monthly fee
+      const REFRESH_INTERVAL = 60; // seconds
+
+      /* ─────────────────────────────────────────
+         STATE
+      ───────────────────────────────────────── */
+      let allDeals = [];
+      let filteredDeals = [];
+      let countdown = REFRESH_INTERVAL;
+      let countdownTimer = null;
+      let refreshTimer = null;
+      let openDropdown = null; // currently open action dropdown
+
+      /* ─────────────────────────────────────────
+         MOCK DATA (used when API is unavailable)
+      ───────────────────────────────────────── */
+      const MOCK_DEALS = [
+        {
+          id: '1',
+          created_at: '2026-03-01T14:22:00Z',
+          business_name: 'Sunset Dental Group',
+          plan: 'Growth',
+          setup_fee: 500,
+          monthly_fee: 997,
+          status: 'active',
+          rep_name: 'Marcus Rivera',
+        },
+        {
+          id: '2',
+          created_at: '2026-03-02T09:10:00Z',
+          business_name: 'AZ Plumbing Solutions',
+          plan: 'Starter',
+          setup_fee: 500,
+          monthly_fee: 697,
+          status: 'active',
+          rep_name: 'Jordan Kim',
+        },
+        {
+          id: '3',
+          created_at: '2026-03-02T16:45:00Z',
+          business_name: 'Beach HVAC Co.',
+          plan: 'Scale',
+          setup_fee: 500,
+          monthly_fee: 1497,
+          status: 'onboarding',
+          rep_name: 'Tanya Williams',
+        },
+        {
+          id: '4',
+          created_at: '2026-03-03T11:30:00Z',
+          business_name: 'RoofPro Texas',
+          plan: 'Growth',
+          setup_fee: 500,
+          monthly_fee: 997,
+          status: 'signed',
+          rep_name: 'Marcus Rivera',
+        },
+        {
+          id: '5',
+          created_at: '2026-03-03T14:00:00Z',
+          business_name: 'Cal Landscaping Inc.',
+          plan: 'Starter',
+          setup_fee: 500,
+          monthly_fee: 697,
+          status: 'sent',
+          rep_name: 'Jordan Kim',
+        },
+        {
+          id: '6',
+          created_at: '2026-02-20T10:00:00Z',
+          business_name: 'Miami Med Spa',
+          plan: 'Scale',
+          setup_fee: 500,
+          monthly_fee: 1497,
+          status: 'active',
+          rep_name: 'Tanya Williams',
+        },
+        {
+          id: '7',
+          created_at: '2026-02-18T08:30:00Z',
+          business_name: 'GA Auto Repair',
+          plan: 'Starter',
+          setup_fee: 500,
+          monthly_fee: 697,
+          status: 'churned',
+          rep_name: 'Marcus Rivera',
+        },
+        {
+          id: '8',
+          created_at: '2026-03-04T08:00:00Z',
+          business_name: 'FL Solar Partners',
+          plan: 'Enterprise',
+          setup_fee: 500,
+          monthly_fee: 3497,
+          status: 'active',
+          rep_name: 'Tanya Williams',
+        },
+      ];
+
+      /* ─────────────────────────────────────────
+         UTILITIES
+      ───────────────────────────────────────── */
+      function fmt$$(n) {
+        if (n === null || n === undefined) return '—';
+        return '$' + Math.round(n).toLocaleString('en-US');
+      }
+
+      function fmtDate(iso) {
+        if (!iso) return '—';
+        const d = new Date(iso);
+        if (isNaN(d)) return '—';
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
+      }
+
+      function fmtMonthYear(iso) {
+        if (!iso) return '—';
+        const d = new Date(iso);
+        return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      }
+
+      function isThisMonth(iso) {
+        const d = new Date(iso);
+        const now = new Date();
+        return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+      }
+
+      function initials(name) {
+        if (!name) return '?';
+        return name
+          .split(' ')
+          .map((w) => w[0])
+          .slice(0, 2)
+          .join('')
+          .toUpperCase();
+      }
+
+      function escHtml(str) {
+        const d = document.createElement('div');
+        d.textContent = str || '';
+        return d.innerHTML;
+      }
+
+      /* ─────────────────────────────────────────
+         STATUS BADGE
+      ───────────────────────────────────────── */
+      const STATUS_LABELS = {
+        sent: 'Sent',
+        signed: 'Signed',
+        onboarding: 'Onboarding',
+        active: 'Active',
+        churned: 'Churned',
+      };
+
+      function badgeHtml(status) {
+        const label = STATUS_LABELS[status] || status;
+        return `<span class="badge badge-${escHtml(status)}" aria-label="Status: ${label}">${label}</span>`;
+      }
+
+      /* ─────────────────────────────────────────
+         FETCH DEALS
+      ───────────────────────────────────────── */
+      async function fetchDeals() {
+        try {
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 8000);
+          const res = await fetch(API_URL, {
+            signal: controller.signal,
+            headers: { Accept: 'application/json' },
+          });
+          clearTimeout(timeout);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const json = await res.json();
+          // Backend returns { success, data: { summary, deals } }
+          if (json?.data?.deals) return json.data.deals;
+          if (Array.isArray(json?.data)) return json.data;
+          if (Array.isArray(json)) return json;
+          return json?.deals || [];
+        } catch (err) {
+          // Fallback to mock data in local/demo environments
+          if (window.location.hostname === 'localhost' || window.location.protocol === 'file:') {
+            return MOCK_DEALS;
+          }
+          throw err;
+        }
+      }
+
+      /* ─────────────────────────────────────────
+         RENDER SUMMARY CARDS
+      ───────────────────────────────────────── */
+      function renderSummary(deals) {
+        const total = deals.length;
+        const pending = deals.filter((d) => d.status === 'sent').length;
+        const active = deals.filter((d) => d.status === 'active').length;
+        const mrr = deals
+          .filter((d) => d.status === 'active')
+          .reduce((s, d) => s + (d.monthly_fee || 0), 0);
+
+        const fields = {
+          'val-total': {
+            val: total,
+            meta: `${deals.filter((d) => d.status !== 'churned').length} non-churned`,
+          },
+          'val-pending': {
+            val: pending,
+            meta:
+              pending === 1
+                ? '1 contract awaiting signature'
+                : `${pending} contracts awaiting signature`,
+          },
+          'val-active': {
+            val: active,
+            meta: `${deals.filter((d) => d.status === 'onboarding').length} onboarding`,
+          },
+          'val-mrr': { val: fmt$$(mrr), meta: `${active} paying clients` },
+        };
+
+        Object.entries(fields).forEach(([id, { val, meta }]) => {
+          const el = document.getElementById(id);
+          const metaEl = document.getElementById(id.replace('val-', 'meta-'));
+          if (el) {
+            el.className = 'stat-value';
+            el.textContent = val;
+          }
+          if (metaEl) {
+            metaEl.className = 'stat-meta';
+            metaEl.textContent = meta;
+          }
+        });
+      }
+
+      /* ─────────────────────────────────────────
+         BUILD TABLE ROW
+      ───────────────────────────────────────── */
+      function buildRow(deal) {
+        const tr = document.createElement('tr');
+        tr.dataset.id = deal.id;
+        tr.innerHTML = `
+          <td class="td-date">${fmtDate(deal.created_at)}</td>
+          <td class="td-business"><span title="${escHtml(deal.business_name)}">${escHtml(deal.business_name)}</span></td>
+          <td class="td-plan">${escHtml(deal.plan || '—')}</td>
+          <td class="td-fee setup">${fmt$$(deal.setup_fee)}</td>
+          <td class="td-fee monthly">${fmt$$(deal.monthly_fee)}</td>
+          <td>${badgeHtml(deal.status)}</td>
+          <td class="td-rep">${escHtml(deal.rep_name || '—')}</td>
+          <td>
+            <div class="action-wrap">
+              <button
+                class="action-btn"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-label="Change status for ${escHtml(deal.business_name)}"
+                data-id="${deal.id}"
+              >
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                  <circle cx="5" cy="2" r="1" fill="currentColor"/>
+                  <circle cx="5" cy="5" r="1" fill="currentColor"/>
+                  <circle cx="5" cy="8" r="1" fill="currentColor"/>
+                </svg>
+                Status
+              </button>
+              <div class="action-dropdown" id="dd-${deal.id}" role="menu" aria-label="Status options">
+                ${Object.entries(STATUS_LABELS)
+                  .map(
+                    ([val, label]) => `
+                  <button
+                    class="action-item"
+                    role="menuitem"
+                    data-status="${val}"
+                    data-deal-id="${deal.id}"
+                  >
+                    <span class="action-item-dot" style="background:${statusColor(val)}" aria-hidden="true"></span>
+                    ${label}
+                  </button>
+                `
+                  )
+                  .join('')}
+              </div>
+            </div>
+          </td>
+        `;
+        return tr;
+      }
+
+      /* ─────────────────────────────────────────
+         BUILD MOBILE CARD
+      ───────────────────────────────────────── */
+      function buildMobileCard(deal) {
+        const div = document.createElement('div');
+        div.className = 'deal-card';
+        div.dataset.id = deal.id;
+        div.innerHTML = `
+          <div class="deal-card-header">
+            <div>
+              <div class="deal-card-title">${escHtml(deal.business_name)}</div>
+              <div class="deal-card-plan">${escHtml(deal.plan || '—')}</div>
+            </div>
+            ${badgeHtml(deal.status)}
+          </div>
+          <div class="deal-card-meta">
+            <div class="meta-item">
+              <div class="meta-item-label">Setup Fee</div>
+              <div class="meta-item-value gold">${fmt$$(deal.setup_fee)}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">Monthly</div>
+              <div class="meta-item-value green">${fmt$$(deal.monthly_fee)}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">Date</div>
+              <div class="meta-item-value" style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--muted)">${fmtDate(deal.created_at)}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">Rep</div>
+              <div class="meta-item-value" style="font-size:12px;color:var(--text-2)">${escHtml(deal.rep_name || '—')}</div>
+            </div>
+          </div>
+          <div class="deal-card-footer">
+            <div class="deal-card-rep">${escHtml(deal.rep_name || '—')}</div>
+            <div class="action-wrap">
+              <button
+                class="action-btn"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-label="Change status for ${escHtml(deal.business_name)}"
+                data-id="${deal.id}"
+              >
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                  <circle cx="5" cy="2" r="1" fill="currentColor"/>
+                  <circle cx="5" cy="5" r="1" fill="currentColor"/>
+                  <circle cx="5" cy="8" r="1" fill="currentColor"/>
+                </svg>
+                Status
+              </button>
+              <div class="action-dropdown" id="dd-mob-${deal.id}" role="menu" aria-label="Status options">
+                ${Object.entries(STATUS_LABELS)
+                  .map(
+                    ([val, label]) => `
+                  <button
+                    class="action-item"
+                    role="menuitem"
+                    data-status="${val}"
+                    data-deal-id="${deal.id}"
+                  >
+                    <span class="action-item-dot" style="background:${statusColor(val)}" aria-hidden="true"></span>
+                    ${label}
+                  </button>
+                `
+                  )
+                  .join('')}
+              </div>
+            </div>
+          </div>
+        `;
+        return div;
+      }
+
+      function statusColor(status) {
+        const map = {
+          sent: '#60a5fa',
+          signed: '#fbbf24',
+          onboarding: '#a78bfa',
+          active: '#4ade80',
+          churned: '#f87171',
+        };
+        return map[status] || '#8e8ea0';
+      }
+
+      /* ─────────────────────────────────────────
+         RENDER TABLE
+      ───────────────────────────────────────── */
+      function renderTable(deals) {
+        const tbody = document.getElementById('table-body');
+        const mobileCards = document.getElementById('mobile-cards');
+        const emptyState = document.getElementById('empty-state');
+        const errorState = document.getElementById('error-state');
+        const countBadge = document.getElementById('deal-count-badge');
+
+        // Clear
+        tbody.innerHTML = '';
+        mobileCards.innerHTML = '';
+        tbody.setAttribute('aria-busy', 'false');
+
+        emptyState.style.display = 'none';
+        errorState.style.display = 'none';
+
+        countBadge.textContent = `${deals.length} deal${deals.length !== 1 ? 's' : ''}`;
+
+        if (deals.length === 0) {
+          const isFiltered = isAnyFilterActive();
+          document.getElementById('empty-title').textContent = isFiltered
+            ? 'No matching deals'
+            : 'No deals yet';
+          document.getElementById('empty-body').textContent = isFiltered
+            ? 'Try adjusting your filters to see more results.'
+            : 'Close your first deal and it will appear here.';
+          emptyState.style.display = 'block';
+          return;
+        }
+
+        deals.forEach((deal) => {
+          tbody.appendChild(buildRow(deal));
+          mobileCards.appendChild(buildMobileCard(deal));
+        });
+      }
+
+      /* ─────────────────────────────────────────
+         RENDER COMMISSIONS
+      ───────────────────────────────────────── */
+      function renderCommissions(deals) {
+        const activeDeals = deals.filter((d) => d.status === 'active');
+        const now = new Date();
+        const thisMonthActive = activeDeals.filter((d) => isThisMonth(d.created_at));
+
+        // Commission calc: 50% of setup fee (one-time) + 10% of monthly (residual)
+        const calcMonthlyResidual = (deal) => {
+          return (deal.monthly_fee || 0) * MONTHLY_RESIDUAL_RATE;
+        };
+        const calcSetupCommission = (deal) => {
+          return (deal.setup_fee || 0) * SETUP_COMMISSION_RATE;
+        };
+
+        const totalAll = activeDeals.reduce((s, d) => s + calcMonthlyResidual(d), 0);
+        const totalMonth = thisMonthActive.reduce((s, d) => s + calcMonthlyResidual(d), 0);
+        const totalSetup = activeDeals.reduce((s, d) => s + calcSetupCommission(d), 0);
+
+        // Update summary cards
+        const fields = {
+          'comm-month': {
+            val: fmt$$(totalMonth),
+            sub: `${thisMonthActive.length} new client${thisMonthActive.length !== 1 ? 's' : ''} this month (residual)`,
+          },
+          'comm-total': {
+            val: fmt$$(totalAll + totalSetup),
+            sub: `${fmt$$(totalSetup)} setup + ${fmt$$(totalAll)}/mo residual`,
+          },
+          'comm-active-count': {
+            val: activeDeals.length,
+            sub: `avg. ${fmt$$(activeDeals.length ? calcMonthlyResidual(activeDeals[0]) : 0)}/mo residual`,
+          },
+        };
+
+        Object.entries(fields).forEach(([id, { val, sub }]) => {
+          const el = document.getElementById(id);
+          const subEl = document.getElementById(id + '-sub');
+          if (el) {
+            el.className = 'commission-card-value';
+            el.textContent = val;
+          }
+          if (subEl) {
+            subEl.className = 'commission-card-sub';
+            subEl.textContent = sub;
+          }
+        });
+
+        // Per-deal breakdown table
+        const tbody = document.getElementById('commission-breakdown-body');
+        const mobileDivs = document.getElementById('commission-mobile-cards');
+        tbody.innerHTML = '';
+        mobileDivs.innerHTML = '';
+
+        if (activeDeals.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="5" style="text-align:center;padding:32px 20px;color:var(--muted);font-size:13px;">
+                No active clients yet. Commission will appear here once deals go active.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        activeDeals.forEach((deal) => {
+          const setupComm = calcSetupCommission(deal);
+          const residual = calcMonthlyResidual(deal);
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${escHtml(deal.business_name)}</td>
+            <td class="td-plan">${escHtml(deal.plan || '—')}</td>
+            <td class="td-mono">${fmt$$(deal.monthly_fee)}</td>
+            <td class="td-gp">${fmt$$(setupComm)}</td>
+            <td class="td-commission">${fmt$$(residual)}</td>
+          `;
+          tbody.appendChild(tr);
+
+          // Mobile card
+          const card = document.createElement('div');
+          card.style.cssText =
+            'background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;';
+          card.innerHTML = `
+            <div style="grid-column:1/-1;font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">${escHtml(deal.business_name)}</div>
+            <div><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Setup (50%)</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green)">${fmt$$(setupComm)}</div></div>
+            <div><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Residual (10%)</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green)">${fmt$$(residual)}</div></div>
+            <div style="grid-column:1/-1;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:8px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;"><span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Monthly Residual</span><span style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--gold)">${fmt$$(residual)}</span></div>
+          `;
+          mobileDivs.appendChild(card);
+        });
+
+        // Team / rep breakdown
+        renderRepBreakdown(deals);
+      }
+
+      /* ─────────────────────────────────────────
+         REP BREAKDOWN
+      ───────────────────────────────────────── */
+      function renderRepBreakdown(deals) {
+        const container = document.getElementById('rep-breakdown-body');
+        const badge = document.getElementById('rep-count-badge');
+
+        // Group by rep
+        const byRep = {};
+        deals.forEach((deal) => {
+          const rep = deal.rep_name || 'Unknown Rep';
+          if (!byRep[rep]) byRep[rep] = { deals: 0, active: 0, setupComm: 0, residual: 0, mrr: 0 };
+          byRep[rep].deals++;
+          if (deal.status === 'active') {
+            byRep[rep].active++;
+            byRep[rep].mrr += deal.monthly_fee || 0;
+            byRep[rep].setupComm += calcSetupCommission(deal);
+            byRep[rep].residual += calcMonthlyResidual(deal);
+          }
+        });
+
+        const reps = Object.entries(byRep).sort((a, b) => b[1].residual - a[1].residual);
+        badge.textContent = `${reps.length} rep${reps.length !== 1 ? 's' : ''}`;
+
+        container.innerHTML = '';
+
+        if (reps.length === 0) {
+          container.innerHTML = `<div style="padding:24px 20px;text-align:center;color:var(--muted);font-size:13px;">No rep data available.</div>`;
+          return;
+        }
+
+        reps.forEach(([repName, stats]) => {
+          const row = document.createElement('div');
+          row.className = 'rep-row';
+          row.innerHTML = `
+            <div class="rep-name">
+              <div class="rep-avatar" aria-hidden="true">${initials(repName)}</div>
+              ${escHtml(repName)}
+            </div>
+            <div class="rep-stats">
+              <div class="rep-stat">
+                <div class="rep-stat-label">Deals</div>
+                <div class="rep-stat-value">${stats.deals}</div>
+              </div>
+              <div class="rep-stat">
+                <div class="rep-stat-label">Active</div>
+                <div class="rep-stat-value">${stats.active}</div>
+              </div>
+              <div class="rep-stat">
+                <div class="rep-stat-label">Setup (50%)</div>
+                <div class="rep-stat-value">${fmt$$(stats.setupComm)}</div>
+              </div>
+              <div class="rep-stat">
+                <div class="rep-stat-label">Residual (10%)</div>
+                <div class="rep-stat-value gold">${fmt$$(stats.residual)}</div>
+              </div>
+            </div>
+          `;
+          container.appendChild(row);
+        });
+      }
+
+      /* ─────────────────────────────────────────
+         FILTERS
+      ───────────────────────────────────────── */
+      function isAnyFilterActive() {
+        return (
+          document.getElementById('filter-status').value !== '' ||
+          document.getElementById('filter-rep').value.trim() !== '' ||
+          document.getElementById('filter-business').value.trim() !== '' ||
+          document.getElementById('filter-from').value !== '' ||
+          document.getElementById('filter-to').value !== ''
+        );
+      }
+
+      function applyFilters() {
+        const status = document.getElementById('filter-status').value;
+        const rep = document.getElementById('filter-rep').value.trim().toLowerCase();
+        const business = document.getElementById('filter-business').value.trim().toLowerCase();
+        const from = document.getElementById('filter-from').value;
+        const to = document.getElementById('filter-to').value;
+
+        filteredDeals = allDeals.filter((deal) => {
+          if (status && deal.status !== status) return false;
+          if (rep && !(deal.rep_name || '').toLowerCase().includes(rep)) return false;
+          if (business && !(deal.business_name || '').toLowerCase().includes(business))
+            return false;
+          if (from) {
+            const fromDate = new Date(from);
+            if (new Date(deal.created_at) < fromDate) return false;
+          }
+          if (to) {
+            const toDate = new Date(to);
+            toDate.setHours(23, 59, 59, 999);
+            if (new Date(deal.created_at) > toDate) return false;
+          }
+          return true;
+        });
+
+        renderTable(filteredDeals);
+        renderCommissions(filteredDeals);
+      }
+
+      function clearFilters() {
+        document.getElementById('filter-status').value = '';
+        document.getElementById('filter-rep').value = '';
+        document.getElementById('filter-business').value = '';
+        document.getElementById('filter-from').value = '';
+        document.getElementById('filter-to').value = '';
+        filteredDeals = [...allDeals];
+        renderTable(filteredDeals);
+        renderCommissions(filteredDeals);
+      }
+
+      /* ─────────────────────────────────────────
+         STATUS UPDATE (optimistic)
+      ───────────────────────────────────────── */
+      async function updateDealStatus(dealId, newStatus) {
+        // Optimistic update
+        const deal = allDeals.find((d) => d.id === dealId);
+        if (!deal) return;
+        const oldStatus = deal.status;
+        deal.status = newStatus;
+        applyFilters();
+        showToast(`Status updated to "${STATUS_LABELS[newStatus]}"`);
+
+        try {
+          const res = await fetch(`${API_URL}/${dealId}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ status: newStatus }),
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        } catch {
+          // Rollback on failure (unless local demo)
+          if (window.location.hostname !== 'localhost' && window.location.protocol !== 'file:') {
+            deal.status = oldStatus;
+            applyFilters();
+            showToast('Failed to update status — reverted', true);
+          }
+        }
+      }
+
+      /* ─────────────────────────────────────────
+         DROPDOWN MANAGEMENT
+      ───────────────────────────────────────── */
+      function closeAllDropdowns() {
+        document.querySelectorAll('.action-dropdown.open').forEach((d) => {
+          d.classList.remove('open');
+          const btn = d.previousElementSibling;
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+        openDropdown = null;
+      }
+
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.action-btn');
+        if (btn) {
+          const ddId = 'dd-' + btn.dataset.id;
+          const dd =
+            document.getElementById(ddId) || document.getElementById('dd-mob-' + btn.dataset.id);
+          if (!dd) return;
+          const isOpen = dd.classList.contains('open');
+          closeAllDropdowns();
+          if (!isOpen) {
+            dd.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            openDropdown = dd;
+          }
+          return;
+        }
+
+        const item = e.target.closest('.action-item');
+        if (item) {
+          const { status, dealId } = item.dataset;
+          closeAllDropdowns();
+          updateDealStatus(dealId, status);
+          return;
+        }
+
+        if (!e.target.closest('.action-wrap')) {
+          closeAllDropdowns();
+        }
+      });
+
+      // Keyboard nav for dropdowns
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAllDropdowns();
+      });
+
+      /* ─────────────────────────────────────────
+         TOGGLE COMMISSION BREAKDOWN
+      ───────────────────────────────────────── */
+      document.getElementById('btn-toggle-breakdown').addEventListener('click', function () {
+        const tbody = document.getElementById('commission-breakdown-body').closest('table');
+        const mobile = document.getElementById('commission-mobile-cards');
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        tbody.style.display = expanded ? 'none' : '';
+        mobile.style.display = expanded ? 'none' : '';
+        this.textContent = expanded ? 'Show' : 'Hide';
+        this.setAttribute('aria-expanded', String(!expanded));
+      });
+
+      /* ─────────────────────────────────────────
+         TOAST
+      ───────────────────────────────────────── */
+      let toastTimer = null;
+      function showToast(msg, isError = false) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.style.borderColor = isError ? 'rgba(248,113,113,0.3)' : 'var(--border-2)';
+        el.style.color = isError ? 'var(--red)' : 'var(--text)';
+        el.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+      }
+
+      /* ─────────────────────────────────────────
+         SHOW ERROR STATE
+      ───────────────────────────────────────── */
+      function showError(msg) {
+        const tbody = document.getElementById('table-body');
+        const errorState = document.getElementById('error-state');
+        tbody.innerHTML = '';
+        tbody.setAttribute('aria-busy', 'false');
+        document.getElementById('error-msg').textContent = msg || 'Unknown error';
+        errorState.style.display = 'block';
+
+        // Update stat values
+        ['val-total', 'val-pending', 'val-active', 'val-mrr'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.className = 'stat-value';
+            el.textContent = '—';
+          }
+        });
+        ['meta-total', 'meta-pending', 'meta-active', 'meta-mrr'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.className = 'stat-meta';
+            el.textContent = 'Error loading data';
+          }
+        });
+      }
+
+      /* ─────────────────────────────────────────
+         LOAD & REFRESH
+      ───────────────────────────────────────── */
+      async function loadDeals() {
+        resetCountdown();
+        try {
+          const data = await fetchDeals();
+          allDeals = data;
+          filteredDeals = isAnyFilterActive() ? filteredDeals : [...allDeals];
+          applyFilters();
+          renderSummary(data);
+        } catch (err) {
+          showError(err.message || 'Network error');
+        }
+      }
+
+      function resetCountdown() {
+        countdown = REFRESH_INTERVAL;
+        updateCountdownLabel();
+        clearInterval(countdownTimer);
+        countdownTimer = setInterval(() => {
+          countdown--;
+          updateCountdownLabel();
+          if (countdown <= 0) {
+            clearInterval(countdownTimer);
+          }
+        }, 1000);
+      }
+
+      function updateCountdownLabel() {
+        const el = document.getElementById('countdown');
+        if (el) el.textContent = countdown;
+      }
+
+      function startAutoRefresh() {
+        clearInterval(refreshTimer);
+        refreshTimer = setInterval(loadDeals, REFRESH_INTERVAL * 1000);
+      }
+
+      /* ─────────────────────────────────────────
+         FILTER EVENT LISTENERS
+      ───────────────────────────────────────── */
+      document.getElementById('btn-apply').addEventListener('click', applyFilters);
+      document.getElementById('btn-clear').addEventListener('click', clearFilters);
+      document.getElementById('btn-retry').addEventListener('click', loadDeals);
+
+      // Allow Enter on filter inputs
+      ['filter-status', 'filter-rep', 'filter-business', 'filter-from', 'filter-to'].forEach(
+        (id) => {
+          const el = document.getElementById(id);
+          if (el)
+            el.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter') applyFilters();
+            });
+        }
+      );
+
+      /* ─────────────────────────────────────────
+         INIT
+      ───────────────────────────────────────── */
+      loadDeals();
+      startAutoRefresh();
+    </script>
+  </body>
+</html>

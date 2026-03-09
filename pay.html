@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <title>AutoScale AI — Collect Payment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --green: #60a5fa;
+        --green-2: #3b82f6;
+        --green-dim: rgba(96, 165, 250, 0.07);
+        --green-glow: rgba(96, 165, 250, 0.15);
+        --red: #f87171;
+        --red-dim: rgba(248, 113, 113, 0.06);
+        --gold: #fbbf24;
+        --gold-dim: rgba(251, 191, 36, 0.08);
+        --gold-border: rgba(251, 191, 36, 0.22);
+        --blue: #60a5fa;
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family:
+          'Plus Jakarta Sans',
+          -apple-system,
+          system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 0 20px 100px;
+        position: relative;
+        font-weight: 400;
+      }
+
+      /* Noise texture overlay */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 28px 0 24px;
+        text-align: center;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .logo-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 7px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        font-family: 'Michroma', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .page-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 36px;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+
+      .page-subtitle {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+
+      /* ── TABS ── */
+      .tabs {
+        display: flex;
+        gap: 0;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 4px;
+        margin-bottom: 20px;
+      }
+
+      .tab-btn {
+        flex: 1;
+        padding: 10px 12px;
+        border: none;
+        border-radius: calc(var(--radius) - 4px);
+        background: transparent;
+        color: var(--muted);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+          color 0.2s;
+        position: relative;
+        -webkit-tap-highlight-color: transparent;
+        letter-spacing: -0.1px;
+      }
+
+      .tab-btn.active {
+        background: var(--surface-2);
+        color: var(--text);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .tab-btn .tab-price {
+        display: block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--green);
+        margin-top: 1px;
+        opacity: 0.8;
+      }
+
+      .tab-btn.active .tab-price {
+        opacity: 1;
+      }
+
+      /* ── TAB PANELS ── */
+      .tab-panel {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .tab-panel.active {
+        display: flex;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ── PLAN CARDS ── */
+      .plan-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .plan-card:hover {
+        border-color: var(--border-2);
+        box-shadow:
+          0 0 0 1px rgba(96, 165, 250, 0.06),
+          0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .plan-card.featured {
+        border-color: var(--gold-border);
+        background: linear-gradient(145deg, rgba(251, 191, 36, 0.04), var(--surface));
+      }
+
+      .plan-card.featured:hover {
+        border-color: rgba(251, 191, 36, 0.35);
+        box-shadow:
+          0 0 0 1px rgba(251, 191, 36, 0.08),
+          0 4px 20px rgba(0, 0, 0, 0.25);
+      }
+
+      .card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      .card-name {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .badge-popular {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--gold);
+        background: var(--gold-dim);
+        border: 1px solid var(--gold-border);
+        padding: 3px 9px;
+        border-radius: 100px;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+
+      .card-price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        margin-bottom: 4px;
+      }
+
+      .card-price {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 38px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -1px;
+        line-height: 1;
+      }
+
+      .plan-card.featured .card-price {
+        color: var(--green);
+      }
+
+      .card-period {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .card-details {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 500;
+      }
+
+      .card-features {
+        font-size: 12px;
+        color: var(--text-2);
+        line-height: 1.5;
+        margin-bottom: 16px;
+        padding: 10px 12px;
+        background: var(--bg);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+      }
+
+      .card-features span {
+        color: var(--green);
+      }
+
+      /* ── BUTTONS ── */
+      .btn-pay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 14px 16px;
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+        border: none;
+        border-radius: var(--radius);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+          transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.15s,
+          opacity 0.2s;
+        box-shadow: 0 4px 16px rgba(96, 165, 250, 0.2);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .btn-pay:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 8px rgba(96, 165, 250, 0.15);
+      }
+
+      .plan-card.featured .btn-pay {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: #0a0a0b;
+        box-shadow: 0 4px 16px rgba(251, 191, 36, 0.2);
+      }
+
+      .plan-card.featured .btn-pay:active {
+        box-shadow: 0 2px 8px rgba(251, 191, 36, 0.15);
+      }
+
+      /* ── BOTTOM NAV ── */
+      .bottom-nav {
+        margin-top: 32px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-2);
+        text-decoration: none;
+        transition:
+          border-color 0.15s,
+          background 0.15s,
+          color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .nav-link:hover {
+        border-color: var(--border-2);
+        color: var(--text);
+      }
+
+      .nav-link:active {
+        background: var(--surface-2);
+        transform: scale(0.99);
+      }
+
+      .nav-link-arrow {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .nav-link.primary {
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+        border-color: transparent;
+        font-weight: 700;
+      }
+
+      .nav-link.primary .nav-link-arrow {
+        color: var(--bg);
+        opacity: 0.7;
+      }
+
+      .nav-link.primary:hover {
+        color: var(--bg);
+        border-color: transparent;
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+        margin: 4px 0;
+      }
+
+      /* ── SECTION TAG ── */
+      .section-tag {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--green);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.1);
+        padding: 5px 12px;
+        border-radius: 6px;
+        margin-bottom: 12px;
+      }
+
+      /* ── ALERT TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--surface-2);
+        color: var(--red);
+        padding: 10px 20px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 600;
+        z-index: 100;
+        transition:
+          transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.3s;
+        pointer-events: none;
+        border: 1px solid rgba(248, 113, 113, 0.2);
+        white-space: nowrap;
+        max-width: calc(100vw - 40px);
+        text-align: center;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 375px) {
+        .card-price {
+          font-size: 32px;
+        }
+
+        .page-title {
+          font-size: 30px;
+        }
+
+        .tab-btn {
+          font-size: 12px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo-row">
+        <div class="logo-mark">
+          <img src="logo.png" alt="AutoScale AI" />
+        </div>
+        <span class="logo-text">AutoScale AI</span>
+      </div>
+      <h1 class="page-title">COLLECT PAYMENT</h1>
+      <p class="page-subtitle">Select a plan and collect the client's payment</p>
+    </header>
+
+    <!-- TABS -->
+    <div class="tabs" role="tablist" aria-label="Payment type">
+      <button
+        class="tab-btn active"
+        role="tab"
+        aria-selected="true"
+        aria-controls="tab-setup"
+        id="btn-setup"
+        onclick="switchTab('setup')"
+      >
+        Setup Fee
+        <span class="tab-price">One-time</span>
+      </button>
+      <button
+        class="tab-btn"
+        role="tab"
+        aria-selected="false"
+        aria-controls="tab-monthly"
+        id="btn-monthly"
+        onclick="switchTab('monthly')"
+      >
+        Monthly Subscription
+        <span class="tab-price">Recurring</span>
+      </button>
+    </div>
+
+    <!-- TAB: SETUP FEE -->
+    <div id="tab-setup" class="tab-panel active" role="tabpanel" aria-labelledby="btn-setup">
+      <div class="section-tag">SETUP FEES — ONE-TIME</div>
+
+      <!-- Core -->
+      <div class="card-wrapper" data-plan="core">
+        <div class="plan-card">
+          <div class="card-top">
+            <span class="card-name">Core</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">$500</span>
+          </div>
+          <div class="card-details">500 min/mo &nbsp;·&nbsp; $697/mo after</div>
+          <div class="card-features">
+            AI Receptionist &nbsp;·&nbsp; <span>24/7 Coverage</span> &nbsp;·&nbsp; Booking
+            Automation
+          </div>
+          <div class="btn-slot pay-slot" id="pay-slot-setup-core">
+            <button class="btn-pay" onclick="handlePayment('setup', 'core')">
+              Collect $500 Setup Fee &nbsp;→
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Growth (featured) -->
+      <div class="card-wrapper" data-plan="growth">
+        <div class="plan-card featured">
+          <div class="card-top">
+            <span class="card-name">Growth</span>
+            <span class="badge-popular">⭐ Most Popular</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">$750</span>
+          </div>
+          <div class="card-details">1,000 min/mo &nbsp;·&nbsp; $997/mo after</div>
+          <div class="card-features">
+            Everything in Core <span>+</span> SMS Follow-Up <span>+</span> Review Automation
+          </div>
+          <div class="btn-slot pay-slot" id="pay-slot-setup-growth">
+            <button class="btn-pay" onclick="handlePayment('setup', 'growth')">
+              Collect $750 Setup Fee &nbsp;→
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scale -->
+      <div class="card-wrapper" data-plan="scale">
+        <div class="plan-card">
+          <div class="card-top">
+            <span class="card-name">Scale</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">$1,000</span>
+          </div>
+          <div class="card-details">2,000 min/mo &nbsp;·&nbsp; $1,497/mo after</div>
+          <div class="card-features">
+            Everything in Growth <span>+</span> No-Show Prevention <span>+</span> Multi-Language
+          </div>
+          <div class="btn-slot pay-slot" id="pay-slot-setup-scale">
+            <button class="btn-pay" onclick="handlePayment('setup', 'scale')">
+              Collect $1,000 Setup Fee &nbsp;→
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AutoScale -->
+      <div class="card-wrapper" data-plan="autoscale">
+        <div class="plan-card">
+          <div class="card-top">
+            <span class="card-name">AutoScale</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">$1,500</span>
+          </div>
+          <div class="card-details">5,000 min/mo &nbsp;·&nbsp; $2,497/mo after</div>
+          <div class="card-features">
+            Everything in Scale <span>+</span> Multi-Location <span>+</span> Dedicated AM
+            <span>+</span> Priority Support
+          </div>
+          <div class="btn-slot pay-slot" id="pay-slot-setup-autoscale">
+            <button class="btn-pay" onclick="handlePayment('setup', 'autoscale')">
+              Collect $1,500 Setup Fee &nbsp;→
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: MONTHLY SUBSCRIPTION -->
+    <div id="tab-monthly" class="tab-panel" role="tabpanel" aria-labelledby="btn-monthly">
+      <div class="section-tag">MONTHLY SUBSCRIPTIONS — RECURRING</div>
+
+      <!-- Core Monthly -->
+      <div class="plan-card">
+        <div class="card-top">
+          <span class="card-name">Core</span>
+        </div>
+        <div class="card-price-row">
+          <span class="card-price">$697</span>
+          <span class="card-period">/mo</span>
+        </div>
+        <div class="card-details">500 min/mo &nbsp;·&nbsp; 12-month contract</div>
+        <div class="card-features">
+          AI Receptionist &nbsp;·&nbsp; <span>24/7 Coverage</span> &nbsp;·&nbsp; Booking Automation
+        </div>
+        <button class="btn-pay" onclick="handlePayment('monthly', 'core')">
+          Subscribe $697/mo &nbsp;→
+        </button>
+      </div>
+
+      <!-- Growth Monthly (featured) -->
+      <div class="plan-card featured">
+        <div class="card-top">
+          <span class="card-name">Growth</span>
+          <span class="badge-popular">⭐ Most Popular</span>
+        </div>
+        <div class="card-price-row">
+          <span class="card-price">$997</span>
+          <span class="card-period">/mo</span>
+        </div>
+        <div class="card-details">1,000 min/mo &nbsp;·&nbsp; 12-month contract</div>
+        <div class="card-features">
+          Everything in Core <span>+</span> SMS Follow-Up <span>+</span> Review Automation
+        </div>
+        <button class="btn-pay" onclick="handlePayment('monthly', 'growth')">
+          Subscribe $997/mo &nbsp;→
+        </button>
+      </div>
+
+      <!-- Scale Monthly -->
+      <div class="plan-card">
+        <div class="card-top">
+          <span class="card-name">Scale</span>
+        </div>
+        <div class="card-price-row">
+          <span class="card-price">$1,497</span>
+          <span class="card-period">/mo</span>
+        </div>
+        <div class="card-details">2,000 min/mo &nbsp;·&nbsp; 12-month contract</div>
+        <div class="card-features">
+          Everything in Growth <span>+</span> No-Show Prevention <span>+</span> Multi-Language
+        </div>
+        <button class="btn-pay" onclick="handlePayment('monthly', 'scale')">
+          Subscribe $1,497/mo &nbsp;→
+        </button>
+      </div>
+
+      <!-- AutoScale Monthly -->
+      <div class="plan-card">
+        <div class="card-top">
+          <span class="card-name">AutoScale</span>
+        </div>
+        <div class="card-price-row">
+          <span class="card-price">$2,497</span>
+          <span class="card-period">/mo</span>
+        </div>
+        <div class="card-details">5,000 min/mo &nbsp;·&nbsp; 12-month contract</div>
+        <div class="card-features">
+          Everything in Scale <span>+</span> Multi-Location <span>+</span> Dedicated AM
+          <span>+</span> Priority Support
+        </div>
+        <button class="btn-pay" onclick="handlePayment('monthly', 'autoscale')">
+          Subscribe $2,497/mo &nbsp;→
+        </button>
+      </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav" aria-label="Field kit navigation">
+      <a href="quick-start.html" class="nav-link">
+        <span>← Back to Quick Start</span>
+        <span class="nav-link-arrow">›</span>
+      </a>
+      <a href="index.html#contract" class="nav-link">
+        <span>📝 Send Contract</span>
+        <span class="nav-link-arrow">›</span>
+      </a>
+      <a href="index.html" class="nav-link primary">
+        <span>📊 Full Field Kit</span>
+        <span class="nav-link-arrow">›</span>
+      </a>
+    </nav>
+
+    <!-- FOOTER -->
+    <div style="text-align: center; padding: 20px; font-size: 11px; color: var(--muted)">
+      <a href="terms.html" style="color: var(--text-2); text-decoration: none">Terms of Service</a>
+      &middot;
+      <a href="privacy.html" style="color: var(--text-2); text-decoration: none">Privacy Policy</a>
+      &middot;
+      <a href="index.html" style="color: var(--text-2); text-decoration: none">Field Kit</a>
+      &middot; &copy; 2026 AutoScale AI
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+    <script>
+      /* ═══════════════════════════════════════════
+         STRIPE PAYMENT LINKS (LIVE / PRODUCTION)
+         ═══════════════════════════════════════════ */
+      var STRIPE_LINKS = {
+        setup: {
+          core: 'https://buy.stripe.com/8x200jfyigMh9uJdVJ6c00t',
+          growth: 'https://buy.stripe.com/7sY8wP0Do1Rn8qF2d16c00u',
+          scale: 'https://buy.stripe.com/aFa14nadY9jPeP3aJx6c00v',
+          autoscale: 'https://buy.stripe.com/aFa28r3PA0Nj8qFbNB6c00w',
+        },
+        monthly: {
+          core: 'https://buy.stripe.com/9B65kDdqadA50YdcRF6c00x',
+          growth: 'https://buy.stripe.com/dRm28r71M8fL4ap2d16c00y',
+          scale: 'https://buy.stripe.com/bJe28r0Docw15et04T6c00z',
+          autoscale: 'https://buy.stripe.com/6oU7sL85Q0Nj9uJ5pd6c00A',
+        },
+      };
+
+      /* ── TAB SWITCHING ── */
+      function switchTab(tab) {
+        var tabs = ['setup', 'monthly'];
+        tabs.forEach(function (t) {
+          var btn = document.getElementById('btn-' + t);
+          var panel = document.getElementById('tab-' + t);
+          if (t === tab) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+            panel.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+            panel.classList.remove('active');
+          }
+        });
+      }
+
+      /* ── (waive toggle removed — setup fee is rep commission) ── */
+
+      /* ── PAYMENT HANDLER ── */
+      function handlePayment(type, plan) {
+        var url = STRIPE_LINKS[type][plan];
+
+        if (!url || url.indexOf('REPLACE_') === 0) {
+          showToast(
+            '⚠️ Stripe link not configured yet. Contact Jean-Samuel to set up payment links.'
+          );
+          return;
+        }
+
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+
+      /* ── TOAST ── */
+      var toastTimer = null;
+
+      function showToast(message) {
+        var el = document.getElementById('toast');
+        el.textContent = message;
+        el.classList.add('show');
+
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          el.classList.remove('show');
+        }, 4000);
+      }
+    </script>
+  </body>
+</html>

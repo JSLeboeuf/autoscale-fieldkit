@@ -1,0 +1,2048 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <title>AutoScale AI — Rep Quick Start</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --green: #60a5fa;
+        --green-2: #3b82f6;
+        --green-dim: rgba(96, 165, 250, 0.07);
+        --green-glow: rgba(96, 165, 250, 0.15);
+        --red: #f87171;
+        --red-dim: rgba(248, 113, 113, 0.06);
+        --gold: #fbbf24;
+        --gold-dim: rgba(251, 191, 36, 0.08);
+        --blue: #60a5fa;
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+        scroll-padding-top: 24px;
+      }
+
+      body {
+        font-family:
+          'Plus Jakarta Sans',
+          -apple-system,
+          system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 0 20px 100px;
+        position: relative;
+        font-weight: 400;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 28px 0 8px;
+        text-align: center;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .logo-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        font-family: 'Michroma', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .header-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 42px;
+        line-height: 1;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+
+      .header-title span {
+        color: var(--green);
+      }
+
+      .header-quote {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-style: italic;
+        font-weight: 300;
+        font-size: 13px;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        margin-bottom: 24px;
+      }
+
+      /* ── JUMP NAV ── */
+      .jump-nav {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 40;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 8px 4px;
+        background: rgba(20, 20, 23, 0.92);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 10px 0 0 10px;
+        border: 1px solid var(--border);
+        border-right: none;
+      }
+
+      .jump-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border-2);
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          transform 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        position: relative;
+      }
+
+      .jump-dot:hover,
+      .jump-dot.active {
+        background: var(--green);
+        transform: scale(1.3);
+      }
+
+      .jump-dot[data-label]:hover::before {
+        content: attr(data-label);
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--surface-2);
+        color: var(--text);
+        font-size: 10px;
+        font-weight: 600;
+        font-family: 'JetBrains Mono', monospace;
+        white-space: nowrap;
+        padding: 3px 8px;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        pointer-events: none;
+      }
+
+      @media (max-width: 380px) {
+        .jump-nav {
+          display: none;
+        }
+      }
+
+      /* ── CARDS ── */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 16px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .card-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.12);
+        padding: 4px 10px;
+        border-radius: 6px;
+        letter-spacing: 0.06em;
+        flex-shrink: 0;
+      }
+
+      .card-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        line-height: 1;
+      }
+
+      .card-body {
+        font-size: 14px;
+        line-height: 1.8;
+        color: var(--text-2);
+      }
+
+      .card-body strong,
+      .card-body b {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .card-body em {
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      /* ── FADE IN ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(12px);
+        transition:
+          opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── PRICING GRID ── */
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .plan-card {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 14px 12px;
+        position: relative;
+      }
+
+      .plan-card.featured {
+        border-color: var(--gold);
+        background: var(--gold-dim);
+      }
+
+      .plan-badge {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--bg);
+        background: var(--gold);
+        padding: 2px 6px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 6px;
+      }
+
+      .plan-name {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+        color: var(--text);
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .plan-price {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--green);
+        line-height: 1.2;
+      }
+
+      .plan-price-sub {
+        font-size: 10px;
+        color: var(--muted);
+        font-weight: 400;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+
+      .plan-details {
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .plan-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 10px;
+        color: var(--muted);
+      }
+
+      .plan-row span:last-child {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text-2);
+      }
+
+      .plan-push-note {
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.1);
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .plan-push-note strong {
+        color: var(--green);
+        font-weight: 700;
+        display: block;
+        margin-bottom: 6px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .plan-push-note p {
+        color: var(--text-2);
+        margin-bottom: 4px;
+        font-size: 12.5px;
+      }
+
+      .plan-push-note p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ── SCRIPT BLOCK ── */
+      .script-block {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+        position: relative;
+      }
+
+      .script-block:active {
+        background: var(--surface-2);
+        border-color: var(--border-2);
+      }
+
+      .script-block.copied {
+        border-color: var(--green);
+        background: var(--green-dim);
+      }
+
+      .script-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .script-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--green);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+        transition: opacity 0.15s;
+      }
+
+      .copy-btn:active {
+        opacity: 0.7;
+      }
+
+      .script-text {
+        padding: 16px 14px;
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--text-2);
+        white-space: pre-wrap;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 400;
+      }
+
+      .script-text .stage {
+        color: var(--muted);
+        font-style: italic;
+        font-size: 12px;
+      }
+
+      .script-text .highlight {
+        color: var(--green);
+        font-weight: 600;
+      }
+
+      /* ── DEMO BUTTON ── */
+      .demo-call-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        text-decoration: none;
+        padding: 18px 20px;
+        border-radius: var(--radius);
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+        font-size: 18px;
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        letter-spacing: -0.3px;
+        margin: 16px 0;
+        transition:
+          transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.15s;
+        box-shadow: 0 4px 24px rgba(96, 165, 250, 0.3);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .demo-call-btn:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 12px rgba(96, 165, 250, 0.2);
+      }
+
+      .demo-call-icon {
+        font-size: 22px;
+        animation: ring 3s ease-in-out infinite;
+        display: inline-block;
+      }
+
+      @keyframes ring {
+        0%,
+        90%,
+        100% {
+          transform: rotate(0deg);
+        }
+        92% {
+          transform: rotate(-15deg);
+        }
+        94% {
+          transform: rotate(15deg);
+        }
+        96% {
+          transform: rotate(-10deg);
+        }
+        98% {
+          transform: rotate(10deg);
+        }
+      }
+
+      .demo-note {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.65;
+        text-align: center;
+      }
+
+      .demo-note strong {
+        color: var(--green);
+      }
+
+      /* ── CLOSE STEPS ── */
+      .close-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .close-step {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 16px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .close-step-num {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        color: var(--green);
+        display: grid;
+        place-items: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .close-step-body {
+        flex: 1;
+        font-size: 13.5px;
+        line-height: 1.6;
+        color: var(--text-2);
+      }
+
+      .close-step-body strong {
+        color: var(--text);
+        font-weight: 700;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--green);
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .close-step-sub {
+        font-size: 12px;
+        color: var(--muted);
+        font-style: italic;
+        margin-top: 4px;
+        display: block;
+      }
+
+      .close-step-exception {
+        display: inline-block;
+        background: var(--red-dim);
+        border: 1px solid rgba(248, 113, 113, 0.15);
+        color: var(--red);
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 5px;
+        margin-top: 6px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      /* ── CTA BUTTONS ── */
+      .cta-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .cta-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        height: 52px;
+        border-radius: var(--radius);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        transition:
+          transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        letter-spacing: -0.2px;
+      }
+
+      .cta-btn:active {
+        transform: scale(0.97);
+      }
+
+      .cta-btn.primary {
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+        box-shadow: 0 4px 20px rgba(96, 165, 250, 0.25);
+      }
+
+      .cta-btn.secondary {
+        background: var(--surface-2);
+        color: var(--green);
+        border: 1.5px solid rgba(96, 165, 250, 0.25);
+      }
+
+      .cta-btn.tertiary {
+        background: var(--surface);
+        color: var(--text-2);
+        border: 1px solid var(--border);
+      }
+
+      /* ── OBJECTIONS ── */
+      .objection-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .obj-item {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+      }
+
+      .obj-summary {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        cursor: pointer;
+        list-style: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.15s;
+        position: relative;
+      }
+
+      .obj-summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .obj-summary::after {
+        content: '+';
+        position: absolute;
+        right: 14px;
+        font-size: 18px;
+        font-weight: 300;
+        color: var(--muted);
+        transition: transform 0.2s;
+        line-height: 1;
+      }
+
+      details[open] > .obj-summary::after {
+        content: '−';
+      }
+
+      .obj-summary:active {
+        background: var(--surface);
+      }
+
+      .obj-q-text {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--red);
+        flex: 1;
+        padding-right: 20px;
+        line-height: 1.4;
+      }
+
+      .obj-body {
+        padding: 0 16px 16px;
+      }
+
+      .obj-answer {
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--text-2);
+        padding-left: 12px;
+        border-left: 2px solid var(--green);
+        padding-top: 4px;
+      }
+
+      .obj-answer strong {
+        color: var(--green);
+        font-weight: 700;
+      }
+
+      .obj-copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        padding: 5px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+          color 0.15s,
+          border-color 0.15s,
+          background 0.15s;
+      }
+
+      .obj-copy-btn:active,
+      .obj-copy-btn.copied {
+        color: var(--green);
+        border-color: rgba(96, 165, 250, 0.25);
+        background: var(--green-dim);
+      }
+
+      /* ── YOUR MONEY ── */
+      .money-highlight {
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.12);
+        border-radius: var(--radius-sm);
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+
+      .money-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--green);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 8px;
+      }
+
+      .money-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-2);
+      }
+
+      .money-scale {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 12px;
+      }
+
+      .money-scale-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .money-scale-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--gold);
+        min-width: 50px;
+      }
+
+      .money-scale-label {
+        font-size: 12.5px;
+        color: var(--text-2);
+        line-height: 1.4;
+      }
+
+      .money-scale-label small {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        margin-top: 1px;
+      }
+
+      .money-cta {
+        text-align: center;
+        padding: 16px;
+        background: var(--surface-2);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+        margin-top: 12px;
+      }
+
+      .money-cta p {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.06em;
+        color: var(--gold);
+        line-height: 1.2;
+        margin-bottom: 2px;
+      }
+
+      .money-cta small {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      /* ── DEAL FLOW ── */
+      .deal-flow-section {
+        margin-top: 8px;
+      }
+
+      .deal-flow-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 26px;
+        letter-spacing: 0.08em;
+        color: var(--text);
+        margin-bottom: 4px;
+      }
+
+      .deal-flow-sub {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .deal-flow-timeline {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .deal-flow-timeline::before {
+        content: '';
+        position: absolute;
+        left: 17px;
+        top: 28px;
+        bottom: 28px;
+        width: 2px;
+        background: linear-gradient(to bottom, var(--green-2), rgba(96, 165, 250, 0.1));
+        z-index: 0;
+      }
+
+      .deal-step {
+        display: block;
+        position: relative;
+        z-index: 1;
+        margin-bottom: 8px;
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        transition: border-color 0.15s;
+      }
+
+      .deal-step[open] {
+        border-color: var(--border-2);
+      }
+
+      .deal-step-summary {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        cursor: pointer;
+        list-style: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.15s;
+        position: relative;
+      }
+
+      .deal-step-summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .deal-step-summary::after {
+        content: '';
+        position: absolute;
+        right: 14px;
+        width: 16px;
+        height: 16px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238e8ea0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")
+          center/contain no-repeat;
+        transition: transform 0.2s;
+      }
+
+      .deal-step[open] > .deal-step-summary::after {
+        transform: rotate(180deg);
+      }
+
+      .deal-step-summary:active {
+        background: var(--surface-2);
+      }
+
+      .deal-circle {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--green-dim);
+        border: 2px solid rgba(96, 165, 250, 0.2);
+        color: var(--green);
+        display: grid;
+        place-items: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .deal-step-info {
+        flex: 1;
+        padding-right: 20px;
+      }
+
+      .deal-step-name {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 18px;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        line-height: 1;
+        margin-bottom: 2px;
+      }
+
+      .deal-step-hint {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .deal-step-body {
+        padding: 0 16px 16px 66px;
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--text-2);
+      }
+
+      .deal-step-body a {
+        color: var(--green);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .deal-step-body a:active {
+        opacity: 0.7;
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .footer-brand {
+        font-family: 'Michroma', sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        color: var(--text-2);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 10px;
+      }
+
+      .footer-link {
+        font-size: 12px;
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+
+      .footer-link:active {
+        color: var(--green);
+      }
+
+      .footer-sub {
+        font-size: 11px;
+        color: var(--border-2);
+        margin-top: 8px;
+        font-weight: 400;
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--surface-2);
+        color: var(--green);
+        padding: 10px 24px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        z-index: 100;
+        transition:
+          transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.3s;
+        pointer-events: none;
+        border: 1px solid var(--border-2);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        white-space: nowrap;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      /* ── STICKY BAR ── */
+      .sticky-bar {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(100%);
+        z-index: 50;
+        width: 100%;
+        max-width: 460px;
+        background: rgba(9, 9, 11, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top: 1px solid var(--border);
+        padding: 10px 16px;
+        display: flex;
+        gap: 8px;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .sticky-bar.visible {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .sticky-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 12px;
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 0.15s;
+      }
+
+      .sticky-btn:active {
+        transform: scale(0.97);
+      }
+
+      .sticky-btn.demo {
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+      }
+
+      .sticky-btn.pay {
+        background: var(--surface-2);
+        color: var(--gold);
+        border: 1px solid rgba(251, 191, 36, 0.2);
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+        margin: 4px 0;
+      }
+
+      /* ── INLINE HIGHLIGHT ── */
+      .tag-green {
+        display: inline;
+        color: var(--green);
+        font-weight: 700;
+      }
+
+      .tag-gold {
+        display: inline;
+        color: var(--gold);
+        font-weight: 700;
+      }
+
+      .tag-red {
+        display: inline;
+        color: var(--red);
+        font-weight: 600;
+      }
+
+      /* ── REDUCED MOTION ── */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+        .fade-in {
+          opacity: 1;
+          transform: none;
+        }
+        .demo-call-icon {
+          animation: none;
+        }
+      }
+
+      @media print {
+        body {
+          background: white;
+          color: #111;
+          max-width: 100%;
+        }
+        body::before,
+        .sticky-bar,
+        .jump-nav {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── JUMP NAV ── -->
+    <nav class="jump-nav" aria-label="Quick navigation">
+      <button
+        class="jump-dot"
+        data-label="SELL"
+        onclick="scrollTo('card-01')"
+        aria-label="What you're selling"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="PLANS"
+        onclick="scrollTo('card-02')"
+        aria-label="The 4 plans"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="PITCH"
+        onclick="scrollTo('card-03')"
+        aria-label="60-second pitch"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="DEMO"
+        onclick="scrollTo('card-04')"
+        aria-label="The demo"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="CLOSE"
+        onclick="scrollTo('card-05')"
+        aria-label="How to close"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="PAY"
+        onclick="scrollTo('card-06')"
+        aria-label="Take action"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="OBJ"
+        onclick="scrollTo('card-07')"
+        aria-label="Objections"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="$$"
+        onclick="scrollTo('card-08')"
+        aria-label="Your money"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="FLOW"
+        onclick="scrollTo('deal-flow')"
+        aria-label="Deal flow"
+      ></button>
+    </nav>
+
+    <!-- ── HEADER ── -->
+    <header class="header">
+      <div class="logo-row">
+        <div class="logo-mark">
+          <img src="logo.png" alt="AutoScale AI" width="32" height="32" />
+        </div>
+        <span class="logo-text">AutoScale AI</span>
+      </div>
+      <div class="header-title">REP <span>QUICK</span><br />START</div>
+      <div class="header-quote">"Read this. Learn it. Close deals."</div>
+    </header>
+
+    <!-- ── CARD 01: WHAT YOU'RE SELLING ── -->
+    <div id="card-01" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">01</span>
+        <span class="card-title">WHAT YOU'RE SELLING</span>
+      </div>
+      <div class="card-body">
+        <p>
+          You're selling an <strong>AI phone receptionist</strong> that answers 24/7 for local
+          businesses.
+        </p>
+        <br />
+        <p>
+          The business owner <strong>NEVER misses a call again.</strong><br />
+          The AI books appointments, answers FAQs, transfers urgent calls.<br />
+          It sounds human. Not robotic.
+        </p>
+        <br />
+        <p>Your job: knock on doors, demo the AI, close the deal.</p>
+      </div>
+    </div>
+
+    <!-- ── CARD 02: THE 4 PLANS ── -->
+    <div id="card-02" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">02</span>
+        <span class="card-title">THE 4 PLANS</span>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Core -->
+        <div class="plan-card">
+          <div class="plan-name">Core</div>
+          <div class="plan-price">$697<span class="plan-price-sub">/mo</span></div>
+          <div class="plan-details">
+            <div class="plan-row"><span>Setup (min.)</span><span>$500</span></div>
+            <div class="plan-row"><span>Minutes</span><span>500</span></div>
+            <div class="plan-row"><span>Overage</span><span>$0.25/min</span></div>
+          </div>
+        </div>
+
+        <!-- Growth (featured) -->
+        <div class="plan-card featured">
+          <div class="plan-badge">BEST SELLER ⭐</div>
+          <div class="plan-name">Growth</div>
+          <div class="plan-price">$997<span class="plan-price-sub">/mo</span></div>
+          <div class="plan-details">
+            <div class="plan-row"><span>Setup (min.)</span><span>$750</span></div>
+            <div class="plan-row"><span>Minutes</span><span>1,000</span></div>
+            <div class="plan-row"><span>Overage</span><span>$0.20/min</span></div>
+          </div>
+        </div>
+
+        <!-- Scale -->
+        <div class="plan-card">
+          <div class="plan-name">Scale</div>
+          <div class="plan-price">$1,497<span class="plan-price-sub">/mo</span></div>
+          <div class="plan-details">
+            <div class="plan-row"><span>Setup (min.)</span><span>$1,000</span></div>
+            <div class="plan-row"><span>Minutes</span><span>2,000</span></div>
+            <div class="plan-row"><span>Overage</span><span>$0.15/min</span></div>
+          </div>
+        </div>
+
+        <!-- AutoScale -->
+        <div class="plan-card">
+          <div class="plan-name">AutoScale</div>
+          <div class="plan-price">$2,497<span class="plan-price-sub">/mo</span></div>
+          <div class="plan-details">
+            <div class="plan-row"><span>Setup (min.)</span><span>$1,500</span></div>
+            <div class="plan-row"><span>Minutes</span><span>5,000</span></div>
+            <div class="plan-row"><span>Overage</span><span>$0.10/min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="plan-push-note">
+        <strong>PITCH STRATEGY</strong>
+        <p><span class="tag-green">ALWAYS push Growth first.</span> It's the sweet spot.</p>
+        <p>Only pitch Core if the business is tiny (solo, seasonal).</p>
+        <p>Scale = high volume, after-hours, bilingual.</p>
+        <p>AutoScale = multi-location only.</p>
+        <p style="margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px">
+          <span class="tag-green">SETUP FEE = YOUR MONEY.</span> These are minimums — you set the
+          final price. The higher you charge, the more you earn (you keep 50%).
+        </p>
+      </div>
+    </div>
+
+    <!-- ── CARD 03: THE 60-SECOND DOOR PITCH ── -->
+    <div id="card-03" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">03</span>
+        <span class="card-title">THE 60-SECOND DOOR PITCH</span>
+      </div>
+
+      <div
+        class="script-block"
+        role="button"
+        tabindex="0"
+        aria-label="Copy pitch script"
+        onclick="copyScript(this)"
+        onkeydown="
+          if (event.key === 'Enter' || event.key === ' ') {
+            copyScript(this);
+          }
+        "
+      >
+        <div class="script-toolbar">
+          <span class="script-label">Tap to copy script</span>
+          <span class="copy-btn">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            COPY
+          </span>
+        </div>
+        <div class="script-text">
+          [KNOCK] "Hey! Quick question — do you guys ever miss phone calls when you're busy with
+          customers?" [WAIT FOR ANSWER — they always say yes] "That's exactly why I'm here. We
+          install an AI receptionist that answers your phone 24/7 — books appointments, answers
+          questions, transfers urgent calls. It sounds completely human. The dentist on [street]
+          installed it 3 weeks ago. He went from missing 20 calls a week to zero. Can I show you a
+          quick demo? Takes 60 seconds." [PLAY THE DEMO — call (207) 304-9892 on speaker] "That's
+          what your customers would hear. 24/7. For $33/day. One-time setup to get your AI trained
+          on your business, then it runs itself."
+        </div>
+        <span class="copied-tag" aria-hidden="true">Copied</span>
+      </div>
+    </div>
+
+    <!-- ── CARD 04: THE DEMO ── -->
+    <div id="card-04" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">04</span>
+        <span class="card-title">THE DEMO</span>
+      </div>
+
+      <div class="card-body" style="text-align: center; margin-bottom: 0">
+        <p
+          style="
+            font-size: 13px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 4px;
+          "
+        >
+          Call this number right now:
+        </p>
+      </div>
+
+      <a
+        href="tel:+12073049892"
+        class="demo-call-btn"
+        aria-label="Call AutoScale AI demo line at 207-304-9892"
+      >
+        <span class="demo-call-icon" aria-hidden="true">📞</span>
+        (207) 304-9892
+      </a>
+
+      <p class="demo-note">
+        Put it on speaker. Let the business owner hear it.<br />
+        The AI sells itself.<br /><br />
+        If the owner says <strong>"wow"</strong> — you're 80% closed.
+      </p>
+    </div>
+
+    <!-- ── CARD 05: HOW TO CLOSE ── -->
+    <div id="card-05" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">05</span>
+        <span class="card-title">HOW TO CLOSE</span>
+      </div>
+
+      <div class="close-steps">
+        <div class="close-step">
+          <div class="close-step-num">1</div>
+          <div class="close-step-body">
+            <strong>Play the Demo</strong>
+            Let the AI sell itself. Stay quiet.
+          </div>
+        </div>
+
+        <div class="close-step">
+          <div class="close-step-num">2</div>
+          <div class="close-step-body">
+            <strong>Ask the Question</strong>
+            "Which plan makes sense for you?"
+            <span class="close-step-sub"
+              >If they hesitate: "Most businesses go with Growth at $997/month. 1,000 minutes,
+              handles everything."</span
+            >
+          </div>
+        </div>
+
+        <div class="close-step">
+          <div class="close-step-num">3</div>
+          <div class="close-step-body">
+            <strong>Lock In the Setup Fee</strong>
+            "The setup covers AI training on your business — calls, services, hours, everything
+            custom. It's a one-time investment."
+            <span class="close-step-exception"
+              >TIP: You keep 50% of the setup fee + 10% monthly residual</span
+            >
+          </div>
+        </div>
+
+        <div class="close-step">
+          <div class="close-step-num">4</div>
+          <div class="close-step-body">
+            <strong>Collect Payment</strong>
+            Tap the payment button below.
+          </div>
+        </div>
+
+        <div class="close-step">
+          <div class="close-step-num">5</div>
+          <div class="close-step-body">
+            <strong>Send Contract</strong>
+            Tap the contract button below.
+          </div>
+        </div>
+
+        <div class="close-step">
+          <div class="close-step-num">6</div>
+          <div class="close-step-body">
+            <strong>Done</strong>
+            We handle everything from here. The AI goes live within
+            <span class="tag-green">48 hours.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CARD 06: TAKE ACTION ── -->
+    <div id="card-06" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">06</span>
+        <span class="card-title">TAKE ACTION</span>
+      </div>
+
+      <div class="cta-stack">
+        <a href="pay.html" class="cta-btn primary"> 💳 Collect Setup Fee </a>
+        <a href="index.html#contract" class="cta-btn secondary"> 📝 Send Contract </a>
+        <a href="index.html" class="cta-btn tertiary"> 📊 Full Field Kit </a>
+      </div>
+    </div>
+
+    <!-- ── CARD 07: OBJECTION CHEAT SHEET ── -->
+    <div id="card-07" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">07</span>
+        <span class="card-title">TOP 5 OBJECTIONS</span>
+      </div>
+
+      <div class="objection-list">
+        <details class="obj-item">
+          <summary class="obj-summary">
+            <span class="obj-q-text">"I need to think about it"</span>
+          </summary>
+          <div class="obj-body">
+            <div class="obj-answer">
+              "Totally get it. But here's the thing — every day without this, you're losing [X]
+              calls. That's [amount] in lost revenue. The setup is a one-time cost — the AI pays for
+              itself in the first week."
+            </div>
+            <button
+              class="obj-copy-btn"
+              onclick="
+                copyObjection(
+                  this,
+                  'Totally get it. But here\'s the thing — every day without this, you\'re losing [X] calls. That\'s [amount] in lost revenue. The setup is a one-time cost — the AI pays for itself in the first week.'
+                )
+              "
+              aria-label="Copy response"
+            >
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              COPY RESPONSE
+            </button>
+          </div>
+        </details>
+
+        <details class="obj-item">
+          <summary class="obj-summary">
+            <span class="obj-q-text">"It's too expensive"</span>
+          </summary>
+          <div class="obj-body">
+            <div class="obj-answer">
+              "A human receptionist costs $3,500/month. This is $997 and works 24/7. You'd spend
+              more on a part-timer."
+            </div>
+            <button
+              class="obj-copy-btn"
+              onclick="
+                copyObjection(
+                  this,
+                  'A human receptionist costs $3,500/month. This is $997 and works 24/7. You\'d spend more on a part-timer.'
+                )
+              "
+              aria-label="Copy response"
+            >
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              COPY RESPONSE
+            </button>
+          </div>
+        </details>
+
+        <details class="obj-item">
+          <summary class="obj-summary">
+            <span class="obj-q-text">"Does it sound robotic?"</span>
+          </summary>
+          <div class="obj-body">
+            <div class="obj-answer">
+              "Let me show you." <strong>[PLAY DEMO AGAIN]</strong> "That's what your customers
+              hear. Every single time."
+            </div>
+            <button
+              class="obj-copy-btn"
+              onclick="
+                copyObjection(
+                  this,
+                  'Let me show you. [PLAY DEMO AGAIN] That\'s what your customers hear. Every single time.'
+                )
+              "
+              aria-label="Copy response"
+            >
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              COPY RESPONSE
+            </button>
+          </div>
+        </details>
+
+        <details class="obj-item">
+          <summary class="obj-summary">
+            <span class="obj-q-text">"I don't trust AI"</span>
+          </summary>
+          <div class="obj-body">
+            <div class="obj-answer">
+              "I get it. That's why we guarantee: if it doesn't answer 90% of calls in 30 days, full
+              refund on your setup fee."
+            </div>
+            <button
+              class="obj-copy-btn"
+              onclick="
+                copyObjection(
+                  this,
+                  'I get it. That\'s why we guarantee: if it doesn\'t answer 90% of calls in 30 days, full refund on your setup fee.'
+                )
+              "
+              aria-label="Copy response"
+            >
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              COPY RESPONSE
+            </button>
+          </div>
+        </details>
+
+        <details class="obj-item">
+          <summary class="obj-summary">
+            <span class="obj-q-text">"I need to talk to my partner"</span>
+          </summary>
+          <div class="obj-body">
+            <div class="obj-answer">
+              "Let's call them right now and do a quick demo together. Takes 2 minutes. What's their
+              number?"
+            </div>
+            <button
+              class="obj-copy-btn"
+              onclick="
+                copyObjection(
+                  this,
+                  'Let\'s call them right now and do a quick demo together. Takes 2 minutes. What\'s their number?'
+                )
+              "
+              aria-label="Copy response"
+            >
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              COPY RESPONSE
+            </button>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- ── CARD 08: YOUR MONEY ── -->
+    <div id="card-08" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">08</span>
+        <span class="card-title">YOUR MONEY</span>
+      </div>
+
+      <div class="money-highlight">
+        <div class="money-label">YOUR DEAL</div>
+        <div class="money-text">
+          <strong style="color: var(--text)">50% of the setup fee</strong> — you set the price.
+          Charge $1,500 setup? You pocket $750 day one.
+        </div>
+      </div>
+
+      <div class="money-highlight" style="margin-top: 8px; border-color: rgba(96, 165, 250, 0.2)">
+        <div class="money-label" style="color: var(--green)">+ 10% RESIDUAL</div>
+        <div class="money-text">
+          <strong style="color: var(--text)">10% of monthly revenue</strong> — every client you
+          close keeps paying you every month, as long as they stay.
+        </div>
+      </div>
+
+      <div class="card-body" style="margin-bottom: 12px; margin-top: 12px">
+        <p>
+          Example: sell a Growth plan at $1,500 setup →
+          <strong style="color: var(--gold)">$750 in your pocket</strong> +
+          <strong style="color: var(--green)">$99/mo residual</strong> (10% of $997).<br />
+          That's not a one-time check — it compounds every month.
+        </p>
+      </div>
+
+      <div class="money-scale">
+        <div class="money-scale-row">
+          <div class="money-scale-num">10</div>
+          <div class="money-scale-label">
+            clients
+            <small>$7,500 upfront + ~$1,000/mo residual</small>
+          </div>
+        </div>
+        <div class="money-scale-row">
+          <div class="money-scale-num">50</div>
+          <div class="money-scale-label">
+            clients
+            <small>$37,500 upfront + ~$5,000/mo residual</small>
+          </div>
+        </div>
+        <div
+          class="money-scale-row"
+          style="border-color: rgba(251, 191, 36, 0.2); background: var(--gold-dim)"
+        >
+          <div class="money-scale-num" style="font-size: 22px">100</div>
+          <div class="money-scale-label">
+            clients
+            <small style="color: var(--gold)">$75K upfront + $10K/mo 🔥</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="money-cta">
+        <p>THE MORE YOU SELL,<br />THE MORE YOU EARN FOREVER.</p>
+        <small>Commissions paid within 5 business days of each collection</small>
+      </div>
+    </div>
+
+    <!-- ── DEAL FLOW ── -->
+    <div id="deal-flow" class="deal-flow-section fade-in">
+      <div class="deal-flow-title">DEAL FLOW</div>
+      <div class="deal-flow-sub">5 steps from door to commission</div>
+
+      <div class="deal-flow-timeline">
+        <details class="deal-step">
+          <summary class="deal-step-summary" aria-expanded="false">
+            <div class="deal-circle">1</div>
+            <div class="deal-step-info">
+              <div class="deal-step-name">KNOCK</div>
+              <div class="deal-step-hint">Pattern interrupt — get their attention</div>
+            </div>
+          </summary>
+          <div class="deal-step-body">
+            Use the 60-second pitch. Interrupt their routine with a sharp question.<br /><br />
+            <a href="#card-03">→ Go to Pitch Script (Card 3)</a>
+          </div>
+        </details>
+
+        <details class="deal-step">
+          <summary class="deal-step-summary">
+            <div class="deal-circle">2</div>
+            <div class="deal-step-info">
+              <div class="deal-step-name">DEMO</div>
+              <div class="deal-step-hint">Let the AI do the selling</div>
+            </div>
+          </summary>
+          <div class="deal-step-body">
+            Call <a href="tel:+12073049892">(207) 304-9892</a> on speaker. Hand them the phone. Stay
+            quiet. Let them hear it.<br /><br />
+            <a href="#card-04">→ Go to Demo (Card 4)</a>
+          </div>
+        </details>
+
+        <details class="deal-step">
+          <summary class="deal-step-summary">
+            <div class="deal-circle">3</div>
+            <div class="deal-step-info">
+              <div class="deal-step-name">CLOSE</div>
+              <div class="deal-step-hint">Push Growth, lock in setup fee, handle objections</div>
+            </div>
+          </summary>
+          <div class="deal-step-body">
+            Push the Growth plan. Lock in the setup fee — the higher, the better for you. Use
+            objection scripts if needed.<br /><br />
+            <a href="#card-05">→ Closing Steps (Card 5)</a> &nbsp;·&nbsp;
+            <a href="#card-07">Objections (Card 7)</a>
+          </div>
+        </details>
+
+        <details class="deal-step">
+          <summary class="deal-step-summary">
+            <div class="deal-circle">4</div>
+            <div class="deal-step-info">
+              <div class="deal-step-name">PAY</div>
+              <div class="deal-step-hint">Collect setup fee via Stripe</div>
+            </div>
+          </summary>
+          <div class="deal-step-body">
+            Collect the setup fee using the payment link, then send the contract.<br /><br />
+            <a href="pay.html">→ Open Payment Page</a>
+          </div>
+        </details>
+
+        <details class="deal-step">
+          <summary class="deal-step-summary">
+            <div
+              class="deal-circle"
+              style="background: var(--green-dim); border-color: rgba(96, 165, 250, 0.3)"
+            >
+              5
+            </div>
+            <div class="deal-step-info">
+              <div class="deal-step-name">LIVE</div>
+              <div class="deal-step-hint">Done — we handle the rest</div>
+            </div>
+          </summary>
+          <div class="deal-step-body">
+            Send the contract and walk away. We handle onboarding.<br /><br />
+            The AI goes live within <strong style="color: var(--green)">48 hours.</strong><br />
+            Your commission hits within <strong style="color: var(--gold)">5 business days.</strong>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+      <div class="footer-brand">AutoScale AI</div>
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">Full Toolkit</a>
+        <a href="pay.html" class="footer-link">Collect Payment</a>
+        <a href="deals.html" class="footer-link">Deal Tracker</a>
+      </div>
+      <div style="text-align: center; padding: 8px 0; font-size: 11px; color: var(--muted)">
+        <a href="terms.html" style="color: var(--text-2); text-decoration: none"
+          >Terms of Service</a
+        >
+        &middot;
+        <a href="privacy.html" style="color: var(--text-2); text-decoration: none"
+          >Privacy Policy</a
+        >
+        &middot; &copy; 2026 AutoScale AI
+      </div>
+      <div class="footer-sub">Questions? Text Vincenzo.</div>
+    </footer>
+
+    <!-- ── TOAST ── -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- ── STICKY BAR ── -->
+    <div class="sticky-bar" id="stickyBar">
+      <a href="tel:+12073049892" class="sticky-btn demo" aria-label="Call demo line">
+        📞 Demo Call
+      </a>
+      <a href="pay.html" class="sticky-btn pay" aria-label="Collect payment"> 💳 Collect Pay </a>
+    </div>
+
+    <script>
+      /* ── CLIPBOARD ── */
+      function clipCopy(text, cb) {
+        if (navigator.clipboard) {
+          navigator.clipboard
+            .writeText(text)
+            .then(cb)
+            .catch(function () {
+              fallbackCopy(text, cb);
+            });
+        } else {
+          fallbackCopy(text, cb);
+        }
+      }
+
+      function fallbackCopy(text, cb) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (cb) cb();
+      }
+
+      function showToast(msg) {
+        var t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._timer);
+        t._timer = setTimeout(function () {
+          t.classList.remove('show');
+        }, 1600);
+      }
+
+      function copyScript(el) {
+        var text = el.querySelector('.script-text').textContent.trim();
+        clipCopy(text, function () {
+          el.classList.add('copied');
+          showToast('Script copied');
+          setTimeout(function () {
+            el.classList.remove('copied');
+          }, 1800);
+        });
+      }
+
+      function copyObjection(btn, text) {
+        clipCopy(text, function () {
+          btn.classList.add('copied');
+          btn.textContent = 'COPIED';
+          showToast('Response copied');
+          setTimeout(function () {
+            btn.classList.remove('copied');
+            btn.innerHTML =
+              '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> COPY RESPONSE';
+          }, 1800);
+        });
+      }
+
+      /* ── JUMP NAV ── */
+      function scrollTo(id) {
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      /* ── FADE-IN OBSERVER ── */
+      (function () {
+        var items = document.querySelectorAll('.fade-in');
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+        );
+        items.forEach(function (el) {
+          obs.observe(el);
+        });
+      })();
+
+      /* ── STICKY BAR ── */
+      (function () {
+        var bar = document.getElementById('stickyBar');
+        var header = document.querySelector('.header');
+        var obs = new IntersectionObserver(
+          function (entries) {
+            if (!entries[0].isIntersecting) {
+              bar.classList.add('visible');
+            } else {
+              bar.classList.remove('visible');
+            }
+          },
+          { threshold: 0 }
+        );
+        obs.observe(header);
+      })();
+
+      /* ── ACTIVE JUMP DOT ── */
+      (function () {
+        var ids = [
+          'card-01',
+          'card-02',
+          'card-03',
+          'card-04',
+          'card-05',
+          'card-06',
+          'card-07',
+          'card-08',
+          'deal-flow',
+        ];
+        var dots = document.querySelectorAll('.jump-dot');
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                var idx = ids.indexOf(e.target.id);
+                dots.forEach(function (d, i) {
+                  d.classList.toggle('active', i === idx);
+                });
+              }
+            });
+          },
+          { threshold: 0.4 }
+        );
+        ids.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) obs.observe(el);
+        });
+      })();
+    </script>
+  </body>
+</html>
