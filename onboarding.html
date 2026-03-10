@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
     <meta name="theme-color" content="#09090b" />
     <meta name="robots" content="noindex, nofollow" />
     <title>AutoScale AI — Client Onboarding</title>
@@ -1522,14 +1522,14 @@
             <span
               >I have read and agree to the
               <a
-                href="/terms.html"
+                href="terms.html"
                 target="_blank"
                 style="color: var(--green); text-decoration: underline"
                 >Terms of Service</a
               >
               and
               <a
-                href="/privacy.html"
+                href="privacy.html"
                 target="_blank"
                 style="color: var(--green); text-decoration: underline"
                 >Privacy Policy</a
@@ -1702,8 +1702,8 @@
     <footer class="footer fade-in">
       <div class="footer-brand">AutoScale AI</div>
       <div class="footer-links">
-        <a href="/terms.html">Terms of Service</a>
-        <a href="/privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
         <a href="mailto:contact@autoscaleai.ca">Support</a>
       </div>
       <div class="footer-sub">
@@ -1848,7 +1848,7 @@
           document.getElementById("greeting").value.trim(),
         ];
         const filled = fields.filter(Boolean).length;
-        const total = 5; // 4 required fields + submit
+        const total = 4; // 4 required fields
         const pct = Math.min(Math.round((filled / total) * 90), 90);
 
         document.getElementById("progress-fill").style.width = pct + "%";

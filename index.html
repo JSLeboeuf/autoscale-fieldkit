@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
     <meta name="theme-color" content="#0A0A0A" />
     <title>AutoScale AI — D2D Field Kit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1423,7 +1423,8 @@
           <div class="q-body">
             <div class="q-main">
               "We replace voicemail with Alex — an AI that answers every call
-              24/7, qualifies leads, and books appointments — for $17 a day."
+              24/7, qualifies leads, and books appointments — for about $23 a
+              day."
             </div>
             <span class="q-hint">10-second version.</span>
           </div>
@@ -6779,8 +6780,8 @@
               <span class="q-num" style="color: var(--gold)">C</span>
               <div class="q-body">
                 <div class="q-main">
-                  "According to our data, 62% of callers who hit voicemail never
-                  call back."
+                  "85% of callers who hit voicemail never call back — they call
+                  your competitor instead."
                 </div>
                 <span class="q-hint"
                   >STAT DROP — Use your most powerful number.</span
@@ -7261,7 +7262,7 @@
               <span class="q-num" style="color: var(--gold)">C</span>
               <div class="q-body">
                 <div class="q-main">
-                  "62% of callers who hit voicemail NEVER call back. They call
+                  "85% of callers who hit voicemail NEVER call back. They call
                   your direct competitor. That's [amount] in lost revenue per
                   month." [Pause] "The good news is we can fix that in 1 hour
                   with zero changes to your staff."
@@ -10097,7 +10098,7 @@
             "padding:10px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;cursor:pointer;";
           copyBtn.textContent = "Copy Link";
           copyBtn.onclick = function () {
-            navigator.clipboard.writeText(signingUrl).then(function () {
+            clipCopy(signingUrl, function () {
               showToast("Signing link copied!");
             });
           };
