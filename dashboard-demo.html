@@ -2415,7 +2415,7 @@
               <div
                 class="metric-value"
                 style="color: #00c8ff"
-                data-counter="65"
+                data-counter="73"
                 data-prefix=""
                 data-suffix="%"
                 data-decimals="0"
@@ -3329,7 +3329,7 @@
                   <div class="weekly-chart" id="weekly-chart"></div>
                   <div class="weekly-footer">
                     <span class="weekly-footer-label">Weekly Total</span>
-                    <span class="weekly-footer-value">127 calls</span>
+                    <span class="weekly-footer-value">31 calls</span>
                   </div>
                 </div>
               </div>
@@ -3349,7 +3349,7 @@
                       <div class="dot-yellow"></div>
                       <span class="after-hours-label">After-hours calls</span>
                     </div>
-                    <span class="after-hours-value">34 answered</span>
+                    <span class="after-hours-value">17 answered</span>
                   </div>
                 </div>
               </div>
@@ -5056,18 +5056,29 @@
         // Page title
         document.title = bizName + " — Alex AI Dashboard";
 
-        // FOMO banner
-        document.getElementById("fomo-banner").innerHTML =
-          '<span class="fomo-icon">&#9889;</span>' +
-          '<span class="fomo-text">' +
-          IND.fomoText +
-          (PARAM_STATE
-            ? ' (<span id="fomo-state">' +
-              PARAM_STATE.replace(/[<>"'&]/g, "") +
-              "</span>)"
-            : "") +
-          "</span>" +
-          '<span class="fomo-badge">This Week</span>';
+        // FOMO banner — build via DOM to avoid XSS from URL params
+        var fomoBanner = document.getElementById("fomo-banner");
+        fomoBanner.innerHTML = "";
+        var fomoIcon = document.createElement("span");
+        fomoIcon.className = "fomo-icon";
+        fomoIcon.innerHTML = "&#9889;";
+        var fomoTextEl = document.createElement("span");
+        fomoTextEl.className = "fomo-text";
+        fomoTextEl.innerHTML = IND.fomoText;
+        if (PARAM_STATE) {
+          var stateSpan = document.createElement("span");
+          stateSpan.id = "fomo-state";
+          stateSpan.textContent = PARAM_STATE;
+          fomoTextEl.appendChild(document.createTextNode(" ("));
+          fomoTextEl.appendChild(stateSpan);
+          fomoTextEl.appendChild(document.createTextNode(")"));
+        }
+        var fomoBadge = document.createElement("span");
+        fomoBadge.className = "fomo-badge";
+        fomoBadge.textContent = "This Week";
+        fomoBanner.appendChild(fomoIcon);
+        fomoBanner.appendChild(fomoTextEl);
+        fomoBanner.appendChild(fomoBadge);
 
         // Update call services and summaries for industry
         IND.calls.forEach((c, i) => {

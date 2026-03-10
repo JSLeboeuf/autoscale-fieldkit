@@ -2359,20 +2359,20 @@
       /* ─────────────────────────────────────────
          RENDER COMMISSIONS
       ───────────────────────────────────────── */
+      // Commission calc: 50/50 gross profit split on setup + monthly
+      const calcMonthlyResidual = (deal) => {
+        return (deal.monthly_fee || 0) * MONTHLY_RESIDUAL_RATE;
+      };
+      const calcSetupCommission = (deal) => {
+        return (deal.setup_fee || 0) * SETUP_COMMISSION_RATE;
+      };
+
       function renderCommissions(deals) {
         const activeDeals = deals.filter((d) => d.status === "active");
         const now = new Date();
         const thisMonthActive = activeDeals.filter((d) =>
           isThisMonth(d.created_at),
         );
-
-        // Commission calc: 50/50 gross profit split on setup + monthly
-        const calcMonthlyResidual = (deal) => {
-          return (deal.monthly_fee || 0) * MONTHLY_RESIDUAL_RATE;
-        };
-        const calcSetupCommission = (deal) => {
-          return (deal.setup_fee || 0) * SETUP_COMMISSION_RATE;
-        };
 
         const totalAll = activeDeals.reduce(
           (s, d) => s + calcMonthlyResidual(d),

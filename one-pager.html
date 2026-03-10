@@ -1424,7 +1424,7 @@
         <p class="hero-sub">
           Alex is an AI receptionist that answers every call in 2 rings, books
           appointments straight into your calendar, and never takes a sick day —
-          for less than $23/day.
+          for about $23/day.
         </p>
 
         <!-- Primary CTA -->
@@ -1942,7 +1942,7 @@
 
         <div class="urgency-badge" role="note">
           <span class="urgency-dot" aria-hidden="true"></span>
-          This week only — $500 activation (reg. $750)
+          This week only — $500 activation fee included
         </div>
 
         <p class="final-cta-sub" id="rep-footer-note" style="display: none">
@@ -1964,6 +1964,30 @@
       <p class="footer-disclaimer">
         * Testimonials are from real customers. Names abbreviated for privacy.
         Individual results vary.
+      </p>
+      <nav
+        style="
+          display: flex;
+          justify-content: center;
+          gap: 16px;
+          margin-top: 12px;
+          font-size: 12px;
+        "
+      >
+        <a href="/" style="color: var(--muted); text-decoration: none"
+          >Field Kit</a
+        >
+        <a href="/terms.html" style="color: var(--muted); text-decoration: none"
+          >Terms</a
+        >
+        <a
+          href="/privacy.html"
+          style="color: var(--muted); text-decoration: none"
+          >Privacy</a
+        >
+      </nav>
+      <p style="font-size: 11px; color: var(--muted); margin-top: 8px">
+        &copy; 2026 AutoScale AI
       </p>
     </footer>
 
@@ -2027,7 +2051,6 @@
 
     <script>
       // Populate rep info from URL params
-      // Usage: ?rep=John+Smith&phone=555-123-4567&email=john@autoscale.ai&industry=roofing
       (function () {
         var params = new URLSearchParams(window.location.search);
         var repName = params.get("rep");
@@ -2105,41 +2128,6 @@
       })();
     </script>
 
-    <footer
-      style="
-        text-align: center;
-        padding: 24px 16px 32px;
-        font-size: 12px;
-        color: rgba(200, 210, 220, 0.35);
-        font-family: &quot;Plus Jakarta Sans&quot;, system-ui, sans-serif;
-      "
-    >
-      <nav
-        aria-label="Footer navigation"
-        style="
-          display: flex;
-          justify-content: center;
-          gap: 16px;
-          margin-bottom: 8px;
-        "
-      >
-        <a
-          href="/"
-          style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
-          >Field Kit</a
-        >
-        <a
-          href="/terms.html"
-          style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
-          >Terms</a
-        >
-        <a
-          href="/privacy.html"
-          style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
-          >Privacy</a
-        >
-      </nav>
-      <span>&copy; 2026 AutoScale AI</span>
-    </footer>
+    <!-- footer nav merged into main footer above -->
   </body>
 </html>

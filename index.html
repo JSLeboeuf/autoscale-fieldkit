@@ -1163,8 +1163,8 @@
         <div class="stat-lbl">Starting Price</div>
       </div>
       <div class="stat">
-        <div class="stat-val green">50%+10%</div>
-        <div class="stat-lbl">Setup + Residual</div>
+        <div class="stat-val green">50/50</div>
+        <div class="stat-lbl">Gross Profit Split</div>
       </div>
     </div>
 
@@ -1513,7 +1513,7 @@
           <span class="q-num">03</span>
           <div class="q-body">
             <div class="q-main">
-              "What if you had a receptionist 24/7 for less than $23/day?"
+              "What if you had a receptionist 24/7 for about $23/day?"
             </div>
             <span class="q-hint">Bridge to demo.</span>
           </div>
@@ -4018,7 +4018,7 @@
                   more
                 </div>
                 <div style="color: var(--green)">
-                  &#10003; Plus 10% monthly residual on every client, forever
+                  &#10003; Plus 50% of monthly fee on every client, forever
                 </div>
               </div>
             </div>
@@ -5786,7 +5786,7 @@
       </div>
 
       <!-- TODO: Replace with dynamic per-rep link via ?rep= param -->
-      <a href="/pay.html" class="cta-primary">
+      <a href="pay.html" class="cta-primary">
         Complete Setup Now — Activation Fee
       </a>
       <div class="cta-sub">
@@ -6230,7 +6230,7 @@
             "
           >
             <span style="font-size: 12px; color: var(--muted)"
-              >20 clients &times; 10% monthly residual</span
+              >20 clients &times; 50% monthly gross profit</span
             >
             <span
               style="
@@ -6281,9 +6281,8 @@
           "
         >
           <strong style="color: var(--text-2)">Commission structure:</strong>
-          50% of the setup fee (you set the price) + 10% monthly residual on
-          every client, as long as they stay. Commissions paid within 5 business
-          days.
+          50/50 gross profit split on setup + monthly fees, as long as they
+          stay. Commissions paid within 5 business days.
         </div>
       </div>
     </details>
@@ -9950,7 +9949,7 @@
           .querySelectorAll(".form-input, .form-select")
           .forEach(function (el) {
             el.classList.remove("invalid");
-            if (!el.value.trim()) {
+            if (el.hasAttribute("required") && !el.value.trim()) {
               el.classList.add("invalid");
               valid = false;
             }
@@ -10083,22 +10082,29 @@
           var linkArea = document.createElement("div");
           linkArea.id = "signing-link-area";
           linkArea.style.cssText = "margin-top:12px;display:flex;gap:8px;";
-          linkArea.innerHTML =
-            '<button type="button" onclick="window.open(\'' +
-            signingUrl.replace(/'/g, "\\'") +
-            "','_blank')\" " +
-            'style="flex:1;padding:10px;background:var(--green);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;">' +
-            "Sign Now</button>" +
-            '<button type="button" id="copyLinkBtn" ' +
-            'style="padding:10px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;cursor:pointer;">' +
-            "Copy Link</button>";
-          btn.parentNode.insertBefore(linkArea, btn.nextSibling);
+          var signBtn = document.createElement("button");
+          signBtn.type = "button";
+          signBtn.style.cssText =
+            "flex:1;padding:10px;background:var(--green);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;";
+          signBtn.textContent = "Sign Now";
+          signBtn.onclick = function () {
+            window.open(signingUrl, "_blank");
+          };
 
-          document.getElementById("copyLinkBtn").onclick = function () {
+          var copyBtn = document.createElement("button");
+          copyBtn.type = "button";
+          copyBtn.style.cssText =
+            "padding:10px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;cursor:pointer;";
+          copyBtn.textContent = "Copy Link";
+          copyBtn.onclick = function () {
             navigator.clipboard.writeText(signingUrl).then(function () {
               showToast("Signing link copied!");
             });
           };
+
+          linkArea.appendChild(signBtn);
+          linkArea.appendChild(copyBtn);
+          btn.parentNode.insertBefore(linkArea, btn.nextSibling);
         } else {
           btn.textContent = "Contract Sent";
           showToast(

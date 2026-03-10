@@ -1687,7 +1687,14 @@
       </div>
 
       <p style="font-size: 12px; color: var(--muted); text-align: center">
-        Questions? Text or call your rep directly.
+        Questions? Call
+        <a href="tel:+12073049892" style="color: var(--green)"
+          >(207) 304-9892</a
+        >
+        or email
+        <a href="mailto:contact@autoscaleai.ca" style="color: var(--green)"
+          >contact@autoscaleai.ca</a
+        >
       </p>
     </div>
 
@@ -1894,7 +1901,7 @@
           const calVal = document.getElementById("calendar_link").value.trim();
           const calEl = document.getElementById("calendar_link");
           const calErr = document.getElementById("err-calendar_link");
-          const calOk = calVal === "" || calVal.startsWith("https://");
+          const calOk = calVal.length > 0 && calVal.startsWith("https://");
           calEl.classList.toggle("invalid", !calOk);
           calErr.classList.toggle("visible", !calOk);
           if (!calOk && valid) {
@@ -1911,7 +1918,7 @@
           const tVal = document.getElementById("transfer_number").value.trim();
           const tEl = document.getElementById("transfer_number");
           const tErr = document.getElementById("err-transfer_number");
-          const tOk = tVal === "" || /^\+?[\d\s\-().]{7,}$/.test(tVal);
+          const tOk = tVal.length > 0 && /^\+?[\d\s\-().]{7,}$/.test(tVal);
           tEl.classList.toggle("invalid", !tOk);
           tErr.classList.toggle("visible", !tOk);
           if (!tOk && valid) {
