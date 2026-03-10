@@ -54,7 +54,7 @@
 
       body {
         font-family:
-          'Plus Jakarta Sans',
+          "Plus Jakarta Sans",
           -apple-system,
           system-ui,
           sans-serif;
@@ -70,7 +70,7 @@
       }
 
       body::before {
-        content: '';
+        content: "";
         position: fixed;
         inset: 0;
         background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
@@ -129,7 +129,7 @@
       }
 
       .logo-text {
-        font-family: 'Michroma', sans-serif;
+        font-family: "Michroma", sans-serif;
         font-size: 12px;
         font-weight: 400;
         letter-spacing: 0.22em;
@@ -141,7 +141,7 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "JetBrains Mono", monospace;
         font-size: 9px;
         font-weight: 700;
         color: var(--green);
@@ -175,7 +175,7 @@
       }
 
       .header-title {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: "Bebas Neue", sans-serif;
         font-size: 38px;
         line-height: 1;
         letter-spacing: 0.04em;
@@ -196,7 +196,11 @@
 
       /* ── WELCOME BOX ── */
       .welcome-box {
-        background: linear-gradient(145deg, rgba(96, 165, 250, 0.08), rgba(96, 165, 250, 0.02));
+        background: linear-gradient(
+          145deg,
+          rgba(96, 165, 250, 0.08),
+          rgba(96, 165, 250, 0.02)
+        );
         border: 1px solid rgba(96, 165, 250, 0.16);
         border-radius: var(--radius);
         padding: 16px 18px;
@@ -238,7 +242,7 @@
       }
 
       .welcome-box-detail .val {
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "JetBrains Mono", monospace;
         font-weight: 700;
         font-size: 11px;
         color: var(--gold);
@@ -257,7 +261,7 @@
       }
 
       .progress-label {
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "JetBrains Mono", monospace;
         font-size: 9px;
         font-weight: 700;
         color: var(--muted);
@@ -266,7 +270,7 @@
       }
 
       .progress-pct {
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "JetBrains Mono", monospace;
         font-size: 11px;
         font-weight: 700;
         color: var(--green);
@@ -334,7 +338,7 @@
       }
 
       .section-num {
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "JetBrains Mono", monospace;
         font-size: 10px;
         font-weight: 700;
         color: var(--green);
@@ -347,7 +351,7 @@
       }
 
       .section-title {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: "Bebas Neue", sans-serif;
         font-size: 20px;
         letter-spacing: 0.06em;
         color: var(--text);
@@ -401,9 +405,9 @@
         display: block;
       }
 
-      input[type='text'],
-      input[type='tel'],
-      input[type='url'],
+      input[type="text"],
+      input[type="tel"],
+      input[type="url"],
       textarea,
       select {
         width: 100%;
@@ -477,7 +481,7 @@
       }
 
       .hours-day {
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "JetBrains Mono", monospace;
         font-size: 11px;
         font-weight: 700;
         color: var(--text-2);
@@ -507,7 +511,7 @@
         position: relative;
       }
 
-      .voice-option input[type='radio'] {
+      .voice-option input[type="radio"] {
         position: absolute;
         opacity: 0;
         width: 0;
@@ -529,12 +533,12 @@
         -webkit-tap-highlight-color: transparent;
       }
 
-      .voice-option input[type='radio']:checked + .voice-label {
+      .voice-option input[type="radio"]:checked + .voice-label {
         border-color: var(--green);
         background: var(--green-dim);
       }
 
-      .voice-option input[type='radio']:focus-visible + .voice-label {
+      .voice-option input[type="radio"]:focus-visible + .voice-label {
         box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
       }
 
@@ -551,7 +555,10 @@
         font-weight: 500;
       }
 
-      .voice-option input[type='radio']:checked + .voice-label .voice-label-name {
+      .voice-option
+        input[type="radio"]:checked
+        + .voice-label
+        .voice-label-name {
         color: var(--green);
       }
 
@@ -605,7 +612,7 @@
       }
 
       .toggle-switch::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 2px;
         left: 2px;
@@ -652,7 +659,12 @@
       /* ── DIVIDER ── */
       .divider {
         height: 1px;
-        background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border-2),
+          transparent
+        );
         margin: 16px 0;
       }
 
@@ -781,7 +793,7 @@
       }
 
       .success-title {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: "Bebas Neue", sans-serif;
         font-size: 36px;
         letter-spacing: 0.04em;
         color: var(--text);
@@ -828,7 +840,7 @@
         color: var(--green);
         display: grid;
         place-items: center;
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "JetBrains Mono", monospace;
         font-size: 11px;
         font-weight: 700;
         flex-shrink: 0;
@@ -849,7 +861,7 @@
         text-transform: uppercase;
         letter-spacing: 0.04em;
         margin-bottom: 2px;
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "JetBrains Mono", monospace;
         color: var(--green);
       }
 
@@ -874,7 +886,7 @@
       }
 
       .success-ref-val {
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "JetBrains Mono", monospace;
         font-size: 14px;
         font-weight: 700;
         color: var(--green);
@@ -912,7 +924,7 @@
       }
 
       .footer-brand {
-        font-family: 'Michroma', sans-serif;
+        font-family: "Michroma", sans-serif;
         font-size: 10px;
         color: var(--text-2);
         letter-spacing: 0.18em;
@@ -1008,11 +1020,18 @@
       </div>
 
       <h1 class="header-title">Welcome to<br /><span>AutoScale AI</span></h1>
-      <p class="header-sub">Let's set up your AI receptionist.<br />Takes about 3 minutes.</p>
+      <p class="header-sub">
+        Let's set up your AI receptionist.<br />Takes about 3 minutes.
+      </p>
     </header>
 
     <!-- ── WELCOME BOX (pre-filled from URL params) ── -->
-    <div class="welcome-box fade-in" id="welcome-box" role="status" aria-live="polite">
+    <div
+      class="welcome-box fade-in"
+      id="welcome-box"
+      role="status"
+      aria-live="polite"
+    >
       <div class="welcome-box-name" id="welcome-name"></div>
       <div class="welcome-box-detail">
         <span id="welcome-email-wrap" style="display: none">
@@ -1030,7 +1049,9 @@
     <div class="progress-wrap fade-in">
       <div class="progress-header">
         <span class="progress-label">Setup Progress</span>
-        <span class="progress-pct" id="progress-pct" aria-live="polite">0%</span>
+        <span class="progress-pct" id="progress-pct" aria-live="polite"
+          >0%</span
+        >
       </div>
       <div
         class="progress-bar"
@@ -1073,12 +1094,15 @@
               autocomplete="organization"
               required
             />
-            <div class="field-error" id="err-business_name">Please enter your business name.</div>
+            <div class="field-error" id="err-business_name">
+              Please enter your business name.
+            </div>
           </div>
 
           <div class="field">
             <label class="field-label" for="business_phone">
-              Business Phone Number <span class="req" aria-label="required">*</span>
+              Business Phone Number
+              <span class="req" aria-label="required">*</span>
             </label>
             <input
               type="tel"
@@ -1088,7 +1112,9 @@
               autocomplete="tel"
               required
             />
-            <span class="field-hint">The number your AI will answer calls for.</span>
+            <span class="field-hint"
+              >The number your AI will answer calls for.</span
+            >
             <div class="field-error" id="err-business_phone">
               Please enter a valid phone number.
             </div>
@@ -1117,7 +1143,9 @@
               <option value="vet">Veterinary</option>
               <option value="other">Other</option>
             </select>
-            <div class="field-error" id="err-industry">Please select your industry.</div>
+            <div class="field-error" id="err-industry">
+              Please select your industry.
+            </div>
           </div>
         </div>
 
@@ -1128,44 +1156,104 @@
             <span class="section-title">Business Hours</span>
           </div>
 
-          <div class="hours-grid" role="group" aria-label="Business hours by day">
+          <div
+            class="hours-grid"
+            role="group"
+            aria-label="Business hours by day"
+          >
             <!-- Row template repeated for each day -->
             <div class="hours-row">
               <span class="hours-day">MON</span>
-              <select id="mon_open" name="mon_open" aria-label="Monday open time">
+              <select
+                id="mon_open"
+                name="mon_open"
+                aria-label="Monday open time"
+              >
                 <!-- Options injected by JS -->
               </select>
-              <select id="mon_close" name="mon_close" aria-label="Monday close time"></select>
+              <select
+                id="mon_close"
+                name="mon_close"
+                aria-label="Monday close time"
+              ></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">TUE</span>
-              <select id="tue_open" name="tue_open" aria-label="Tuesday open time"></select>
-              <select id="tue_close" name="tue_close" aria-label="Tuesday close time"></select>
+              <select
+                id="tue_open"
+                name="tue_open"
+                aria-label="Tuesday open time"
+              ></select>
+              <select
+                id="tue_close"
+                name="tue_close"
+                aria-label="Tuesday close time"
+              ></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">WED</span>
-              <select id="wed_open" name="wed_open" aria-label="Wednesday open time"></select>
-              <select id="wed_close" name="wed_close" aria-label="Wednesday close time"></select>
+              <select
+                id="wed_open"
+                name="wed_open"
+                aria-label="Wednesday open time"
+              ></select>
+              <select
+                id="wed_close"
+                name="wed_close"
+                aria-label="Wednesday close time"
+              ></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">THU</span>
-              <select id="thu_open" name="thu_open" aria-label="Thursday open time"></select>
-              <select id="thu_close" name="thu_close" aria-label="Thursday close time"></select>
+              <select
+                id="thu_open"
+                name="thu_open"
+                aria-label="Thursday open time"
+              ></select>
+              <select
+                id="thu_close"
+                name="thu_close"
+                aria-label="Thursday close time"
+              ></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">FRI</span>
-              <select id="fri_open" name="fri_open" aria-label="Friday open time"></select>
-              <select id="fri_close" name="fri_close" aria-label="Friday close time"></select>
+              <select
+                id="fri_open"
+                name="fri_open"
+                aria-label="Friday open time"
+              ></select>
+              <select
+                id="fri_close"
+                name="fri_close"
+                aria-label="Friday close time"
+              ></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">SAT</span>
-              <select id="sat_open" name="sat_open" aria-label="Saturday open time"></select>
-              <select id="sat_close" name="sat_close" aria-label="Saturday close time"></select>
+              <select
+                id="sat_open"
+                name="sat_open"
+                aria-label="Saturday open time"
+              ></select>
+              <select
+                id="sat_close"
+                name="sat_close"
+                aria-label="Saturday close time"
+              ></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">SUN</span>
-              <select id="sun_open" name="sun_open" aria-label="Sunday open time"></select>
-              <select id="sun_close" name="sun_close" aria-label="Sunday close time"></select>
+              <select
+                id="sun_open"
+                name="sun_open"
+                aria-label="Sunday open time"
+              ></select>
+              <select
+                id="sun_close"
+                name="sun_close"
+                aria-label="Sunday close time"
+              ></select>
             </div>
           </div>
         </div>
@@ -1177,30 +1265,55 @@
             <span class="section-title">Voice Preference</span>
           </div>
 
-          <div class="voice-grid" role="radiogroup" aria-label="AI voice preference">
+          <div
+            class="voice-grid"
+            role="radiogroup"
+            aria-label="AI voice preference"
+          >
             <div class="voice-option">
-              <input type="radio" id="voice_pf" name="voice" value="professional_female" checked />
+              <input
+                type="radio"
+                id="voice_pf"
+                name="voice"
+                value="professional_female"
+                checked
+              />
               <label class="voice-label" for="voice_pf">
                 <span class="voice-label-name">Professional Female</span>
                 <span class="voice-label-sub">Warm &amp; authoritative</span>
               </label>
             </div>
             <div class="voice-option">
-              <input type="radio" id="voice_pm" name="voice" value="professional_male" />
+              <input
+                type="radio"
+                id="voice_pm"
+                name="voice"
+                value="professional_male"
+              />
               <label class="voice-label" for="voice_pm">
                 <span class="voice-label-name">Professional Male</span>
                 <span class="voice-label-sub">Clear &amp; confident</span>
               </label>
             </div>
             <div class="voice-option">
-              <input type="radio" id="voice_ff" name="voice" value="friendly_female" />
+              <input
+                type="radio"
+                id="voice_ff"
+                name="voice"
+                value="friendly_female"
+              />
               <label class="voice-label" for="voice_ff">
                 <span class="voice-label-name">Friendly Female</span>
                 <span class="voice-label-sub">Upbeat &amp; approachable</span>
               </label>
             </div>
             <div class="voice-option">
-              <input type="radio" id="voice_fm" name="voice" value="friendly_male" />
+              <input
+                type="radio"
+                id="voice_fm"
+                name="voice"
+                value="friendly_male"
+              />
               <label class="voice-label" for="voice_fm">
                 <span class="voice-label-name">Friendly Male</span>
                 <span class="voice-label-sub">Relaxed &amp; helpful</span>
@@ -1220,11 +1333,19 @@
             <label class="field-label" for="greeting">
               Opening Greeting <span class="req" aria-label="required">*</span>
             </label>
-            <textarea id="greeting" name="greeting" rows="3" required></textarea>
+            <textarea
+              id="greeting"
+              name="greeting"
+              rows="3"
+              required
+            ></textarea>
             <span class="field-hint"
-              >This is the first thing callers will hear. Keep it under 20 words.</span
+              >This is the first thing callers will hear. Keep it under 20
+              words.</span
             >
-            <div class="field-error" id="err-greeting">Please enter a greeting message.</div>
+            <div class="field-error" id="err-greeting">
+              Please enter a greeting message.
+            </div>
           </div>
         </div>
 
@@ -1262,14 +1383,18 @@
 
           <div class="toggle-reveal" id="reveal-booking">
             <div class="field">
-              <label class="field-label" for="calendar_link">Calendar Link</label>
+              <label class="field-label" for="calendar_link"
+                >Calendar Link</label
+              >
               <input
                 type="url"
                 id="calendar_link"
                 name="calendar_link"
                 placeholder="https://calendly.com/your-link or cal.com/your-link"
               />
-              <span class="field-hint">Calendly, Cal.com, Acuity, or any booking URL.</span>
+              <span class="field-hint"
+                >Calendly, Cal.com, Acuity, or any booking URL.</span
+              >
               <div class="field-error" id="err-calendar_link">
                 Please enter a valid URL (must start with https://).
               </div>
@@ -1296,21 +1421,27 @@
           >
             <div class="toggle-field-body">
               <span class="toggle-field-label">Call Transfer</span>
-              <span class="toggle-field-sub">AI can transfer urgent calls to a real person</span>
+              <span class="toggle-field-sub"
+                >AI can transfer urgent calls to a real person</span
+              >
             </div>
             <div class="toggle-switch" aria-hidden="true"></div>
           </div>
 
           <div class="toggle-reveal" id="reveal-transfer">
             <div class="field">
-              <label class="field-label" for="transfer_number">Transfer Number</label>
+              <label class="field-label" for="transfer_number"
+                >Transfer Number</label
+              >
               <input
                 type="tel"
                 id="transfer_number"
                 name="transfer_number"
                 placeholder="(555) 000-0000"
               />
-              <span class="field-hint">Direct line for urgent call transfers (cell or desk).</span>
+              <span class="field-hint"
+                >Direct line for urgent call transfers (cell or desk).</span
+              >
               <div class="field-error" id="err-transfer_number">
                 Please enter a valid phone number.
               </div>
@@ -1326,7 +1457,9 @@
           </div>
 
           <div class="field">
-            <label class="field-label" for="instructions"> Additional Instructions </label>
+            <label class="field-label" for="instructions">
+              Additional Instructions
+            </label>
             <textarea
               id="instructions"
               name="instructions"
@@ -1334,7 +1467,8 @@
               placeholder="Any special instructions for your AI? e.g. 'We're closed on Wednesdays', 'Always ask for insurance info before booking', 'Don't mention competitor names'…"
             ></textarea>
             <span class="field-hint"
-              >Optional. The more detail you provide, the better your AI performs.</span
+              >Optional. The more detail you provide, the better your AI
+              performs.</span
             >
           </div>
         </div>
@@ -1350,7 +1484,14 @@
             border-radius: var(--radius-sm);
           "
         >
-          <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; font-weight: 600">
+          <p
+            style="
+              font-size: 0.85rem;
+              color: var(--muted);
+              margin-bottom: 16px;
+              font-weight: 600;
+            "
+          >
             Required Agreements
           </p>
 
@@ -1371,7 +1512,12 @@
               type="checkbox"
               id="consent-terms"
               required
-              style="margin-top: 4px; accent-color: var(--green); min-width: 18px; min-height: 18px"
+              style="
+                margin-top: 4px;
+                accent-color: var(--green);
+                min-width: 18px;
+                min-height: 18px;
+              "
             />
             <span
               >I have read and agree to the
@@ -1408,12 +1554,18 @@
               type="checkbox"
               id="consent-recording"
               required
-              style="margin-top: 4px; accent-color: var(--green); min-width: 18px; min-height: 18px"
+              style="
+                margin-top: 4px;
+                accent-color: var(--green);
+                min-width: 18px;
+                min-height: 18px;
+              "
             />
             <span
-              >I acknowledge that calls handled by the AI receptionist may be recorded for quality
-              assurance and service improvement purposes, and I am responsible for informing my
-              callers of this recording.</span
+              >I acknowledge that calls handled by the AI receptionist may be
+              recorded for quality assurance and service improvement purposes,
+              and I am responsible for informing my callers of this
+              recording.</span
             >
           </label>
 
@@ -1433,11 +1585,17 @@
               type="checkbox"
               id="consent-ai-disclosure"
               required
-              style="margin-top: 4px; accent-color: var(--green); min-width: 18px; min-height: 18px"
+              style="
+                margin-top: 4px;
+                accent-color: var(--green);
+                min-width: 18px;
+                min-height: 18px;
+              "
             />
             <span
-              >I understand that the AI receptionist will disclose its AI nature at the start of
-              each call, and I will not remove or modify this disclosure.</span
+              >I understand that the AI receptionist will disclose its AI nature
+              at the start of each call, and I will not remove or modify this
+              disclosure.</span
             >
           </label>
         </div>
@@ -1478,8 +1636,8 @@
       <div class="success-icon" aria-hidden="true">✓</div>
       <h2 class="success-title">You're All <span>Set!</span></h2>
       <p class="success-body">
-        Your AI receptionist is being configured. You'll receive a confirmation email within the
-        hour.
+        Your AI receptionist is being configured. You'll receive a confirmation
+        email within the hour.
       </p>
 
       <div class="success-ref" id="success-ref" style="display: none">
@@ -1514,14 +1672,16 @@
           <div class="success-step-num">2</div>
           <div class="success-step-body">
             <strong>Within 48h</strong>
-            You receive a test call from your AI so you can hear it before it goes live.
+            You receive a test call from your AI so you can hear it before it
+            goes live.
           </div>
         </div>
         <div class="success-step">
           <div class="success-step-num">3</div>
           <div class="success-step-body">
             <strong>Go Live</strong>
-            Your AI starts answering calls 24/7. Zero missed calls from this point forward.
+            Your AI starts answering calls 24/7. Zero missed calls from this
+            point forward.
           </div>
         </div>
       </div>
@@ -1537,9 +1697,11 @@
       <div class="footer-links">
         <a href="/terms.html">Terms of Service</a>
         <a href="/privacy.html">Privacy Policy</a>
-        <a href="mailto:support@autoscaleai.com">Support</a>
+        <a href="mailto:contact@autoscaleai.ca">Support</a>
       </div>
-      <div class="footer-sub">&copy; 2026 AutoScale AI. All rights reserved.</div>
+      <div class="footer-sub">
+        &copy; 2026 AutoScale AI. All rights reserved.
+      </div>
     </footer>
 
     <!-- ── TOAST ── -->
@@ -1547,27 +1709,28 @@
 
     <script>
       // ── CONSTANTS ──
-      const ENDPOINT = 'https://autoscale-ai-backend.fly.dev/api/onboarding/submit';
+      const ENDPOINT =
+        "https://autoscale-ai-backend.fly.dev/api/onboarding/submit";
 
-      const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-      const WEEKDAY_DEFAULTS = { open: '09:00', close: '17:00' };
-      const WEEKEND_DEFAULTS = { open: 'closed', close: 'closed' };
+      const DAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+      const WEEKDAY_DEFAULTS = { open: "09:00", close: "17:00" };
+      const WEEKEND_DEFAULTS = { open: "closed", close: "closed" };
 
       // ── TIME OPTIONS ──
       function buildTimeOptions(selectEl, defaultVal) {
-        const closed = document.createElement('option');
-        closed.value = 'closed';
-        closed.textContent = 'Closed';
+        const closed = document.createElement("option");
+        closed.value = "closed";
+        closed.textContent = "Closed";
         selectEl.appendChild(closed);
 
         for (let h = 0; h < 24; h++) {
           for (const m of [0, 30]) {
             const totalMins = h * 60 + m;
-            const padH = String(h).padStart(2, '0');
-            const padM = String(m).padStart(2, '0');
+            const padH = String(h).padStart(2, "0");
+            const padM = String(m).padStart(2, "0");
             const value = `${padH}:${padM}`;
             const label12 = formatTime12(h, m);
-            const opt = document.createElement('option');
+            const opt = document.createElement("option");
             opt.value = value;
             opt.textContent = label12;
             selectEl.appendChild(opt);
@@ -1578,16 +1741,16 @@
       }
 
       function formatTime12(h, m) {
-        const period = h < 12 ? 'AM' : 'PM';
+        const period = h < 12 ? "AM" : "PM";
         const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
-        return `${h12}:${String(m).padStart(2, '0')} ${period}`;
+        return `${h12}:${String(m).padStart(2, "0")} ${period}`;
       }
 
       function updateHoursStyle(sel) {
-        if (sel.value === 'closed') {
-          sel.classList.add('closed-state');
+        if (sel.value === "closed") {
+          sel.classList.add("closed-state");
         } else {
-          sel.classList.remove('closed-state');
+          sel.classList.remove("closed-state");
         }
       }
 
@@ -1601,52 +1764,54 @@
           buildTimeOptions(openSel, defaults.open);
           buildTimeOptions(closeSel, defaults.close);
 
-          openSel.addEventListener('change', () => {
+          openSel.addEventListener("change", () => {
             updateHoursStyle(openSel);
             // Mirror close to closed when open is closed
-            if (openSel.value === 'closed') {
-              closeSel.value = 'closed';
+            if (openSel.value === "closed") {
+              closeSel.value = "closed";
               updateHoursStyle(closeSel);
             }
           });
-          closeSel.addEventListener('change', () => updateHoursStyle(closeSel));
+          closeSel.addEventListener("change", () => updateHoursStyle(closeSel));
         });
       }
 
       // ── URL PARAMS ──
       function readUrlParams() {
         const params = new URLSearchParams(window.location.search);
-        const business = params.get('business') || '';
-        const email = params.get('email') || '';
-        const plan = params.get('plan') || '';
+        const business = params.get("business") || "";
+        const email = params.get("email") || "";
+        const plan = params.get("plan") || "";
 
         if (business) {
-          const input = document.getElementById('business_name');
+          const input = document.getElementById("business_name");
           input.value = business;
           updateGreeting(business);
         }
 
-        const welcomeBox = document.getElementById('welcome-box');
+        const welcomeBox = document.getElementById("welcome-box");
         if (business || email || plan) {
-          document.getElementById('welcome-name').textContent = business
+          document.getElementById("welcome-name").textContent = business
             ? `Welcome, ${business}!`
-            : 'Welcome aboard!';
+            : "Welcome aboard!";
 
           if (email) {
-            document.getElementById('welcome-email').textContent = email;
-            document.getElementById('welcome-email-wrap').style.display = 'flex';
+            document.getElementById("welcome-email").textContent = email;
+            document.getElementById("welcome-email-wrap").style.display =
+              "flex";
           }
           if (plan) {
-            document.getElementById('welcome-plan').textContent = plan.toUpperCase();
-            document.getElementById('welcome-plan-wrap').style.display = 'flex';
+            document.getElementById("welcome-plan").textContent =
+              plan.toUpperCase();
+            document.getElementById("welcome-plan-wrap").style.display = "flex";
           }
-          welcomeBox.classList.add('visible');
+          welcomeBox.classList.add("visible");
         }
       }
 
       // ── GREETING AUTO-UPDATE ──
       function updateGreeting(name) {
-        const greetingEl = document.getElementById('greeting');
+        const greetingEl = document.getElementById("greeting");
         const placeholder = name
           ? `Thank you for calling ${name}. How can I help you today?`
           : `Thank you for calling [Business Name]. How can I help you today?`;
@@ -1659,38 +1824,41 @@
       function toggleFeature(key) {
         const toggleEl = document.getElementById(`toggle-${key}`);
         const revealEl = document.getElementById(`reveal-${key}`);
-        const isOn = toggleEl.classList.contains('on');
+        const isOn = toggleEl.classList.contains("on");
 
-        toggleEl.classList.toggle('on', !isOn);
-        toggleEl.setAttribute('aria-checked', String(!isOn));
-        revealEl.classList.toggle('visible', !isOn);
+        toggleEl.classList.toggle("on", !isOn);
+        toggleEl.setAttribute("aria-checked", String(!isOn));
+        revealEl.classList.toggle("visible", !isOn);
         updateProgress();
       }
 
       // ── PROGRESS ──
       function updateProgress() {
         const fields = [
-          document.getElementById('business_name').value.trim(),
-          document.getElementById('business_phone').value.trim(),
-          document.getElementById('industry').value,
-          document.getElementById('greeting').value.trim(),
+          document.getElementById("business_name").value.trim(),
+          document.getElementById("business_phone").value.trim(),
+          document.getElementById("industry").value,
+          document.getElementById("greeting").value.trim(),
         ];
         const filled = fields.filter(Boolean).length;
         const total = 5; // 4 required fields + submit
         const pct = Math.min(Math.round((filled / total) * 90), 90);
 
-        document.getElementById('progress-fill').style.width = pct + '%';
-        document.getElementById('progress-pct').textContent = pct + '%';
+        document.getElementById("progress-fill").style.width = pct + "%";
+        document.getElementById("progress-pct").textContent = pct + "%";
 
-        const progressBar = document.querySelector('.progress-bar');
-        progressBar.setAttribute('aria-valuenow', pct);
+        const progressBar = document.querySelector(".progress-bar");
+        progressBar.setAttribute("aria-valuenow", pct);
 
         // Update step indicators
-        const steps = document.querySelectorAll('.progress-step');
+        const steps = document.querySelectorAll(".progress-step");
         const thresholds = [20, 40, 60, 80, 100];
         steps.forEach((step, i) => {
-          step.classList.toggle('done', pct >= thresholds[i]);
-          step.classList.toggle('active', pct >= (thresholds[i - 1] || 0) && pct < thresholds[i]);
+          step.classList.toggle("done", pct >= thresholds[i]);
+          step.classList.toggle(
+            "active",
+            pct >= (thresholds[i - 1] || 0) && pct < thresholds[i],
+          );
         });
       }
 
@@ -1702,46 +1870,52 @@
           const el = document.getElementById(id);
           const err = document.getElementById(errorId);
           const ok = testFn(el.value.trim());
-          el.classList.toggle('invalid', !ok);
-          err.classList.toggle('visible', !ok);
+          el.classList.toggle("invalid", !ok);
+          err.classList.toggle("visible", !ok);
           if (!ok && valid) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
             el.focus();
             valid = false;
           }
           return ok;
         }
 
-        check('business_name', 'err-business_name', (v) => v.length > 0);
-        check('business_phone', 'err-business_phone', (v) => /^\+?[\d\s\-().]{7,}$/.test(v));
-        check('industry', 'err-industry', (v) => v.length > 0);
-        check('greeting', 'err-greeting', (v) => v.length > 0);
+        check("business_name", "err-business_name", (v) => v.length > 0);
+        check("business_phone", "err-business_phone", (v) =>
+          /^\+?[\d\s\-().]{7,}$/.test(v),
+        );
+        check("industry", "err-industry", (v) => v.length > 0);
+        check("greeting", "err-greeting", (v) => v.length > 0);
 
         // Conditional: calendar link if booking is on
-        if (document.getElementById('toggle-booking').classList.contains('on')) {
-          const calVal = document.getElementById('calendar_link').value.trim();
-          const calEl = document.getElementById('calendar_link');
-          const calErr = document.getElementById('err-calendar_link');
-          const calOk = calVal === '' || calVal.startsWith('https://');
-          calEl.classList.toggle('invalid', !calOk);
-          calErr.classList.toggle('visible', !calOk);
+        if (
+          document.getElementById("toggle-booking").classList.contains("on")
+        ) {
+          const calVal = document.getElementById("calendar_link").value.trim();
+          const calEl = document.getElementById("calendar_link");
+          const calErr = document.getElementById("err-calendar_link");
+          const calOk = calVal === "" || calVal.startsWith("https://");
+          calEl.classList.toggle("invalid", !calOk);
+          calErr.classList.toggle("visible", !calOk);
           if (!calOk && valid) {
-            calEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            calEl.scrollIntoView({ behavior: "smooth", block: "center" });
             calEl.focus();
             valid = false;
           }
         }
 
         // Conditional: transfer number if transfer is on
-        if (document.getElementById('toggle-transfer').classList.contains('on')) {
-          const tVal = document.getElementById('transfer_number').value.trim();
-          const tEl = document.getElementById('transfer_number');
-          const tErr = document.getElementById('err-transfer_number');
-          const tOk = tVal === '' || /^\+?[\d\s\-().]{7,}$/.test(tVal);
-          tEl.classList.toggle('invalid', !tOk);
-          tErr.classList.toggle('visible', !tOk);
+        if (
+          document.getElementById("toggle-transfer").classList.contains("on")
+        ) {
+          const tVal = document.getElementById("transfer_number").value.trim();
+          const tEl = document.getElementById("transfer_number");
+          const tErr = document.getElementById("err-transfer_number");
+          const tOk = tVal === "" || /^\+?[\d\s\-().]{7,}$/.test(tVal);
+          tEl.classList.toggle("invalid", !tOk);
+          tErr.classList.toggle("visible", !tOk);
           if (!tOk && valid) {
-            tEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            tEl.scrollIntoView({ behavior: "smooth", block: "center" });
             tEl.focus();
             valid = false;
           }
@@ -1756,20 +1930,32 @@
         DAYS.forEach((day) => {
           const open = document.getElementById(`${day}_open`).value;
           const close = document.getElementById(`${day}_close`).value;
-          hours[day] = open === 'closed' ? { open: null, close: null } : { open, close };
+          hours[day] =
+            open === "closed" ? { open: null, close: null } : { open, close };
         });
 
         return {
-          business_name: document.getElementById('business_name').value.trim(),
-          business_phone: document.getElementById('business_phone').value.trim(),
-          industry: document.getElementById('industry').value,
-          voice_preference: document.querySelector('input[name="voice"]:checked').value,
-          greeting: document.getElementById('greeting').value.trim(),
-          appointment_booking: document.getElementById('toggle-booking').classList.contains('on'),
-          calendar_link: document.getElementById('calendar_link').value.trim() || null,
-          call_transfer: document.getElementById('toggle-transfer').classList.contains('on'),
-          transfer_number: document.getElementById('transfer_number').value.trim() || null,
-          special_instructions: document.getElementById('instructions').value.trim() || null,
+          business_name: document.getElementById("business_name").value.trim(),
+          business_phone: document
+            .getElementById("business_phone")
+            .value.trim(),
+          industry: document.getElementById("industry").value,
+          voice_preference: document.querySelector(
+            'input[name="voice"]:checked',
+          ).value,
+          greeting: document.getElementById("greeting").value.trim(),
+          appointment_booking: document
+            .getElementById("toggle-booking")
+            .classList.contains("on"),
+          calendar_link:
+            document.getElementById("calendar_link").value.trim() || null,
+          call_transfer: document
+            .getElementById("toggle-transfer")
+            .classList.contains("on"),
+          transfer_number:
+            document.getElementById("transfer_number").value.trim() || null,
+          special_instructions:
+            document.getElementById("instructions").value.trim() || null,
           business_hours: hours,
           submitted_at: new Date().toISOString(),
           source_url: window.location.href,
@@ -1779,107 +1965,114 @@
       // ── TOAST ──
       let toastTimer = null;
       function showToast(msg, isError = false) {
-        const el = document.getElementById('toast');
+        const el = document.getElementById("toast");
         el.textContent = msg;
-        el.classList.toggle('error', isError);
-        el.classList.add('show');
+        el.classList.toggle("error", isError);
+        el.classList.add("show");
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+        toastTimer = setTimeout(() => el.classList.remove("show"), 3500);
       }
 
       // ── SHOW SUCCESS ──
       function showSuccess(refId) {
-        document.getElementById('form-wrapper').classList.add('hidden');
+        document.getElementById("form-wrapper").classList.add("hidden");
 
-        const screen = document.getElementById('success-screen');
-        screen.classList.add('visible');
+        const screen = document.getElementById("success-screen");
+        screen.classList.add("visible");
 
         if (refId) {
-          document.getElementById('success-ref-val').textContent = refId;
-          document.getElementById('success-ref').style.display = 'flex';
+          document.getElementById("success-ref-val").textContent = refId;
+          document.getElementById("success-ref").style.display = "flex";
         }
 
         // Update progress to 100%
-        document.getElementById('progress-fill').style.width = '100%';
-        document.getElementById('progress-pct').textContent = '100%';
-        document.querySelector('.progress-bar').setAttribute('aria-valuenow', 100);
-        document.querySelectorAll('.progress-step').forEach((s) => {
-          s.classList.add('done');
-          s.classList.remove('active');
+        document.getElementById("progress-fill").style.width = "100%";
+        document.getElementById("progress-pct").textContent = "100%";
+        document
+          .querySelector(".progress-bar")
+          .setAttribute("aria-valuenow", 100);
+        document.querySelectorAll(".progress-step").forEach((s) => {
+          s.classList.add("done");
+          s.classList.remove("active");
         });
 
-        screen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        screen.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
       // ── FORM SUBMIT ──
-      document.getElementById('onboarding-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
+      document
+        .getElementById("onboarding-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-        if (!validateForm()) return;
+          if (!validateForm()) return;
 
-        if (
-          !document.getElementById('consent-terms').checked ||
-          !document.getElementById('consent-recording').checked ||
-          !document.getElementById('consent-ai-disclosure').checked
-        ) {
-          showToast('Please accept all required agreements before submitting.', true);
-          document
-            .querySelector('.consent-section')
-            .scrollIntoView({ behavior: 'smooth', block: 'center' });
-          return;
-        }
-
-        const btn = document.getElementById('submit-btn');
-        btn.disabled = true;
-        btn.classList.add('loading');
-
-        const data = collectData();
-
-        try {
-          const res = await fetch(ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-          });
-
-          if (!res.ok) {
-            const body = await res.json().catch(() => ({}));
-            throw new Error(body.message || `Server error (${res.status})`);
+          if (
+            !document.getElementById("consent-terms").checked ||
+            !document.getElementById("consent-recording").checked ||
+            !document.getElementById("consent-ai-disclosure").checked
+          ) {
+            showToast(
+              "Please accept all required agreements before submitting.",
+              true,
+            );
+            document
+              .querySelector(".consent-section")
+              .scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
           }
 
-          const json = await res.json().catch(() => ({}));
-          showSuccess(json.reference_id || json.id || null);
-        } catch (err) {
-          btn.disabled = false;
-          btn.classList.remove('loading');
+          const btn = document.getElementById("submit-btn");
+          btn.disabled = true;
+          btn.classList.add("loading");
 
-          const msg =
-            err.message && err.message.length < 120
-              ? err.message
-              : 'Something went wrong. Please try again or contact support.';
-          showToast(msg, true);
-        }
-      });
+          const data = collectData();
+
+          try {
+            const res = await fetch(ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
+
+            if (!res.ok) {
+              const body = await res.json().catch(() => ({}));
+              throw new Error(body.message || `Server error (${res.status})`);
+            }
+
+            const json = await res.json().catch(() => ({}));
+            showSuccess(json.reference_id || json.id || null);
+          } catch (err) {
+            btn.disabled = false;
+            btn.classList.remove("loading");
+
+            const msg =
+              err.message && err.message.length < 120
+                ? err.message
+                : "Something went wrong. Please try again or contact support.";
+            showToast(msg, true);
+          }
+        });
 
       // ── LIVE VALIDATION CLEAR ──
-      document.querySelectorAll('input, textarea, select').forEach((el) => {
-        el.addEventListener('input', () => {
-          el.classList.remove('invalid');
+      document.querySelectorAll("input, textarea, select").forEach((el) => {
+        el.addEventListener("input", () => {
+          el.classList.remove("invalid");
           const errEl = document.getElementById(`err-${el.id}`);
-          if (errEl) errEl.classList.remove('visible');
+          if (errEl) errEl.classList.remove("visible");
           updateProgress();
         });
       });
 
       // ── GREETING SYNC ──
-      const businessInput = document.getElementById('business_name');
-      const greetingEl = document.getElementById('greeting');
+      const businessInput = document.getElementById("business_name");
+      const greetingEl = document.getElementById("greeting");
 
-      greetingEl.addEventListener('input', () => {
-        greetingEl.dataset.manuallyEdited = '1';
+      greetingEl.addEventListener("input", () => {
+        greetingEl.dataset.manuallyEdited = "1";
       });
 
-      businessInput.addEventListener('input', () => {
+      businessInput.addEventListener("input", () => {
         updateGreeting(businessInput.value.trim());
       });
 
@@ -1889,15 +2082,15 @@
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.classList.add("visible");
                 observer.unobserve(entry.target);
               }
             });
           },
-          { threshold: 0.08 }
+          { threshold: 0.08 },
         );
 
-        document.querySelectorAll('.fade-in').forEach((el, i) => {
+        document.querySelectorAll(".fade-in").forEach((el, i) => {
           el.style.transitionDelay = `${i * 40}ms`;
           observer.observe(el);
         });
@@ -1906,7 +2099,7 @@
       // ── INIT ──
       initHours();
       readUrlParams();
-      updateGreeting(document.getElementById('business_name').value.trim());
+      updateGreeting(document.getElementById("business_name").value.trim());
       updateProgress();
       initFadeIn();
     </script>
