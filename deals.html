@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <meta name="theme-color" content="#09090b" />
     <meta name="robots" content="noindex, nofollow" />
     <title>AutoScale AI — Deal Tracker</title>
@@ -72,7 +72,7 @@
 
       body {
         font-family:
-          "Plus Jakarta Sans",
+          'Plus Jakarta Sans',
           -apple-system,
           system-ui,
           sans-serif;
@@ -86,7 +86,7 @@
 
       /* Noise texture */
       body::before {
-        content: "";
+        content: '';
         position: fixed;
         inset: 0;
         background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
@@ -96,7 +96,7 @@
 
       /* Subtle grid */
       body::after {
-        content: "";
+        content: '';
         position: fixed;
         inset: 0;
         background-image:
@@ -162,7 +162,7 @@
       }
 
       .logo-text {
-        font-family: "Michroma", sans-serif;
+        font-family: 'Michroma', sans-serif;
         font-size: 10px;
         font-weight: 400;
         letter-spacing: 0.26em;
@@ -173,7 +173,7 @@
       }
 
       .page-title {
-        font-family: "Bebas Neue", sans-serif;
+        font-family: 'Bebas Neue', sans-serif;
         font-size: 28px;
         letter-spacing: 0.08em;
         color: var(--text);
@@ -223,7 +223,7 @@
         font-size: 11px;
         font-weight: 500;
         color: var(--muted);
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
       }
 
       .refresh-dot {
@@ -269,7 +269,7 @@
       }
 
       .stat-card::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
@@ -279,28 +279,13 @@
       }
 
       .stat-card.blue::before {
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--green),
-          transparent
-        );
+        background: linear-gradient(90deg, transparent, var(--green), transparent);
       }
       .stat-card.gold::before {
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--gold),
-          transparent
-        );
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
       }
       .stat-card.purple::before {
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--purple),
-          transparent
-        );
+        background: linear-gradient(90deg, transparent, var(--purple), transparent);
       }
       .stat-card.accent::before {
         background: linear-gradient(90deg, transparent, #4ade80, transparent);
@@ -316,7 +301,7 @@
       }
 
       .stat-value {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 32px;
         font-weight: 700;
         color: var(--text);
@@ -410,7 +395,7 @@
         border: 1px solid var(--border);
         border-radius: var(--radius-sm);
         color: var(--text);
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 13px;
         font-weight: 500;
         padding: 9px 12px;
@@ -460,7 +445,7 @@
         gap: 6px;
         padding: 9px 18px;
         border-radius: var(--radius-sm);
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 12px;
         font-weight: 700;
         letter-spacing: 0.06em;
@@ -511,7 +496,7 @@
       }
 
       .section-title {
-        font-family: "Michroma", sans-serif;
+        font-family: 'Michroma', sans-serif;
         font-size: 11px;
         letter-spacing: 0.2em;
         text-transform: uppercase;
@@ -519,7 +504,7 @@
       }
 
       .deal-count-badge {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 11px;
         font-weight: 700;
         color: var(--green);
@@ -591,7 +576,7 @@
       }
 
       .td-date {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 11px;
         font-weight: 500;
         color: var(--muted);
@@ -619,7 +604,7 @@
       }
 
       .td-fee {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 13px;
         font-weight: 700;
         white-space: nowrap;
@@ -653,7 +638,7 @@
       }
 
       .badge::before {
-        content: "";
+        content: '';
         width: 5px;
         height: 5px;
         border-radius: 50%;
@@ -717,7 +702,7 @@
         border: 1px solid var(--border);
         border-radius: var(--radius-sm);
         color: var(--muted);
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.06em;
@@ -779,7 +764,7 @@
         border: none;
         background: transparent;
         color: var(--text-2);
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 12px;
         font-weight: 600;
         cursor: pointer;
@@ -951,7 +936,7 @@
       }
 
       .meta-item-value {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 13px;
         font-weight: 700;
       }
@@ -993,7 +978,7 @@
       }
 
       .commissions-title {
-        font-family: "Bebas Neue", sans-serif;
+        font-family: 'Bebas Neue', sans-serif;
         font-size: 22px;
         letter-spacing: 0.1em;
         color: var(--text);
@@ -1013,7 +998,7 @@
         border: 1px solid var(--gold-border);
         border-radius: var(--radius-sm);
         padding: 6px 12px;
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 11px;
         font-weight: 700;
         color: var(--gold);
@@ -1048,14 +1033,10 @@
       }
 
       .commission-card::before {
-        content: "";
+        content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(
-          ellipse at top,
-          var(--gold-dim),
-          transparent 60%
-        );
+        background: radial-gradient(ellipse at top, var(--gold-dim), transparent 60%);
         pointer-events: none;
       }
 
@@ -1069,7 +1050,7 @@
       }
 
       .commission-card-value {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 28px;
         font-weight: 700;
         color: var(--gold);
@@ -1112,7 +1093,7 @@
         background: transparent;
         border: none;
         color: var(--green);
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.08em;
@@ -1186,21 +1167,21 @@
       }
 
       .td-commission {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 14px;
         font-weight: 700;
         color: var(--gold);
       }
 
       .td-gp {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 12px;
         color: var(--green);
         font-weight: 500;
       }
 
       .td-mono {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 12px;
         color: var(--text-2);
       }
@@ -1280,7 +1261,7 @@
       }
 
       .rep-stat-value {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 13px;
         font-weight: 700;
         color: var(--text);
@@ -1497,24 +1478,12 @@
           </div>
         </div>
         <div class="header-right">
-          <div
-            class="refresh-badge"
-            aria-live="polite"
-            aria-label="Auto-refresh status"
-          >
+          <div class="refresh-badge" aria-live="polite" aria-label="Auto-refresh status">
             <span class="refresh-dot" aria-hidden="true"></span>
-            <span id="refresh-label"
-              >Refreshes in <span id="countdown">60</span>s</span
-            >
+            <span id="refresh-label">Refreshes in <span id="countdown">60</span>s</span>
           </div>
           <a href="index.html" class="back-link" aria-label="Back to Field Kit">
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              aria-hidden="true"
-            >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
               <path
                 d="M7.5 9L4.5 6L7.5 3"
                 stroke="currentColor"
@@ -1534,34 +1503,22 @@
           <!-- Skeleton cards shown by default -->
           <div class="stat-card blue" id="card-total">
             <div class="stat-label">Total Deals</div>
-            <div class="stat-value skeleton" id="val-total" aria-live="polite">
-              &nbsp;
-            </div>
+            <div class="stat-value skeleton" id="val-total" aria-live="polite">&nbsp;</div>
             <div class="stat-meta skeleton" id="meta-total">&nbsp;</div>
           </div>
           <div class="stat-card gold" id="card-pending">
             <div class="stat-label">Pending Signatures</div>
-            <div
-              class="stat-value skeleton"
-              id="val-pending"
-              aria-live="polite"
-            >
-              &nbsp;
-            </div>
+            <div class="stat-value skeleton" id="val-pending" aria-live="polite">&nbsp;</div>
             <div class="stat-meta skeleton" id="meta-pending">&nbsp;</div>
           </div>
           <div class="stat-card purple" id="card-active">
             <div class="stat-label">Active Clients</div>
-            <div class="stat-value skeleton" id="val-active" aria-live="polite">
-              &nbsp;
-            </div>
+            <div class="stat-value skeleton" id="val-active" aria-live="polite">&nbsp;</div>
             <div class="stat-meta skeleton" id="meta-active">&nbsp;</div>
           </div>
           <div class="stat-card accent" id="card-mrr">
             <div class="stat-label">Monthly Revenue</div>
-            <div class="stat-value skeleton" id="val-mrr" aria-live="polite">
-              &nbsp;
-            </div>
+            <div class="stat-value skeleton" id="val-mrr" aria-live="polite">&nbsp;</div>
             <div class="stat-meta skeleton" id="meta-mrr">&nbsp;</div>
           </div>
         </div>
@@ -1572,11 +1529,7 @@
         <div class="filters-bar" role="search">
           <div class="filter-group narrow">
             <label for="filter-status" class="filter-label">Status</label>
-            <select
-              id="filter-status"
-              class="filter-select"
-              aria-label="Filter by status"
-            >
+            <select id="filter-status" class="filter-select" aria-label="Filter by status">
               <option value="">All Statuses</option>
               <option value="sent">Sent</option>
               <option value="signed">Signed</option>
@@ -1597,9 +1550,7 @@
             />
           </div>
           <div class="filter-group">
-            <label for="filter-business" class="filter-label"
-              >Business Name</label
-            >
+            <label for="filter-business" class="filter-label">Business Name</label>
             <input
               type="text"
               id="filter-business"
@@ -1618,18 +1569,8 @@
             <input type="date" id="filter-to" class="filter-input" />
           </div>
           <div class="filter-actions">
-            <button
-              class="btn btn-primary"
-              id="btn-apply"
-              aria-label="Apply filters"
-            >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                aria-hidden="true"
-              >
+            <button class="btn btn-primary" id="btn-apply" aria-label="Apply filters">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                 <path
                   d="M1 3h10M3 6h6M5 9h2"
                   stroke="currentColor"
@@ -1639,11 +1580,7 @@
               </svg>
               Apply
             </button>
-            <button
-              class="btn btn-ghost"
-              id="btn-clear"
-              aria-label="Clear all filters"
-            >
+            <button class="btn btn-ghost" id="btn-clear" aria-label="Clear all filters">
               Clear
             </button>
           </div>
@@ -1654,21 +1591,11 @@
       <section aria-label="Deals list">
         <div class="section-header">
           <span class="section-title">Deals</span>
-          <span
-            class="deal-count-badge"
-            id="deal-count-badge"
-            aria-live="polite"
-            >—</span
-          >
+          <span class="deal-count-badge" id="deal-count-badge" aria-live="polite">—</span>
         </div>
 
         <!-- Desktop table -->
-        <div
-          class="table-wrapper"
-          role="region"
-          aria-label="Deals table"
-          tabindex="0"
-        >
+        <div class="table-wrapper" role="region" aria-label="Deals table" tabindex="0">
           <table id="deals-table" aria-label="Deals">
             <thead>
               <tr>
@@ -1736,12 +1663,7 @@
               </tr>
             </tbody>
           </table>
-          <div
-            class="empty-state"
-            id="empty-state"
-            role="status"
-            aria-label="No deals found"
-          >
+          <div class="empty-state" id="empty-state" role="status" aria-label="No deals found">
             <div class="empty-icon" aria-hidden="true">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path
@@ -1755,13 +1677,9 @@
             </div>
             <div class="empty-title" id="empty-title">No deals yet</div>
             <div class="empty-body" id="empty-body">
-              Close your first deal and it will appear here. Head to the field
-              kit to get started.
+              Close your first deal and it will appear here. Head to the field kit to get started.
             </div>
-            <a
-              href="index.html"
-              class="btn btn-primary"
-              style="display: inline-flex"
+            <a href="index.html" class="btn btn-primary" style="display: inline-flex"
               >View Field Kit</a
             >
           </div>
@@ -1771,11 +1689,7 @@
             <div class="error-body" id="error-msg">
               Could not reach the server. Check your connection and try again.
             </div>
-            <button
-              class="btn btn-ghost"
-              id="btn-retry"
-              aria-label="Retry loading deals"
-            >
+            <button class="btn btn-ghost" id="btn-retry" aria-label="Retry loading deals">
               Retry
             </button>
           </div>
@@ -1790,15 +1704,13 @@
         <div class="commissions-header">
           <div>
             <h2 class="commissions-title">Commissions</h2>
-            <div class="commissions-subtitle">
-              Auto-calculated from active deals
-            </div>
+            <div class="commissions-subtitle">Auto-calculated from active deals</div>
           </div>
           <div
             class="formula-badge"
-            aria-label="Commission formula: 50/50 gross profit split on setup and monthly"
+            aria-label="Commission formula: 20% of setup fee plus 20% monthly residual"
           >
-            50/50 gross profit split
+            20% setup fee &nbsp;+&nbsp; 20% monthly residual
           </div>
         </div>
 
@@ -1860,9 +1772,7 @@
         <!-- Per-deal breakdown -->
         <div class="commission-table-wrapper">
           <div class="commission-table-header">
-            <span class="commission-table-title"
-              >Per-Deal Breakdown (Active Clients)</span
-            >
+            <span class="commission-table-title">Per-Deal Breakdown (Active Clients)</span>
             <button
               class="toggle-btn"
               id="btn-toggle-breakdown"
@@ -1882,8 +1792,8 @@
                 <th scope="col">Business</th>
                 <th scope="col">Plan</th>
                 <th scope="col">Monthly Fee</th>
-                <th scope="col">Setup (50%)</th>
-                <th scope="col">Monthly (50%/mo)</th>
+                <th scope="col">Setup (20%)</th>
+                <th scope="col">Residual (20%/mo)</th>
               </tr>
             </thead>
             <tbody id="commission-breakdown-body" aria-live="polite">
@@ -1891,22 +1801,14 @@
             </tbody>
           </table>
           <!-- Mobile commission cards -->
-          <div
-            class="commission-mobile-cards"
-            id="commission-mobile-cards"
-          ></div>
+          <div class="commission-mobile-cards" id="commission-mobile-cards"></div>
         </div>
 
         <!-- Team rep breakdown -->
         <div class="rep-breakdown" id="rep-breakdown-section">
           <div class="rep-breakdown-header">
             <span class="commission-table-title">Team Breakdown — By Rep</span>
-            <span
-              class="deal-count-badge"
-              id="rep-count-badge"
-              aria-live="polite"
-              >—</span
-            >
+            <span class="deal-count-badge" id="rep-count-badge" aria-live="polite">—</span>
           </div>
           <div id="rep-breakdown-body" aria-live="polite">
             <!-- Populated by JS -->
@@ -1921,9 +1823,7 @@
           <a href="privacy.html" class="footer-link">Privacy</a>
           <a href="index.html" class="footer-link">Field Kit</a>
         </nav>
-        <div class="footer-copy">
-          &copy; 2026 AutoScale AI. All rights reserved.
-        </div>
+        <div class="footer-copy">&copy; 2026 AutoScale AI. All rights reserved.</div>
       </footer>
     </div>
 
@@ -1931,14 +1831,14 @@
     <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <script>
-      "use strict";
+      'use strict';
 
       /* ─────────────────────────────────────────
          CONFIG
       ───────────────────────────────────────── */
-      const API_URL = "https://autoscale-ai-backend.fly.dev/api/deals";
-      const SETUP_COMMISSION_RATE = 0.5; // 50% of setup fee
-      const MONTHLY_RESIDUAL_RATE = 0.5; // 50% of monthly fee (50/50 gross profit split)
+      const API_URL = 'https://autoscale-ai-backend.fly.dev/api/deals';
+      const SETUP_COMMISSION_RATE = 0.2; // 20% of setup fee
+      const MONTHLY_RESIDUAL_RATE = 0.2; // 20% of monthly fee
       const REFRESH_INTERVAL = 60; // seconds
 
       /* ─────────────────────────────────────────
@@ -1956,84 +1856,84 @@
       ───────────────────────────────────────── */
       const MOCK_DEALS = [
         {
-          id: "1",
-          created_at: "2026-03-01T14:22:00Z",
-          business_name: "Sunset Dental Group",
-          plan: "Growth",
-          setup_fee: 750,
+          id: '1',
+          created_at: '2026-03-01T14:22:00Z',
+          business_name: 'Sunset Dental Group',
+          plan: 'Growth',
+          setup_fee: 500,
           monthly_fee: 997,
-          status: "active",
-          rep_name: "Marcus Rivera",
+          status: 'active',
+          rep_name: 'Marcus Rivera',
         },
         {
-          id: "2",
-          created_at: "2026-03-02T09:10:00Z",
-          business_name: "AZ Plumbing Solutions",
-          plan: "Core",
+          id: '2',
+          created_at: '2026-03-02T09:10:00Z',
+          business_name: 'AZ Plumbing Solutions',
+          plan: 'Starter',
           setup_fee: 500,
           monthly_fee: 697,
-          status: "active",
-          rep_name: "Jordan Kim",
+          status: 'active',
+          rep_name: 'Jordan Kim',
         },
         {
-          id: "3",
-          created_at: "2026-03-02T16:45:00Z",
-          business_name: "Beach HVAC Co.",
-          plan: "Scale",
-          setup_fee: 1000,
+          id: '3',
+          created_at: '2026-03-02T16:45:00Z',
+          business_name: 'Beach HVAC Co.',
+          plan: 'Scale',
+          setup_fee: 500,
           monthly_fee: 1497,
-          status: "onboarding",
-          rep_name: "Tanya Williams",
+          status: 'onboarding',
+          rep_name: 'Tanya Williams',
         },
         {
-          id: "4",
-          created_at: "2026-03-03T11:30:00Z",
-          business_name: "RoofPro Texas",
-          plan: "Growth",
-          setup_fee: 750,
+          id: '4',
+          created_at: '2026-03-03T11:30:00Z',
+          business_name: 'RoofPro Texas',
+          plan: 'Growth',
+          setup_fee: 500,
           monthly_fee: 997,
-          status: "signed",
-          rep_name: "Marcus Rivera",
+          status: 'signed',
+          rep_name: 'Marcus Rivera',
         },
         {
-          id: "5",
-          created_at: "2026-03-03T14:00:00Z",
-          business_name: "Cal Landscaping Inc.",
-          plan: "Core",
+          id: '5',
+          created_at: '2026-03-03T14:00:00Z',
+          business_name: 'Cal Landscaping Inc.',
+          plan: 'Starter',
           setup_fee: 500,
           monthly_fee: 697,
-          status: "sent",
-          rep_name: "Jordan Kim",
+          status: 'sent',
+          rep_name: 'Jordan Kim',
         },
         {
-          id: "6",
-          created_at: "2026-02-20T10:00:00Z",
-          business_name: "Miami Med Spa",
-          plan: "Scale",
-          setup_fee: 1000,
+          id: '6',
+          created_at: '2026-02-20T10:00:00Z',
+          business_name: 'Miami Med Spa',
+          plan: 'Scale',
+          setup_fee: 500,
           monthly_fee: 1497,
-          status: "active",
-          rep_name: "Tanya Williams",
+          status: 'active',
+          rep_name: 'Tanya Williams',
         },
         {
-          id: "7",
-          created_at: "2026-02-18T08:30:00Z",
-          business_name: "GA Auto Repair",
-          plan: "Core",
+          id: '7',
+          created_at: '2026-02-18T08:30:00Z',
+          business_name: 'GA Auto Repair',
+          plan: 'Starter',
           setup_fee: 500,
           monthly_fee: 697,
-          status: "churned",
-          rep_name: "Marcus Rivera",
+          status: 'churned',
+          rep_name: 'Marcus Rivera',
         },
         {
-          id: "8",
-          created_at: "2026-03-04T08:00:00Z",
-          business_name: "FL Solar Partners",
-          plan: "AutoScale",
-          setup_fee: 1500,
-          monthly_fee: 2497,
-          status: "active",
-          rep_name: "Tanya Williams",
+          id: '8',
+          created_at: '2026-03-04T08:00:00Z',
+          business_name: 'FL Solar Partners',
+          plan: 'Enterprise',
+          setup_fee: 500,
+          monthly_fee: 3497,
+          status: 'active',
+          rep_name: 'Tanya Williams',
         },
       ];
 
@@ -2041,52 +1941,42 @@
          UTILITIES
       ───────────────────────────────────────── */
       function fmt$$(n) {
-        if (n === null || n === undefined) return "—";
-        return "$" + Math.round(n).toLocaleString("en-US");
+        if (n === null || n === undefined) return '—';
+        return '$' + Math.round(n).toLocaleString('en-US');
       }
 
       function fmtDate(iso) {
-        if (!iso) return "—";
+        if (!iso) return '—';
         const d = new Date(iso);
-        if (isNaN(d)) return "—";
-        return d.toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "2-digit",
-        });
+        if (isNaN(d)) return '—';
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
       }
 
       function fmtMonthYear(iso) {
-        if (!iso) return "—";
+        if (!iso) return '—';
         const d = new Date(iso);
-        return d.toLocaleDateString("en-US", {
-          month: "short",
-          year: "numeric",
-        });
+        return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
       }
 
       function isThisMonth(iso) {
         const d = new Date(iso);
         const now = new Date();
-        return (
-          d.getFullYear() === now.getFullYear() &&
-          d.getMonth() === now.getMonth()
-        );
+        return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
       }
 
       function initials(name) {
-        if (!name) return "?";
+        if (!name) return '?';
         return name
-          .split(" ")
+          .split(' ')
           .map((w) => w[0])
           .slice(0, 2)
-          .join("")
+          .join('')
           .toUpperCase();
       }
 
       function escHtml(str) {
-        const d = document.createElement("div");
-        d.textContent = str || "";
+        const d = document.createElement('div');
+        d.textContent = str || '';
         return d.innerHTML;
       }
 
@@ -2094,11 +1984,11 @@
          STATUS BADGE
       ───────────────────────────────────────── */
       const STATUS_LABELS = {
-        sent: "Sent",
-        signed: "Signed",
-        onboarding: "Onboarding",
-        active: "Active",
-        churned: "Churned",
+        sent: 'Sent',
+        signed: 'Signed',
+        onboarding: 'Onboarding',
+        active: 'Active',
+        churned: 'Churned',
       };
 
       function badgeHtml(status) {
@@ -2115,7 +2005,7 @@
           const timeout = setTimeout(() => controller.abort(), 8000);
           const res = await fetch(API_URL, {
             signal: controller.signal,
-            headers: { Accept: "application/json" },
+            headers: { Accept: 'application/json' },
           });
           clearTimeout(timeout);
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2127,10 +2017,7 @@
           return json?.deals || [];
         } catch (err) {
           // Fallback to mock data in local/demo environments
-          if (
-            window.location.hostname === "localhost" ||
-            window.location.protocol === "file:"
-          ) {
+          if (window.location.hostname === 'localhost' || window.location.protocol === 'file:') {
             return MOCK_DEALS;
           }
           throw err;
@@ -2142,40 +2029,40 @@
       ───────────────────────────────────────── */
       function renderSummary(deals) {
         const total = deals.length;
-        const pending = deals.filter((d) => d.status === "sent").length;
-        const active = deals.filter((d) => d.status === "active").length;
+        const pending = deals.filter((d) => d.status === 'sent').length;
+        const active = deals.filter((d) => d.status === 'active').length;
         const mrr = deals
-          .filter((d) => d.status === "active")
+          .filter((d) => d.status === 'active')
           .reduce((s, d) => s + (d.monthly_fee || 0), 0);
 
         const fields = {
-          "val-total": {
+          'val-total': {
             val: total,
-            meta: `${deals.filter((d) => d.status !== "churned").length} non-churned`,
+            meta: `${deals.filter((d) => d.status !== 'churned').length} non-churned`,
           },
-          "val-pending": {
+          'val-pending': {
             val: pending,
             meta:
               pending === 1
-                ? "1 contract awaiting signature"
+                ? '1 contract awaiting signature'
                 : `${pending} contracts awaiting signature`,
           },
-          "val-active": {
+          'val-active': {
             val: active,
-            meta: `${deals.filter((d) => d.status === "onboarding").length} onboarding`,
+            meta: `${deals.filter((d) => d.status === 'onboarding').length} onboarding`,
           },
-          "val-mrr": { val: fmt$$(mrr), meta: `${active} paying clients` },
+          'val-mrr': { val: fmt$$(mrr), meta: `${active} paying clients` },
         };
 
         Object.entries(fields).forEach(([id, { val, meta }]) => {
           const el = document.getElementById(id);
-          const metaEl = document.getElementById(id.replace("val-", "meta-"));
+          const metaEl = document.getElementById(id.replace('val-', 'meta-'));
           if (el) {
-            el.className = "stat-value";
+            el.className = 'stat-value';
             el.textContent = val;
           }
           if (metaEl) {
-            metaEl.className = "stat-meta";
+            metaEl.className = 'stat-meta';
             metaEl.textContent = meta;
           }
         });
@@ -2185,16 +2072,16 @@
          BUILD TABLE ROW
       ───────────────────────────────────────── */
       function buildRow(deal) {
-        const tr = document.createElement("tr");
+        const tr = document.createElement('tr');
         tr.dataset.id = deal.id;
         tr.innerHTML = `
           <td class="td-date">${fmtDate(deal.created_at)}</td>
           <td class="td-business"><span title="${escHtml(deal.business_name)}">${escHtml(deal.business_name)}</span></td>
-          <td class="td-plan">${escHtml(deal.plan || "—")}</td>
+          <td class="td-plan">${escHtml(deal.plan || '—')}</td>
           <td class="td-fee setup">${fmt$$(deal.setup_fee)}</td>
           <td class="td-fee monthly">${fmt$$(deal.monthly_fee)}</td>
           <td>${badgeHtml(deal.status)}</td>
-          <td class="td-rep">${escHtml(deal.rep_name || "—")}</td>
+          <td class="td-rep">${escHtml(deal.rep_name || '—')}</td>
           <td>
             <div class="action-wrap">
               <button
@@ -2224,9 +2111,9 @@
                     <span class="action-item-dot" style="background:${statusColor(val)}" aria-hidden="true"></span>
                     ${label}
                   </button>
-                `,
+                `
                   )
-                  .join("")}
+                  .join('')}
               </div>
             </div>
           </td>
@@ -2238,14 +2125,14 @@
          BUILD MOBILE CARD
       ───────────────────────────────────────── */
       function buildMobileCard(deal) {
-        const div = document.createElement("div");
-        div.className = "deal-card";
+        const div = document.createElement('div');
+        div.className = 'deal-card';
         div.dataset.id = deal.id;
         div.innerHTML = `
           <div class="deal-card-header">
             <div>
               <div class="deal-card-title">${escHtml(deal.business_name)}</div>
-              <div class="deal-card-plan">${escHtml(deal.plan || "—")}</div>
+              <div class="deal-card-plan">${escHtml(deal.plan || '—')}</div>
             </div>
             ${badgeHtml(deal.status)}
           </div>
@@ -2264,11 +2151,11 @@
             </div>
             <div class="meta-item">
               <div class="meta-item-label">Rep</div>
-              <div class="meta-item-value" style="font-size:12px;color:var(--text-2)">${escHtml(deal.rep_name || "—")}</div>
+              <div class="meta-item-value" style="font-size:12px;color:var(--text-2)">${escHtml(deal.rep_name || '—')}</div>
             </div>
           </div>
           <div class="deal-card-footer">
-            <div class="deal-card-rep">${escHtml(deal.rep_name || "—")}</div>
+            <div class="deal-card-rep">${escHtml(deal.rep_name || '—')}</div>
             <div class="action-wrap">
               <button
                 class="action-btn"
@@ -2297,9 +2184,9 @@
                     <span class="action-item-dot" style="background:${statusColor(val)}" aria-hidden="true"></span>
                     ${label}
                   </button>
-                `,
+                `
                   )
-                  .join("")}
+                  .join('')}
               </div>
             </div>
           </div>
@@ -2309,44 +2196,44 @@
 
       function statusColor(status) {
         const map = {
-          sent: "#60a5fa",
-          signed: "#fbbf24",
-          onboarding: "#a78bfa",
-          active: "#4ade80",
-          churned: "#f87171",
+          sent: '#60a5fa',
+          signed: '#fbbf24',
+          onboarding: '#a78bfa',
+          active: '#4ade80',
+          churned: '#f87171',
         };
-        return map[status] || "#8e8ea0";
+        return map[status] || '#8e8ea0';
       }
 
       /* ─────────────────────────────────────────
          RENDER TABLE
       ───────────────────────────────────────── */
       function renderTable(deals) {
-        const tbody = document.getElementById("table-body");
-        const mobileCards = document.getElementById("mobile-cards");
-        const emptyState = document.getElementById("empty-state");
-        const errorState = document.getElementById("error-state");
-        const countBadge = document.getElementById("deal-count-badge");
+        const tbody = document.getElementById('table-body');
+        const mobileCards = document.getElementById('mobile-cards');
+        const emptyState = document.getElementById('empty-state');
+        const errorState = document.getElementById('error-state');
+        const countBadge = document.getElementById('deal-count-badge');
 
         // Clear
-        tbody.innerHTML = "";
-        mobileCards.innerHTML = "";
-        tbody.setAttribute("aria-busy", "false");
+        tbody.innerHTML = '';
+        mobileCards.innerHTML = '';
+        tbody.setAttribute('aria-busy', 'false');
 
-        emptyState.style.display = "none";
-        errorState.style.display = "none";
+        emptyState.style.display = 'none';
+        errorState.style.display = 'none';
 
-        countBadge.textContent = `${deals.length} deal${deals.length !== 1 ? "s" : ""}`;
+        countBadge.textContent = `${deals.length} deal${deals.length !== 1 ? 's' : ''}`;
 
         if (deals.length === 0) {
           const isFiltered = isAnyFilterActive();
-          document.getElementById("empty-title").textContent = isFiltered
-            ? "No matching deals"
-            : "No deals yet";
-          document.getElementById("empty-body").textContent = isFiltered
-            ? "Try adjusting your filters to see more results."
-            : "Close your first deal and it will appear here.";
-          emptyState.style.display = "block";
+          document.getElementById('empty-title').textContent = isFiltered
+            ? 'No matching deals'
+            : 'No deals yet';
+          document.getElementById('empty-body').textContent = isFiltered
+            ? 'Try adjusting your filters to see more results.'
+            : 'Close your first deal and it will appear here.';
+          emptyState.style.display = 'block';
           return;
         }
 
@@ -2359,68 +2246,57 @@
       /* ─────────────────────────────────────────
          RENDER COMMISSIONS
       ───────────────────────────────────────── */
-      // Commission calc: 50/50 gross profit split on setup + monthly
-      const calcMonthlyResidual = (deal) => {
-        return (deal.monthly_fee || 0) * MONTHLY_RESIDUAL_RATE;
-      };
-      const calcSetupCommission = (deal) => {
-        return (deal.setup_fee || 0) * SETUP_COMMISSION_RATE;
-      };
-
       function renderCommissions(deals) {
-        const activeDeals = deals.filter((d) => d.status === "active");
+        const activeDeals = deals.filter((d) => d.status === 'active');
         const now = new Date();
-        const thisMonthActive = activeDeals.filter((d) =>
-          isThisMonth(d.created_at),
-        );
+        const thisMonthActive = activeDeals.filter((d) => isThisMonth(d.created_at));
 
-        const totalAll = activeDeals.reduce(
-          (s, d) => s + calcMonthlyResidual(d),
-          0,
-        );
-        const totalMonth = thisMonthActive.reduce(
-          (s, d) => s + calcMonthlyResidual(d),
-          0,
-        );
-        const totalSetup = activeDeals.reduce(
-          (s, d) => s + calcSetupCommission(d),
-          0,
-        );
+        // Commission calc: 20% of setup fee (one-time) + 20% of monthly (residual)
+        const calcMonthlyResidual = (deal) => {
+          return (deal.monthly_fee || 0) * MONTHLY_RESIDUAL_RATE;
+        };
+        const calcSetupCommission = (deal) => {
+          return (deal.setup_fee || 0) * SETUP_COMMISSION_RATE;
+        };
+
+        const totalAll = activeDeals.reduce((s, d) => s + calcMonthlyResidual(d), 0);
+        const totalMonth = thisMonthActive.reduce((s, d) => s + calcMonthlyResidual(d), 0);
+        const totalSetup = activeDeals.reduce((s, d) => s + calcSetupCommission(d), 0);
 
         // Update summary cards
         const fields = {
-          "comm-month": {
+          'comm-month': {
             val: fmt$$(totalMonth),
-            sub: `${thisMonthActive.length} new client${thisMonthActive.length !== 1 ? "s" : ""} this month (residual)`,
+            sub: `${thisMonthActive.length} new client${thisMonthActive.length !== 1 ? 's' : ''} this month (residual)`,
           },
-          "comm-total": {
+          'comm-total': {
             val: fmt$$(totalAll + totalSetup),
             sub: `${fmt$$(totalSetup)} setup + ${fmt$$(totalAll)}/mo residual`,
           },
-          "comm-active-count": {
+          'comm-active-count': {
             val: activeDeals.length,
-            sub: `avg. ${fmt$$(activeDeals.length ? activeDeals.reduce((s, d) => s + calcMonthlyResidual(d), 0) / activeDeals.length : 0)}/mo per client`,
+            sub: `avg. ${fmt$$(activeDeals.length ? calcMonthlyResidual(activeDeals[0]) : 0)}/mo residual`,
           },
         };
 
         Object.entries(fields).forEach(([id, { val, sub }]) => {
           const el = document.getElementById(id);
-          const subEl = document.getElementById(id + "-sub");
+          const subEl = document.getElementById(id + '-sub');
           if (el) {
-            el.className = "commission-card-value";
+            el.className = 'commission-card-value';
             el.textContent = val;
           }
           if (subEl) {
-            subEl.className = "commission-card-sub";
+            subEl.className = 'commission-card-sub';
             subEl.textContent = sub;
           }
         });
 
         // Per-deal breakdown table
-        const tbody = document.getElementById("commission-breakdown-body");
-        const mobileDivs = document.getElementById("commission-mobile-cards");
-        tbody.innerHTML = "";
-        mobileDivs.innerHTML = "";
+        const tbody = document.getElementById('commission-breakdown-body');
+        const mobileDivs = document.getElementById('commission-mobile-cards');
+        tbody.innerHTML = '';
+        mobileDivs.innerHTML = '';
 
         if (activeDeals.length === 0) {
           tbody.innerHTML = `
@@ -2436,10 +2312,10 @@
         activeDeals.forEach((deal) => {
           const setupComm = calcSetupCommission(deal);
           const residual = calcMonthlyResidual(deal);
-          const tr = document.createElement("tr");
+          const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${escHtml(deal.business_name)}</td>
-            <td class="td-plan">${escHtml(deal.plan || "—")}</td>
+            <td class="td-plan">${escHtml(deal.plan || '—')}</td>
             <td class="td-mono">${fmt$$(deal.monthly_fee)}</td>
             <td class="td-gp">${fmt$$(setupComm)}</td>
             <td class="td-commission">${fmt$$(residual)}</td>
@@ -2447,13 +2323,13 @@
           tbody.appendChild(tr);
 
           // Mobile card
-          const card = document.createElement("div");
+          const card = document.createElement('div');
           card.style.cssText =
-            "background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;";
+            'background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;';
           card.innerHTML = `
             <div style="grid-column:1/-1;font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">${escHtml(deal.business_name)}</div>
-            <div><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Setup (50%)</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green)">${fmt$$(setupComm)}</div></div>
-            <div><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Monthly (50%)</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green)">${fmt$$(residual)}</div></div>
+            <div><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Setup (20%)</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green)">${fmt$$(setupComm)}</div></div>
+            <div><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Residual (20%)</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green)">${fmt$$(residual)}</div></div>
             <div style="grid-column:1/-1;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:8px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;"><span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Monthly Residual</span><span style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--gold)">${fmt$$(residual)}</span></div>
           `;
           mobileDivs.appendChild(card);
@@ -2467,23 +2343,16 @@
          REP BREAKDOWN
       ───────────────────────────────────────── */
       function renderRepBreakdown(deals) {
-        const container = document.getElementById("rep-breakdown-body");
-        const badge = document.getElementById("rep-count-badge");
+        const container = document.getElementById('rep-breakdown-body');
+        const badge = document.getElementById('rep-count-badge');
 
         // Group by rep
         const byRep = {};
         deals.forEach((deal) => {
-          const rep = deal.rep_name || "Unknown Rep";
-          if (!byRep[rep])
-            byRep[rep] = {
-              deals: 0,
-              active: 0,
-              setupComm: 0,
-              residual: 0,
-              mrr: 0,
-            };
+          const rep = deal.rep_name || 'Unknown Rep';
+          if (!byRep[rep]) byRep[rep] = { deals: 0, active: 0, setupComm: 0, residual: 0, mrr: 0 };
           byRep[rep].deals++;
-          if (deal.status === "active") {
+          if (deal.status === 'active') {
             byRep[rep].active++;
             byRep[rep].mrr += deal.monthly_fee || 0;
             byRep[rep].setupComm += calcSetupCommission(deal);
@@ -2491,12 +2360,10 @@
           }
         });
 
-        const reps = Object.entries(byRep).sort(
-          (a, b) => b[1].residual - a[1].residual,
-        );
-        badge.textContent = `${reps.length} rep${reps.length !== 1 ? "s" : ""}`;
+        const reps = Object.entries(byRep).sort((a, b) => b[1].residual - a[1].residual);
+        badge.textContent = `${reps.length} rep${reps.length !== 1 ? 's' : ''}`;
 
-        container.innerHTML = "";
+        container.innerHTML = '';
 
         if (reps.length === 0) {
           container.innerHTML = `<div style="padding:24px 20px;text-align:center;color:var(--muted);font-size:13px;">No rep data available.</div>`;
@@ -2504,8 +2371,8 @@
         }
 
         reps.forEach(([repName, stats]) => {
-          const row = document.createElement("div");
-          row.className = "rep-row";
+          const row = document.createElement('div');
+          row.className = 'rep-row';
           row.innerHTML = `
             <div class="rep-name">
               <div class="rep-avatar" aria-hidden="true">${initials(repName)}</div>
@@ -2521,11 +2388,11 @@
                 <div class="rep-stat-value">${stats.active}</div>
               </div>
               <div class="rep-stat">
-                <div class="rep-stat-label">Setup (50%)</div>
+                <div class="rep-stat-label">Setup (20%)</div>
                 <div class="rep-stat-value">${fmt$$(stats.setupComm)}</div>
               </div>
               <div class="rep-stat">
-                <div class="rep-stat-label">Monthly (50%)</div>
+                <div class="rep-stat-label">Residual (20%)</div>
                 <div class="rep-stat-value gold">${fmt$$(stats.residual)}</div>
               </div>
             </div>
@@ -2539,35 +2406,25 @@
       ───────────────────────────────────────── */
       function isAnyFilterActive() {
         return (
-          document.getElementById("filter-status").value !== "" ||
-          document.getElementById("filter-rep").value.trim() !== "" ||
-          document.getElementById("filter-business").value.trim() !== "" ||
-          document.getElementById("filter-from").value !== "" ||
-          document.getElementById("filter-to").value !== ""
+          document.getElementById('filter-status').value !== '' ||
+          document.getElementById('filter-rep').value.trim() !== '' ||
+          document.getElementById('filter-business').value.trim() !== '' ||
+          document.getElementById('filter-from').value !== '' ||
+          document.getElementById('filter-to').value !== ''
         );
       }
 
       function applyFilters() {
-        const status = document.getElementById("filter-status").value;
-        const rep = document
-          .getElementById("filter-rep")
-          .value.trim()
-          .toLowerCase();
-        const business = document
-          .getElementById("filter-business")
-          .value.trim()
-          .toLowerCase();
-        const from = document.getElementById("filter-from").value;
-        const to = document.getElementById("filter-to").value;
+        const status = document.getElementById('filter-status').value;
+        const rep = document.getElementById('filter-rep').value.trim().toLowerCase();
+        const business = document.getElementById('filter-business').value.trim().toLowerCase();
+        const from = document.getElementById('filter-from').value;
+        const to = document.getElementById('filter-to').value;
 
         filteredDeals = allDeals.filter((deal) => {
           if (status && deal.status !== status) return false;
-          if (rep && !(deal.rep_name || "").toLowerCase().includes(rep))
-            return false;
-          if (
-            business &&
-            !(deal.business_name || "").toLowerCase().includes(business)
-          )
+          if (rep && !(deal.rep_name || '').toLowerCase().includes(rep)) return false;
+          if (business && !(deal.business_name || '').toLowerCase().includes(business))
             return false;
           if (from) {
             const fromDate = new Date(from);
@@ -2586,11 +2443,11 @@
       }
 
       function clearFilters() {
-        document.getElementById("filter-status").value = "";
-        document.getElementById("filter-rep").value = "";
-        document.getElementById("filter-business").value = "";
-        document.getElementById("filter-from").value = "";
-        document.getElementById("filter-to").value = "";
+        document.getElementById('filter-status').value = '';
+        document.getElementById('filter-rep').value = '';
+        document.getElementById('filter-business').value = '';
+        document.getElementById('filter-from').value = '';
+        document.getElementById('filter-to').value = '';
         filteredDeals = [...allDeals];
         renderTable(filteredDeals);
         renderCommissions(filteredDeals);
@@ -2610,23 +2467,17 @@
 
         try {
           const res = await fetch(`${API_URL}/${dealId}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
             body: JSON.stringify({ status: newStatus }),
           });
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
         } catch {
           // Rollback on failure (unless local demo)
-          if (
-            window.location.hostname !== "localhost" &&
-            window.location.protocol !== "file:"
-          ) {
+          if (window.location.hostname !== 'localhost' && window.location.protocol !== 'file:') {
             deal.status = oldStatus;
             applyFilters();
-            showToast("Failed to update status — reverted", true);
+            showToast('Failed to update status — reverted', true);
           }
         }
       }
@@ -2635,33 +2486,32 @@
          DROPDOWN MANAGEMENT
       ───────────────────────────────────────── */
       function closeAllDropdowns() {
-        document.querySelectorAll(".action-dropdown.open").forEach((d) => {
-          d.classList.remove("open");
+        document.querySelectorAll('.action-dropdown.open').forEach((d) => {
+          d.classList.remove('open');
           const btn = d.previousElementSibling;
-          if (btn) btn.setAttribute("aria-expanded", "false");
+          if (btn) btn.setAttribute('aria-expanded', 'false');
         });
         openDropdown = null;
       }
 
-      document.addEventListener("click", (e) => {
-        const btn = e.target.closest(".action-btn");
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.action-btn');
         if (btn) {
-          const ddId = "dd-" + btn.dataset.id;
+          const ddId = 'dd-' + btn.dataset.id;
           const dd =
-            document.getElementById(ddId) ||
-            document.getElementById("dd-mob-" + btn.dataset.id);
+            document.getElementById(ddId) || document.getElementById('dd-mob-' + btn.dataset.id);
           if (!dd) return;
-          const isOpen = dd.classList.contains("open");
+          const isOpen = dd.classList.contains('open');
           closeAllDropdowns();
           if (!isOpen) {
-            dd.classList.add("open");
-            btn.setAttribute("aria-expanded", "true");
+            dd.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
             openDropdown = dd;
           }
           return;
         }
 
-        const item = e.target.closest(".action-item");
+        const item = e.target.closest('.action-item');
         if (item) {
           const { status, dealId } = item.dataset;
           closeAllDropdowns();
@@ -2669,78 +2519,69 @@
           return;
         }
 
-        if (!e.target.closest(".action-wrap")) {
+        if (!e.target.closest('.action-wrap')) {
           closeAllDropdowns();
         }
       });
 
       // Keyboard nav for dropdowns
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeAllDropdowns();
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAllDropdowns();
       });
 
       /* ─────────────────────────────────────────
          TOGGLE COMMISSION BREAKDOWN
       ───────────────────────────────────────── */
-      document
-        .getElementById("btn-toggle-breakdown")
-        .addEventListener("click", function () {
-          const tbody = document
-            .getElementById("commission-breakdown-body")
-            .closest("table");
-          const mobile = document.getElementById("commission-mobile-cards");
-          const expanded = this.getAttribute("aria-expanded") === "true";
-          tbody.style.display = expanded ? "none" : "";
-          mobile.style.display = expanded ? "none" : "";
-          this.textContent = expanded ? "Show" : "Hide";
-          this.setAttribute("aria-expanded", String(!expanded));
-        });
+      document.getElementById('btn-toggle-breakdown').addEventListener('click', function () {
+        const tbody = document.getElementById('commission-breakdown-body').closest('table');
+        const mobile = document.getElementById('commission-mobile-cards');
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        tbody.style.display = expanded ? 'none' : '';
+        mobile.style.display = expanded ? 'none' : '';
+        this.textContent = expanded ? 'Show' : 'Hide';
+        this.setAttribute('aria-expanded', String(!expanded));
+      });
 
       /* ─────────────────────────────────────────
          TOAST
       ───────────────────────────────────────── */
       let toastTimer = null;
       function showToast(msg, isError = false) {
-        const el = document.getElementById("toast");
+        const el = document.getElementById('toast');
         el.textContent = msg;
-        el.style.borderColor = isError
-          ? "rgba(248,113,113,0.3)"
-          : "var(--border-2)";
-        el.style.color = isError ? "var(--red)" : "var(--text)";
-        el.classList.add("show");
+        el.style.borderColor = isError ? 'rgba(248,113,113,0.3)' : 'var(--border-2)';
+        el.style.color = isError ? 'var(--red)' : 'var(--text)';
+        el.classList.add('show');
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => el.classList.remove("show"), 2800);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
       }
 
       /* ─────────────────────────────────────────
          SHOW ERROR STATE
       ───────────────────────────────────────── */
       function showError(msg) {
-        const tbody = document.getElementById("table-body");
-        const errorState = document.getElementById("error-state");
-        tbody.innerHTML = "";
-        tbody.setAttribute("aria-busy", "false");
-        document.getElementById("error-msg").textContent =
-          msg || "Unknown error";
-        errorState.style.display = "block";
+        const tbody = document.getElementById('table-body');
+        const errorState = document.getElementById('error-state');
+        tbody.innerHTML = '';
+        tbody.setAttribute('aria-busy', 'false');
+        document.getElementById('error-msg').textContent = msg || 'Unknown error';
+        errorState.style.display = 'block';
 
         // Update stat values
-        ["val-total", "val-pending", "val-active", "val-mrr"].forEach((id) => {
+        ['val-total', 'val-pending', 'val-active', 'val-mrr'].forEach((id) => {
           const el = document.getElementById(id);
           if (el) {
-            el.className = "stat-value";
-            el.textContent = "—";
+            el.className = 'stat-value';
+            el.textContent = '—';
           }
         });
-        ["meta-total", "meta-pending", "meta-active", "meta-mrr"].forEach(
-          (id) => {
-            const el = document.getElementById(id);
-            if (el) {
-              el.className = "stat-meta";
-              el.textContent = "Error loading data";
-            }
-          },
-        );
+        ['meta-total', 'meta-pending', 'meta-active', 'meta-mrr'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.className = 'stat-meta';
+            el.textContent = 'Error loading data';
+          }
+        });
       }
 
       /* ─────────────────────────────────────────
@@ -2755,7 +2596,7 @@
           applyFilters();
           renderSummary(data);
         } catch (err) {
-          showError(err.message || "Network error");
+          showError(err.message || 'Network error');
         }
       }
 
@@ -2773,7 +2614,7 @@
       }
 
       function updateCountdownLabel() {
-        const el = document.getElementById("countdown");
+        const el = document.getElementById('countdown');
         if (el) el.textContent = countdown;
       }
 
@@ -2785,28 +2626,20 @@
       /* ─────────────────────────────────────────
          FILTER EVENT LISTENERS
       ───────────────────────────────────────── */
-      document
-        .getElementById("btn-apply")
-        .addEventListener("click", applyFilters);
-      document
-        .getElementById("btn-clear")
-        .addEventListener("click", clearFilters);
-      document.getElementById("btn-retry").addEventListener("click", loadDeals);
+      document.getElementById('btn-apply').addEventListener('click', applyFilters);
+      document.getElementById('btn-clear').addEventListener('click', clearFilters);
+      document.getElementById('btn-retry').addEventListener('click', loadDeals);
 
       // Allow Enter on filter inputs
-      [
-        "filter-status",
-        "filter-rep",
-        "filter-business",
-        "filter-from",
-        "filter-to",
-      ].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el)
-          el.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") applyFilters();
-          });
-      });
+      ['filter-status', 'filter-rep', 'filter-business', 'filter-from', 'filter-to'].forEach(
+        (id) => {
+          const el = document.getElementById(id);
+          if (el)
+            el.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter') applyFilters();
+            });
+        }
+      );
 
       /* ─────────────────────────────────────────
          INIT

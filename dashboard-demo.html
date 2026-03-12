@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <title>Live Demo Dashboard — AutoScale AI</title>
     <meta name="robots" content="noindex, nofollow" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,8 +41,8 @@
         --muted-low: rgba(200, 210, 220, 0.25);
         --muted-xlow: rgba(200, 210, 220, 0.2);
         --border-subtle: rgba(60, 70, 80, 0.2);
-        --mono: "JetBrains Mono", ui-monospace, monospace;
-        --display: "Plus Jakarta Sans", system-ui, sans-serif;
+        --mono: 'JetBrains Mono', ui-monospace, monospace;
+        --display: 'Plus Jakarta Sans', system-ui, sans-serif;
       }
 
       html {
@@ -70,7 +70,10 @@
         font-family: var(--display);
         background: var(--bg);
         color: #e0e4ea;
+        /* FIX: use overflow-x: hidden on body instead of overflow: hidden
+           to avoid iOS Safari scroll-blocking */
         overflow-x: hidden;
+        /* FIX: bottom padding for sticky CTA bar */
         padding-bottom: 64px;
       }
 
@@ -206,7 +209,7 @@
 
       /* Grid overlay */
       #app::before {
-        content: "";
+        content: '';
         position: fixed;
         inset: 0;
         pointer-events: none;
@@ -237,11 +240,7 @@
         right: 0;
         height: 8rem;
         pointer-events: none;
-        background: linear-gradient(
-          180deg,
-          rgba(10, 11, 16, 0.5) 0%,
-          transparent 100%
-        );
+        background: linear-gradient(180deg, rgba(10, 11, 16, 0.5) 0%, transparent 100%);
         z-index: 2;
       }
 
@@ -553,7 +552,7 @@
         font-weight: 800;
         letter-spacing: -0.03em;
         font-variant-numeric: tabular-nums;
-        font-feature-settings: "tnum";
+        font-feature-settings: 'tnum';
         line-height: 1;
       }
 
@@ -805,7 +804,7 @@
         font-size: 12px;
         color: rgba(200, 210, 220, 0.5);
         font-variant-numeric: tabular-nums;
-        font-feature-settings: "tnum";
+        font-feature-settings: 'tnum';
       }
 
       .chevron {
@@ -1955,22 +1954,13 @@
         width: 320px;
         height: 160px;
         pointer-events: none;
-        background: radial-gradient(
-          ellipse,
-          rgba(59, 158, 255, 0.08) 0%,
-          transparent 70%
-        );
+        background: radial-gradient(ellipse, rgba(59, 158, 255, 0.08) 0%, transparent 70%);
       }
 
       .cta-divider {
         width: 80px;
         height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(59, 158, 255, 0.3),
-          transparent
-        );
+        background: linear-gradient(90deg, transparent, rgba(59, 158, 255, 0.3), transparent);
       }
 
       .cta-text {
@@ -2240,17 +2230,11 @@
       }
 
       .shimmer-bar::after {
-        content: "";
+        content: '';
         display: block;
         height: 100%;
         width: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          #3b9eff,
-          #00c8ff,
-          transparent
-        );
+        background: linear-gradient(90deg, transparent, #3b9eff, #00c8ff, transparent);
         background-size: 200% 100%;
         animation: shimmer 3s linear infinite;
       }
@@ -2291,9 +2275,7 @@
           <div class="biz-header">
             <div>
               <h1 class="biz-name" id="biz-name">Mike's Roofing Co.</h1>
-              <p class="biz-sub" id="biz-sub">
-                Dashboard &middot; Last call 18m ago
-              </p>
+              <p class="biz-sub" id="biz-sub">Dashboard &middot; Last call 18m ago</p>
             </div>
             <div class="biz-right">
               <div class="agent-active-badge">
@@ -2308,8 +2290,8 @@
           <div class="fomo-banner" id="fomo-banner">
             <span class="fomo-icon">&#9889;</span>
             <span class="fomo-text" id="fomo-text">
-              <strong>3 calls answered</strong> while competitors were closed
-              last weekend. 0 missed.
+              <strong>3 calls answered</strong> while competitors were closed last weekend. 0
+              missed.
             </span>
             <span class="fomo-badge">This Week</span>
           </div>
@@ -2319,9 +2301,7 @@
             <!-- 1. Revenue Recovered (FIRST — money talks) -->
             <div
               class="metric-card"
-              style="
-                animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-              "
+              style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both"
             >
               <div
                 class="metric-card-glow-line"
@@ -2330,11 +2310,7 @@
               <div
                 class="metric-card-ambient"
                 style="
-                  background: radial-gradient(
-                    circle,
-                    rgba(74, 222, 128, 0.15) 0%,
-                    transparent 70%
-                  );
+                  background: radial-gradient(circle, rgba(74, 222, 128, 0.15) 0%, transparent 70%);
                 "
               ></div>
               <div
@@ -2350,17 +2326,13 @@
                 $0
               </div>
               <div class="metric-label">Revenue Recovered</div>
-              <div class="metric-sub" id="metric-revenue-sub">
-                From calls you'd have missed
-              </div>
+              <div class="metric-sub" id="metric-revenue-sub">From calls you'd have missed</div>
             </div>
 
             <!-- 2. Calls Answered -->
             <div
               class="metric-card"
-              style="
-                animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
-              "
+              style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both"
             >
               <div
                 class="metric-card-glow-line"
@@ -2369,11 +2341,7 @@
               <div
                 class="metric-card-ambient"
                 style="
-                  background: radial-gradient(
-                    circle,
-                    rgba(59, 158, 255, 0.15) 0%,
-                    transparent 70%
-                  );
+                  background: radial-gradient(circle, rgba(59, 158, 255, 0.15) 0%, transparent 70%);
                 "
               ></div>
               <div
@@ -2394,9 +2362,7 @@
             <!-- 3. Booking Rate -->
             <div
               class="metric-card"
-              style="
-                animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
-              "
+              style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both"
             >
               <div
                 class="metric-card-glow-line"
@@ -2405,17 +2371,13 @@
               <div
                 class="metric-card-ambient"
                 style="
-                  background: radial-gradient(
-                    circle,
-                    rgba(0, 200, 255, 0.15) 0%,
-                    transparent 70%
-                  );
+                  background: radial-gradient(circle, rgba(0, 200, 255, 0.15) 0%, transparent 70%);
                 "
               ></div>
               <div
                 class="metric-value"
                 style="color: #00c8ff"
-                data-counter="73"
+                data-counter="65"
                 data-prefix=""
                 data-suffix="%"
                 data-decimals="0"
@@ -2430,9 +2392,7 @@
             <!-- 4. Appts Today -->
             <div
               class="metric-card"
-              style="
-                animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
-              "
+              style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both"
             >
               <div
                 class="metric-card-glow-line"
@@ -2441,11 +2401,7 @@
               <div
                 class="metric-card-ambient"
                 style="
-                  background: radial-gradient(
-                    circle,
-                    rgba(74, 222, 128, 0.15) 0%,
-                    transparent 70%
-                  );
+                  background: radial-gradient(circle, rgba(74, 222, 128, 0.15) 0%, transparent 70%);
                 "
               ></div>
               <div
@@ -2504,32 +2460,19 @@
                 <!-- Call 0: Sarah J. — EXPANDED by default -->
                 <div
                   class="call-row"
-                  style="
-                    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.05s
-                      both;
-                  "
+                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.05s both"
                 >
-                  <div
-                    class="call-header expanded"
-                    id="call-header-0"
-                    onclick="toggleCall(0)"
-                  >
+                  <div class="call-header expanded" id="call-header-0" onclick="toggleCall(0)">
                     <div class="call-row-1">
                       <div class="call-row-left">
                         <div
                           class="call-dot"
-                          style="
-                            background: #4ade80;
-                            animation: pulse-dot 2s infinite;
-                          "
+                          style="background: #4ade80; animation: pulse-dot 2s infinite"
                         ></div>
                         <span class="call-name">Sarah J.</span>
                         <span
                           class="badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.15);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
                           >Booked</span
                         >
                         <span class="badge badge-new">NEW</span>
@@ -2537,10 +2480,7 @@
                       <div class="call-row-right">
                         <span
                           class="score-badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.12);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
                           >10/10</span
                         >
                         <svg
@@ -2569,22 +2509,15 @@
                       </div>
                     </div>
                     <div class="call-row-2">
-                      <span class="call-service" id="call-0-service"
-                        >Roof Inspection</span
-                      >
+                      <span class="call-service" id="call-0-service">Roof Inspection</span>
                       <span class="call-time">18m ago</span>
                     </div>
                     <div class="call-summary-row">
-                      <svg
-                        class="play-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
+                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
                       <p class="call-summary" id="call-0-summary">
-                        Booked emergency roof inspection for tomorrow 9 AM at
-                        142 Oak St.
+                        Booked emergency roof inspection for tomorrow 9 AM at 142 Oak St.
                       </p>
                     </div>
                   </div>
@@ -2593,18 +2526,10 @@
                     <div>
                       <div class="expand-section-label">Call Recording</div>
                       <div class="audio-player">
-                        <button
-                          class="play-btn"
-                          disabled
-                          title="Available in live demo"
-                        >
-                          <svg viewBox="0 0 24 24">
-                            <polygon points="5 3 19 12 5 21 5 3" />
-                          </svg>
+                        <button class="play-btn" disabled title="Available in live demo">
+                          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
                         </button>
-                        <span class="audio-player-note"
-                          >Tap to hear sample call</span
-                        >
+                        <span class="audio-player-note">Tap to hear sample call</span>
                         <span class="audio-live-demo-tag">Live demo only</span>
                       </div>
                     </div>
@@ -2621,26 +2546,16 @@
                 <!-- Call 1: Mark T. -->
                 <div
                   class="call-row"
-                  style="
-                    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.12s
-                      both;
-                  "
+                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.12s both"
                 >
-                  <div
-                    class="call-header"
-                    id="call-header-1"
-                    onclick="toggleCall(1)"
-                  >
+                  <div class="call-header" id="call-header-1" onclick="toggleCall(1)">
                     <div class="call-row-1">
                       <div class="call-row-left">
                         <div class="call-dot" style="background: #4ade80"></div>
                         <span class="call-name" id="call-1-name">Mark T.</span>
                         <span
                           class="badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.15);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
                           >Booked</span
                         >
                         <span class="badge badge-after">AFTER HRS</span>
@@ -2648,10 +2563,7 @@
                       <div class="call-row-right">
                         <span
                           class="score-badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.12);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
                           >10/10</span
                         >
                         <svg
@@ -2680,22 +2592,15 @@
                       </div>
                     </div>
                     <div class="call-row-2">
-                      <span class="call-service" id="call-1-service"
-                        >Emergency Leak Repair</span
-                      >
+                      <span class="call-service" id="call-1-service">Emergency Leak Repair</span>
                       <span class="call-time">45m ago</span>
                     </div>
                     <div class="call-summary-row">
-                      <svg
-                        class="play-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
+                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
                       <p class="call-summary" id="call-1-summary">
-                        Scheduled same-day leak repair — water damage in master
-                        bedroom.
+                        Scheduled same-day leak repair — water damage in master bedroom.
                       </p>
                     </div>
                   </div>
@@ -2703,18 +2608,10 @@
                     <div>
                       <div class="expand-section-label">Call Recording</div>
                       <div class="audio-player">
-                        <button
-                          class="play-btn"
-                          disabled
-                          title="Available in live demo"
-                        >
-                          <svg viewBox="0 0 24 24">
-                            <polygon points="5 3 19 12 5 21 5 3" />
-                          </svg>
+                        <button class="play-btn" disabled title="Available in live demo">
+                          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
                         </button>
-                        <span class="audio-player-note"
-                          >Tap to hear sample call</span
-                        >
+                        <span class="audio-player-note">Tap to hear sample call</span>
                         <span class="audio-live-demo-tag">Live demo only</span>
                       </div>
                     </div>
@@ -2731,36 +2628,23 @@
                 <!-- Call 2: Lisa R. -->
                 <div
                   class="call-row"
-                  style="
-                    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.19s
-                      both;
-                  "
+                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.19s both"
                 >
-                  <div
-                    class="call-header"
-                    id="call-header-2"
-                    onclick="toggleCall(2)"
-                  >
+                  <div class="call-header" id="call-header-2" onclick="toggleCall(2)">
                     <div class="call-row-1">
                       <div class="call-row-left">
                         <div class="call-dot" style="background: #4ade80"></div>
                         <span class="call-name">Lisa R.</span>
                         <span
                           class="badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.15);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
                           >Booked</span
                         >
                       </div>
                       <div class="call-row-right">
                         <span
                           class="score-badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.12);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
                           >9/10</span
                         >
                         <svg
@@ -2789,22 +2673,15 @@
                       </div>
                     </div>
                     <div class="call-row-2">
-                      <span class="call-service" id="call-2-service"
-                        >Free Estimate</span
-                      >
+                      <span class="call-service" id="call-2-service">Free Estimate</span>
                       <span class="call-time">1h ago</span>
                     </div>
                     <div class="call-summary-row">
-                      <svg
-                        class="play-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
+                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
                       <p class="call-summary" id="call-2-summary">
-                        Booked free estimate for new construction roofing
-                        project.
+                        Booked free estimate for new construction roofing project.
                       </p>
                     </div>
                   </div>
@@ -2812,18 +2689,10 @@
                     <div>
                       <div class="expand-section-label">Call Recording</div>
                       <div class="audio-player">
-                        <button
-                          class="play-btn"
-                          disabled
-                          title="Available in live demo"
-                        >
-                          <svg viewBox="0 0 24 24">
-                            <polygon points="5 3 19 12 5 21 5 3" />
-                          </svg>
+                        <button class="play-btn" disabled title="Available in live demo">
+                          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
                         </button>
-                        <span class="audio-player-note"
-                          >Tap to hear sample call</span
-                        >
+                        <span class="audio-player-note">Tap to hear sample call</span>
                         <span class="audio-live-demo-tag">Live demo only</span>
                       </div>
                     </div>
@@ -2838,36 +2707,23 @@
                 <!-- Call 3: James K. -->
                 <div
                   class="call-row"
-                  style="
-                    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.26s
-                      both;
-                  "
+                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.26s both"
                 >
-                  <div
-                    class="call-header"
-                    id="call-header-3"
-                    onclick="toggleCall(3)"
-                  >
+                  <div class="call-header" id="call-header-3" onclick="toggleCall(3)">
                     <div class="call-row-1">
                       <div class="call-row-left">
                         <div class="call-dot" style="background: #3b9eff"></div>
                         <span class="call-name">James K.</span>
                         <span
                           class="badge"
-                          style="
-                            color: #3b9eff;
-                            background: rgba(59, 158, 255, 0.15);
-                          "
+                          style="color: #3b9eff; background: rgba(59, 158, 255, 0.15)"
                           >Info</span
                         >
                       </div>
                       <div class="call-row-right">
                         <span
                           class="score-badge"
-                          style="
-                            color: #3b9eff;
-                            background: rgba(59, 158, 255, 0.12);
-                          "
+                          style="color: #3b9eff; background: rgba(59, 158, 255, 0.12)"
                           >8/10</span
                         >
                         <svg
@@ -2896,22 +2752,15 @@
                       </div>
                     </div>
                     <div class="call-row-2">
-                      <span class="call-service" id="call-3-service"
-                        >Pricing Inquiry</span
-                      >
+                      <span class="call-service" id="call-3-service">Pricing Inquiry</span>
                       <span class="call-time">2h ago</span>
                     </div>
                     <div class="call-summary-row">
-                      <svg
-                        class="play-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
+                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
                       <p class="call-summary" id="call-3-summary">
-                        Provided pricing info, offered free estimate. Callback
-                        scheduled.
+                        Provided pricing info, offered free estimate. Callback scheduled.
                       </p>
                     </div>
                   </div>
@@ -2919,18 +2768,10 @@
                     <div>
                       <div class="expand-section-label">Call Recording</div>
                       <div class="audio-player">
-                        <button
-                          class="play-btn"
-                          disabled
-                          title="Available in live demo"
-                        >
-                          <svg viewBox="0 0 24 24">
-                            <polygon points="5 3 19 12 5 21 5 3" />
-                          </svg>
+                        <button class="play-btn" disabled title="Available in live demo">
+                          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
                         </button>
-                        <span class="audio-player-note"
-                          >Tap to hear sample call</span
-                        >
+                        <span class="audio-player-note">Tap to hear sample call</span>
                         <span class="audio-live-demo-tag">Live demo only</span>
                       </div>
                     </div>
@@ -2945,26 +2786,16 @@
                 <!-- Call 4: Amy D. -->
                 <div
                   class="call-row"
-                  style="
-                    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.33s
-                      both;
-                  "
+                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.33s both"
                 >
-                  <div
-                    class="call-header"
-                    id="call-header-4"
-                    onclick="toggleCall(4)"
-                  >
+                  <div class="call-header" id="call-header-4" onclick="toggleCall(4)">
                     <div class="call-row-1">
                       <div class="call-row-left">
                         <div class="call-dot" style="background: #4ade80"></div>
                         <span class="call-name">Amy D.</span>
                         <span
                           class="badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.15);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
                           >Booked</span
                         >
                         <span class="badge badge-after">AFTER HRS</span>
@@ -2972,10 +2803,7 @@
                       <div class="call-row-right">
                         <span
                           class="score-badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.12);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
                           >10/10</span
                         >
                         <svg
@@ -3004,22 +2832,15 @@
                       </div>
                     </div>
                     <div class="call-row-2">
-                      <span class="call-service" id="call-4-service"
-                        >Emergency Appointment</span
-                      >
+                      <span class="call-service" id="call-4-service">Emergency Appointment</span>
                       <span class="call-time">3h ago</span>
                     </div>
                     <div class="call-summary-row">
-                      <svg
-                        class="play-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
+                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
                       <p class="call-summary" id="call-4-summary">
-                        Booked urgent appointment for Friday PM — confirmed via
-                        text.
+                        Booked urgent appointment for Friday PM — confirmed via text.
                       </p>
                     </div>
                   </div>
@@ -3027,18 +2848,10 @@
                     <div>
                       <div class="expand-section-label">Call Recording</div>
                       <div class="audio-player">
-                        <button
-                          class="play-btn"
-                          disabled
-                          title="Available in live demo"
-                        >
-                          <svg viewBox="0 0 24 24">
-                            <polygon points="5 3 19 12 5 21 5 3" />
-                          </svg>
+                        <button class="play-btn" disabled title="Available in live demo">
+                          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
                         </button>
-                        <span class="audio-player-note"
-                          >Tap to hear sample call</span
-                        >
+                        <span class="audio-player-note">Tap to hear sample call</span>
                         <span class="audio-live-demo-tag">Live demo only</span>
                       </div>
                     </div>
@@ -3053,36 +2866,23 @@
                 <!-- Calls 5-7 hidden by default -->
                 <div
                   class="call-row hidden extra-call"
-                  style="
-                    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.4s
-                      both;
-                  "
+                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both"
                 >
-                  <div
-                    class="call-header"
-                    id="call-header-5"
-                    onclick="toggleCall(5)"
-                  >
+                  <div class="call-header" id="call-header-5" onclick="toggleCall(5)">
                     <div class="call-row-1">
                       <div class="call-row-left">
                         <div class="call-dot" style="background: #fbbf24"></div>
                         <span class="call-name">Chris W.</span>
                         <span
                           class="badge"
-                          style="
-                            color: #fbbf24;
-                            background: rgba(251, 191, 36, 0.15);
-                          "
+                          style="color: #fbbf24; background: rgba(251, 191, 36, 0.15)"
                           >Callback</span
                         >
                       </div>
                       <div class="call-row-right">
                         <span
                           class="score-badge"
-                          style="
-                            color: #fbbf24;
-                            background: rgba(251, 191, 36, 0.12);
-                          "
+                          style="color: #fbbf24; background: rgba(251, 191, 36, 0.12)"
                           >7/10</span
                         >
                         <svg
@@ -3111,22 +2911,15 @@
                       </div>
                     </div>
                     <div class="call-row-2">
-                      <span class="call-service" id="call-5-service"
-                        >Service Request</span
-                      >
+                      <span class="call-service" id="call-5-service">Service Request</span>
                       <span class="call-time">4h ago</span>
                     </div>
                     <div class="call-summary-row">
-                      <svg
-                        class="play-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
+                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
                       <p class="call-summary">
-                        Customer driving, requested callback. Number saved for
-                        follow-up.
+                        Customer driving, requested callback. Number saved for follow-up.
                       </p>
                     </div>
                   </div>
@@ -3135,26 +2928,16 @@
 
                 <div
                   class="call-row hidden extra-call"
-                  style="
-                    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.47s
-                      both;
-                  "
+                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.47s both"
                 >
-                  <div
-                    class="call-header"
-                    id="call-header-6"
-                    onclick="toggleCall(6)"
-                  >
+                  <div class="call-header" id="call-header-6" onclick="toggleCall(6)">
                     <div class="call-row-1">
                       <div class="call-row-left">
                         <div class="call-dot" style="background: #4ade80"></div>
                         <span class="call-name">Karen M.</span>
                         <span
                           class="badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.15);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
                           >Booked</span
                         >
                         <span class="badge badge-after">AFTER HRS</span>
@@ -3162,10 +2945,7 @@
                       <div class="call-row-right">
                         <span
                           class="score-badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.12);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
                           >9/10</span
                         >
                         <svg
@@ -3194,17 +2974,11 @@
                       </div>
                     </div>
                     <div class="call-row-2">
-                      <span class="call-service" id="call-6-service"
-                        >Large Service Quote</span
-                      >
+                      <span class="call-service" id="call-6-service">Large Service Quote</span>
                       <span class="call-time">5h ago</span>
                     </div>
                     <div class="call-summary-row">
-                      <svg
-                        class="play-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
+                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
                       <p class="call-summary" id="call-6-summary">
@@ -3217,36 +2991,23 @@
 
                 <div
                   class="call-row hidden extra-call"
-                  style="
-                    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.54s
-                      both;
-                  "
+                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.54s both"
                 >
-                  <div
-                    class="call-header"
-                    id="call-header-7"
-                    onclick="toggleCall(7)"
-                  >
+                  <div class="call-header" id="call-header-7" onclick="toggleCall(7)">
                     <div class="call-row-1">
                       <div class="call-row-left">
                         <div class="call-dot" style="background: #4ade80"></div>
                         <span class="call-name">Tom B.</span>
                         <span
                           class="badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.15);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
                           >Booked</span
                         >
                       </div>
                       <div class="call-row-right">
                         <span
                           class="score-badge"
-                          style="
-                            color: #4ade80;
-                            background: rgba(74, 222, 128, 0.12);
-                          "
+                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
                           >10/10</span
                         >
                         <svg
@@ -3275,22 +3036,15 @@
                       </div>
                     </div>
                     <div class="call-row-2">
-                      <span class="call-service" id="call-7-service"
-                        >Emergency Service</span
-                      >
+                      <span class="call-service" id="call-7-service">Emergency Service</span>
                       <span class="call-time">6h ago</span>
                     </div>
                     <div class="call-summary-row">
-                      <svg
-                        class="play-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
+                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
                       <p class="call-summary" id="call-7-summary">
-                        Booked emergency service assessment — possible insurance
-                        claim.
+                        Booked emergency service assessment — possible insurance claim.
                       </p>
                     </div>
                   </div>
@@ -3300,11 +3054,7 @@
               <!-- /calls-list -->
 
               <!-- Show all / collapse button -->
-              <button
-                class="show-all-btn"
-                id="show-all-btn"
-                onclick="toggleShowAll()"
-              >
+              <button class="show-all-btn" id="show-all-btn" onclick="toggleShowAll()">
                 <span id="show-all-text">View all 8 calls</span>
                 <svg
                   class="chevron"
@@ -3329,7 +3079,7 @@
                   <div class="weekly-chart" id="weekly-chart"></div>
                   <div class="weekly-footer">
                     <span class="weekly-footer-label">Weekly Total</span>
-                    <span class="weekly-footer-value">31 calls</span>
+                    <span class="weekly-footer-value">127 calls</span>
                   </div>
                 </div>
               </div>
@@ -3349,16 +3099,14 @@
                       <div class="dot-yellow"></div>
                       <span class="after-hours-label">After-hours calls</span>
                     </div>
-                    <span class="after-hours-value">17 answered</span>
+                    <span class="after-hours-value">34 answered</span>
                   </div>
                 </div>
               </div>
 
               <!-- Top Call Reasons -->
               <div>
-                <div class="section-label" id="call-reasons-label">
-                  Top Call Reasons
-                </div>
+                <div class="section-label" id="call-reasons-label">Top Call Reasons</div>
                 <div class="glass-card" style="padding: 16px">
                   <div class="call-reasons" id="call-reasons"></div>
                 </div>
@@ -3421,11 +3169,7 @@
                     <div class="roi-row">
                       <span class="roi-label">Revenue ROI</span>
                       <div class="roi-value-wrap">
-                        <span
-                          class="roi-value"
-                          data-counter="26"
-                          data-prefix=""
-                          data-suffix="x"
+                        <span class="roi-value" data-counter="26" data-prefix="" data-suffix="x"
                           >0x</span
                         >
                         <div class="roi-tooltip-icon">
@@ -3444,9 +3188,7 @@
                               <span>Net gain</span>
                               <strong>$17,703</strong>
                             </div>
-                            <div class="tooltip-formula">
-                              $18,400 ÷ $697 = 26x return
-                            </div>
+                            <div class="tooltip-formula">$18,400 ÷ $697 = 26x return</div>
                           </div>
                         </div>
                       </div>
@@ -3471,17 +3213,11 @@
                 <div class="comparison-items">
                   <div class="comparison-item">
                     <div class="comparison-item-dot"></div>
-                    <span
-                      ><strong>40%</strong> of calls missed (voicemail or no
-                      answer)</span
-                    >
+                    <span><strong>40%</strong> of calls missed (voicemail or no answer)</span>
                   </div>
                   <div class="comparison-item">
                     <div class="comparison-item-dot"></div>
-                    <span
-                      ><strong>$0</strong> after-hours revenue — doors closed at
-                      5 PM</span
-                    >
+                    <span><strong>$0</strong> after-hours revenue — doors closed at 5 PM</span>
                   </div>
                   <div class="comparison-item">
                     <div class="comparison-item-dot"></div>
@@ -3489,10 +3225,7 @@
                   </div>
                   <div class="comparison-item">
                     <div class="comparison-item-dot"></div>
-                    <span
-                      >Owner answers calls during jobs, estimates,
-                      weekends</span
-                    >
+                    <span>Owner answers calls during jobs, estimates, weekends</span>
                   </div>
                 </div>
               </div>
@@ -3505,30 +3238,22 @@
                   <div class="comparison-item">
                     <div class="comparison-item-dot"></div>
                     <span
-                      ><strong>&gt;99%</strong> system uptime — every call
-                      handled instantly</span
+                      ><strong>&gt;99%</strong> system uptime — every call handled instantly</span
                     >
                   </div>
                   <div class="comparison-item">
                     <div class="comparison-item-dot"></div>
                     <span
-                      ><strong>$18,400+</strong> recovered from after-hours
-                      &amp; missed calls</span
+                      ><strong>$18,400+</strong> recovered from after-hours &amp; missed calls</span
                     >
                   </div>
                   <div class="comparison-item">
                     <div class="comparison-item-dot"></div>
-                    <span
-                      >Automatic booking + SMS confirmation — zero manual
-                      work</span
-                    >
+                    <span>Automatic booking + SMS confirmation — zero manual work</span>
                   </div>
                   <div class="comparison-item">
                     <div class="comparison-item-dot"></div>
-                    <span
-                      >Owner focused on jobs — Alex handles the phones
-                      24/7</span
-                    >
+                    <span>Owner focused on jobs — Alex handles the phones 24/7</span>
                   </div>
                 </div>
               </div>
@@ -3549,11 +3274,7 @@
             <div class="leads-list" id="leads-list"></div>
 
             <!-- Show all leads btn -->
-            <button
-              class="show-all-btn"
-              id="show-all-leads-btn"
-              onclick="toggleShowAllLeads()"
-            >
+            <button class="show-all-btn" id="show-all-leads-btn" onclick="toggleShowAllLeads()">
               <span id="show-all-leads-text">View all 8 leads</span>
               <svg
                 class="chevron"
@@ -3571,9 +3292,7 @@
             <div class="pipeline-value-bar">
               <div class="pipeline-value-glow"></div>
               <span class="pipeline-value-label">Pipeline Value</span>
-              <span class="pipeline-value-amount" id="pipeline-value-amount"
-                >$55,450</span
-              >
+              <span class="pipeline-value-amount" id="pipeline-value-amount">$55,450</span>
             </div>
           </div>
 
@@ -3600,12 +3319,9 @@
               </svg>
               Try the Live Demo
             </a>
-            <span class="cta-phone"
-              >Call (207) 304-9892 &middot; Tap to call live demo</span
-            >
+            <span class="cta-phone">Call (207) 304-9892 &middot; Tap to call live demo</span>
             <span class="slots-warning"
-              >&#9888; Setup available this week — limited onboarding
-              slots</span
+              >&#9888; Setup available this week — limited onboarding slots</span
             >
           </div>
         </div>
@@ -3622,8 +3338,7 @@
     <div class="sticky-cta">
       <div class="sticky-cta-inner">
         <div class="sticky-cta-text">
-          <strong>Try the Live Demo</strong> &mdash; Alex answers your first
-          call tonight
+          <strong>Try the Live Demo</strong> &mdash; Alex answers your first call tonight
         </div>
         <div class="sticky-cta-rep" id="sticky-rep" style="display: none">
           Your rep: <span id="sticky-rep-name"></span>
@@ -3663,16 +3378,10 @@
         </svg>
       </div>
       <div class="notif-content">
-        <div class="notif-title" id="notif-title">
-          New call answered by Alex
-        </div>
-        <div class="notif-sub" id="notif-sub">
-          Booking confirmed &mdash; SMS sent
-        </div>
+        <div class="notif-title" id="notif-title">New call answered by Alex</div>
+        <div class="notif-sub" id="notif-sub">Booking confirmed &mdash; SMS sent</div>
       </div>
-      <button class="notif-close" onclick="hideNotif()" aria-label="Dismiss">
-        &#x2715;
-      </button>
+      <button class="notif-close" onclick="hideNotif()" aria-label="Dismiss">&#x2715;</button>
     </div>
 
     <script>
@@ -3680,12 +3389,10 @@
    URL PARAMS — Parse at top, used throughout
    ======================================== */
       const params = new URLSearchParams(window.location.search);
-      const PARAM_BUSINESS = params.get("business") || null;
-      const PARAM_INDUSTRY = (
-        params.get("industry") || "roofing"
-      ).toLowerCase();
-      const PARAM_REP = params.get("rep") || null;
-      const PARAM_STATE = params.get("state") || null;
+      const PARAM_BUSINESS = params.get('business') || null;
+      const PARAM_INDUSTRY = (params.get('industry') || 'roofing').toLowerCase();
+      const PARAM_REP = params.get('rep') || null;
+      const PARAM_STATE = params.get('state') || null;
 
       /* ========================================
    INDUSTRY CONTENT SETS
@@ -3694,1323 +3401,1131 @@
         roofing: {
           bizDefault: "Mike's Roofing Co.",
           callReasons: [
-            { label: "Emergency Repair", count: 38, color: "#ff5252" },
-            { label: "Free Estimate", count: 31, color: "#3b9eff" },
-            { label: "Insurance Claim", count: 24, color: "#fbbf24" },
-            { label: "New Roof Quote", count: 19, color: "#00c8ff" },
-            { label: "Gutter Service", count: 15, color: "#a78bfa" },
+            { label: 'Emergency Repair', count: 38, color: '#ff5252' },
+            { label: 'Free Estimate', count: 31, color: '#3b9eff' },
+            { label: 'Insurance Claim', count: 24, color: '#fbbf24' },
+            { label: 'New Roof Quote', count: 19, color: '#00c8ff' },
+            { label: 'Gutter Service', count: 15, color: '#a78bfa' },
           ],
           calls: [
             {
-              service: "Roof Inspection",
-              summary:
-                "Booked emergency roof inspection for tomorrow 9 AM at 142 Oak St.",
+              service: 'Roof Inspection',
+              summary: 'Booked emergency roof inspection for tomorrow 9 AM at 142 Oak St.',
             },
             {
-              service: "Emergency Leak Repair",
-              summary:
-                "Scheduled same-day leak repair — water damage in master bedroom.",
+              service: 'Emergency Leak Repair',
+              summary: 'Scheduled same-day leak repair — water damage in master bedroom.',
             },
             {
-              service: "Free Estimate",
-              summary:
-                "Booked free estimate for new construction roofing project.",
+              service: 'Free Estimate',
+              summary: 'Booked free estimate for new construction roofing project.',
             },
             {
-              service: "Gutter Pricing Inquiry",
-              summary:
-                "Provided pricing info for gutter replacement, offered estimate.",
+              service: 'Gutter Pricing Inquiry',
+              summary: 'Provided pricing info for gutter replacement, offered estimate.',
             },
             {
-              service: "Insurance Inspection",
-              summary:
-                "Booked insurance claim inspection for Friday PM — hail damage.",
+              service: 'Insurance Inspection',
+              summary: 'Booked insurance claim inspection for Friday PM — hail damage.',
             },
             {
-              service: "Shingle Replacement",
-              summary:
-                "Customer driving, requested callback. Number saved for follow-up.",
+              service: 'Shingle Replacement',
+              summary: 'Customer driving, requested callback. Number saved for follow-up.',
             },
             {
-              service: "Full Roof Quote",
-              summary:
-                "Booked full roof replacement quote — 2,400 sq ft ranch.",
+              service: 'Full Roof Quote',
+              summary: 'Booked full roof replacement quote — 2,400 sq ft ranch.',
             },
             {
-              service: "Storm Damage Assessment",
-              summary:
-                "Booked storm damage assessment — possible insurance claim.",
+              service: 'Storm Damage Assessment',
+              summary: 'Booked storm damage assessment — possible insurance claim.',
             },
           ],
           transcripts: [
             [
               {
-                role: "ai",
-                text: "Hey, thanks for calling. This is Alex, how can I help you today?",
+                role: 'ai',
+                text: 'Hey, thanks for calling. This is Alex, how can I help you today?',
               },
               {
-                role: "caller",
-                text: "Hi, I have a leak in my roof after the storm last night. I need someone out ASAP.",
+                role: 'caller',
+                text: 'Hi, I have a leak in my roof after the storm last night. I need someone out ASAP.',
               },
               {
-                role: "ai",
+                role: 'ai',
                 text: "I'm so sorry to hear that — sounds urgent. Can I get your name and address so we can get an emergency inspection scheduled?",
               },
+              { role: 'caller', text: "Sure, it's Sarah Johnson, 142 Oak Street." },
               {
-                role: "caller",
-                text: "Sure, it's Sarah Johnson, 142 Oak Street.",
+                role: 'ai',
+                text: 'Got it, Sarah. I have a slot available tomorrow morning at 9 AM. Does that work for you?',
               },
+              { role: 'caller', text: "Yes, that's perfect. Thank you so much." },
               {
-                role: "ai",
-                text: "Got it, Sarah. I have a slot available tomorrow morning at 9 AM. Does that work for you?",
-              },
-              {
-                role: "caller",
-                text: "Yes, that's perfect. Thank you so much.",
-              },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "You're booked. I'll send you a confirmation text with all the details right now. Anything else I can help with?",
               },
             ],
             [
+              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help?' },
               {
-                role: "ai",
-                text: "Thanks for calling. This is Alex, how can I help?",
-              },
-              {
-                role: "caller",
+                role: 'caller',
                 text: "I've got water coming through my ceiling right now. It's an emergency.",
               },
               {
-                role: "ai",
+                role: 'ai',
                 text: "I understand that's urgent. Can I get your name first so I can pull up the schedule?",
               },
-              { role: "caller", text: "It's Mark Torres." },
+              { role: 'caller', text: "It's Mark Torres." },
               {
-                role: "ai",
+                role: 'ai',
                 text: "Thanks Mark. Let me get you on our emergency schedule right away. What's your address?",
               },
               {
-                role: "caller",
-                text: "427 Maple Drive. The leak is in the master bedroom above the bed.",
+                role: 'caller',
+                text: '427 Maple Drive. The leak is in the master bedroom above the bed.',
               },
               {
-                role: "ai",
-                text: "Got it. I have a crew available this afternoon at 2 PM for emergency repair. Sending confirmation now.",
+                role: 'ai',
+                text: 'Got it. I have a crew available this afternoon at 2 PM for emergency repair. Sending confirmation now.',
               },
-              { role: "caller", text: "Thank God. Yes, please. That works." },
+              { role: 'caller', text: 'Thank God. Yes, please. That works.' },
             ],
             [
+              { role: 'ai', text: "Hi, you've reached us. This is Alex. What can I do for you?" },
               {
-                role: "ai",
-                text: "Hi, you've reached us. This is Alex. What can I do for you?",
-              },
-              {
-                role: "caller",
+                role: 'caller',
                 text: "Hi, I'm building a new home and need a quote for the roof.",
               },
               {
-                role: "ai",
+                role: 'ai',
                 text: "Congratulations on the new build! I'd love to set up a free estimate. Can I get your name?",
               },
-              { role: "caller", text: "Lisa Reed." },
+              { role: 'caller', text: 'Lisa Reed.' },
+              { role: 'ai', text: "Great, Lisa! What's the square footage of the home?" },
+              { role: 'caller', text: 'About 2,800 square feet. The architect has the plans.' },
               {
-                role: "ai",
-                text: "Great, Lisa! What's the square footage of the home?",
-              },
-              {
-                role: "caller",
-                text: "About 2,800 square feet. The architect has the plans.",
-              },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "Let me book you for a free estimate — Thursday at 2 PM work? We'll review the plans and give you a detailed quote.",
               },
             ],
             [
-              { role: "ai", text: "Alex speaking, how can I help?" },
+              { role: 'ai', text: 'Alex speaking, how can I help?' },
               {
-                role: "caller",
-                text: "Yeah, I need to replace my gutters. How much does that usually run?",
+                role: 'caller',
+                text: 'Yeah, I need to replace my gutters. How much does that usually run?',
               },
               {
-                role: "ai",
-                text: "For aluminum gutters we typically see $8–15 per linear foot installed. How many linear feet are we looking at?",
+                role: 'ai',
+                text: 'For aluminum gutters we typically see $8–15 per linear foot installed. How many linear feet are we looking at?',
               },
+              { role: 'caller', text: "I'm not sure, maybe 120 feet? It's a ranch-style home." },
               {
-                role: "caller",
-                text: "I'm not sure, maybe 120 feet? It's a ranch-style home.",
-              },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "For 120 feet you're looking at roughly $1,400–2,100 depending on the style. Can I schedule a free on-site measurement?",
               },
             ],
           ],
           leads: [
             {
-              name: "Sarah Johnson",
-              phone: "(813) 4••-••••",
-              service: "Roof Inspection",
-              stage: "estimate_scheduled",
-              value: "$850",
-              lastActivity: "Inspection booked — tomorrow 9 AM",
+              name: 'Sarah Johnson',
+              phone: '(813) 4••-••••',
+              service: 'Roof Inspection',
+              stage: 'estimate_scheduled',
+              value: '$850',
+              lastActivity: 'Inspection booked — tomorrow 9 AM',
             },
             {
-              name: "Mark Torres",
-              phone: "(602) 8••-••••",
-              service: "Emergency Leak Repair",
-              stage: "won",
-              value: "$3,200",
-              lastActivity: "Same-day repair confirmed",
+              name: 'Mark Torres',
+              phone: '(602) 8••-••••',
+              service: 'Emergency Leak Repair',
+              stage: 'won',
+              value: '$3,200',
+              lastActivity: 'Same-day repair confirmed',
             },
             {
-              name: "Lisa Reed",
-              phone: "(214) 3••-••••",
-              service: "New Construction",
-              stage: "new_lead",
-              value: "$12,500",
-              lastActivity: "Called in — wants full roof quote",
+              name: 'Lisa Reed',
+              phone: '(214) 3••-••••',
+              service: 'New Construction',
+              stage: 'new_lead',
+              value: '$12,500',
+              lastActivity: 'Called in — wants full roof quote',
             },
             {
-              name: "James Kim",
-              phone: "(404) 6••-••••",
-              service: "Gutter Replacement",
-              stage: "new_lead",
-              value: "$2,100",
-              lastActivity: "Info sent — awaiting callback",
+              name: 'James Kim',
+              phone: '(404) 6••-••••',
+              service: 'Gutter Replacement',
+              stage: 'new_lead',
+              value: '$2,100',
+              lastActivity: 'Info sent — awaiting callback',
             },
             {
-              name: "Amy Dawson",
-              phone: "(310) 7••-••••",
-              service: "Insurance Claim",
-              stage: "estimate_scheduled",
-              value: "$8,400",
-              lastActivity: "Inspection booked — Friday PM",
+              name: 'Amy Dawson',
+              phone: '(310) 7••-••••',
+              service: 'Insurance Claim',
+              stage: 'estimate_scheduled',
+              value: '$8,400',
+              lastActivity: 'Inspection booked — Friday PM',
             },
             {
-              name: "Chris Wallace",
-              phone: "(512) 9••-••••",
-              service: "Shingle Replacement",
-              stage: "quote_sent",
-              value: "$4,600",
-              lastActivity: "Quote sent — awaiting approval",
+              name: 'Chris Wallace',
+              phone: '(512) 9••-••••',
+              service: 'Shingle Replacement',
+              stage: 'quote_sent',
+              value: '$4,600',
+              lastActivity: 'Quote sent — awaiting approval',
             },
             {
-              name: "Karen Mitchell",
-              phone: "(954) 2••-••••",
-              service: "Full Roof Replacement",
-              stage: "quote_sent",
-              value: "$18,000",
-              lastActivity: "Quote sent — 2,400 sq ft ranch",
+              name: 'Karen Mitchell',
+              phone: '(954) 2••-••••',
+              service: 'Full Roof Replacement',
+              stage: 'quote_sent',
+              value: '$18,000',
+              lastActivity: 'Quote sent — 2,400 sq ft ranch',
             },
             {
-              name: "Tom Bradley",
-              phone: "(480) 4••-••••",
-              service: "Storm Damage",
-              stage: "new_lead",
-              value: "$5,800",
-              lastActivity: "Called in — storm damage assessment",
+              name: 'Tom Bradley',
+              phone: '(480) 4••-••••',
+              service: 'Storm Damage',
+              stage: 'new_lead',
+              value: '$5,800',
+              lastActivity: 'Called in — storm damage assessment',
             },
           ],
           // $850+3200+12500+2100+8400+4600+18000+5800 = 55,450
-          pipelineValue: "$55,450",
+          pipelineValue: '$55,450',
           notifMessages: [
-            {
-              title: "New call answered by Alex",
-              sub: "Booking confirmed — SMS sent",
-            },
-            {
-              title: "After-hours call handled",
-              sub: "Roof leak inquiry — estimate scheduled",
-            },
-            {
-              title: "Lead captured automatically",
-              sub: "Storm damage call — added to CRM",
-            },
+            { title: 'New call answered by Alex', sub: 'Booking confirmed — SMS sent' },
+            { title: 'After-hours call handled', sub: 'Roof leak inquiry — estimate scheduled' },
+            { title: 'Lead captured automatically', sub: 'Storm damage call — added to CRM' },
           ],
           fomoText:
-            "<strong>3 calls answered</strong> while competitors were closed last weekend. 0 missed.",
+            '<strong>3 calls answered</strong> while competitors were closed last weekend. 0 missed.',
         },
 
         plumbing: {
           bizDefault: "Mike's Plumbing Services",
           callReasons: [
-            { label: "Emergency Leak", count: 42, color: "#ff5252" },
-            { label: "Water Heater", count: 28, color: "#3b9eff" },
-            { label: "Drain Cleaning", count: 22, color: "#fbbf24" },
-            { label: "Pipe Repair", count: 18, color: "#00c8ff" },
-            { label: "Sewer Line", count: 17, color: "#a78bfa" },
+            { label: 'Emergency Leak', count: 42, color: '#ff5252' },
+            { label: 'Water Heater', count: 28, color: '#3b9eff' },
+            { label: 'Drain Cleaning', count: 22, color: '#fbbf24' },
+            { label: 'Pipe Repair', count: 18, color: '#00c8ff' },
+            { label: 'Sewer Line', count: 17, color: '#a78bfa' },
           ],
           calls: [
             {
-              service: "Emergency Leak",
-              summary:
-                "Booked emergency same-day leak repair — burst pipe in kitchen.",
+              service: 'Emergency Leak',
+              summary: 'Booked emergency same-day leak repair — burst pipe in kitchen.',
             },
             {
-              service: "Water Heater Replacement",
-              summary:
-                "Scheduled water heater replacement — unit over 12 years old.",
+              service: 'Water Heater Replacement',
+              summary: 'Scheduled water heater replacement — unit over 12 years old.',
             },
             {
-              service: "Drain Cleaning",
-              summary:
-                "Booked main drain cleaning — slow drains throughout home.",
+              service: 'Drain Cleaning',
+              summary: 'Booked main drain cleaning — slow drains throughout home.',
             },
             {
-              service: "Pipe Repair Pricing",
-              summary:
-                "Provided pipe repair estimate, offered free inspection.",
+              service: 'Pipe Repair Pricing',
+              summary: 'Provided pipe repair estimate, offered free inspection.',
             },
             {
-              service: "Sewer Inspection",
-              summary: "Booked sewer camera inspection for Friday PM.",
+              service: 'Sewer Inspection',
+              summary: 'Booked sewer camera inspection for Friday PM.',
+            },
+            { service: 'Toilet Repair', summary: 'Customer requested callback — running toilet.' },
+            {
+              service: 'Bathroom Remodel Quote',
+              summary: 'Booked full bathroom plumbing quote for renovation.',
             },
             {
-              service: "Toilet Repair",
-              summary: "Customer requested callback — running toilet.",
-            },
-            {
-              service: "Bathroom Remodel Quote",
-              summary: "Booked full bathroom plumbing quote for renovation.",
-            },
-            {
-              service: "Gas Line Check",
-              summary: "Booked gas line safety inspection — smell reported.",
+              service: 'Gas Line Check',
+              summary: 'Booked gas line safety inspection — smell reported.',
             },
           ],
           transcripts: [
             [
+              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help you today?' },
               {
-                role: "ai",
-                text: "Thanks for calling. This is Alex, how can I help you today?",
-              },
-              {
-                role: "caller",
+                role: 'caller',
                 text: "Hi, I have water gushing from under my kitchen sink. It's flooding.",
               },
               {
-                role: "ai",
-                text: "That sounds urgent. Can I get your name so I can get someone out to you immediately?",
+                role: 'ai',
+                text: 'That sounds urgent. Can I get your name so I can get someone out to you immediately?',
               },
-              { role: "caller", text: "Sarah Johnson, 142 Oak Street." },
+              { role: 'caller', text: 'Sarah Johnson, 142 Oak Street.' },
               {
-                role: "ai",
-                text: "Sarah, I have an emergency technician available within the hour. Let me book you right now and send you a confirmation text.",
+                role: 'ai',
+                text: 'Sarah, I have an emergency technician available within the hour. Let me book you right now and send you a confirmation text.',
               },
-              { role: "caller", text: "Yes please, hurry!" },
+              { role: 'caller', text: 'Yes please, hurry!' },
               {
-                role: "ai",
+                role: 'ai',
                 text: "Done. Technician is on the way. You'll get a text with their name and ETA. Is there anything else?",
               },
             ],
             [
+              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help?' },
               {
-                role: "ai",
-                text: "Thanks for calling. This is Alex, how can I help?",
+                role: 'caller',
+                text: 'My hot water is completely out. The water heater stopped working last night.',
               },
               {
-                role: "caller",
-                text: "My hot water is completely out. The water heater stopped working last night.",
+                role: 'ai',
+                text: 'I understand — no hot water is a real problem. Can I get your name?',
               },
+              { role: 'caller', text: "It's Mark Torres." },
+              { role: 'ai', text: 'Thanks Mark. How old is your water heater — do you know?' },
+              { role: 'caller', text: "I think it's about 12 years old." },
               {
-                role: "ai",
-                text: "I understand — no hot water is a real problem. Can I get your name?",
-              },
-              { role: "caller", text: "It's Mark Torres." },
-              {
-                role: "ai",
-                text: "Thanks Mark. How old is your water heater — do you know?",
-              },
-              { role: "caller", text: "I think it's about 12 years old." },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "That's right at end-of-life. I can get a tech out tomorrow morning to assess it. Does 9 AM work?",
               },
-              { role: "caller", text: "That's great. Yes." },
+              { role: 'caller', text: "That's great. Yes." },
             ],
             [
+              { role: 'ai', text: 'Hi there, Alex speaking. What can I do for you?' },
               {
-                role: "ai",
-                text: "Hi there, Alex speaking. What can I do for you?",
+                role: 'caller',
+                text: 'All my drains are running super slow. Sinks, shower, everything.',
               },
               {
-                role: "caller",
-                text: "All my drains are running super slow. Sinks, shower, everything.",
+                role: 'ai',
+                text: 'Sounds like a main line blockage. Can I get your name to schedule a cleaning?',
               },
+              { role: 'caller', text: 'Lisa Reed.' },
               {
-                role: "ai",
-                text: "Sounds like a main line blockage. Can I get your name to schedule a cleaning?",
+                role: 'ai',
+                text: 'Lisa, I can have someone out Thursday afternoon for a main drain clean. Does that work?',
               },
-              { role: "caller", text: "Lisa Reed." },
-              {
-                role: "ai",
-                text: "Lisa, I can have someone out Thursday afternoon for a main drain clean. Does that work?",
-              },
-              { role: "caller", text: "Yes that's perfect, thank you." },
+              { role: 'caller', text: "Yes that's perfect, thank you." },
             ],
             [
-              { role: "ai", text: "Alex speaking, how can I help?" },
+              { role: 'ai', text: 'Alex speaking, how can I help?' },
               {
-                role: "caller",
+                role: 'caller',
                 text: "Yeah, what's it cost to replace copper pipes in an older home?",
               },
               {
-                role: "ai",
-                text: "It really depends on the scope — usually $1,500–8,000+ for a full repipe. Can I schedule a free inspection to give you an exact quote?",
+                role: 'ai',
+                text: 'It really depends on the scope — usually $1,500–8,000+ for a full repipe. Can I schedule a free inspection to give you an exact quote?',
               },
-              { role: "caller", text: "Sure, that makes sense." },
-              {
-                role: "ai",
-                text: "Great. I have Friday morning open — does that work for you?",
-              },
+              { role: 'caller', text: 'Sure, that makes sense.' },
+              { role: 'ai', text: 'Great. I have Friday morning open — does that work for you?' },
             ],
           ],
           leads: [
             {
-              name: "Sarah Johnson",
-              phone: "(813) 4••-••••",
-              service: "Emergency Leak",
-              stage: "won",
-              value: "$680",
-              lastActivity: "Emergency repair completed",
+              name: 'Sarah Johnson',
+              phone: '(813) 4••-••••',
+              service: 'Emergency Leak',
+              stage: 'won',
+              value: '$680',
+              lastActivity: 'Emergency repair completed',
             },
             {
-              name: "Mark Torres",
-              phone: "(602) 8••-••••",
-              service: "Water Heater Replace",
-              stage: "estimate_scheduled",
-              value: "$2,400",
-              lastActivity: "Assessment booked — tomorrow 9 AM",
+              name: 'Mark Torres',
+              phone: '(602) 8••-••••',
+              service: 'Water Heater Replace',
+              stage: 'estimate_scheduled',
+              value: '$2,400',
+              lastActivity: 'Assessment booked — tomorrow 9 AM',
             },
             {
-              name: "Lisa Reed",
-              phone: "(214) 3••-••••",
-              service: "Main Drain Cleaning",
-              stage: "estimate_scheduled",
-              value: "$450",
-              lastActivity: "Service scheduled — Thursday PM",
+              name: 'Lisa Reed',
+              phone: '(214) 3••-••••',
+              service: 'Main Drain Cleaning',
+              stage: 'estimate_scheduled',
+              value: '$450',
+              lastActivity: 'Service scheduled — Thursday PM',
             },
             {
-              name: "James Kim",
-              phone: "(404) 6••-••••",
-              service: "Full Repipe",
-              stage: "new_lead",
-              value: "$6,200",
-              lastActivity: "Info sent — awaiting callback",
+              name: 'James Kim',
+              phone: '(404) 6••-••••',
+              service: 'Full Repipe',
+              stage: 'new_lead',
+              value: '$6,200',
+              lastActivity: 'Info sent — awaiting callback',
             },
             {
-              name: "Amy Dawson",
-              phone: "(310) 7••-••••",
-              service: "Sewer Line Inspection",
-              stage: "estimate_scheduled",
-              value: "$3,800",
-              lastActivity: "Camera inspection booked — Friday",
+              name: 'Amy Dawson',
+              phone: '(310) 7••-••••',
+              service: 'Sewer Line Inspection',
+              stage: 'estimate_scheduled',
+              value: '$3,800',
+              lastActivity: 'Camera inspection booked — Friday',
             },
             {
-              name: "Chris Wallace",
-              phone: "(512) 9••-••••",
-              service: "Bathroom Remodel",
-              stage: "quote_sent",
-              value: "$8,400",
-              lastActivity: "Quote sent — awaiting approval",
+              name: 'Chris Wallace',
+              phone: '(512) 9••-••••',
+              service: 'Bathroom Remodel',
+              stage: 'quote_sent',
+              value: '$8,400',
+              lastActivity: 'Quote sent — awaiting approval',
             },
             {
-              name: "Karen Mitchell",
-              phone: "(954) 2••-••••",
-              service: "Gas Line Safety Check",
-              stage: "new_lead",
-              value: "$1,200",
-              lastActivity: "Called in — gas smell reported",
+              name: 'Karen Mitchell',
+              phone: '(954) 2••-••••',
+              service: 'Gas Line Safety Check',
+              stage: 'new_lead',
+              value: '$1,200',
+              lastActivity: 'Called in — gas smell reported',
             },
             {
-              name: "Tom Bradley",
-              phone: "(480) 4••-••••",
-              service: "Pipe Leak Repair",
-              stage: "quote_sent",
-              value: "$2,900",
-              lastActivity: "Quote sent — pipe replacement",
+              name: 'Tom Bradley',
+              phone: '(480) 4••-••••',
+              service: 'Pipe Leak Repair',
+              stage: 'quote_sent',
+              value: '$2,900',
+              lastActivity: 'Quote sent — pipe replacement',
             },
           ],
           // 680+2400+450+6200+3800+8400+1200+2900 = 26,030
-          pipelineValue: "$26,030",
+          pipelineValue: '$26,030',
           notifMessages: [
-            {
-              title: "Emergency call answered",
-              sub: "Burst pipe — tech dispatched immediately",
-            },
-            {
-              title: "After-hours booking confirmed",
-              sub: "Water heater repair — 9 AM tomorrow",
-            },
-            {
-              title: "Lead captured automatically",
-              sub: "Drain issue — added to CRM",
-            },
+            { title: 'Emergency call answered', sub: 'Burst pipe — tech dispatched immediately' },
+            { title: 'After-hours booking confirmed', sub: 'Water heater repair — 9 AM tomorrow' },
+            { title: 'Lead captured automatically', sub: 'Drain issue — added to CRM' },
           ],
           fomoText:
-            "<strong>4 emergency calls answered</strong> after hours last weekend. All booked.",
+            '<strong>4 emergency calls answered</strong> after hours last weekend. All booked.',
         },
 
         hvac: {
           bizDefault: "Mike's HVAC Solutions",
           callReasons: [
-            { label: "AC Not Cooling", count: 44, color: "#ff5252" },
-            { label: "Furnace Repair", count: 29, color: "#3b9eff" },
-            { label: "Maintenance Plan", count: 21, color: "#fbbf24" },
-            { label: "System Install", count: 16, color: "#00c8ff" },
-            { label: "Air Quality", count: 17, color: "#a78bfa" },
+            { label: 'AC Not Cooling', count: 44, color: '#ff5252' },
+            { label: 'Furnace Repair', count: 29, color: '#3b9eff' },
+            { label: 'Maintenance Plan', count: 21, color: '#fbbf24' },
+            { label: 'System Install', count: 16, color: '#00c8ff' },
+            { label: 'Air Quality', count: 17, color: '#a78bfa' },
           ],
           calls: [
             {
-              service: "AC Not Cooling",
-              summary:
-                "Booked emergency AC service — 92° inside, family with kids.",
+              service: 'AC Not Cooling',
+              summary: 'Booked emergency AC service — 92° inside, family with kids.',
             },
             {
-              service: "Furnace Breakdown",
-              summary:
-                "Scheduled same-day furnace repair — no heat in 28° weather.",
+              service: 'Furnace Breakdown',
+              summary: 'Scheduled same-day furnace repair — no heat in 28° weather.',
             },
             {
-              service: "Annual Maintenance",
-              summary:
-                "Enrolled in yearly maintenance plan — spring/fall tune-up.",
+              service: 'Annual Maintenance',
+              summary: 'Enrolled in yearly maintenance plan — spring/fall tune-up.',
             },
             {
-              service: "System Replace Quote",
-              summary: "Booked estimate for full HVAC system replacement.",
+              service: 'System Replace Quote',
+              summary: 'Booked estimate for full HVAC system replacement.',
             },
             {
-              service: "Emergency AC Repair",
-              summary:
-                "Booked urgent AC repair for Friday PM — compressor issue.",
+              service: 'Emergency AC Repair',
+              summary: 'Booked urgent AC repair for Friday PM — compressor issue.',
             },
             {
-              service: "Filter Replacement",
-              summary: "Customer requested callback — filter questions.",
+              service: 'Filter Replacement',
+              summary: 'Customer requested callback — filter questions.',
             },
             {
-              service: "New System Install",
-              summary: "Booked estimate for new construction HVAC install.",
+              service: 'New System Install',
+              summary: 'Booked estimate for new construction HVAC install.',
             },
             {
-              service: "Heat Pump Issue",
-              summary: "Booked diagnostic — heat pump not switching modes.",
+              service: 'Heat Pump Issue',
+              summary: 'Booked diagnostic — heat pump not switching modes.',
             },
           ],
           transcripts: [
             [
+              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help you today?' },
               {
-                role: "ai",
-                text: "Thanks for calling. This is Alex, how can I help you today?",
-              },
-              {
-                role: "caller",
+                role: 'caller',
                 text: "Hi, my AC stopped working and it's 92 degrees in my house. I have two kids.",
               },
               {
-                role: "ai",
+                role: 'ai',
                 text: "That's a real emergency — I'm so sorry. Can I get your name so I can dispatch someone right away?",
               },
-              { role: "caller", text: "Sarah Johnson, 142 Oak Street." },
+              { role: 'caller', text: 'Sarah Johnson, 142 Oak Street.' },
               {
-                role: "ai",
-                text: "Sarah, I have a technician who can be there within 2 hours. Let me book you now and send a confirmation text.",
+                role: 'ai',
+                text: 'Sarah, I have a technician who can be there within 2 hours. Let me book you now and send a confirmation text.',
               },
-              { role: "caller", text: "Oh thank you, that's a relief." },
+              { role: 'caller', text: "Oh thank you, that's a relief." },
               {
-                role: "ai",
+                role: 'ai',
                 text: "You're booked. Stay cool — they're on their way. Anything else I can help with?",
               },
             ],
             [
+              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help?' },
               {
-                role: "ai",
-                text: "Thanks for calling. This is Alex, how can I help?",
-              },
-              {
-                role: "caller",
+                role: 'caller',
                 text: "My furnace just died. It's 28 degrees out and my house is freezing.",
               },
-              { role: "ai", text: "That's urgent. Can I get your name first?" },
-              { role: "caller", text: "Mark Torres." },
+              { role: 'ai', text: "That's urgent. Can I get your name first?" },
+              { role: 'caller', text: 'Mark Torres.' },
               {
-                role: "ai",
+                role: 'ai',
                 text: "Mark, I have an emergency tech available this afternoon. What's your address?",
               },
-              { role: "caller", text: "427 Maple Drive." },
+              { role: 'caller', text: '427 Maple Drive.' },
               {
-                role: "ai",
+                role: 'ai',
                 text: "Got it. Tech will be there by 2 PM. I'm sending the confirmation right now.",
               },
-              { role: "caller", text: "Perfect, thank you so much." },
+              { role: 'caller', text: 'Perfect, thank you so much.' },
             ],
             [
-              { role: "ai", text: "Hi, Alex speaking. What can I do for you?" },
+              { role: 'ai', text: 'Hi, Alex speaking. What can I do for you?' },
               {
-                role: "caller",
-                text: "I want to sign up for a yearly maintenance plan for my HVAC.",
+                role: 'caller',
+                text: 'I want to sign up for a yearly maintenance plan for my HVAC.',
               },
+              { role: 'ai', text: 'Absolutely — great idea. Can I get your name?' },
+              { role: 'caller', text: 'Lisa Reed.' },
               {
-                role: "ai",
-                text: "Absolutely — great idea. Can I get your name?",
+                role: 'ai',
+                text: 'Lisa, our annual plan includes spring AC tune-up and fall furnace check. I can book your first visit for Thursday. Does that work?',
               },
-              { role: "caller", text: "Lisa Reed." },
-              {
-                role: "ai",
-                text: "Lisa, our annual plan includes spring AC tune-up and fall furnace check. I can book your first visit for Thursday. Does that work?",
-              },
-              { role: "caller", text: "Yes, that sounds great." },
+              { role: 'caller', text: 'Yes, that sounds great.' },
             ],
             [
-              { role: "ai", text: "Alex speaking, how can I help?" },
+              { role: 'ai', text: 'Alex speaking, how can I help?' },
+              { role: 'caller', text: 'How much does it cost to replace a full HVAC system?' },
               {
-                role: "caller",
-                text: "How much does it cost to replace a full HVAC system?",
+                role: 'ai',
+                text: 'It depends on the size of your home — typically $4,000–10,000 for a full system. Want me to schedule a free in-home assessment?',
               },
+              { role: 'caller', text: 'Yeah that makes sense.' },
               {
-                role: "ai",
-                text: "It depends on the size of your home — typically $4,000–10,000 for a full system. Want me to schedule a free in-home assessment?",
-              },
-              { role: "caller", text: "Yeah that makes sense." },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "Great. I have Friday morning open. What's your name and address?",
               },
             ],
           ],
           leads: [
             {
-              name: "Sarah Johnson",
-              phone: "(813) 4••-••••",
-              service: "AC Emergency Repair",
-              stage: "won",
-              value: "$890",
-              lastActivity: "Repair completed — compressor replaced",
+              name: 'Sarah Johnson',
+              phone: '(813) 4••-••••',
+              service: 'AC Emergency Repair',
+              stage: 'won',
+              value: '$890',
+              lastActivity: 'Repair completed — compressor replaced',
             },
             {
-              name: "Mark Torres",
-              phone: "(602) 8••-••••",
-              service: "Furnace Breakdown",
-              stage: "estimate_scheduled",
-              value: "$1,800",
-              lastActivity: "Tech dispatched — 2 PM today",
+              name: 'Mark Torres',
+              phone: '(602) 8••-••••',
+              service: 'Furnace Breakdown',
+              stage: 'estimate_scheduled',
+              value: '$1,800',
+              lastActivity: 'Tech dispatched — 2 PM today',
             },
             {
-              name: "Lisa Reed",
-              phone: "(214) 3••-••••",
-              service: "Annual Maintenance Plan",
-              stage: "won",
-              value: "$399",
-              lastActivity: "Enrolled in yearly plan",
+              name: 'Lisa Reed',
+              phone: '(214) 3••-••••',
+              service: 'Annual Maintenance Plan',
+              stage: 'won',
+              value: '$399',
+              lastActivity: 'Enrolled in yearly plan',
             },
             {
-              name: "James Kim",
-              phone: "(404) 6••-••••",
-              service: "Full System Replace",
-              stage: "new_lead",
-              value: "$7,200",
-              lastActivity: "Called in — 15-year-old unit",
+              name: 'James Kim',
+              phone: '(404) 6••-••••',
+              service: 'Full System Replace',
+              stage: 'new_lead',
+              value: '$7,200',
+              lastActivity: 'Called in — 15-year-old unit',
             },
             {
-              name: "Amy Dawson",
-              phone: "(310) 7••-••••",
-              service: "Heat Pump Diagnostic",
-              stage: "estimate_scheduled",
-              value: "$1,200",
-              lastActivity: "Diagnostic booked — Friday PM",
+              name: 'Amy Dawson',
+              phone: '(310) 7••-••••',
+              service: 'Heat Pump Diagnostic',
+              stage: 'estimate_scheduled',
+              value: '$1,200',
+              lastActivity: 'Diagnostic booked — Friday PM',
             },
             {
-              name: "Chris Wallace",
-              phone: "(512) 9••-••••",
-              service: "New Construction HVAC",
-              stage: "quote_sent",
-              value: "$9,400",
-              lastActivity: "Quote sent — 2,600 sq ft home",
+              name: 'Chris Wallace',
+              phone: '(512) 9••-••••',
+              service: 'New Construction HVAC',
+              stage: 'quote_sent',
+              value: '$9,400',
+              lastActivity: 'Quote sent — 2,600 sq ft home',
             },
             {
-              name: "Karen Mitchell",
-              phone: "(954) 2••-••••",
-              service: "Ductwork Replacement",
-              stage: "quote_sent",
-              value: "$4,800",
-              lastActivity: "Quote sent — full ductwork job",
+              name: 'Karen Mitchell',
+              phone: '(954) 2••-••••',
+              service: 'Ductwork Replacement',
+              stage: 'quote_sent',
+              value: '$4,800',
+              lastActivity: 'Quote sent — full ductwork job',
             },
             {
-              name: "Tom Bradley",
-              phone: "(480) 4••-••••",
-              service: "Air Quality Install",
-              stage: "new_lead",
-              value: "$2,100",
-              lastActivity: "Called in — air quality concerns",
+              name: 'Tom Bradley',
+              phone: '(480) 4••-••••',
+              service: 'Air Quality Install',
+              stage: 'new_lead',
+              value: '$2,100',
+              lastActivity: 'Called in — air quality concerns',
             },
           ],
           // 890+1800+399+7200+1200+9400+4800+2100 = 27,789
-          pipelineValue: "$27,789",
+          pipelineValue: '$27,789',
           notifMessages: [
+            { title: 'Emergency AC call answered', sub: 'Tech dispatched — family with kids' },
+            { title: 'After-hours booking confirmed', sub: 'Furnace repair — morning appointment' },
             {
-              title: "Emergency AC call answered",
-              sub: "Tech dispatched — family with kids",
-            },
-            {
-              title: "After-hours booking confirmed",
-              sub: "Furnace repair — morning appointment",
-            },
-            {
-              title: "Lead captured automatically",
-              sub: "System replacement inquiry — CRM updated",
+              title: 'Lead captured automatically',
+              sub: 'System replacement inquiry — CRM updated',
             },
           ],
           fomoText:
-            "<strong>5 AC emergency calls answered</strong> over the weekend. All converted.",
+            '<strong>5 AC emergency calls answered</strong> over the weekend. All converted.',
         },
 
         dental: {
-          bizDefault: "Bright Smile Dental",
+          bizDefault: 'Bright Smile Dental',
           callReasons: [
-            { label: "New Patient Appt", count: 48, color: "#4ade80" },
-            { label: "Cleaning/Checkup", count: 32, color: "#3b9eff" },
-            { label: "Emergency Toothache", count: 18, color: "#ff5252" },
-            { label: "Teeth Whitening", count: 16, color: "#fbbf24" },
-            { label: "Invisalign Consult", count: 13, color: "#a78bfa" },
+            { label: 'New Patient Appt', count: 48, color: '#4ade80' },
+            { label: 'Cleaning/Checkup', count: 32, color: '#3b9eff' },
+            { label: 'Emergency Toothache', count: 18, color: '#ff5252' },
+            { label: 'Teeth Whitening', count: 16, color: '#fbbf24' },
+            { label: 'Invisalign Consult', count: 13, color: '#a78bfa' },
           ],
           calls: [
             {
-              service: "New Patient Appointment",
-              summary: "Booked new patient exam + X-rays for Thursday 10 AM.",
+              service: 'New Patient Appointment',
+              summary: 'Booked new patient exam + X-rays for Thursday 10 AM.',
             },
             {
-              service: "Emergency Toothache",
-              summary:
-                "Scheduled same-day emergency pain appointment — wisdom tooth.",
+              service: 'Emergency Toothache',
+              summary: 'Scheduled same-day emergency pain appointment — wisdom tooth.',
             },
             {
-              service: "Routine Cleaning",
-              summary: "Booked 6-month cleaning and checkup for next Tuesday.",
+              service: 'Routine Cleaning',
+              summary: 'Booked 6-month cleaning and checkup for next Tuesday.',
             },
             {
-              service: "Teeth Whitening Consult",
-              summary:
-                "Booked whitening consultation and treatment appointment.",
+              service: 'Teeth Whitening Consult',
+              summary: 'Booked whitening consultation and treatment appointment.',
             },
             {
-              service: "Invisalign Consultation",
-              summary: "Booked free Invisalign consultation for Friday PM.",
+              service: 'Invisalign Consultation',
+              summary: 'Booked free Invisalign consultation for Friday PM.',
             },
+            { service: 'Crown Inquiry', summary: 'Patient requested callback — crown questions.' },
+            { service: 'Pediatric Checkup', summary: 'Booked 2 kids for back-to-school checkups.' },
             {
-              service: "Crown Inquiry",
-              summary: "Patient requested callback — crown questions.",
-            },
-            {
-              service: "Pediatric Checkup",
-              summary: "Booked 2 kids for back-to-school checkups.",
-            },
-            {
-              service: "Root Canal Consult",
-              summary:
-                "Urgent consult booked — severe tooth pain since yesterday.",
+              service: 'Root Canal Consult',
+              summary: 'Urgent consult booked — severe tooth pain since yesterday.',
             },
           ],
           transcripts: [
             [
               {
-                role: "ai",
-                text: "Thank you for calling. This is Alex, how can I help you today?",
+                role: 'ai',
+                text: 'Thank you for calling. This is Alex, how can I help you today?',
               },
               {
-                role: "caller",
+                role: 'caller',
                 text: "Hi, I'm looking for a new dentist and want to make an appointment.",
               },
+              { role: 'ai', text: "Welcome! We'd love to have you. Can I get your name?" },
+              { role: 'caller', text: 'Sarah Johnson.' },
               {
-                role: "ai",
-                text: "Welcome! We'd love to have you. Can I get your name?",
+                role: 'ai',
+                text: 'Great, Sarah. Are you looking for a new patient exam with X-rays, or just a cleaning?',
               },
-              { role: "caller", text: "Sarah Johnson." },
+              { role: 'caller', text: 'The full new patient thing — exam and cleaning.' },
               {
-                role: "ai",
-                text: "Great, Sarah. Are you looking for a new patient exam with X-rays, or just a cleaning?",
-              },
-              {
-                role: "caller",
-                text: "The full new patient thing — exam and cleaning.",
-              },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "Perfect. I have Thursday at 10 AM open. I'll send you a confirmation with what to bring and our new patient forms.",
               },
-              { role: "caller", text: "That works. Thank you!" },
+              { role: 'caller', text: 'That works. Thank you!' },
             ],
             [
+              { role: 'ai', text: 'Thank you for calling. This is Alex, how can I help?' },
               {
-                role: "ai",
-                text: "Thank you for calling. This is Alex, how can I help?",
+                role: 'caller',
+                text: 'I have horrible tooth pain. I need to be seen today if possible.',
               },
               {
-                role: "caller",
-                text: "I have horrible tooth pain. I need to be seen today if possible.",
-              },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "I'm sorry to hear that — tooth pain is really tough. Can I get your name?",
               },
-              { role: "caller", text: "Mark Torres." },
+              { role: 'caller', text: 'Mark Torres.' },
               {
-                role: "ai",
-                text: "Mark, we have an emergency slot available at 2 PM today. Can you make that?",
+                role: 'ai',
+                text: 'Mark, we have an emergency slot available at 2 PM today. Can you make that?',
               },
-              { role: "caller", text: "Yes, I'll be there." },
+              { role: 'caller', text: "Yes, I'll be there." },
               {
-                role: "ai",
+                role: 'ai',
                 text: "You're booked. I'm sending you a text with our address and what to expect. Hang in there!",
               },
             ],
             [
+              { role: 'ai', text: 'Hi there, Alex speaking. What can I do for you?' },
+              { role: 'caller', text: 'I need to schedule my 6-month cleaning.' },
+              { role: 'ai', text: 'Absolutely. Can I get your name to look up your file?' },
+              { role: 'caller', text: 'Lisa Reed.' },
               {
-                role: "ai",
-                text: "Hi there, Alex speaking. What can I do for you?",
+                role: 'ai',
+                text: 'Thanks Lisa. I have Tuesday the 14th at 11 AM open — does that work?',
               },
-              {
-                role: "caller",
-                text: "I need to schedule my 6-month cleaning.",
-              },
-              {
-                role: "ai",
-                text: "Absolutely. Can I get your name to look up your file?",
-              },
-              { role: "caller", text: "Lisa Reed." },
-              {
-                role: "ai",
-                text: "Thanks Lisa. I have Tuesday the 14th at 11 AM open — does that work?",
-              },
-              { role: "caller", text: "Yes, that's perfect." },
+              { role: 'caller', text: "Yes, that's perfect." },
             ],
             [
-              { role: "ai", text: "Alex speaking, how can I help?" },
+              { role: 'ai', text: 'Alex speaking, how can I help?' },
               {
-                role: "caller",
-                text: "What does teeth whitening cost, and how long does it take?",
+                role: 'caller',
+                text: 'What does teeth whitening cost, and how long does it take?',
               },
               {
-                role: "ai",
-                text: "Our in-office whitening is $499 and takes about 90 minutes. We also have take-home kits for $199. Want me to book a free consult to see which is right for you?",
+                role: 'ai',
+                text: 'Our in-office whitening is $499 and takes about 90 minutes. We also have take-home kits for $199. Want me to book a free consult to see which is right for you?',
               },
-              { role: "caller", text: "Sure, that sounds good." },
+              { role: 'caller', text: 'Sure, that sounds good.' },
             ],
           ],
           leads: [
             {
-              name: "Sarah Johnson",
-              phone: "(813) 4••-••••",
-              service: "New Patient Exam",
-              stage: "estimate_scheduled",
-              value: "$380",
-              lastActivity: "Exam booked — Thursday 10 AM",
+              name: 'Sarah Johnson',
+              phone: '(813) 4••-••••',
+              service: 'New Patient Exam',
+              stage: 'estimate_scheduled',
+              value: '$380',
+              lastActivity: 'Exam booked — Thursday 10 AM',
             },
             {
-              name: "Mark Torres",
-              phone: "(602) 8••-••••",
-              service: "Emergency Tooth Pain",
-              stage: "won",
-              value: "$520",
-              lastActivity: "Emergency seen — treatment plan sent",
+              name: 'Mark Torres',
+              phone: '(602) 8••-••••',
+              service: 'Emergency Tooth Pain',
+              stage: 'won',
+              value: '$520',
+              lastActivity: 'Emergency seen — treatment plan sent',
             },
             {
-              name: "Lisa Reed",
-              phone: "(214) 3••-••••",
-              service: "Cleaning + Checkup",
-              stage: "estimate_scheduled",
-              value: "$220",
-              lastActivity: "Cleaning booked — Tuesday 11 AM",
+              name: 'Lisa Reed',
+              phone: '(214) 3••-••••',
+              service: 'Cleaning + Checkup',
+              stage: 'estimate_scheduled',
+              value: '$220',
+              lastActivity: 'Cleaning booked — Tuesday 11 AM',
             },
             {
-              name: "James Kim",
-              phone: "(404) 6••-••••",
-              service: "Teeth Whitening",
-              stage: "new_lead",
-              value: "$499",
-              lastActivity: "Consult scheduled — Thursday",
+              name: 'James Kim',
+              phone: '(404) 6••-••••',
+              service: 'Teeth Whitening',
+              stage: 'new_lead',
+              value: '$499',
+              lastActivity: 'Consult scheduled — Thursday',
             },
             {
-              name: "Amy Dawson",
-              phone: "(310) 7••-••••",
-              service: "Invisalign Consult",
-              stage: "estimate_scheduled",
-              value: "$4,800",
-              lastActivity: "Free consult booked — Friday PM",
+              name: 'Amy Dawson',
+              phone: '(310) 7••-••••',
+              service: 'Invisalign Consult',
+              stage: 'estimate_scheduled',
+              value: '$4,800',
+              lastActivity: 'Free consult booked — Friday PM',
             },
             {
-              name: "Chris Wallace",
-              phone: "(512) 9••-••••",
-              service: "Crown + Bridge",
-              stage: "quote_sent",
-              value: "$2,800",
-              lastActivity: "Treatment plan sent — awaiting approval",
+              name: 'Chris Wallace',
+              phone: '(512) 9••-••••',
+              service: 'Crown + Bridge',
+              stage: 'quote_sent',
+              value: '$2,800',
+              lastActivity: 'Treatment plan sent — awaiting approval',
             },
             {
-              name: "Karen Mitchell",
-              phone: "(954) 2••-••••",
-              service: "Pediatric Checkups",
-              stage: "won",
-              value: "$440",
-              lastActivity: "2 kids seen — next visits scheduled",
+              name: 'Karen Mitchell',
+              phone: '(954) 2••-••••',
+              service: 'Pediatric Checkups',
+              stage: 'won',
+              value: '$440',
+              lastActivity: '2 kids seen — next visits scheduled',
             },
             {
-              name: "Tom Bradley",
-              phone: "(480) 4••-••••",
-              service: "Root Canal Consult",
-              stage: "new_lead",
-              value: "$1,400",
-              lastActivity: "Urgent consult booked — severe pain",
+              name: 'Tom Bradley',
+              phone: '(480) 4••-••••',
+              service: 'Root Canal Consult',
+              stage: 'new_lead',
+              value: '$1,400',
+              lastActivity: 'Urgent consult booked — severe pain',
             },
           ],
           // 380+520+220+499+4800+2800+440+1400 = 11,059
-          pipelineValue: "$11,059",
+          pipelineValue: '$11,059',
           notifMessages: [
-            {
-              title: "New patient booked by Alex",
-              sub: "Exam + X-rays — Thursday 10 AM",
-            },
-            {
-              title: "Emergency appointment filled",
-              sub: "Tooth pain — seen same day",
-            },
-            {
-              title: "Lead captured automatically",
-              sub: "Invisalign inquiry — consult booked",
-            },
+            { title: 'New patient booked by Alex', sub: 'Exam + X-rays — Thursday 10 AM' },
+            { title: 'Emergency appointment filled', sub: 'Tooth pain — seen same day' },
+            { title: 'Lead captured automatically', sub: 'Invisalign inquiry — consult booked' },
           ],
-          fomoText:
-            "<strong>12 new patients booked</strong> by Alex this week. Zero missed calls.",
+          fomoText: '<strong>12 new patients booked</strong> by Alex this week. Zero missed calls.',
         },
 
         autorepair: {
           bizDefault: "Mike's Auto Repair",
           callReasons: [
-            { label: "Check Engine Light", count: 38, color: "#ff5252" },
-            { label: "Oil Change", count: 34, color: "#3b9eff" },
-            { label: "Brake Inspection", count: 24, color: "#fbbf24" },
-            { label: "Tire Service", count: 19, color: "#00c8ff" },
-            { label: "AC Repair", count: 12, color: "#a78bfa" },
+            { label: 'Check Engine Light', count: 38, color: '#ff5252' },
+            { label: 'Oil Change', count: 34, color: '#3b9eff' },
+            { label: 'Brake Inspection', count: 24, color: '#fbbf24' },
+            { label: 'Tire Service', count: 19, color: '#00c8ff' },
+            { label: 'AC Repair', count: 12, color: '#a78bfa' },
           ],
           calls: [
             {
-              service: "Check Engine Diagnostic",
-              summary: "Booked diagnostic appointment — CEL on for 3 days.",
+              service: 'Check Engine Diagnostic',
+              summary: 'Booked diagnostic appointment — CEL on for 3 days.',
             },
             {
-              service: "Oil Change + Inspection",
-              summary:
-                "Scheduled oil change + multi-point inspection for tomorrow.",
+              service: 'Oil Change + Inspection',
+              summary: 'Scheduled oil change + multi-point inspection for tomorrow.',
             },
             {
-              service: "Brake Inspection",
-              summary: "Booked brake inspection — grinding noise reported.",
+              service: 'Brake Inspection',
+              summary: 'Booked brake inspection — grinding noise reported.',
             },
             {
-              service: "Tire Rotation Pricing",
-              summary: "Provided pricing for tire rotation + balance service.",
+              service: 'Tire Rotation Pricing',
+              summary: 'Provided pricing for tire rotation + balance service.',
             },
             {
-              service: "AC Recharge",
-              summary: "Booked AC recharge appointment — not blowing cold.",
+              service: 'AC Recharge',
+              summary: 'Booked AC recharge appointment — not blowing cold.',
             },
             {
-              service: "Transmission Inquiry",
-              summary: "Customer requested callback — transmission slipping.",
+              service: 'Transmission Inquiry',
+              summary: 'Customer requested callback — transmission slipping.',
             },
             {
-              service: "Pre-Purchase Inspection",
-              summary: "Booked pre-purchase inspection for used car buying.",
+              service: 'Pre-Purchase Inspection',
+              summary: 'Booked pre-purchase inspection for used car buying.',
             },
             {
-              service: "Battery Replacement",
-              summary: "Booked battery test + replacement — car slow to start.",
+              service: 'Battery Replacement',
+              summary: 'Booked battery test + replacement — car slow to start.',
             },
           ],
           transcripts: [
             [
+              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help you today?' },
               {
-                role: "ai",
-                text: "Thanks for calling. This is Alex, how can I help you today?",
-              },
-              {
-                role: "caller",
+                role: 'caller',
                 text: "Hi, my check engine light came on 3 days ago and it won't go off.",
               },
+              { role: 'ai', text: 'I can get that diagnosed for you. Can I get your name?' },
+              { role: 'caller', text: 'Sarah Johnson.' },
               {
-                role: "ai",
-                text: "I can get that diagnosed for you. Can I get your name?",
-              },
-              { role: "caller", text: "Sarah Johnson." },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "Sarah, we have a diagnostic slot tomorrow morning at 9 AM. We'll pull the codes and give you a full picture. Does that work?",
               },
-              { role: "caller", text: "Yes, that's great." },
+              { role: 'caller', text: "Yes, that's great." },
               {
-                role: "ai",
+                role: 'ai',
                 text: "You're booked. I'll send you a text with our address. See you tomorrow!",
               },
             ],
             [
+              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help?' },
+              { role: 'caller', text: 'I need an oil change. How soon can I get in?' },
               {
-                role: "ai",
-                text: "Thanks for calling. This is Alex, how can I help?",
-              },
-              {
-                role: "caller",
-                text: "I need an oil change. How soon can I get in?",
-              },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "We can get you in tomorrow. Can I get your name and what you're driving?",
               },
-              { role: "caller", text: "Mark Torres. It's a 2018 Honda Civic." },
+              { role: 'caller', text: "Mark Torres. It's a 2018 Honda Civic." },
               {
-                role: "ai",
-                text: "Perfect. I have 10 AM or 2 PM open tomorrow — which works better for you?",
+                role: 'ai',
+                text: 'Perfect. I have 10 AM or 2 PM open tomorrow — which works better for you?',
               },
-              { role: "caller", text: "10 AM is great." },
+              { role: 'caller', text: '10 AM is great.' },
               {
-                role: "ai",
+                role: 'ai',
                 text: "Booked, Mark. I'll include a complimentary multi-point inspection too. See you then!",
               },
             ],
             [
+              { role: 'ai', text: 'Hi there, Alex speaking. What can I do for you?' },
               {
-                role: "ai",
-                text: "Hi there, Alex speaking. What can I do for you?",
-              },
-              {
-                role: "caller",
+                role: 'caller',
                 text: "I'm hearing a grinding noise when I brake. It started yesterday.",
               },
               {
-                role: "ai",
+                role: 'ai',
                 text: "That's worth getting looked at right away. Can I get your name?",
               },
-              { role: "caller", text: "Lisa Reed." },
+              { role: 'caller', text: 'Lisa Reed.' },
               {
-                role: "ai",
+                role: 'ai',
                 text: "Lisa, I can have you in for a brake inspection this afternoon at 3 PM. Free inspection — we'll tell you exactly what's needed.",
               },
-              { role: "caller", text: "That's perfect, thank you." },
+              { role: 'caller', text: "That's perfect, thank you." },
             ],
             [
-              { role: "ai", text: "Alex speaking, how can I help?" },
+              { role: 'ai', text: 'Alex speaking, how can I help?' },
+              { role: 'caller', text: 'How much do you charge for a tire rotation?' },
               {
-                role: "caller",
-                text: "How much do you charge for a tire rotation?",
+                role: 'ai',
+                text: 'Tire rotation is $29, and we bundle it with balancing for $59. Want me to get you scheduled?',
               },
-              {
-                role: "ai",
-                text: "Tire rotation is $29, and we bundle it with balancing for $59. Want me to get you scheduled?",
-              },
-              { role: "caller", text: "Sure, what's available this week?" },
-              {
-                role: "ai",
-                text: "Thursday at 11 AM or Friday at 2 PM. Which works for you?",
-              },
+              { role: 'caller', text: "Sure, what's available this week?" },
+              { role: 'ai', text: 'Thursday at 11 AM or Friday at 2 PM. Which works for you?' },
             ],
           ],
           leads: [
             {
-              name: "Sarah Johnson",
-              phone: "(813) 4••-••••",
-              service: "CEL Diagnostic",
-              stage: "estimate_scheduled",
-              value: "$320",
-              lastActivity: "Diagnostic booked — tomorrow 9 AM",
+              name: 'Sarah Johnson',
+              phone: '(813) 4••-••••',
+              service: 'CEL Diagnostic',
+              stage: 'estimate_scheduled',
+              value: '$320',
+              lastActivity: 'Diagnostic booked — tomorrow 9 AM',
             },
             {
-              name: "Mark Torres",
-              phone: "(602) 8••-••••",
-              service: "Oil Change + Inspection",
-              stage: "won",
-              value: "$89",
-              lastActivity: "Service completed — returned customer",
+              name: 'Mark Torres',
+              phone: '(602) 8••-••••',
+              service: 'Oil Change + Inspection',
+              stage: 'won',
+              value: '$89',
+              lastActivity: 'Service completed — returned customer',
             },
             {
-              name: "Lisa Reed",
-              phone: "(214) 3••-••••",
-              service: "Brake Replacement",
-              stage: "estimate_scheduled",
-              value: "$580",
-              lastActivity: "Inspection done — rotors + pads needed",
+              name: 'Lisa Reed',
+              phone: '(214) 3••-••••',
+              service: 'Brake Replacement',
+              stage: 'estimate_scheduled',
+              value: '$580',
+              lastActivity: 'Inspection done — rotors + pads needed',
             },
             {
-              name: "James Kim",
-              phone: "(404) 6••-••••",
-              service: "Tire Rotation + Balance",
-              stage: "new_lead",
-              value: "$59",
-              lastActivity: "Scheduled — Thursday 11 AM",
+              name: 'James Kim',
+              phone: '(404) 6••-••••',
+              service: 'Tire Rotation + Balance',
+              stage: 'new_lead',
+              value: '$59',
+              lastActivity: 'Scheduled — Thursday 11 AM',
             },
             {
-              name: "Amy Dawson",
-              phone: "(310) 7••-••••",
-              service: "AC Recharge",
-              stage: "won",
-              value: "$180",
-              lastActivity: "AC recharged — customer satisfied",
+              name: 'Amy Dawson',
+              phone: '(310) 7••-••••',
+              service: 'AC Recharge',
+              stage: 'won',
+              value: '$180',
+              lastActivity: 'AC recharged — customer satisfied',
             },
             {
-              name: "Chris Wallace",
-              phone: "(512) 9••-••••",
-              service: "Transmission Service",
-              stage: "quote_sent",
-              value: "$1,800",
-              lastActivity: "Quote sent — rebuild needed",
+              name: 'Chris Wallace',
+              phone: '(512) 9••-••••',
+              service: 'Transmission Service',
+              stage: 'quote_sent',
+              value: '$1,800',
+              lastActivity: 'Quote sent — rebuild needed',
             },
             {
-              name: "Karen Mitchell",
-              phone: "(954) 2••-••••",
-              service: "Pre-Purchase Inspect",
-              stage: "new_lead",
-              value: "$180",
-              lastActivity: "Inspection booked — used car purchase",
+              name: 'Karen Mitchell',
+              phone: '(954) 2••-••••',
+              service: 'Pre-Purchase Inspect',
+              stage: 'new_lead',
+              value: '$180',
+              lastActivity: 'Inspection booked — used car purchase',
             },
             {
-              name: "Tom Bradley",
-              phone: "(480) 4••-••••",
-              service: "Battery + Alternator",
-              stage: "quote_sent",
-              value: "$420",
-              lastActivity: "Quote sent — both need replacement",
+              name: 'Tom Bradley',
+              phone: '(480) 4••-••••',
+              service: 'Battery + Alternator',
+              stage: 'quote_sent',
+              value: '$420',
+              lastActivity: 'Quote sent — both need replacement',
             },
           ],
           // 320+89+580+59+180+1800+180+420 = 3,628
-          pipelineValue: "$3,628",
+          pipelineValue: '$3,628',
           notifMessages: [
-            {
-              title: "Appointment booked by Alex",
-              sub: "CEL diagnostic — tomorrow 9 AM",
-            },
-            {
-              title: "After-hours call handled",
-              sub: "Brake inspection — morning slot saved",
-            },
-            {
-              title: "Lead captured automatically",
-              sub: "Transmission inquiry — added to CRM",
-            },
+            { title: 'Appointment booked by Alex', sub: 'CEL diagnostic — tomorrow 9 AM' },
+            { title: 'After-hours call handled', sub: 'Brake inspection — morning slot saved' },
+            { title: 'Lead captured automatically', sub: 'Transmission inquiry — added to CRM' },
           ],
           fomoText:
-            "<strong>8 appointments booked</strong> by Alex this week while you were in the shop.",
+            '<strong>8 appointments booked</strong> by Alex this week while you were in the shop.',
         },
 
         general: {
           bizDefault: "Mike's Local Business",
           callReasons: [
-            { label: "Appointment Booking", count: 45, color: "#4ade80" },
-            { label: "Pricing Inquiry", count: 30, color: "#3b9eff" },
-            { label: "Service Question", count: 22, color: "#fbbf24" },
-            { label: "Emergency Request", count: 18, color: "#ff5252" },
-            { label: "Follow-Up", count: 12, color: "#a78bfa" },
+            { label: 'Appointment Booking', count: 45, color: '#4ade80' },
+            { label: 'Pricing Inquiry', count: 30, color: '#3b9eff' },
+            { label: 'Service Question', count: 22, color: '#fbbf24' },
+            { label: 'Emergency Request', count: 18, color: '#ff5252' },
+            { label: 'Follow-Up', count: 12, color: '#a78bfa' },
           ],
           calls: [
             {
-              service: "Appointment Booking",
-              summary:
-                "Booked appointment for tomorrow 9 AM — confirmed via SMS.",
+              service: 'Appointment Booking',
+              summary: 'Booked appointment for tomorrow 9 AM — confirmed via SMS.',
             },
             {
-              service: "Emergency Service",
-              summary:
-                "Scheduled same-day emergency service — urgent situation.",
+              service: 'Emergency Service',
+              summary: 'Scheduled same-day emergency service — urgent situation.',
+            },
+            { service: 'Service Estimate', summary: 'Booked free estimate for service project.' },
+            {
+              service: 'Pricing Inquiry',
+              summary: 'Provided pricing info and offered free consultation.',
             },
             {
-              service: "Service Estimate",
-              summary: "Booked free estimate for service project.",
+              service: 'Follow-Up Booking',
+              summary: 'Booked follow-up appointment from previous inquiry.',
             },
             {
-              service: "Pricing Inquiry",
-              summary: "Provided pricing info and offered free consultation.",
+              service: 'General Inquiry',
+              summary: 'Customer requested callback — complex question.',
             },
             {
-              service: "Follow-Up Booking",
-              summary: "Booked follow-up appointment from previous inquiry.",
+              service: 'Large Project Quote',
+              summary: 'Booked quote appointment for large service project.',
             },
             {
-              service: "General Inquiry",
-              summary: "Customer requested callback — complex question.",
-            },
-            {
-              service: "Large Project Quote",
-              summary: "Booked quote appointment for large service project.",
-            },
-            {
-              service: "After-Hours Booking",
-              summary:
-                "After-hours booking confirmed — morning appointment set.",
+              service: 'After-Hours Booking',
+              summary: 'After-hours booking confirmed — morning appointment set.',
             },
           ],
           transcripts: [
             [
+              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help you today?' },
+              { role: 'caller', text: "Hi, I'd like to book an appointment." },
+              { role: 'ai', text: 'Absolutely. Can I get your name?' },
+              { role: 'caller', text: 'Sarah Johnson.' },
               {
-                role: "ai",
-                text: "Thanks for calling. This is Alex, how can I help you today?",
+                role: 'ai',
+                text: 'Sarah, I have tomorrow at 9 AM or 2 PM open. Which works better for you?',
               },
-              { role: "caller", text: "Hi, I'd like to book an appointment." },
-              { role: "ai", text: "Absolutely. Can I get your name?" },
-              { role: "caller", text: "Sarah Johnson." },
+              { role: 'caller', text: '9 AM please.' },
               {
-                role: "ai",
-                text: "Sarah, I have tomorrow at 9 AM or 2 PM open. Which works better for you?",
-              },
-              { role: "caller", text: "9 AM please." },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "Perfect — you're booked. I'll send you a confirmation text right now with everything you need to know.",
               },
             ],
             [
+              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help?' },
               {
-                role: "ai",
-                text: "Thanks for calling. This is Alex, how can I help?",
+                role: 'caller',
+                text: 'I have an emergency situation and need someone today if possible.',
               },
               {
-                role: "caller",
-                text: "I have an emergency situation and need someone today if possible.",
+                role: 'ai',
+                text: 'Of course — we take care of urgent situations. Can I get your name?',
               },
+              { role: 'caller', text: 'Mark Torres.' },
               {
-                role: "ai",
-                text: "Of course — we take care of urgent situations. Can I get your name?",
-              },
-              { role: "caller", text: "Mark Torres." },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "Mark, I can get someone out to you this afternoon. What's the address?",
               },
-              { role: "caller", text: "427 Maple Drive." },
+              { role: 'caller', text: '427 Maple Drive.' },
               {
-                role: "ai",
+                role: 'ai',
                 text: "Got it. You're on the schedule for 2 PM. Sending you a confirmation now.",
               },
             ],
             [
+              { role: 'ai', text: 'Hi there, Alex speaking. What can I do for you?' },
+              { role: 'caller', text: "I'd like to get a quote for some work." },
               {
-                role: "ai",
-                text: "Hi there, Alex speaking. What can I do for you?",
-              },
-              {
-                role: "caller",
-                text: "I'd like to get a quote for some work.",
-              },
-              {
-                role: "ai",
+                role: 'ai',
                 text: "Happy to help. Can I get your name and what kind of work you're looking at?",
               },
-              { role: "caller", text: "Lisa Reed — it's a bigger project." },
+              { role: 'caller', text: "Lisa Reed — it's a bigger project." },
               {
-                role: "ai",
-                text: "Lisa, I can set you up with a free estimate appointment. Thursday afternoon at 3 PM?",
+                role: 'ai',
+                text: 'Lisa, I can set you up with a free estimate appointment. Thursday afternoon at 3 PM?',
               },
-              { role: "caller", text: "That works great." },
+              { role: 'caller', text: 'That works great.' },
             ],
             [
-              { role: "ai", text: "Alex speaking, how can I help?" },
+              { role: 'ai', text: 'Alex speaking, how can I help?' },
+              { role: 'caller', text: 'What are your rates for your main service?' },
               {
-                role: "caller",
-                text: "What are your rates for your main service?",
+                role: 'ai',
+                text: 'Our pricing starts at $X and varies by project size. Would you like me to schedule a free consultation so we can give you an exact quote?',
               },
-              {
-                role: "ai",
-                text: "Our pricing varies by project size and scope. Would you like me to schedule a free consultation so we can give you an exact quote?",
-              },
-              { role: "caller", text: "Yeah, that makes sense." },
-              {
-                role: "ai",
-                text: "Great. I have Friday morning open — does that work for you?",
-              },
+              { role: 'caller', text: 'Yeah, that makes sense.' },
+              { role: 'ai', text: 'Great. I have Friday morning open — does that work for you?' },
             ],
           ],
           leads: [
             {
-              name: "Sarah Johnson",
-              phone: "(813) 4••-••••",
-              service: "Appointment",
-              stage: "estimate_scheduled",
-              value: "$850",
-              lastActivity: "Appointment booked — tomorrow 9 AM",
+              name: 'Sarah Johnson',
+              phone: '(813) 4••-••••',
+              service: 'Appointment',
+              stage: 'estimate_scheduled',
+              value: '$850',
+              lastActivity: 'Appointment booked — tomorrow 9 AM',
             },
             {
-              name: "Mark Torres",
-              phone: "(602) 8••-••••",
-              service: "Emergency Service",
-              stage: "won",
-              value: "$3,200",
-              lastActivity: "Emergency handled — confirmed",
+              name: 'Mark Torres',
+              phone: '(602) 8••-••••',
+              service: 'Emergency Service',
+              stage: 'won',
+              value: '$3,200',
+              lastActivity: 'Emergency handled — confirmed',
             },
             {
-              name: "Lisa Reed",
-              phone: "(214) 3••-••••",
-              service: "Large Project",
-              stage: "new_lead",
-              value: "$12,500",
-              lastActivity: "Called in — wants estimate",
+              name: 'Lisa Reed',
+              phone: '(214) 3••-••••',
+              service: 'Large Project',
+              stage: 'new_lead',
+              value: '$12,500',
+              lastActivity: 'Called in — wants estimate',
             },
             {
-              name: "James Kim",
-              phone: "(404) 6••-••••",
-              service: "Pricing Inquiry",
-              stage: "new_lead",
-              value: "$2,100",
-              lastActivity: "Info sent — awaiting callback",
+              name: 'James Kim',
+              phone: '(404) 6••-••••',
+              service: 'Pricing Inquiry',
+              stage: 'new_lead',
+              value: '$2,100',
+              lastActivity: 'Info sent — awaiting callback',
             },
             {
-              name: "Amy Dawson",
-              phone: "(310) 7••-••••",
-              service: "Follow-Up Booking",
-              stage: "estimate_scheduled",
-              value: "$8,400",
-              lastActivity: "Follow-up booked — Friday PM",
+              name: 'Amy Dawson',
+              phone: '(310) 7••-••••',
+              service: 'Follow-Up Booking',
+              stage: 'estimate_scheduled',
+              value: '$8,400',
+              lastActivity: 'Follow-up booked — Friday PM',
             },
             {
-              name: "Chris Wallace",
-              phone: "(512) 9••-••••",
-              service: "Service Quote",
-              stage: "quote_sent",
-              value: "$4,600",
-              lastActivity: "Quote sent — awaiting approval",
+              name: 'Chris Wallace',
+              phone: '(512) 9••-••••',
+              service: 'Service Quote',
+              stage: 'quote_sent',
+              value: '$4,600',
+              lastActivity: 'Quote sent — awaiting approval',
             },
             {
-              name: "Karen Mitchell",
-              phone: "(954) 2••-••••",
-              service: "Project Contract",
-              stage: "quote_sent",
-              value: "$18,000",
-              lastActivity: "Quote sent — large project",
+              name: 'Karen Mitchell',
+              phone: '(954) 2••-••••',
+              service: 'Project Contract',
+              stage: 'quote_sent',
+              value: '$18,000',
+              lastActivity: 'Quote sent — large project',
             },
             {
-              name: "Tom Bradley",
-              phone: "(480) 4••-••••",
-              service: "Service Assessment",
-              stage: "new_lead",
-              value: "$5,800",
-              lastActivity: "Called in — assessment needed",
+              name: 'Tom Bradley',
+              phone: '(480) 4••-••••',
+              service: 'Service Assessment',
+              stage: 'new_lead',
+              value: '$5,800',
+              lastActivity: 'Called in — assessment needed',
             },
           ],
-          pipelineValue: "$55,450",
+          pipelineValue: '$55,450',
           notifMessages: [
-            {
-              title: "New call answered by Alex",
-              sub: "Booking confirmed — SMS sent",
-            },
-            {
-              title: "After-hours call handled",
-              sub: "Appointment booked — morning slot",
-            },
-            {
-              title: "Lead captured automatically",
-              sub: "Inquiry — added to CRM",
-            },
+            { title: 'New call answered by Alex', sub: 'Booking confirmed — SMS sent' },
+            { title: 'After-hours call handled', sub: 'Appointment booked — morning slot' },
+            { title: 'Lead captured automatically', sub: 'Inquiry — added to CRM' },
           ],
           fomoText:
-            "<strong>3 calls answered</strong> while competitors were closed last weekend. 0 missed.",
+            '<strong>3 calls answered</strong> while competitors were closed last weekend. 0 missed.',
         },
       };
 
@@ -5019,21 +4534,21 @@
    ======================================== */
       function resolveIndustry(raw) {
         const map = {
-          roofing: "roofing",
-          roof: "roofing",
-          plumbing: "plumbing",
-          plumber: "plumbing",
-          hvac: "hvac",
-          ac: "hvac",
-          heat: "hvac",
-          dental: "dental",
-          dentist: "dental",
-          auto: "autorepair",
-          autorepair: "autorepair",
-          car: "autorepair",
-          automotive: "autorepair",
+          roofing: 'roofing',
+          roof: 'roofing',
+          plumbing: 'plumbing',
+          plumber: 'plumbing',
+          hvac: 'hvac',
+          ac: 'hvac',
+          heat: 'hvac',
+          dental: 'dental',
+          dentist: 'dental',
+          auto: 'autorepair',
+          autorepair: 'autorepair',
+          car: 'autorepair',
+          automotive: 'autorepair',
         };
-        return map[raw] || "general";
+        return map[raw] || 'general';
       }
 
       const INDUSTRY_KEY = resolveIndustry(PARAM_INDUSTRY);
@@ -5045,70 +4560,53 @@
       (function applyParams() {
         // Business name
         const bizName = PARAM_BUSINESS || IND.bizDefault;
-        document.getElementById("biz-name").textContent = bizName;
+        document.getElementById('biz-name').textContent = bizName;
 
         // Rep label
         if (PARAM_REP) {
-          const repEl = document.getElementById("rep-label");
-          repEl.textContent = "Your AutoScale Rep: " + PARAM_REP;
+          const repEl = document.getElementById('rep-label');
+          repEl.textContent = 'Your AutoScale Rep: ' + PARAM_REP;
         }
 
         // Page title
-        document.title = bizName + " — Alex AI Dashboard";
+        document.title = bizName + ' — Alex AI Dashboard';
 
-        // FOMO banner — build via DOM to avoid XSS from URL params
-        var fomoBanner = document.getElementById("fomo-banner");
-        fomoBanner.innerHTML = "";
-        var fomoIcon = document.createElement("span");
-        fomoIcon.className = "fomo-icon";
-        fomoIcon.innerHTML = "&#9889;";
-        var fomoTextEl = document.createElement("span");
-        fomoTextEl.className = "fomo-text";
-        fomoTextEl.innerHTML = IND.fomoText;
-        if (PARAM_STATE) {
-          var stateSpan = document.createElement("span");
-          stateSpan.id = "fomo-state";
-          stateSpan.textContent = PARAM_STATE;
-          fomoTextEl.appendChild(document.createTextNode(" ("));
-          fomoTextEl.appendChild(stateSpan);
-          fomoTextEl.appendChild(document.createTextNode(")"));
-        }
-        var fomoBadge = document.createElement("span");
-        fomoBadge.className = "fomo-badge";
-        fomoBadge.textContent = "This Week";
-        fomoBanner.appendChild(fomoIcon);
-        fomoBanner.appendChild(fomoTextEl);
-        fomoBanner.appendChild(fomoBadge);
+        // FOMO banner
+        document.getElementById('fomo-banner').innerHTML =
+          '<span class="fomo-icon">&#9889;</span>' +
+          '<span class="fomo-text">' +
+          IND.fomoText +
+          (PARAM_STATE ? ' (<span id="fomo-state">' + PARAM_STATE + '</span>)' : '') +
+          '</span>' +
+          '<span class="fomo-badge">This Week</span>';
 
         // Update call services and summaries for industry
         IND.calls.forEach((c, i) => {
-          const svcEl = document.getElementById("call-" + i + "-service");
-          const sumEl = document.getElementById("call-" + i + "-summary");
+          const svcEl = document.getElementById('call-' + i + '-service');
+          const sumEl = document.getElementById('call-' + i + '-summary');
           if (svcEl) svcEl.textContent = c.service;
           if (sumEl) sumEl.textContent = c.summary;
         });
 
         // Build transcripts for calls 0-3 (expanded ones)
         IND.transcripts.forEach((lines, idx) => {
-          const container = document.getElementById("transcript-" + idx);
+          const container = document.getElementById('transcript-' + idx);
           if (!container) return;
           lines.forEach((line) => {
-            const msg = document.createElement("div");
-            msg.className = "transcript-msg";
-            const avatar = document.createElement("div");
-            avatar.className =
-              "msg-avatar " + (line.role === "ai" ? "ai" : "caller");
-            const avatarSpan = document.createElement("span");
-            avatarSpan.textContent = line.role === "ai" ? "AI" : "C";
+            const msg = document.createElement('div');
+            msg.className = 'transcript-msg';
+            const avatar = document.createElement('div');
+            avatar.className = 'msg-avatar ' + (line.role === 'ai' ? 'ai' : 'caller');
+            const avatarSpan = document.createElement('span');
+            avatarSpan.textContent = line.role === 'ai' ? 'AI' : 'C';
             avatar.appendChild(avatarSpan);
-            const content = document.createElement("div");
-            content.className = "msg-content";
-            const speaker = document.createElement("span");
-            speaker.className =
-              "msg-speaker " + (line.role === "ai" ? "ai" : "caller");
-            speaker.textContent = line.role === "ai" ? "Alex" : "Caller";
-            const text = document.createElement("p");
-            text.className = "msg-text";
+            const content = document.createElement('div');
+            content.className = 'msg-content';
+            const speaker = document.createElement('span');
+            speaker.className = 'msg-speaker ' + (line.role === 'ai' ? 'ai' : 'caller');
+            speaker.textContent = line.role === 'ai' ? 'Alex' : 'Caller';
+            const text = document.createElement('p');
+            text.className = 'msg-text';
             // Replace business name placeholder with actual biz name
             text.textContent = line.text.replace(/Mike's Roofing/g, bizName);
             content.appendChild(speaker);
@@ -5120,7 +4618,7 @@
         });
 
         // Pipeline value
-        const pvEl = document.getElementById("pipeline-value-amount");
+        const pvEl = document.getElementById('pipeline-value-amount');
         if (pvEl) pvEl.textContent = IND.pipelineValue;
       })();
 
@@ -5128,48 +4626,48 @@
    DATA — Uses industry-specific data
    ======================================== */
       const WEEKLY = [
-        { day: "Mon", calls: 6 },
-        { day: "Tue", calls: 7 },
-        { day: "Wed", calls: 5 },
-        { day: "Thu", calls: 6 },
-        { day: "Fri", calls: 4 },
-        { day: "Sat", calls: 2 },
-        { day: "Sun", calls: 1 },
+        { day: 'Mon', calls: 18 },
+        { day: 'Tue', calls: 24 },
+        { day: 'Wed', calls: 20 },
+        { day: 'Thu', calls: 27 },
+        { day: 'Fri', calls: 22 },
+        { day: 'Sat', calls: 11 },
+        { day: 'Sun', calls: 5 },
       ];
 
       const OUTCOMES = [
-        { label: "Booked", count: 93, color: "#4ade80" },
-        { label: "Info Given", count: 16, color: "#3b9eff" },
-        { label: "Callback", count: 11, color: "#fbbf24" },
-        { label: "VIP Flagged", count: 7, color: "#a78bfa" },
+        { label: 'Booked', count: 93, color: '#4ade80' },
+        { label: 'Info Given', count: 16, color: '#3b9eff' },
+        { label: 'Callback', count: 11, color: '#fbbf24' },
+        { label: 'VIP Flagged', count: 7, color: '#a78bfa' },
       ];
 
       const CALL_REASONS = IND.callReasons;
 
       const PEAK_HOURS = [
-        { hour: "6a", calls: 2 },
-        { hour: "7a", calls: 5 },
-        { hour: "8a", calls: 12 },
-        { hour: "9a", calls: 18 },
-        { hour: "10a", calls: 15 },
-        { hour: "11a", calls: 11 },
-        { hour: "12p", calls: 8 },
-        { hour: "1p", calls: 10 },
-        { hour: "2p", calls: 14 },
-        { hour: "3p", calls: 13 },
-        { hour: "4p", calls: 9 },
-        { hour: "5p", calls: 6 },
-        { hour: "6p", calls: 4 },
-        { hour: "7p", calls: 3 },
-        { hour: "8p", calls: 2 },
-        { hour: "9p", calls: 1 },
+        { hour: '6a', calls: 2 },
+        { hour: '7a', calls: 5 },
+        { hour: '8a', calls: 12 },
+        { hour: '9a', calls: 18 },
+        { hour: '10a', calls: 15 },
+        { hour: '11a', calls: 11 },
+        { hour: '12p', calls: 8 },
+        { hour: '1p', calls: 10 },
+        { hour: '2p', calls: 14 },
+        { hour: '3p', calls: 13 },
+        { hour: '4p', calls: 9 },
+        { hour: '5p', calls: 6 },
+        { hour: '6p', calls: 4 },
+        { hour: '7p', calls: 3 },
+        { hour: '8p', calls: 2 },
+        { hour: '9p', calls: 1 },
       ];
 
       const CRM_STAGES = {
-        new_lead: { label: "New Lead", color: "#3b9eff" },
-        estimate_scheduled: { label: "Estimate Set", color: "#fbbf24" },
-        quote_sent: { label: "Quote Sent", color: "#a78bfa" },
-        won: { label: "Won", color: "#4ade80" },
+        new_lead: { label: 'New Lead', color: '#3b9eff' },
+        estimate_scheduled: { label: 'Estimate Set', color: '#fbbf24' },
+        quote_sent: { label: 'Quote Sent', color: '#a78bfa' },
+        won: { label: 'Won', color: '#4ade80' },
       };
 
       const CRM_LEADS = IND.leads;
@@ -5177,21 +4675,20 @@
       /* ========================================
    INIT: Date label
    ======================================== */
-      document.getElementById("date-label").textContent =
-        new Date().toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        });
+      document.getElementById('date-label').textContent = new Date().toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
 
       /* ========================================
    INIT: Waveform (top bar animated bars)
    ======================================== */
       (function buildWaveform() {
-        const container = document.getElementById("waveform");
+        const container = document.getElementById('waveform');
         for (let i = 0; i < 8; i++) {
-          const bar = document.createElement("div");
-          bar.className = "waveform-bar";
+          const bar = document.createElement('div');
+          bar.className = 'waveform-bar';
           bar.style.opacity = 0.4 + (i % 3) * 0.2;
           bar.style.animation = `wave 1.2s ease-in-out ${i * 0.1}s infinite alternate`;
           container.appendChild(bar);
@@ -5217,19 +4714,12 @@
       }
 
       function setCallExpanded(idx, open) {
-        const header = document.getElementById("call-header-" + idx);
-        const panel = document.getElementById("call-expand-" + idx);
-        const chevron = document.getElementById("chevron-" + idx);
-        if (header)
-          open
-            ? header.classList.add("expanded")
-            : header.classList.remove("expanded");
-        if (panel)
-          open ? panel.classList.add("open") : panel.classList.remove("open");
-        if (chevron)
-          open
-            ? chevron.classList.add("open")
-            : chevron.classList.remove("open");
+        const header = document.getElementById('call-header-' + idx);
+        const panel = document.getElementById('call-expand-' + idx);
+        const chevron = document.getElementById('chevron-' + idx);
+        if (header) open ? header.classList.add('expanded') : header.classList.remove('expanded');
+        if (panel) open ? panel.classList.add('open') : panel.classList.remove('open');
+        if (chevron) open ? chevron.classList.add('open') : chevron.classList.remove('open');
       }
 
       /* ========================================
@@ -5239,48 +4729,46 @@
 
       function toggleShowAll() {
         showingAllCalls = !showingAllCalls;
-        document.querySelectorAll(".extra-call").forEach((row) => {
-          row.classList.toggle("hidden", !showingAllCalls);
+        document.querySelectorAll('.extra-call').forEach((row) => {
+          row.classList.toggle('hidden', !showingAllCalls);
         });
-        document.getElementById("show-all-text").textContent = showingAllCalls
-          ? "Show less"
-          : "View all 8 calls";
-        document
-          .getElementById("show-all-chevron")
-          .classList.toggle("open", showingAllCalls);
+        document.getElementById('show-all-text').textContent = showingAllCalls
+          ? 'Show less'
+          : 'View all 8 calls';
+        document.getElementById('show-all-chevron').classList.toggle('open', showingAllCalls);
       }
 
       /* ========================================
    WEEKLY CHART
    ======================================== */
       (function buildWeeklyChart() {
-        const container = document.getElementById("weekly-chart");
+        const container = document.getElementById('weekly-chart');
         const max = Math.max(...WEEKLY.map((w) => w.calls));
         const todayIdx = (new Date().getDay() + 6) % 7; // Mon=0
 
         WEEKLY.forEach((w, i) => {
-          const col = document.createElement("div");
-          col.className = "weekly-col";
+          const col = document.createElement('div');
+          col.className = 'weekly-col';
 
-          const countEl = document.createElement("span");
-          countEl.className = "weekly-count";
+          const countEl = document.createElement('span');
+          countEl.className = 'weekly-count';
           countEl.textContent = w.calls;
 
-          const barWrap = document.createElement("div");
-          barWrap.className = "weekly-bar-wrap";
+          const barWrap = document.createElement('div');
+          barWrap.className = 'weekly-bar-wrap';
 
-          const bar = document.createElement("div");
-          bar.className = "weekly-bar";
+          const bar = document.createElement('div');
+          bar.className = 'weekly-bar';
           bar.style.background =
             i === todayIdx
-              ? "linear-gradient(180deg, #3b9eff, rgba(59,158,255,0.4))"
-              : "linear-gradient(180deg, rgba(59,158,255,0.45), rgba(59,158,255,0.12))";
-          bar.style.transitionDelay = 0.8 + i * 0.08 + "s";
+              ? 'linear-gradient(180deg, #3b9eff, rgba(59,158,255,0.4))'
+              : 'linear-gradient(180deg, rgba(59,158,255,0.45), rgba(59,158,255,0.12))';
+          bar.style.transitionDelay = 0.8 + i * 0.08 + 's';
 
           barWrap.appendChild(bar);
 
-          const dayEl = document.createElement("span");
-          dayEl.className = "weekly-day" + (i === todayIdx ? " today" : "");
+          const dayEl = document.createElement('span');
+          dayEl.className = 'weekly-day' + (i === todayIdx ? ' today' : '');
           dayEl.textContent = w.day;
 
           col.appendChild(countEl);
@@ -5290,7 +4778,7 @@
 
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-              bar.style.height = (w.calls / max) * 100 + "%";
+              bar.style.height = (w.calls / max) * 100 + '%';
             });
           });
         });
@@ -5300,23 +4788,23 @@
    PEAK HOURS CHART
    ======================================== */
       (function buildPeakHours() {
-        const container = document.getElementById("peak-bars");
+        const container = document.getElementById('peak-bars');
         const max = Math.max(...PEAK_HOURS.map((h) => h.calls));
 
         PEAK_HOURS.forEach((h, i) => {
           const isAfterHours = i < 2 || i >= 12;
           const intensity = h.calls / max;
-          const bar = document.createElement("div");
-          bar.className = "peak-bar";
+          const bar = document.createElement('div');
+          bar.className = 'peak-bar';
           bar.style.background = isAfterHours
             ? `rgba(251,191,36,${0.25 + intensity * 0.6})`
             : `rgba(59,158,255,${0.15 + intensity * 0.6})`;
-          bar.style.transitionDelay = 1.0 + i * 0.04 + "s";
+          bar.style.transitionDelay = 1.0 + i * 0.04 + 's';
           container.appendChild(bar);
 
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-              bar.style.height = intensity * 100 + "%";
+              bar.style.height = intensity * 100 + '%';
             });
           });
         });
@@ -5326,34 +4814,34 @@
    CALL REASONS CHART
    ======================================== */
       (function buildCallReasons() {
-        const container = document.getElementById("call-reasons");
+        const container = document.getElementById('call-reasons');
         const max = Math.max(...CALL_REASONS.map((r) => r.count));
 
         CALL_REASONS.forEach((reason, i) => {
-          const row = document.createElement("div");
-          row.className = "reason-row";
+          const row = document.createElement('div');
+          row.className = 'reason-row';
 
-          const header = document.createElement("div");
-          header.className = "reason-header";
+          const header = document.createElement('div');
+          header.className = 'reason-header';
 
-          const label = document.createElement("span");
-          label.className = "reason-label";
+          const label = document.createElement('span');
+          label.className = 'reason-label';
           label.textContent = reason.label;
 
-          const count = document.createElement("span");
-          count.className = "reason-count";
+          const count = document.createElement('span');
+          count.className = 'reason-count';
           count.textContent = reason.count;
 
           header.appendChild(label);
           header.appendChild(count);
 
-          const track = document.createElement("div");
-          track.className = "reason-track";
+          const track = document.createElement('div');
+          track.className = 'reason-track';
 
-          const fill = document.createElement("div");
-          fill.className = "reason-fill";
+          const fill = document.createElement('div');
+          fill.className = 'reason-fill';
           fill.style.background = reason.color;
-          fill.style.transitionDelay = 0.9 + i * 0.1 + "s";
+          fill.style.transitionDelay = 0.9 + i * 0.1 + 's';
           track.appendChild(fill);
 
           row.appendChild(header);
@@ -5362,7 +4850,7 @@
 
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-              fill.style.width = (reason.count / max) * 100 + "%";
+              fill.style.width = (reason.count / max) * 100 + '%';
             });
           });
         });
@@ -5379,42 +4867,42 @@
           const size = (o.count / total) * 360;
           angle += size;
           return `${o.color} ${start.toFixed(1)}deg ${angle.toFixed(1)}deg`;
-        }).join(", ");
+        }).join(', ');
 
-        const donut = document.getElementById("donut-circle");
+        const donut = document.getElementById('donut-circle');
         setTimeout(() => {
           donut.style.background = `conic-gradient(${stops})`;
         }, 500);
 
-        const legend = document.getElementById("donut-legend");
+        const legend = document.getElementById('donut-legend');
         OUTCOMES.forEach((o) => {
-          const row = document.createElement("div");
-          row.className = "legend-row";
+          const row = document.createElement('div');
+          row.className = 'legend-row';
 
-          const left = document.createElement("div");
-          left.className = "legend-left";
+          const left = document.createElement('div');
+          left.className = 'legend-left';
 
-          const dot = document.createElement("span");
-          dot.className = "legend-dot";
+          const dot = document.createElement('span');
+          dot.className = 'legend-dot';
           dot.style.background = o.color;
 
-          const name = document.createElement("span");
-          name.className = "legend-name";
+          const name = document.createElement('span');
+          name.className = 'legend-name';
           name.textContent = o.label;
 
           left.appendChild(dot);
           left.appendChild(name);
 
-          const right = document.createElement("div");
-          right.className = "legend-right";
+          const right = document.createElement('div');
+          right.className = 'legend-right';
 
-          const cnt = document.createElement("span");
-          cnt.className = "legend-count";
+          const cnt = document.createElement('span');
+          cnt.className = 'legend-count';
           cnt.textContent = o.count;
 
-          const pct = document.createElement("span");
-          pct.className = "legend-pct";
-          pct.textContent = Math.round((o.count / total) * 100) + "%";
+          const pct = document.createElement('span');
+          pct.className = 'legend-pct';
+          pct.textContent = Math.round((o.count / total) * 100) + '%';
 
           right.appendChild(cnt);
           right.appendChild(pct);
@@ -5429,12 +4917,7 @@
    CRM PIPELINE
    ======================================== */
       (function buildCrmPipeline() {
-        const stageKeys = [
-          "new_lead",
-          "estimate_scheduled",
-          "quote_sent",
-          "won",
-        ];
+        const stageKeys = ['new_lead', 'estimate_scheduled', 'quote_sent', 'won'];
         const stagesData = stageKeys.map((key) => ({
           key,
           ...CRM_STAGES[key],
@@ -5443,15 +4926,15 @@
         const totalLeads = CRM_LEADS.length;
 
         // Stage cards
-        const stagesEl = document.getElementById("pipeline-stages");
+        const stagesEl = document.getElementById('pipeline-stages');
         stagesData.forEach((s, i) => {
-          const card = document.createElement("div");
-          card.className = "pipeline-stage-card";
-          card.style.animationName = "fade-up";
-          card.style.animationDuration = "0.4s";
-          card.style.animationTimingFunction = "cubic-bezier(0.16,1,0.3,1)";
-          card.style.animationDelay = 0.3 + i * 0.08 + "s";
-          card.style.animationFillMode = "both";
+          const card = document.createElement('div');
+          card.className = 'pipeline-stage-card';
+          card.style.animationName = 'fade-up';
+          card.style.animationDuration = '0.4s';
+          card.style.animationTimingFunction = 'cubic-bezier(0.16,1,0.3,1)';
+          card.style.animationDelay = 0.3 + i * 0.08 + 's';
+          card.style.animationFillMode = 'both';
 
           card.innerHTML = `
       <div class="stage-glow" style="background: radial-gradient(ellipse at 50% -20%, ${s.color}18 0%, transparent 70%);"></div>
@@ -5463,33 +4946,33 @@
         });
 
         // Flow bar
-        const flowEl = document.getElementById("pipeline-flow");
+        const flowEl = document.getElementById('pipeline-flow');
         stagesData.forEach((s) => {
-          const seg = document.createElement("div");
-          seg.className = "flow-segment";
+          const seg = document.createElement('div');
+          seg.className = 'flow-segment';
           seg.style.background = s.color;
-          seg.style.width = "0%";
+          seg.style.width = '0%';
           flowEl.appendChild(seg);
 
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-              seg.style.width = (s.leads.length / totalLeads) * 100 + "%";
+              seg.style.width = (s.leads.length / totalLeads) * 100 + '%';
             });
           });
         });
 
         // Leads list — with "Captured by Alex" badge
-        const leadsEl = document.getElementById("leads-list");
+        const leadsEl = document.getElementById('leads-list');
         CRM_LEADS.forEach((lead, i) => {
           const stage = CRM_STAGES[lead.stage];
-          const row = document.createElement("div");
-          row.className = "lead-row" + (i >= 5 ? " hidden extra-lead" : "");
+          const row = document.createElement('div');
+          row.className = 'lead-row' + (i >= 5 ? ' hidden extra-lead' : '');
           row.style.borderLeft = `3px solid ${stage.color}50`;
-          row.style.animationName = "fade-up";
-          row.style.animationDuration = "0.4s";
-          row.style.animationTimingFunction = "cubic-bezier(0.16,1,0.3,1)";
-          row.style.animationDelay = 0.5 + i * 0.06 + "s";
-          row.style.animationFillMode = "both";
+          row.style.animationName = 'fade-up';
+          row.style.animationDuration = '0.4s';
+          row.style.animationTimingFunction = 'cubic-bezier(0.16,1,0.3,1)';
+          row.style.animationDelay = 0.5 + i * 0.06 + 's';
+          row.style.animationFillMode = 'both';
 
           row.innerHTML = `
       <div class="lead-row-1">
@@ -5508,11 +4991,11 @@
       <div class="lead-activity">${lead.lastActivity}</div>
     `;
 
-          row.addEventListener("mouseenter", () => {
-            row.style.background = stage.color + "06";
+          row.addEventListener('mouseenter', () => {
+            row.style.background = stage.color + '06';
           });
-          row.addEventListener("mouseleave", () => {
-            row.style.background = "";
+          row.addEventListener('mouseleave', () => {
+            row.style.background = '';
           });
 
           leadsEl.appendChild(row);
@@ -5526,29 +5009,19 @@
 
       function toggleShowAllLeads() {
         showingAllLeads = !showingAllLeads;
-        document.querySelectorAll(".extra-lead").forEach((row) => {
-          row.classList.toggle("hidden", !showingAllLeads);
+        document.querySelectorAll('.extra-lead').forEach((row) => {
+          row.classList.toggle('hidden', !showingAllLeads);
         });
-        document.getElementById("show-all-leads-text").textContent =
-          showingAllLeads ? "Show less" : "View all 8 leads";
-        document
-          .getElementById("show-all-leads-chevron")
-          .classList.toggle("open", showingAllLeads);
+        document.getElementById('show-all-leads-text').textContent = showingAllLeads
+          ? 'Show less'
+          : 'View all 8 leads';
+        document.getElementById('show-all-leads-chevron').classList.toggle('open', showingAllLeads);
       }
 
       /* ========================================
    ANIMATED COUNTERS (easeOutCubic)
    ======================================== */
-      function animateCounter(
-        el,
-        target,
-        duration,
-        delay,
-        decimals,
-        prefix,
-        suffix,
-        formatFull,
-      ) {
+      function animateCounter(el, target, duration, delay, decimals, prefix, suffix, formatFull) {
         setTimeout(() => {
           const start = performance.now();
           function step(now) {
@@ -5556,16 +5029,12 @@
             const eased = 1 - Math.pow(1 - p, 3);
             const current = eased * target;
             let display;
-            if (formatFull && prefix === "$") {
+            if (formatFull && prefix === '$') {
               // Show full dollar amount with comma formatting
-              display = "$" + Math.round(current).toLocaleString();
+              display = '$' + Math.round(current).toLocaleString();
             } else {
               display =
-                prefix +
-                (decimals > 0
-                  ? current.toFixed(decimals)
-                  : Math.round(current)) +
-                suffix;
+                prefix + (decimals > 0 ? current.toFixed(decimals) : Math.round(current)) + suffix;
             }
             el.textContent = display;
             if (p < 1) requestAnimationFrame(step);
@@ -5575,31 +5044,22 @@
       }
 
       // Main metric cards
-      document.querySelectorAll("[data-counter]").forEach((el) => {
+      document.querySelectorAll('[data-counter]').forEach((el) => {
         const target = parseFloat(el.dataset.counter);
-        const prefix = el.dataset.prefix || "";
-        const suffix = el.dataset.suffix || "";
-        const decimals = parseInt(el.dataset.decimals || "0", 10);
-        const formatFull = el.dataset.format === "full";
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const decimals = parseInt(el.dataset.decimals || '0', 10);
+        const formatFull = el.dataset.format === 'full';
         const delay = 600;
-        animateCounter(
-          el,
-          target,
-          2000,
-          delay,
-          decimals,
-          prefix,
-          suffix,
-          formatFull,
-        );
+        animateCounter(el, target, 2000, delay, decimals, prefix, suffix, formatFull);
       });
 
       // Cost savings AI counter
       (function () {
-        const el = document.querySelector(".cost-value-green[data-counter]");
-        const roiEl = document.querySelector(".roi-value[data-counter]");
-        if (el) animateCounter(el, 697, 1500, 1200, 0, "$", "/mo", false);
-        if (roiEl) animateCounter(roiEl, 26, 2000, 1400, 0, "", "x", false);
+        const el = document.querySelector('.cost-value-green[data-counter]');
+        const roiEl = document.querySelector('.roi-value[data-counter]');
+        if (el) animateCounter(el, 697, 1500, 1200, 0, '$', '/mo', false);
+        if (roiEl) animateCounter(roiEl, 26, 2000, 1400, 0, '', 'x', false);
       })();
 
       /* ========================================
@@ -5611,22 +5071,22 @@
       function showNotif() {
         const msgs = IND.notifMessages;
         const msg = msgs[Math.floor(Math.random() * msgs.length)];
-        const el = document.getElementById("live-notif");
-        document.getElementById("notif-title").textContent = msg.title;
-        document.getElementById("notif-sub").textContent = msg.sub;
+        const el = document.getElementById('live-notif');
+        document.getElementById('notif-title').textContent = msg.title;
+        document.getElementById('notif-sub').textContent = msg.sub;
 
-        el.classList.remove("hiding");
-        el.classList.add("visible");
+        el.classList.remove('hiding');
+        el.classList.add('visible');
 
         // Auto-hide after 5 seconds
         setTimeout(() => hideNotif(), 5000);
       }
 
       function hideNotif() {
-        const el = document.getElementById("live-notif");
-        el.classList.remove("visible");
-        el.classList.add("hiding");
-        setTimeout(() => el.classList.remove("hiding"), 400);
+        const el = document.getElementById('live-notif');
+        el.classList.remove('visible');
+        el.classList.add('hiding');
+        setTimeout(() => el.classList.remove('hiding'), 400);
 
         // Schedule next
         scheduleNextNotif();
@@ -5646,19 +5106,18 @@
    ======================================== */
       (function () {
         if (!PARAM_REP) return;
-        const repEl = document.getElementById("sticky-rep");
-        const repNameEl = document.getElementById("sticky-rep-name");
+        const repEl = document.getElementById('sticky-rep');
+        const repNameEl = document.getElementById('sticky-rep-name');
         if (repEl && repNameEl) {
           repNameEl.textContent = PARAM_REP;
-          repEl.style.display = "";
+          repEl.style.display = '';
         }
       })();
     </script>
 
     <!-- Demo disclaimer -->
     <p class="demo-disclaimer">
-      This is a sample dashboard with simulated data for demonstration purposes
-      only.
+      This is a sample dashboard with simulated data for demonstration purposes only.
     </p>
 
     <footer
@@ -5672,26 +5131,11 @@
     >
       <nav
         aria-label="Footer navigation"
-        style="
-          display: flex;
-          justify-content: center;
-          gap: 16px;
-          margin-bottom: 8px;
-        "
+        style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px"
       >
-        <a
-          href="index.html"
-          style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
-          >Field Kit</a
-        >
-        <a
-          href="terms.html"
-          style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
-          >Terms</a
-        >
-        <a
-          href="privacy.html"
-          style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
+        <a href="index.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Field Kit</a>
+        <a href="terms.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Terms</a>
+        <a href="privacy.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
           >Privacy</a
         >
       </nav>

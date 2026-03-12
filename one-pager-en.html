@@ -3,14 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <title>AutoScale AI — Meet Alex</title>
     <style>
-      @import url("https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap");
-      @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap");
+      @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
 
       *,
       *::before,
@@ -29,7 +28,7 @@
       }
 
       body {
-        font-family: "Satoshi", system-ui, sans-serif;
+        font-family: 'Satoshi', system-ui, sans-serif;
         color: #e5e5e5;
         background: #0a0a0f;
         line-height: 1.45;
@@ -67,21 +66,17 @@
 
       /* ── DOT GRID + GRAIN ── */
       .page::before {
-        content: "";
+        content: '';
         position: absolute;
         inset: 0;
         opacity: 0.08;
         pointer-events: none;
         z-index: 1;
-        background-image: radial-gradient(
-          circle,
-          rgba(0, 217, 255, 0.3) 1px,
-          transparent 1px
-        );
+        background-image: radial-gradient(circle, rgba(0, 217, 255, 0.3) 1px, transparent 1px);
         background-size: 24px 24px;
       }
       .page::after {
-        content: "";
+        content: '';
         position: absolute;
         inset: 0;
         opacity: 0.05;
@@ -99,11 +94,7 @@
 
       /* ── GRADIENT BORDER CARDS ── */
       .glow-card {
-        background: linear-gradient(
-          135deg,
-          rgba(0, 217, 255, 0.25),
-          rgba(0, 102, 179, 0.12)
-        );
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.25), rgba(0, 102, 179, 0.12));
         border-radius: 12px;
         padding: 1.5px;
       }
@@ -127,11 +118,7 @@
         right: -40px;
         width: 380px;
         height: 380px;
-        background: radial-gradient(
-          circle,
-          rgba(0, 217, 255, 0.1),
-          transparent 65%
-        );
+        background: radial-gradient(circle, rgba(0, 217, 255, 0.1), transparent 65%);
         border-radius: 50%;
         z-index: 0;
       }
@@ -149,7 +136,7 @@
         height: 36px;
       }
       .logo-text {
-        font-family: "Satoshi", sans-serif;
+        font-family: 'Satoshi', sans-serif;
         font-size: 8px;
         letter-spacing: 0.2em;
         text-transform: uppercase;
@@ -160,7 +147,7 @@
         color: #00d9ff;
       }
       .hero-headline {
-        font-family: "Clash Display", sans-serif;
+        font-family: 'Clash Display', sans-serif;
         font-size: 42px;
         font-weight: 700;
         line-height: 0.98;
@@ -201,7 +188,7 @@
         text-align: center;
       }
       .phone-number {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 17px;
         font-weight: 700;
         color: #00d9ff;
@@ -230,7 +217,7 @@
         gap: 8px;
       }
       .sv {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-weight: 700;
         font-size: 24px;
         line-height: 1;
@@ -282,18 +269,10 @@
         padding: 1.5px;
       }
       .cmp-card.before {
-        background: linear-gradient(
-          135deg,
-          rgba(255, 77, 106, 0.3),
-          rgba(255, 77, 106, 0.06)
-        );
+        background: linear-gradient(135deg, rgba(255, 77, 106, 0.3), rgba(255, 77, 106, 0.06));
       }
       .cmp-card.after {
-        background: linear-gradient(
-          135deg,
-          rgba(0, 217, 255, 0.3),
-          rgba(0, 217, 255, 0.06)
-        );
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.3), rgba(0, 217, 255, 0.06));
       }
       .cmp-inner {
         background: #0b0b12;
@@ -301,7 +280,7 @@
         padding: 14px 16px;
       }
       .cmp-label {
-        font-family: "Clash Display", sans-serif;
+        font-family: 'Clash Display', sans-serif;
         font-size: 8px;
         font-weight: 600;
         text-transform: uppercase;
@@ -330,7 +309,7 @@
         position: relative;
       }
       .cmp-card.before li::before {
-        content: "\2715";
+        content: '\2715';
         position: absolute;
         left: 0;
         font-size: 8px;
@@ -338,7 +317,7 @@
         color: #ff4d6a;
       }
       .cmp-card.after li::before {
-        content: "\2713";
+        content: '\2713';
         position: absolute;
         left: 0;
         font-size: 8px;
@@ -355,11 +334,7 @@
         margin: 14px 0;
       }
       .roi-outer {
-        background: linear-gradient(
-          135deg,
-          rgba(0, 217, 255, 0.3),
-          rgba(0, 102, 179, 0.15)
-        );
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.3), rgba(0, 102, 179, 0.15));
         border-radius: 14px;
         padding: 1.5px;
         box-shadow: 0 0 30px rgba(0, 217, 255, 0.08);
@@ -376,7 +351,7 @@
         flex: 1;
       }
       .roi-title {
-        font-family: "Clash Display", sans-serif;
+        font-family: 'Clash Display', sans-serif;
         font-size: 12px;
         font-weight: 600;
         color: #fff;
@@ -392,7 +367,7 @@
         text-align: center;
       }
       .roi-nv {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 20px;
         font-weight: 700;
         line-height: 1.1;
@@ -424,17 +399,13 @@
       .roi-result {
         text-align: center;
         padding: 14px 18px;
-        background: linear-gradient(
-          135deg,
-          rgba(0, 217, 255, 0.15),
-          rgba(0, 217, 255, 0.05)
-        );
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.15), rgba(0, 217, 255, 0.05));
         border: 1px solid rgba(0, 217, 255, 0.25);
         border-radius: 12px;
         flex-shrink: 0;
       }
       .roi-rv {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 26px;
         font-weight: 700;
         color: #00d9ff;
@@ -502,12 +473,7 @@
       .divider {
         height: 1px;
         margin: 4px 44px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(0, 217, 255, 0.15),
-          transparent
-        );
+        background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.15), transparent);
       }
 
       /* ── TESTIMONIALS ── */
@@ -535,7 +501,7 @@
         letter-spacing: 0.5px;
       }
       .tst-name {
-        font-family: "Clash Display", sans-serif;
+        font-family: 'Clash Display', sans-serif;
         font-size: 9px;
         font-weight: 600;
         color: #fff;
@@ -594,7 +560,7 @@
         align-items: center;
       }
       .cta-left h2 {
-        font-family: "Clash Display", sans-serif;
+        font-family: 'Clash Display', sans-serif;
         font-size: 16px;
         font-weight: 700;
         color: #0a0a0f;
@@ -622,7 +588,7 @@
         margin-bottom: 1px;
       }
       .cta-phone-number {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 15px;
         font-weight: 700;
         color: #00d9ff;
@@ -676,7 +642,7 @@
         border-radius: 50%;
       }
       .bottom-bar-url {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-weight: 600;
         color: rgba(255, 255, 255, 0.85);
       }
@@ -756,34 +722,26 @@
             <div class="logo-text">AUTOSCALE <span class="cy">AI</span></div>
           </div>
           <h1 class="hero-headline">
-            Stop losing<br />customers to<br />voicemail.<br /><span class="cy"
-              >Meet Alex.</span
-            >
+            Stop losing<br />customers to<br />voicemail.<br /><span class="cy">Meet Alex.</span>
           </h1>
           <p class="hero-sub">
-            Your AI receptionist that picks up every call, answers questions,
-            and books appointments — 24/7/365.
+            Your AI receptionist that picks up every call, answers questions, and books appointments
+            — 24/7/365.
           </p>
         </div>
         <div class="hero-right">
           <div class="phone-wrap">
             <div class="phone-inner">
-              <div class="phone-number">
-                <a href="tel:+12073049892">(207) 304-9892</a>
-              </div>
+              <div class="phone-number"><a href="tel:+12073049892">(207) 304-9892</a></div>
               <div class="phone-sub">Call to hear Alex live</div>
             </div>
           </div>
           <div class="stat-card">
             <div class="sv cr">85%</div>
-            <div class="sm">
-              of callers who hit voicemail<br />never call back
-            </div>
+            <div class="sm">of callers who hit voicemail<br />never call back</div>
           </div>
           <div class="stat-card">
-            <div class="sv wh">
-              $4K<span style="font-size: 13px; opacity: 0.4">+</span>
-            </div>
+            <div class="sv wh">$4K<span style="font-size: 13px; opacity: 0.4">+</span></div>
             <div class="sm">lost per month<br />in missed calls</div>
           </div>
           <div class="stat-card">
@@ -805,15 +763,9 @@
           <div class="cmp-inner">
             <div class="cmp-label">Without Alex</div>
             <ul>
-              <li>
-                Calls go to <strong>voicemail</strong> — customers hang up
-              </li>
-              <li>
-                Missed calls = <strong>missed revenue</strong> (avg. $300/call)
-              </li>
-              <li>
-                No bookings on <strong>nights, weekends &amp; holidays</strong>
-              </li>
+              <li>Calls go to <strong>voicemail</strong> — customers hang up</li>
+              <li>Missed calls = <strong>missed revenue</strong> (avg. $300/call)</li>
+              <li>No bookings on <strong>nights, weekends &amp; holidays</strong></li>
             </ul>
           </div>
         </div>
@@ -821,12 +773,8 @@
           <div class="cmp-inner">
             <div class="cmp-label">With Alex</div>
             <ul>
-              <li>
-                <strong>Every call answered</strong> — 24/7/365, naturally
-              </li>
-              <li>
-                Appointments booked <strong>straight into your calendar</strong>
-              </li>
+              <li><strong>Every call answered</strong> — 24/7/365, naturally</li>
+              <li>Appointments booked <strong>straight into your calendar</strong></li>
               <li>Every lead captured and sent to <strong>your CRM</strong></li>
             </ul>
           </div>
@@ -842,11 +790,11 @@
               <div class="roi-math">
                 <div class="roi-num">
                   <div class="roi-nv cr">10</div>
-                  <div class="roi-nl">Missed calls/mo</div>
+                  <div class="roi-nl">Missed calls/wk</div>
                 </div>
                 <div class="roi-op">&times;</div>
                 <div class="roi-num">
-                  <div class="roi-nv dm">$400</div>
+                  <div class="roi-nv dm">$300</div>
                   <div class="roi-nl">Avg. job value</div>
                 </div>
                 <div class="roi-op">=</div>
@@ -860,7 +808,7 @@
             </div>
             <div class="roi-result">
               <div class="roi-rv">$697<span>/mo</span></div>
-              <div class="roi-rs">About $23/day &bull; 500 min included</div>
+              <div class="roi-rs">Less than $24/day &bull; 500 min included</div>
             </div>
           </div>
         </div>
@@ -931,7 +879,7 @@
         <div style="text-align: center">
           <div
             style="
-              font-family: &quot;JetBrains Mono&quot;, monospace;
+              font-family: 'JetBrains Mono', monospace;
               font-size: 11px;
               font-weight: 700;
               color: #00d9ff;
@@ -951,17 +899,11 @@
             One-time activation
           </div>
         </div>
-        <div
-          style="
-            width: 1px;
-            height: 28px;
-            background: rgba(255, 255, 255, 0.08);
-          "
-        ></div>
+        <div style="width: 1px; height: 28px; background: rgba(255, 255, 255, 0.08)"></div>
         <div style="text-align: center">
           <div
             style="
-              font-family: &quot;JetBrains Mono&quot;, monospace;
+              font-family: 'JetBrains Mono', monospace;
               font-size: 11px;
               font-weight: 700;
               color: #fff;
@@ -981,17 +923,11 @@
             500 minutes included
           </div>
         </div>
-        <div
-          style="
-            width: 1px;
-            height: 28px;
-            background: rgba(255, 255, 255, 0.08);
-          "
-        ></div>
+        <div style="width: 1px; height: 28px; background: rgba(255, 255, 255, 0.08)"></div>
         <div style="text-align: center">
           <div
             style="
-              font-family: &quot;JetBrains Mono&quot;, monospace;
+              font-family: 'JetBrains Mono', monospace;
               font-size: 11px;
               font-weight: 700;
               color: #fff;
@@ -1094,9 +1030,7 @@
         </div>
         <div class="cta-phone-box">
           <div class="cta-phone-label">Tap to call — Live Demo</div>
-          <div class="cta-phone-number">
-            <a href="tel:+12073049892">(207) 304-9892</a>
-          </div>
+          <div class="cta-phone-number"><a href="tel:+12073049892">(207) 304-9892</a></div>
         </div>
         <div class="cta-qr">
           <svg viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg">
@@ -1114,12 +1048,9 @@
       <div class="bottom-bar z">
         <div class="bottom-bar-brand">AutoScale AI</div>
         <div class="bottom-bar-sep"></div>
-        <div>
-          Dentists &bull; Lawyers &bull; HVAC &bull; Plumbers &bull; Salons
-          &amp; more
-        </div>
+        <div>Dentists &bull; Lawyers &bull; HVAC &bull; Plumbers &bull; Salons &amp; more</div>
         <div class="bottom-bar-sep"></div>
-        <div class="bottom-bar-url">autoscaleai.ca</div>
+        <div class="bottom-bar-url">autoscaleai.com</div>
       </div>
     </div>
 
@@ -1129,31 +1060,16 @@
         padding: 24px 16px 32px;
         font-size: 12px;
         color: rgba(200, 210, 220, 0.35);
-        font-family: &quot;Satoshi&quot;, system-ui, sans-serif;
+        font-family: 'Satoshi', system-ui, sans-serif;
       "
     >
       <nav
         aria-label="Footer navigation"
-        style="
-          display: flex;
-          justify-content: center;
-          gap: 16px;
-          margin-bottom: 8px;
-        "
+        style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px"
       >
-        <a
-          href="index.html"
-          style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
-          >Field Kit</a
-        >
-        <a
-          href="terms.html"
-          style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
-          >Terms</a
-        >
-        <a
-          href="privacy.html"
-          style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
+        <a href="index.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Field Kit</a>
+        <a href="terms.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Terms</a>
+        <a href="privacy.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
           >Privacy</a
         >
       </nav>

@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <title>AutoScale AI — Lead Gen Tools</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --green: #60a5fa;
+        --green-2: #3b82f6;
+        --green-dim: rgba(96, 165, 250, 0.07);
+        --green-glow: rgba(96, 165, 250, 0.15);
+        --red: #f87171;
+        --red-dim: rgba(248, 113, 113, 0.06);
+        --gold: #fbbf24;
+        --blue: #60a5fa;
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+        scroll-padding-top: 24px;
+      }
+
+      body {
+        font-family:
+          'Plus Jakarta Sans',
+          -apple-system,
+          system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 0 20px 100px;
+        position: relative;
+        font-weight: 400;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 28px 0 24px;
+        text-align: center;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .logo-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .logo-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        font-family: 'Michroma', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .page-title {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: var(--text);
+        margin-top: 16px;
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+        margin: 4px 0;
+      }
+
+      /* ── SECTIONS ── */
+      .section {
+        margin-top: 48px;
+      }
+
+      .section-tag {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--green);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.1);
+        padding: 5px 12px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+      }
+
+      .section-title {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin-bottom: 18px;
+        line-height: 1.15;
+        color: var(--text);
+      }
+
+      /* ── CARDS GRID ── */
+      .cards-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .card {
+        padding: 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s,
+          background 0.15s;
+        box-shadow: 0 0 20px rgba(96, 165, 250, 0.03);
+        position: relative;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .card:active {
+        transform: scale(0.98);
+        background: var(--surface-2);
+      }
+
+      .card-header {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--green);
+        margin-bottom: 12px;
+        letter-spacing: -0.3px;
+      }
+
+      .card-content {
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--text-2);
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .card-meta {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: var(--green-dim);
+        color: var(--green);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 10px;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.15s;
+        margin-top: 12px;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .copy-btn:active {
+        transform: scale(0.96);
+      }
+
+      .copy-btn.copied {
+        background: var(--green);
+        color: var(--bg);
+        border-color: var(--green);
+      }
+
+      /* ── CODE BLOCKS ── */
+      .code-block {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 14px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        line-height: 1.5;
+        color: var(--text-2);
+        word-break: break-word;
+        white-space: pre-wrap;
+        margin: 12px 0;
+      }
+
+      /* ── STEPS ── */
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .step {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 18px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: 0 0 20px rgba(96, 165, 250, 0.03);
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+      }
+
+      .step:active {
+        background: var(--surface-2);
+      }
+
+      .step-badge {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        color: var(--green);
+        display: grid;
+        place-items: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .step-content {
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--text);
+      }
+
+      .step-content strong {
+        color: var(--green);
+        font-weight: 700;
+      }
+
+      .step-hint {
+        display: block;
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 8px;
+        font-style: italic;
+        line-height: 1.5;
+      }
+
+      /* ── EMAIL TEMPLATE ── */
+      .email-template {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px;
+        margin: 12px 0;
+        box-shadow: 0 0 20px rgba(96, 165, 250, 0.03);
+      }
+
+      .email-subject {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .email-body {
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--text-2);
+        white-space: pre-wrap;
+        word-break: break-word;
+        padding-left: 12px;
+        border-left: 2px solid var(--green);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .footer-link {
+        display: inline-block;
+        color: var(--green);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        transition: color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .footer-link:active {
+        transform: scale(0.98);
+      }
+
+      .footer-brand {
+        font-family: 'Michroma', sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        color: var(--text-2);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-top: 12px;
+      }
+
+      .footer-sub {
+        font-size: 10px;
+        color: var(--border-2);
+        margin-top: 4px;
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--surface-2);
+        color: var(--green);
+        padding: 10px 24px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 600;
+        z-index: 100;
+        transition:
+          transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.3s;
+        pointer-events: none;
+        border: 1px solid var(--border-2);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="logo-row">
+        <a href="index.html" class="logo-link">
+          <div class="logo-mark">
+            <img src="/autoscale-mark.svg" alt="AutoScale AI" />
+          </div>
+          <div class="logo-text">AutoScale</div>
+        </a>
+      </div>
+      <h1 class="page-title">Lead Gen Tools</h1>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Section 1: Voicemail Drop Scripts -->
+    <section class="section" id="scripts">
+      <span class="section-tag">Scripts</span>
+      <h2 class="section-title">Voicemail Drop Scripts</h2>
+      <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">30-second scripts you can customize and use immediately. Click any script to copy.</p>
+
+      <div class="cards-grid">
+        <!-- Med Spa Script -->
+        <div class="card" onclick="copyToClipboard(this)">
+          <div class="card-header">Med Spa</div>
+          <div class="card-content">Hey [Name], this is [Your Name] calling about your med spa. Quick question — how many calls went to voicemail last week? Most med spas lose 15-20 calls a week, that's $3,000 to $5,000 in lost revenue every month. We help businesses like yours catch every single call, 24/7 — nights, weekends, holidays. No extra staff needed. Call me back at [Your Number] or text me, I'll show you exactly how many calls you're missing. Talk soon.</div>
+          <div class="card-meta">30 seconds • Medical Spa</div>
+          <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard(this.parentElement)">COPY</button>
+        </div>
+
+        <!-- Dental Script -->
+        <div class="card" onclick="copyToClipboard(this)">
+          <div class="card-header">Dental Practice</div>
+          <div class="card-content">Hey [Name], this is [Your Name]. I work with dental practices in [City] and I had a quick question — when a patient calls after hours or during lunch, what happens? If the answer is voicemail, you're losing $2,000 to $4,000 a month in missed appointments. We fix that. Every call gets answered, every appointment gets booked — no extra front desk staff. Call me back at [Your Number], I'll show you exactly what you're missing.</div>
+          <div class="card-meta">30 seconds • Dental</div>
+          <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard(this.parentElement)">COPY</button>
+        </div>
+
+        <!-- Home Service Script -->
+        <div class="card" onclick="copyToClipboard(this)">
+          <div class="card-header">Home Service (HVAC/Plumbing/Roofing)</div>
+          <div class="card-content">Hey [Name], this is [Your Name]. I noticed you're running a solid [trade] business in [City]. Quick thing — when a homeowner calls at 8pm with a burst pipe or a broken AC, does someone pick up? If not, they're calling the next guy on Google. We make sure every emergency call gets answered and booked, 24 hours a day. No call center, no answering service — just results. Hit me back at [Your Number].</div>
+          <div class="card-meta">30 seconds • Home Service</div>
+          <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard(this.parentElement)">COPY</button>
+        </div>
+
+        <!-- Restaurant Script -->
+        <div class="card" onclick="copyToClipboard(this)">
+          <div class="card-header">Restaurant</div>
+          <div class="card-content">Hey [Name], this is [Your Name]. Quick question for you — how many reservation calls go unanswered during your dinner rush? Most restaurants miss 10-15 calls a night during peak hours. That's empty tables and lost revenue. We handle every single call so your staff can focus on guests. Call me at [Your Number] — I'll show you how it works in 2 minutes.</div>
+          <div class="card-meta">30 seconds • Restaurant</div>
+          <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard(this.parentElement)">COPY</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Cold Email Templates -->
+    <section class="section" id="emails">
+      <span class="section-tag">Templates</span>
+      <h2 class="section-title">Cold Email Templates</h2>
+      <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">3-email follow-up sequence. Copy and paste into your email tool.</p>
+
+      <!-- Email 1 -->
+      <div class="email-template">
+        <div class="email-subject">Email 1 — Day 1</div>
+        <div class="email-subject" style="color: var(--muted); text-transform: none; font-size: 10px; letter-spacing: 0; margin-top: 8px;">Subject: [Business Name] — how many calls went to voicemail today?</div>
+        <div class="email-body">Hey [Owner Name],
+
+Quick question — when someone calls [Business Name] after hours, on a Saturday, or when your team is slammed... what happens?
+
+For most [Specialty] businesses in [City], the answer is voicemail. And 85% of callers who hit voicemail never call back. They call the next business on Google.
+
+We fix that. Every call answered. Every appointment booked. 24/7. No extra staff.
+
+Worth a 2-minute call this week?
+
+[Your Name]
+[Your Number]</div>
+        <button class="copy-btn" onclick="copyEmailContent(this.parentElement)">COPY EMAIL</button>
+      </div>
+
+      <!-- Email 2 -->
+      <div class="email-template">
+        <div class="email-subject">Email 2 — Day 3</div>
+        <div class="email-subject" style="color: var(--muted); text-transform: none; font-size: 10px; letter-spacing: 0; margin-top: 8px;">Subject: Re: [Business Name] — quick follow up</div>
+        <div class="email-body">Hey [Owner Name],
+
+Following up on my note from Monday. Didn't want this to get buried.
+
+Here's the math: if [Business Name] misses just 5 calls a week, and your average ticket is $[X]... that's $[Y] walking out the door every month.
+
+Happy to show you exactly how we fix that — takes 2 minutes.
+
+[Your Name]
+[Your Number]</div>
+        <button class="copy-btn" onclick="copyEmailContent(this.parentElement)">COPY EMAIL</button>
+      </div>
+
+      <!-- Email 3 -->
+      <div class="email-template">
+        <div class="email-subject">Email 3 — Day 7</div>
+        <div class="email-subject" style="color: var(--muted); text-transform: none; font-size: 10px; letter-spacing: 0; margin-top: 8px;">Subject: Last note — [Business Name]</div>
+        <div class="email-body">Hey [Owner Name],
+
+Last follow up, I promise.
+
+If you're still losing calls to voicemail, we should talk. If you've got it handled, no worries — I'll stop bugging you.
+
+Either way, here's our demo line if you're curious: (207) 304-9892. Call it anytime — that's what your customers would hear.
+
+[Your Name]</div>
+        <button class="copy-btn" onclick="copyEmailContent(this.parentElement)">COPY EMAIL</button>
+      </div>
+    </section>
+
+    <!-- Section 3: How to Find Prospects -->
+    <section class="section" id="prospecting">
+      <span class="section-tag">Tactics</span>
+      <h2 class="section-title">How to Find Prospects</h2>
+      <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">Step-by-step guide to finding businesses losing calls.</p>
+
+      <div class="steps">
+        <!-- Step 1 -->
+        <div class="step">
+          <div class="step-badge">1</div>
+          <div>
+            <div class="step-content"><strong>Google Maps</strong></div>
+            <div class="step-hint">Search "[specialty] near me" in your target area. Look for businesses with 50+ reviews (they're busy = they miss calls). Note the business name, phone number, and owner name if visible. Pro tip: Call their number at 6pm. If it goes to voicemail, you have your opener.</div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step">
+          <div class="step-badge">2</div>
+          <div>
+            <div class="step-content"><strong>Yelp</strong></div>
+            <div class="step-hint">Filter by "Recently Reviewed" — these are active, busy businesses. Check their response time to reviews (slow response = overwhelmed staff). Look at negative reviews mentioning "couldn't get through" or "no one answered".</div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+          <div class="step-badge">3</div>
+          <div>
+            <div class="step-content"><strong>LinkedIn</strong></div>
+            <div class="step-hint">Search for business owners by title: "Owner", "Founder", "Practice Manager". Filter by your target city and industry. Connect with a short note: "Hey [Name], I work with [specialty] businesses in [City]. Noticed [Business Name] is doing great — quick question about your call volume?"</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Demo Line -->
+    <section class="section" id="demo">
+      <span class="section-tag">Try It</span>
+      <h2 class="section-title">Listen to the Demo</h2>
+      <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">Call this number anytime to hear what happens when your customers call.</p>
+      <div class="card" style="text-align: center; padding: 30px 20px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700; color: var(--green); margin-bottom: 12px; letter-spacing: -0.5px;">(207) 304-9892</div>
+        <div style="font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em;">Available 24/7</div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <a href="index.html" class="footer-link">← Back to Field Kit</a>
+      <div class="footer-brand">AutoScale AI</div>
+      <div class="footer-sub">© 2026. All rights reserved.</div>
+    </footer>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+      function copyToClipboard(cardElement) {
+        const contentEl = cardElement.querySelector('.card-content');
+        if (!contentEl) return;
+
+        const text = contentEl.textContent.trim();
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('Copied to clipboard');
+          cardElement.classList.add('copied');
+          const copyBtn = cardElement.querySelector('.copy-btn');
+          if (copyBtn) {
+            copyBtn.classList.add('copied');
+            copyBtn.textContent = '✓ COPIED';
+            setTimeout(() => {
+              copyBtn.classList.remove('copied');
+              copyBtn.textContent = 'COPY';
+            }, 2000);
+          }
+          setTimeout(() => {
+            cardElement.classList.remove('copied');
+          }, 2000);
+        });
+      }
+
+      function copyEmailContent(emailElement) {
+        const subject = emailElement.querySelector('.email-subject:nth-of-type(2)').textContent.trim();
+        const body = emailElement.querySelector('.email-body').textContent.trim();
+        const fullText = `${subject}\n\n${body}`;
+
+        navigator.clipboard.writeText(fullText).then(() => {
+          showToast('Email copied to clipboard');
+          const copyBtn = emailElement.querySelector('.copy-btn');
+          if (copyBtn) {
+            copyBtn.classList.add('copied');
+            copyBtn.textContent = '✓ COPIED';
+            setTimeout(() => {
+              copyBtn.classList.remove('copied');
+              copyBtn.textContent = 'COPY EMAIL';
+            }, 2000);
+          }
+        });
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2500);
+      }
+
+      // Scroll fade-in effect
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.card, .step, .email-template').forEach((el) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(12px)';
+        el.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>

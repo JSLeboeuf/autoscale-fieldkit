@@ -2,28 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-    <meta
-      name="theme-color"
-      content="#09090b"
-      media="(prefers-color-scheme: dark)"
-    />
-    <meta
-      name="theme-color"
-      content="#fafafa"
-      media="(prefers-color-scheme: light)"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
     <meta
       name="description"
       content="Alex by AutoScale AI — The AI receptionist that answers every call, books appointments, and never takes a day off. From $697/mo."
     />
-    <meta name="robots" content="noindex, nofollow" />
     <title>Alex — AI Receptionist for Your Business</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -71,7 +59,7 @@
 
       body {
         font-family:
-          "Plus Jakarta Sans",
+          'Plus Jakarta Sans',
           -apple-system,
           system-ui,
           sans-serif;
@@ -89,7 +77,7 @@
 
       /* Noise texture overlay */
       body::before {
-        content: "";
+        content: '';
         position: fixed;
         inset: 0;
         background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
@@ -153,7 +141,7 @@
       }
 
       .logo-name {
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 15px;
         font-weight: 800;
         color: var(--text);
@@ -162,7 +150,7 @@
       }
 
       .logo-tagline {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 9px;
         font-weight: 500;
         color: var(--accent);
@@ -172,7 +160,7 @@
       }
 
       .header-badge {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 9px;
         font-weight: 700;
         color: var(--green);
@@ -199,7 +187,7 @@
       }
 
       .hero-eyebrow {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 10px;
         font-weight: 700;
         color: var(--accent);
@@ -212,7 +200,7 @@
       }
 
       .hero-eyebrow::before {
-        content: "";
+        content: '';
         width: 20px;
         height: 1px;
         background: var(--accent);
@@ -220,7 +208,7 @@
       }
 
       .hero-headline {
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: clamp(24px, 7vw, 32px);
         font-weight: 800;
         line-height: 1.15;
@@ -301,7 +289,7 @@
         font-weight: 500;
         opacity: 0.85;
         letter-spacing: 0.02em;
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         text-transform: uppercase;
       }
 
@@ -333,11 +321,7 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background: linear-gradient(
-          135deg,
-          var(--accent-dim) 0%,
-          rgba(96, 165, 250, 0.15) 100%
-        );
+        background: linear-gradient(135deg, var(--accent-dim) 0%, rgba(96, 165, 250, 0.15) 100%);
         border: 1px solid rgba(96, 165, 250, 0.25);
         display: flex;
         align-items: center;
@@ -346,7 +330,7 @@
         font-size: 14px;
         font-weight: 800;
         color: var(--accent);
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
       }
 
       .rep-info {
@@ -355,7 +339,7 @@
       }
 
       .rep-label {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 8.5px;
         font-weight: 700;
         color: var(--muted);
@@ -407,7 +391,7 @@
       }
 
       .section-label {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 10px;
         font-weight: 700;
         color: var(--accent);
@@ -420,7 +404,7 @@
       }
 
       .section-label::after {
-        content: "";
+        content: '';
         flex: 1;
         height: 1px;
         background: var(--border);
@@ -448,7 +432,7 @@
       }
 
       .stat-pill-value {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 20px;
         font-weight: 700;
         color: var(--accent);
@@ -520,11 +504,7 @@
         width: 28px;
         height: 28px;
         border-radius: 50%;
-        background: linear-gradient(
-          135deg,
-          var(--accent-dim),
-          var(--accent-glow)
-        );
+        background: linear-gradient(135deg, var(--accent-dim), var(--accent-glow));
         border: 1px solid rgba(96, 165, 250, 0.2);
         display: flex;
         align-items: center;
@@ -533,7 +513,7 @@
         font-weight: 800;
         color: var(--accent);
         flex-shrink: 0;
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
       }
 
       .testimonial-meta {
@@ -550,7 +530,7 @@
       }
 
       .testimonial-biz {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 9px;
         font-weight: 500;
         color: var(--muted);
@@ -577,7 +557,7 @@
       }
 
       .pain-stat {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 18px;
         font-weight: 700;
         color: var(--red);
@@ -601,11 +581,7 @@
 
       /* Math callout */
       .math-callout {
-        background: linear-gradient(
-          135deg,
-          var(--red-dim) 0%,
-          rgba(248, 113, 113, 0.03) 100%
-        );
+        background: linear-gradient(135deg, var(--red-dim) 0%, rgba(248, 113, 113, 0.03) 100%);
         border: 1px solid rgba(248, 113, 113, 0.2);
         border-radius: var(--radius-sm);
         padding: 16px 15px;
@@ -638,7 +614,7 @@
       }
 
       .math-equation {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 14px;
         font-weight: 700;
         color: var(--red);
@@ -663,7 +639,7 @@
       }
 
       .steps-list::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 19px;
         top: 32px;
@@ -697,7 +673,7 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 12px;
         font-weight: 700;
         color: var(--accent);
@@ -779,11 +755,7 @@
       }
 
       .pricing-header {
-        background: linear-gradient(
-          135deg,
-          var(--accent-dim) 0%,
-          rgba(96, 165, 250, 0.04) 100%
-        );
+        background: linear-gradient(135deg, var(--accent-dim) 0%, rgba(96, 165, 250, 0.04) 100%);
         border-bottom: 1px solid rgba(96, 165, 250, 0.15);
         padding: 16px 18px;
         display: flex;
@@ -799,7 +771,7 @@
       }
 
       .pricing-amount {
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 28px;
         font-weight: 800;
         color: var(--text);
@@ -825,7 +797,7 @@
       }
 
       .pricing-daily-amount {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 20px;
         font-weight: 700;
         color: var(--accent);
@@ -875,11 +847,7 @@
       }
 
       .pricing-roi {
-        background: linear-gradient(
-          135deg,
-          var(--green-dim) 0%,
-          rgba(74, 222, 128, 0.03) 100%
-        );
+        background: linear-gradient(135deg, var(--green-dim) 0%, rgba(74, 222, 128, 0.03) 100%);
         border: 1px solid rgba(74, 222, 128, 0.18);
         border-radius: var(--radius-sm);
         padding: 12px 14px;
@@ -896,11 +864,7 @@
       /* ── GUARANTEE ── */
 
       .guarantee-card {
-        background: linear-gradient(
-          135deg,
-          var(--gold-dim) 0%,
-          rgba(251, 191, 36, 0.04) 100%
-        );
+        background: linear-gradient(135deg, var(--gold-dim) 0%, rgba(251, 191, 36, 0.04) 100%);
         border: 1px solid rgba(251, 191, 36, 0.25);
         border-radius: var(--radius);
         padding: 20px 18px;
@@ -993,7 +957,7 @@
         font-size: 11.5px;
         font-weight: 600;
         color: var(--gold);
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         letter-spacing: 0.03em;
         text-align: center;
       }
@@ -1071,7 +1035,7 @@
       }
 
       .sticky-bar-label {
-        font-family: "JetBrains Mono", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 8.5px;
         font-weight: 700;
         color: var(--muted);
@@ -1422,9 +1386,8 @@
           <span class="highlight">competitor.</span>
         </h1>
         <p class="hero-sub">
-          Alex is an AI receptionist that answers every call in 2 rings, books
-          appointments straight into your calendar, and never takes a sick day —
-          for about $23/day.
+          Alex is an AI receptionist that answers every call in 2 rings, books appointments straight
+          into your calendar, and never takes a sick day — for less than $33/day.
         </p>
 
         <!-- Primary CTA -->
@@ -1478,23 +1441,9 @@
               <p class="rep-label">Your rep</p>
               <p class="rep-name" id="rep-name"></p>
               <div class="rep-contact">
-                <a
-                  id="rep-phone-link"
-                  href="#"
-                  aria-label="Call rep"
-                  style="display: none"
-                ></a>
-                <div
-                  class="rep-dot"
-                  aria-hidden="true"
-                  style="display: none"
-                ></div>
-                <a
-                  id="rep-email-link"
-                  href="#"
-                  aria-label="Email rep"
-                  style="display: none"
-                ></a>
+                <a id="rep-phone-link" href="#" aria-label="Call rep" style="display: none"></a>
+                <div class="rep-dot" aria-hidden="true" style="display: none"></div>
+                <a id="rep-email-link" href="#" aria-label="Email rep" style="display: none"></a>
               </div>
             </div>
           </div>
@@ -1519,9 +1468,7 @@
 
       <!-- ── TESTIMONIALS ── -->
       <section class="section" aria-labelledby="testimonials-label">
-        <p class="section-label" id="testimonials-label">
-          What owners are saying
-        </p>
+        <p class="section-label" id="testimonials-label">What owners are saying</p>
         <div class="testimonials-list" role="list">
           <article class="testimonial-card" role="listitem">
             <div class="testimonial-stars" aria-label="5 out of 5 stars">
@@ -1552,9 +1499,9 @@
               </svg>
             </div>
             <p class="testimonial-quote">
-              "Alex books <strong>12 appointments a week</strong> for us. I was
-              missing half my calls before — mostly evenings when I'm on a job.
-              First month paid for itself in 3 days."
+              "Alex books <strong>12 appointments a week</strong> for us. I was missing half my
+              calls before — mostly evenings when I'm on a job. First month paid for itself in 3
+              days."
             </p>
             <div class="testimonial-author">
               <div class="testimonial-avatar" aria-hidden="true">M</div>
@@ -1594,9 +1541,8 @@
               </svg>
             </div>
             <p class="testimonial-quote">
-              "My front desk staff actually love it. Alex handles overflow calls
-              so they can focus on patients in the office instead of being stuck
-              on the phone."
+              "My front desk staff actually love it. Alex handles overflow calls so they can focus
+              on patients in the office instead of being stuck on the phone."
             </p>
             <div class="testimonial-author">
               <div class="testimonial-avatar" aria-hidden="true">S</div>
@@ -1636,10 +1582,8 @@
               </svg>
             </div>
             <p class="testimonial-quote">
-              "First week, Alex caught
-              <strong>8 calls I would have missed</strong> while I was under
-              someone's AC unit. Three of those turned into jobs. Paid for 4
-              months upfront."
+              "First week, Alex caught <strong>8 calls I would have missed</strong> while I was
+              under someone's AC unit. Three of those turned into jobs. Paid for 4 months upfront."
             </p>
             <div class="testimonial-author">
               <div class="testimonial-avatar" aria-hidden="true">D</div>
@@ -1659,26 +1603,22 @@
           <div class="pain-item" role="listitem">
             <span class="pain-stat" aria-hidden="true">38%</span>
             <p class="pain-text">
-              <strong>38% of calls to local businesses go unanswered.</strong>
-              Most go to voicemail — or just ring out. (Invoca, 2023)
+              <strong>38% of calls to local businesses go unanswered.</strong> Most go to voicemail
+              — or just ring out. (Invoca, 2023)
             </p>
           </div>
           <div class="pain-item" role="listitem">
             <span class="pain-stat" aria-hidden="true">85%</span>
             <p class="pain-text">
-              <strong
-                >85% of callers who reach voicemail never call back.</strong
-              >
-              They call the next business on Google instead.
+              <strong>85% of callers who reach voicemail never call back.</strong> They call the
+              next business on Google instead.
             </p>
           </div>
           <div class="pain-item" role="listitem">
             <span class="pain-stat" aria-hidden="true">80%</span>
             <p class="pain-text">
-              <strong
-                >80% of missed calls happen after 5 PM and on weekends</strong
-              >
-              — exactly when your phone goes to voicemail.
+              <strong>80% of missed calls happen after 5 PM and on weekends</strong> — exactly when
+              your phone goes to voicemail.
             </p>
           </div>
         </div>
@@ -1698,12 +1638,9 @@
             </svg>
           </div>
           <div class="math-content">
-            <p class="math-equation">
-              3 missed calls/week × $500 avg job = $6,000/month
-            </p>
+            <p class="math-equation">3 missed calls/week × $500 avg job = $6,000/month</p>
             <p class="math-label">
-              That's $72,000/year walking out your door — to competitors who do
-              pick up.
+              That's $72,000/year walking out your door — to competitors who do pick up.
             </p>
           </div>
         </div>
@@ -1718,8 +1655,8 @@
             <div class="step-content">
               <p class="step-title">Customer calls your number</p>
               <p class="step-desc">
-                Alex picks up in <strong>2 rings</strong> — any time of day, any
-                day of the week. Your existing phone number, no changes needed.
+                Alex picks up in <strong>2 rings</strong> — any time of day, any day of the week.
+                Your existing phone number, no changes needed.
               </p>
             </div>
           </div>
@@ -1728,11 +1665,8 @@
             <div class="step-content">
               <p class="step-title">Alex qualifies and books</p>
               <p class="step-desc">
-                Natural conversation — not a robot menu. Alex answers questions,
-                collects their info, and
-                <strong
-                  >books the appointment straight into your calendar.</strong
-                >
+                Natural conversation — not a robot menu. Alex answers questions, collects their
+                info, and <strong>books the appointment straight into your calendar.</strong>
               </p>
             </div>
           </div>
@@ -1741,8 +1675,7 @@
             <div class="step-content">
               <p class="step-title">You get notified instantly</p>
               <p class="step-desc">
-                You receive a text/email with the details. Your customer gets a
-                confirmation.
+                You receive a text/email with the details. Your customer gets a confirmation.
                 <strong>Zero missed revenue, zero effort.</strong>
               </p>
             </div>
@@ -1763,17 +1696,15 @@
             </svg>
           </div>
           <p class="works-with-text">
-            <strong>Works with your existing phone number.</strong> No hardware,
-            no switching providers. Live in 48 hours.
+            <strong>Works with your existing phone number.</strong> No hardware, no switching
+            providers. Live in 48 hours.
           </p>
         </div>
       </section>
 
       <!-- ── PRICING ── -->
       <section class="section" aria-labelledby="pricing-label">
-        <p class="section-label" id="pricing-label">
-          Simple, transparent pricing
-        </p>
+        <p class="section-label" id="pricing-label">Simple, transparent pricing</p>
 
         <div class="pricing-card">
           <div class="pricing-header">
@@ -1800,10 +1731,7 @@
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
-              <p>
-                Alex answers <strong>every call 24/7</strong> — nights,
-                weekends, holidays
-              </p>
+              <p>Alex answers <strong>every call 24/7</strong> — nights, weekends, holidays</p>
             </div>
             <div class="pricing-line" role="listitem">
               <div class="pricing-line-icon" aria-hidden="true">
@@ -1818,9 +1746,7 @@
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
-              <p>
-                Books appointments directly into <strong>your calendar</strong>
-              </p>
+              <p>Books appointments directly into <strong>your calendar</strong></p>
             </div>
             <div class="pricing-line" role="listitem">
               <div class="pricing-line-icon" aria-hidden="true">
@@ -1856,20 +1782,13 @@
         </div>
 
         <div class="pricing-roi" role="note">
-          <strong
-            >Most businesses recover their entire investment in the first
-            week.</strong
-          >
-          One booked job typically covers 1–2 months of Alex's cost.
+          <strong>Most businesses recover their entire investment in the first week.</strong> One
+          booked job typically covers 1–2 months of Alex's cost.
         </div>
       </section>
 
       <!-- ── GUARANTEE ── -->
-      <div
-        class="guarantee-card"
-        role="note"
-        aria-label="30-day money-back guarantee"
-      >
+      <div class="guarantee-card" role="note" aria-label="30-day money-back guarantee">
         <div class="guarantee-icon" aria-hidden="true">
           <svg
             viewBox="0 0 24 24"
@@ -1886,9 +1805,8 @@
         <div class="guarantee-content">
           <p class="guarantee-title">30-Day Money-Back Guarantee</p>
           <p class="guarantee-body">
-            If Alex doesn't answer
-            <strong>90% of your calls in the first 30 days</strong>, we refund
-            your activation fee —
+            If Alex doesn't answer <strong>90% of your calls in the first 30 days</strong>, we
+            refund your activation fee —
             <strong>no questions asked.</strong>
           </p>
         </div>
@@ -1899,9 +1817,7 @@
         <h2 class="final-cta-heading" id="final-cta-heading">
           Ready to stop losing calls to <span>voicemail?</span>
         </h2>
-        <p class="final-cta-sub">
-          Hear Alex answer a real call in 10 seconds. Then decide.
-        </p>
+        <p class="final-cta-sub">Hear Alex answer a real call in 10 seconds. Then decide.</p>
 
         <a
           href="tel:+12073049892"
@@ -1942,7 +1858,7 @@
 
         <div class="urgency-badge" role="note">
           <span class="urgency-dot" aria-hidden="true"></span>
-          This week only — $500 activation fee included
+          This week only — $500 activation (reg. $750)
         </div>
 
         <p class="final-cta-sub" id="rep-footer-note" style="display: none">
@@ -1957,37 +1873,13 @@
       <p class="footer-info">
         AutoScale AI
         <span class="separator">•</span>
-        <a href="https://autoscaleai.ca">autoscaleai.ca</a>
+        <a href="https://autoscaleai.com">autoscaleai.com</a>
         <span class="separator">•</span>
-        <a href="mailto:contact@autoscaleai.ca">contact@autoscaleai.ca</a>
+        <a href="mailto:contact@autoscaleai.com">contact@autoscaleai.com</a>
       </p>
       <p class="footer-disclaimer">
-        * Testimonials are from real customers. Names abbreviated for privacy.
-        Individual results vary.
-      </p>
-      <nav
-        style="
-          display: flex;
-          justify-content: center;
-          gap: 16px;
-          margin-top: 12px;
-          font-size: 12px;
-        "
-      >
-        <a href="index.html" style="color: var(--muted); text-decoration: none"
-          >Field Kit</a
-        >
-        <a href="terms.html" style="color: var(--muted); text-decoration: none"
-          >Terms</a
-        >
-        <a
-          href="privacy.html"
-          style="color: var(--muted); text-decoration: none"
-          >Privacy</a
-        >
-      </nav>
-      <p style="font-size: 11px; color: var(--muted); margin-top: 8px">
-        &copy; 2026 AutoScale AI
+        * Testimonials are from real customers. Names abbreviated for privacy. Individual results
+        vary.
       </p>
     </footer>
 
@@ -2023,11 +1915,11 @@
       // ── THEME TOGGLE ──
       (function () {
         var html = document.documentElement;
-        var btn = document.getElementById("theme-toggle");
+        var btn = document.getElementById('theme-toggle');
 
         // Apply saved preference or detect system preference
-        var saved = localStorage.getItem("theme");
-        if (saved === "light" || saved === "dark") {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') {
           html.className = saved;
         } else {
           // No saved pref — follow system, but don't lock in a class
@@ -2035,15 +1927,14 @@
         }
 
         if (btn) {
-          btn.addEventListener("click", function () {
+          btn.addEventListener('click', function () {
             var current = html.className;
             var isCurrentlyLight =
-              current === "light" ||
-              (current !== "dark" &&
-                window.matchMedia("(prefers-color-scheme: light)").matches);
-            var next = isCurrentlyLight ? "dark" : "light";
+              current === 'light' ||
+              (current !== 'dark' && window.matchMedia('(prefers-color-scheme: light)').matches);
+            var next = isCurrentlyLight ? 'dark' : 'light';
             html.className = next;
-            localStorage.setItem("theme", next);
+            localStorage.setItem('theme', next);
           });
         }
       })();
@@ -2051,83 +1942,102 @@
 
     <script>
       // Populate rep info from URL params
+      // Usage: ?rep=John+Smith&phone=555-123-4567&email=john@autoscale.ai&industry=roofing
       (function () {
         var params = new URLSearchParams(window.location.search);
-        var repName = params.get("rep");
-        var repPhone = params.get("phone");
-        var repEmail = params.get("email");
+        var repName = params.get('rep');
+        var repPhone = params.get('phone');
+        var repEmail = params.get('email');
 
         if (repName || repPhone || repEmail) {
-          var bar = document.getElementById("rep-bar");
-          if (bar) bar.style.display = "flex";
+          var bar = document.getElementById('rep-bar');
+          if (bar) bar.style.display = 'flex';
 
           if (repName) {
-            var nameEl = document.getElementById("rep-name");
-            var avatarEl = document.getElementById("rep-avatar");
-            var footerNote = document.getElementById("rep-footer-note");
-            var footerName = document.getElementById("rep-footer-name");
+            var nameEl = document.getElementById('rep-name');
+            var avatarEl = document.getElementById('rep-avatar');
+            var footerNote = document.getElementById('rep-footer-note');
+            var footerName = document.getElementById('rep-footer-name');
             if (nameEl) nameEl.textContent = repName;
-            if (avatarEl)
-              avatarEl.textContent = repName.charAt(0).toUpperCase();
-            if (footerNote) footerNote.style.display = "block";
+            if (avatarEl) avatarEl.textContent = repName.charAt(0).toUpperCase();
+            if (footerNote) footerNote.style.display = 'block';
             if (footerName) footerName.textContent = repName;
           }
 
-          var phoneLink = document.getElementById("rep-phone-link");
+          var phoneLink = document.getElementById('rep-phone-link');
           if (phoneLink) {
             if (repPhone) {
-              phoneLink.href = "tel:" + repPhone.replace(/\D/g, "");
+              phoneLink.href = 'tel:' + repPhone.replace(/\D/g, '');
               phoneLink.textContent = repPhone;
-              phoneLink.style.display = "inline";
+              phoneLink.style.display = 'inline';
             } else {
-              phoneLink.style.display = "none";
+              phoneLink.style.display = 'none';
               var dot = phoneLink.nextElementSibling;
-              if (dot && dot.classList.contains("rep-dot"))
-                dot.style.display = "none";
+              if (dot && dot.classList.contains('rep-dot')) dot.style.display = 'none';
             }
           }
 
-          var emailLink = document.getElementById("rep-email-link");
+          var emailLink = document.getElementById('rep-email-link');
           if (emailLink) {
             if (repEmail) {
-              emailLink.href = "mailto:" + repEmail;
+              emailLink.href = 'mailto:' + repEmail;
               emailLink.textContent = repEmail;
-              emailLink.style.display = "inline";
+              emailLink.style.display = 'inline';
             } else {
-              emailLink.style.display = "none";
+              emailLink.style.display = 'none';
             }
           }
         }
 
         // Industry-based math personalization
         var industryValues = {
-          roofing: "$1,500",
-          hvac: "$800",
-          plumbing: "$600",
-          dental: "$400",
-          law: "$2,500",
-          default: "$500",
+          roofing: '$1,500',
+          hvac: '$800',
+          plumbing: '$600',
+          dental: '$400',
+          law: '$2,500',
+          default: '$500',
         };
-        var industry = (params.get("industry") || "").toLowerCase();
+        var industry = (params.get('industry') || '').toLowerCase();
         var jobValue = industryValues[industry] || industryValues.default;
 
-        var mathEq = document.querySelector(".math-equation");
+        var mathEq = document.querySelector('.math-equation');
         if (mathEq && industry && industryValues[industry]) {
           mathEq.textContent =
-            "3 missed calls/week \u00d7 " +
+            '3 missed calls/week \u00d7 ' +
             jobValue +
-            " avg job = " +
+            ' avg job = ' +
             formatMonthly(jobValue) +
-            "/month";
+            '/month';
         }
 
         function formatMonthly(val) {
-          var num = parseInt(val.replace(/\D/g, ""), 10);
-          return "$" + (num * 3 * 4).toLocaleString();
+          var num = parseInt(val.replace(/\D/g, ''), 10);
+          return '$' + (num * 3 * 4).toLocaleString();
         }
       })();
     </script>
 
-    <!-- footer nav merged into main footer above -->
+    <footer
+      style="
+        text-align: center;
+        padding: 24px 16px 32px;
+        font-size: 12px;
+        color: rgba(200, 210, 220, 0.35);
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      "
+    >
+      <nav
+        aria-label="Footer navigation"
+        style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px"
+      >
+        <a href="index.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Field Kit</a>
+        <a href="terms.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Terms</a>
+        <a href="privacy.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
+          >Privacy</a
+        >
+      </nav>
+      <span>&copy; 2026 AutoScale AI</span>
+    </footer>
   </body>
 </html>

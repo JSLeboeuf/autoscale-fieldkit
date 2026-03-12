@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="theme-color" content="#09090b" />
+    <title>Rep Opportunity — AutoScale AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Michroma&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ── RESET & BASE ── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg:        #09090b;
+        --surface:   #141417;
+        --surface-2: #1c1c20;
+        --surface-3: #232329;
+        --border:    rgba(255,255,255,0.08);
+        --border-2:  rgba(255,255,255,0.14);
+        --text:      #f4f4f5;
+        --text-2:    #a1a1aa;
+        --muted:     #71717a;
+        --green:     #60a5fa;
+        --green-2:   #818cf8;
+        --green-dim: rgba(96,165,250,0.08);
+        --gold:      #fbbf24;
+        --gold-dim:  rgba(251,191,36,0.1);
+        --red:       #f87171;
+        --emerald:   #34d399;
+        --emerald-dim: rgba(52,211,153,0.08);
+        --radius:    10px;
+        --radius-sm: 7px;
+        --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      }
+
+      html {
+        color-scheme: dark;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 0 0 80px;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Noise texture overlay */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: var(--noise);
+        background-size: 150px 150px;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.4;
+      }
+
+      /* ── HEADER ── */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        padding: 10px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(9, 9, 11, 0.9);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .logo {
+        font-family: 'Michroma', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .logo span {
+        color: var(--green);
+      }
+
+      .header-badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--emerald);
+        background: var(--emerald-dim);
+        border: 1px solid rgba(52, 211, 153, 0.2);
+        padding: 4px 10px;
+        border-radius: 100px;
+      }
+
+      /* ── MAIN WRAPPER ── */
+      main {
+        padding: 0 16px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        padding: 32px 0 24px;
+        text-align: left;
+      }
+
+      .hero-eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--green);
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .hero-eyebrow::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(96,165,250,0.3), transparent);
+      }
+
+      .hero-headline {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 52px;
+        line-height: 0.95;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        margin-bottom: 16px;
+      }
+
+      .hero-headline .accent {
+        color: var(--green);
+        display: block;
+      }
+
+      .hero-sub {
+        font-size: 14px;
+        color: var(--text-2);
+        line-height: 1.65;
+        margin-bottom: 24px;
+        max-width: 340px;
+      }
+
+      /* Live payout ticker */
+      .live-payout {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 18px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .live-payout::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--green), transparent);
+        opacity: 0.6;
+      }
+
+      .live-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .live-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--emerald);
+        box-shadow: 0 0 8px var(--emerald);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(0.8); }
+      }
+
+      .payout-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        margin-bottom: 4px;
+      }
+
+      .payout-amount {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      .payout-context {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .payout-note {
+        font-size: 11px;
+        color: var(--text-2);
+        margin-top: 6px;
+      }
+
+      /* ── SECTION ── */
+      .section {
+        padding: 24px 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .section-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--green);
+        margin-bottom: 6px;
+        display: block;
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        color: var(--text);
+        margin-bottom: 16px;
+        line-height: 1.25;
+      }
+
+      /* ── COMMISSION BREAKDOWN ── */
+      .commission-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-bottom: 12px;
+      }
+
+      .commission-header {
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .commission-header-left {
+        font-weight: 700;
+        font-size: 13px;
+        color: var(--text);
+      }
+
+      .commission-header-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .commission-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border);
+        gap: 12px;
+      }
+
+      .commission-row:last-child {
+        border-bottom: none;
+      }
+
+      .commission-row.highlight {
+        background: var(--green-dim);
+      }
+
+      .commission-row.gold-highlight {
+        background: var(--gold-dim);
+      }
+
+      .comm-label {
+        font-size: 13px;
+        color: var(--text-2);
+        font-weight: 500;
+        flex: 1;
+      }
+
+      .comm-math {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: var(--muted);
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .comm-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 18px;
+        font-weight: 700;
+        text-align: right;
+        flex-shrink: 0;
+        min-width: 80px;
+      }
+
+      .comm-value.green { color: var(--green); }
+      .comm-value.gold  { color: var(--gold); }
+      .comm-value.emerald { color: var(--emerald); }
+
+      .comm-value-sub {
+        font-size: 10px;
+        color: var(--muted);
+        font-weight: 400;
+        display: block;
+        margin-top: 1px;
+        text-align: right;
+      }
+
+      /* ── EARNINGS CALCULATOR ── */
+      .calc-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .calc-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--green), var(--green-2));
+        opacity: 0.5;
+      }
+
+      .calc-slider-row {
+        margin-bottom: 20px;
+      }
+
+      .calc-slider-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 12px;
+      }
+
+      .calc-slider-text {
+        font-size: 13px;
+        color: var(--text-2);
+        font-weight: 500;
+      }
+
+      .calc-slider-val {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--green);
+      }
+
+      .calc-range {
+        width: 100%;
+        height: 6px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: var(--border);
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .calc-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--green);
+        border: 3px solid var(--bg);
+        box-shadow: 0 0 0 1px rgba(96,165,250,0.3), 0 2px 8px rgba(0,0,0,0.3);
+        cursor: pointer;
+      }
+
+      .calc-range::-moz-range-thumb {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--green);
+        border: 3px solid var(--bg);
+        box-shadow: 0 0 0 1px rgba(96,165,250,0.3), 0 2px 8px rgba(0,0,0,0.3);
+        cursor: pointer;
+        box-sizing: border-box;
+      }
+
+      .calc-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 16px 0;
+      }
+
+      .calc-results {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .calc-box {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 14px 12px;
+        text-align: center;
+      }
+
+      .calc-box.main {
+        grid-column: span 2;
+        background: var(--green-dim);
+        border-color: rgba(96,165,250,0.2);
+      }
+
+      .calc-box-val {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+
+      .calc-box.main .calc-box-val {
+        font-size: 32px;
+        color: var(--green);
+      }
+
+      .calc-box-val.gold { color: var(--gold); }
+      .calc-box-val.emerald { color: var(--emerald); }
+
+      .calc-box-lbl {
+        font-size: 9px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-top: 4px;
+        font-weight: 600;
+      }
+
+      .calc-note {
+        font-size: 11px;
+        color: var(--muted);
+        text-align: center;
+        font-style: italic;
+        margin-top: 4px;
+      }
+
+      /* ── SNOWBALL TRACK ── */
+      .snowball-track {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-top: 16px;
+      }
+
+      .snowball-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 12px;
+      }
+
+      .snowball-month {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        min-width: 30px;
+        flex-shrink: 0;
+      }
+
+      .snowball-bar-wrap {
+        flex: 1;
+        height: 6px;
+        background: var(--border);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      .snowball-bar {
+        height: 100%;
+        border-radius: 3px;
+        background: linear-gradient(90deg, var(--green), var(--green-2));
+        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .snowball-val {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--green);
+        min-width: 56px;
+        text-align: right;
+        flex-shrink: 0;
+      }
+
+      /* ── PROCESS STEPS ── */
+      .process-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .process-step {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 16px 0;
+        position: relative;
+      }
+
+      .process-step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 46px;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(180deg, rgba(96,165,250,0.3), transparent);
+      }
+
+      .process-num {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--green-dim);
+        border: 1px solid rgba(96,165,250,0.2);
+        color: var(--green);
+        display: grid;
+        place-items: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .process-content {
+        flex: 1;
+        padding-top: 4px;
+      }
+
+      .process-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 4px;
+        letter-spacing: -0.1px;
+      }
+
+      .process-desc {
+        font-size: 12px;
+        color: var(--text-2);
+        line-height: 1.55;
+      }
+
+      .process-pill {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 3px 8px;
+        border-radius: 100px;
+        margin-left: 6px;
+        vertical-align: middle;
+      }
+
+      .process-pill.green {
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(96,165,250,0.15);
+      }
+
+      .process-pill.gold {
+        color: var(--gold);
+        background: var(--gold-dim);
+        border: 1px solid rgba(251,191,36,0.2);
+      }
+
+      /* ── PRODUCT PROOF ── */
+      .proof-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .proof-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 14px;
+        text-align: center;
+      }
+
+      .proof-card.wide {
+        grid-column: span 2;
+      }
+
+      .proof-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 4px;
+      }
+
+      .proof-num.green { color: var(--green); }
+      .proof-num.gold  { color: var(--gold); }
+      .proof-num.emerald { color: var(--emerald); }
+
+      .proof-label {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 500;
+        line-height: 1.4;
+      }
+
+      /* ── PITCH SCRIPT ── */
+      .script-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--green);
+        border-radius: var(--radius);
+        padding: 18px 16px;
+        position: relative;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.15s, border-color 0.15s;
+      }
+
+      .script-card:active {
+        background: var(--surface-2);
+      }
+
+      .script-card.copied {
+        border-left-color: var(--emerald);
+        background: var(--emerald-dim);
+      }
+
+      .script-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .copy-hint {
+        font-size: 9px;
+        color: var(--green);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .copy-hint svg {
+        width: 10px;
+        height: 10px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .script-text {
+        font-size: 13px;
+        color: var(--text);
+        line-height: 1.65;
+        font-style: italic;
+      }
+
+      .script-text em {
+        font-style: normal;
+        color: var(--green);
+        font-weight: 700;
+      }
+
+      .copied-banner {
+        display: none;
+        font-size: 11px;
+        color: var(--emerald);
+        font-weight: 700;
+        text-align: center;
+        margin-top: 10px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .script-card.copied .copied-banner { display: block; }
+      .script-card.copied .copy-hint { display: none; }
+
+      /* ── OBJECTIONS ── */
+      .obj-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .obj-item {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .obj-toggle {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-family: inherit;
+        text-align: left;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.15s;
+      }
+
+      .obj-toggle:active { background: var(--surface-2); }
+
+      .obj-q-text {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--red);
+        flex: 1;
+        line-height: 1.4;
+      }
+
+      .obj-chevron {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        stroke: var(--muted);
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: transform 0.25s;
+        margin-top: 1px;
+      }
+
+      .obj-item.open .obj-chevron { transform: rotate(180deg); }
+
+      .obj-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .obj-item.open .obj-answer { max-height: 200px; }
+
+      .obj-answer-inner {
+        padding: 0 16px 16px;
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.65;
+        border-top: 1px solid var(--border);
+        padding-top: 12px;
+        position: relative;
+        padding-left: 28px;
+      }
+
+      .obj-answer-inner::before {
+        content: '';
+        position: absolute;
+        left: 16px;
+        top: 20px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--green);
+        flex-shrink: 0;
+      }
+
+      /* ── JOIN CTA ── */
+      .join-card {
+        background: linear-gradient(135deg, rgba(96,165,250,0.06), rgba(129,140,248,0.04));
+        border: 1px solid rgba(96,165,250,0.2);
+        border-radius: var(--radius);
+        padding: 24px 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .join-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--green), transparent);
+      }
+
+      .join-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 36px;
+        color: var(--text);
+        letter-spacing: 0.01em;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .join-sub {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.55;
+        margin-bottom: 20px;
+      }
+
+      /* ── BUTTONS ── */
+      .btn-primary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+        border: none;
+        border-radius: var(--radius);
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 800;
+        cursor: pointer;
+        text-decoration: none;
+        letter-spacing: -0.2px;
+        transition: transform 0.15s, box-shadow 0.15s;
+        box-shadow: 0 4px 20px rgba(96,165,250,0.2);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .btn-primary:active {
+        transform: scale(0.98);
+        box-shadow: 0 2px 10px rgba(96,165,250,0.15);
+      }
+
+      .btn-secondary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 14px;
+        background: var(--surface);
+        color: var(--text-2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        margin-top: 8px;
+        transition: border-color 0.15s, color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .btn-secondary:active {
+        border-color: var(--border-2);
+        color: var(--text);
+      }
+
+      .btn-note {
+        font-size: 10px;
+        color: var(--muted);
+        text-align: center;
+        margin-top: 8px;
+        font-weight: 500;
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 40px;
+        padding: 20px 16px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .footer-brand {
+        font-family: 'Michroma', sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        color: var(--text-2);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .footer-sub {
+        font-size: 10px;
+        color: var(--border-2);
+        margin-top: 4px;
+      }
+
+      /* ── STICKY BAR ── */
+      .sticky-bar {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(100%);
+        z-index: 50;
+        width: 100%;
+        max-width: 460px;
+        background: rgba(9,9,11,0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top: 1px solid var(--border);
+        padding: 10px 16px;
+        display: flex;
+        gap: 8px;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .sticky-bar.visible {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .sticky-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px;
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 0.15s;
+      }
+
+      .sticky-btn:active { transform: scale(0.97); }
+
+      .sticky-btn.demo {
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+      }
+
+      .sticky-btn.back {
+        background: var(--surface-2);
+        color: var(--text-2);
+        border: 1px solid var(--border);
+      }
+
+      /* ── FADE IN ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+        .fade-in { opacity: 1; transform: none; }
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--surface-2);
+        color: var(--emerald);
+        padding: 10px 24px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 600;
+        z-index: 100;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+        pointer-events: none;
+        border: 1px solid rgba(52,211,153,0.2);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        opacity: 0;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo">AUTO<span>SCALE</span> AI</div>
+      <div class="header-badge">REP OPPORTUNITY</div>
+    </header>
+
+    <main>
+
+      <!-- ══════════════════════════════════════
+           HERO
+      ══════════════════════════════════════ -->
+      <section class="hero fade-in">
+        <div class="hero-eyebrow">D2D Field Sales · FL · TX · AZ · CA · GA</div>
+        <h1 class="hero-headline">
+          $250<br>
+          <span class="accent">PER CLOSE.</span>
+          FOREVER.
+        </h1>
+        <p class="hero-sub">
+          Knock doors. Demo an AI phone agent that books appointments 24/7.
+          Earn $250 setup + $69.70/month <em>per client — for life.</em>
+        </p>
+
+        <div class="live-payout">
+          <div class="live-label">
+            <span class="live-dot"></span>
+            First sale payout
+          </div>
+          <div class="payout-row">
+            <div class="payout-amount">$350</div>
+            <div class="payout-context">within 30 days</div>
+          </div>
+          <div class="payout-note">$250 setup commission + $100 retention bonus when client stays ≥30 days</div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           COMMISSION BREAKDOWN
+      ══════════════════════════════════════ -->
+      <section class="section fade-in">
+        <span class="section-tag">Your Commission</span>
+        <h2 class="section-title">Exactly what you earn</h2>
+
+        <div class="commission-card">
+          <div class="commission-header">
+            <div class="commission-header-left">Per Client Closed</div>
+            <div class="commission-header-tag">AutoScale Field Kit v2</div>
+          </div>
+
+          <div class="commission-row highlight">
+            <div class="comm-label">Setup commission</div>
+            <div class="comm-math">$500 × 20%</div>
+            <div class="comm-value green">
+              $100
+              <span class="comm-value-sub">paid same day</span>
+            </div>
+          </div>
+
+          <div class="commission-row gold-highlight">
+            <div class="comm-label">Monthly residual</div>
+            <div class="comm-math">$697 × 20%</div>
+            <div class="comm-value gold">
+              $139.40
+              <span class="comm-value-sub">every month, per client</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Snowball hint -->
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;">
+          <div style="font-size: 20px; flex-shrink: 0; line-height: 1;">💡</div>
+          <div style="font-size: 12px; color: var(--text-2); line-height: 1.6;">
+            <strong style="color: var(--text);">The snowball effect:</strong> Close 3 clients in month 1 → $300 setup + $418.20/mo recurring. Close 3 more in month 2 → your base just doubled. Residual builds fast — 10 clients = $1,394/mo recurring.
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           EARNINGS CALCULATOR
+      ══════════════════════════════════════ -->
+      <section class="section fade-in">
+        <span class="section-tag">Earnings Calculator</span>
+        <h2 class="section-title">Slide to your number</h2>
+
+        <div class="calc-card">
+          <div class="calc-slider-row">
+            <div class="calc-slider-label">
+              <span class="calc-slider-text">Closes per month</span>
+              <span class="calc-slider-val" id="calcClosesVal">4</span>
+            </div>
+            <input
+              type="range"
+              class="calc-range"
+              id="calcSlider"
+              min="1" max="20" value="4"
+              aria-label="Closes per month"
+              style="--pct: 16.7%"
+            />
+            <div style="display: flex; justify-content: space-between; margin-top: 6px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted);">1</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted);">10</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted);">20</span>
+            </div>
+          </div>
+
+          <div class="calc-divider"></div>
+
+          <div class="calc-results">
+            <div class="calc-box main">
+              <div class="calc-box-val" id="calcMonth1">$1,400</div>
+              <div class="calc-box-lbl">Month 1 earnings</div>
+            </div>
+            <div class="calc-box">
+              <div class="calc-box-val gold" id="calcSetup">$1,000</div>
+              <div class="calc-box-lbl">Setup commissions</div>
+            </div>
+            <div class="calc-box">
+              <div class="calc-box-val gold" id="calcBonus">$400</div>
+              <div class="calc-box-lbl">Retention bonuses</div>
+            </div>
+            <div class="calc-box">
+              <div class="calc-box-val emerald" id="calcMonthly">$278.80</div>
+              <div class="calc-box-lbl">Monthly recurring</div>
+            </div>
+            <div class="calc-box">
+              <div class="calc-box-val emerald" id="calc6mo">$3,892</div>
+              <div class="calc-box-lbl">Month 6 recurring base</div>
+            </div>
+          </div>
+
+          <div class="calc-note" id="calcNote">
+            With 4 closes/month × 6 months = 24 clients → $1,672.80/mo base
+          </div>
+
+          <!-- Snowball track by month -->
+          <div class="calc-divider"></div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">
+            RECURRING BASE GROWTH
+          </div>
+          <div class="snowball-track" id="snowballTrack"></div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           HOW IT WORKS
+      ══════════════════════════════════════ -->
+      <section class="section fade-in">
+        <span class="section-tag">The Process</span>
+        <h2 class="section-title">Door to dollar in 5 steps</h2>
+
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="process-num">01</div>
+            <div class="process-content">
+              <div class="process-title">Knock the door <span class="process-pill green">30 sec</span></div>
+              <div class="process-desc">Lead with the problem: "How many calls does your business miss when you're busy?" One question opens the conversation.</div>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-num">02</div>
+            <div class="process-content">
+              <div class="process-title">Deliver the pitch <span class="process-pill green">2 min</span></div>
+              <div class="process-desc">"AutoScale AI is a voice agent that answers every call, qualifies leads, and books appointments 24/7 — while you sleep." Show the demo number on your phone.</div>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-num">03</div>
+            <div class="process-content">
+              <div class="process-title">Book the demo call <span class="process-pill gold">RDV +1</span></div>
+              <div class="process-desc">Call the AI demo live. Let them hear the voice agent handle a real call. Target: 5 bookings per day minimum. This is your daily KPI.</div>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-num">04</div>
+            <div class="process-content">
+              <div class="process-title">Start free trial <span class="process-pill green">14 days</span></div>
+              <div class="process-desc">No card needed. They experience the AI answering their actual business calls for 14 days. Objections dissolve when they see missed calls recovered.</div>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-num">05</div>
+            <div class="process-content">
+              <div class="process-title">Collect $250 <span class="process-pill gold">$$$ PAID</span></div>
+              <div class="process-desc">Trial converts to $500 setup + $697/mo subscription. Your commission hits same day. $100 bonus drops at day 30 if they stay. Then $69.70/mo, every month, forever.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           WHAT YOU'RE SELLING
+      ══════════════════════════════════════ -->
+      <section class="section fade-in">
+        <span class="section-tag">The Product</span>
+        <h2 class="section-title">What walks through their door</h2>
+
+        <div class="proof-grid">
+          <div class="proof-card">
+            <div class="proof-num green">24/7</div>
+            <div class="proof-label">AI answers calls, nights, weekends, holidays</div>
+          </div>
+          <div class="proof-card">
+            <div class="proof-num gold">$50K+</div>
+            <div class="proof-label">Avg missed-call revenue a business loses annually</div>
+          </div>
+          <div class="proof-card">
+            <div class="proof-num emerald">2 min</div>
+            <div class="proof-label">Setup time. No tech skills needed</div>
+          </div>
+          <div class="proof-card">
+            <div class="proof-num green">14d</div>
+            <div class="proof-label">Free trial, no credit card required</div>
+          </div>
+          <div class="proof-card wide">
+            <div class="proof-num gold" style="font-size: 20px; margin-bottom: 6px;">Bilingual EN/FR — Sam &amp; Ralph</div>
+            <div class="proof-label">Two AI agents: Sam handles English calls, Ralph handles French-Canadian clients</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           30-SECOND PITCH SCRIPT
+      ══════════════════════════════════════ -->
+      <section class="section fade-in">
+        <span class="section-tag">Pitch Script</span>
+        <h2 class="section-title">30-second door opener</h2>
+
+        <div class="script-card" id="pitchScript" onclick="copyScript()" role="button" tabindex="0" aria-label="Tap to copy pitch script">
+          <div class="script-label">
+            <span>THE OPENER — TAP TO COPY</span>
+            <span class="copy-hint">
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy
+            </span>
+          </div>
+          <p class="script-text">
+            "Hey, quick question — how many calls does your business miss when you're slammed or closed? <em>[pause]</em> We have an AI that answers every single one, qualifies the lead, and books them right into your calendar — 24/7. <em>Free 14-day trial, takes 2 minutes to set up.</em> Want to hear it work right now?"
+          </p>
+          <div class="copied-banner">✓ Copied to clipboard</div>
+        </div>
+
+        <div style="height: 8px;"></div>
+
+        <div class="script-card" id="demoScript" onclick="copyDemo()" role="button" tabindex="0" aria-label="Tap to copy demo script">
+          <div class="script-label">
+            <span>LIVE DEMO — TAP TO COPY</span>
+            <span class="copy-hint">
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy
+            </span>
+          </div>
+          <p class="script-text">
+            "Let me show you — call this number right now. <em>[hand them your phone or dial: +1 (450) 634-9636]</em> That's an AI agent answering a live call. Your business would have its own number, trained on your services. <em>Every missed call = money back in your pocket.</em>"
+          </p>
+          <div class="copied-banner">✓ Copied to clipboard</div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           OBJECTION HANDLERS
+      ══════════════════════════════════════ -->
+      <section class="section fade-in">
+        <span class="section-tag">Objection Handlers</span>
+        <h2 class="section-title">When they push back</h2>
+
+        <div class="obj-list">
+          <div class="obj-item" id="obj1">
+            <button class="obj-toggle" onclick="toggleObj('obj1')" aria-expanded="false">
+              <div class="obj-q-text">"I already have a receptionist."</div>
+              <svg class="obj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="obj-answer">
+              <div class="obj-answer-inner">
+                "That's great — this doesn't replace them, it handles the overflow. When your receptionist is on lunch, on another call, or it's 9pm on a Sunday, this picks up. Those are the calls that currently go to voicemail and never call back. Your receptionist keeps their job, your business stops leaking revenue."
+              </div>
+            </div>
+          </div>
+
+          <div class="obj-item" id="obj2">
+            <button class="obj-toggle" onclick="toggleObj('obj2')" aria-expanded="false">
+              <div class="obj-q-text">"$697 a month is too expensive."</div>
+              <svg class="obj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="obj-answer">
+              <div class="obj-answer-inner">
+                "Let's do the math together. If your average job is $500, you only need 2 extra bookings a month to cover the entire cost. Most businesses we work with recover that in week one. It's not a cost — it's the cheapest employee you'll ever hire, and it never calls in sick."
+              </div>
+            </div>
+          </div>
+
+          <div class="obj-item" id="obj3">
+            <button class="obj-toggle" onclick="toggleObj('obj3')" aria-expanded="false">
+              <div class="obj-q-text">"I'm not good with technology."</div>
+              <svg class="obj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="obj-answer">
+              <div class="obj-answer-inner">
+                "You don't need to be. Setup takes 2 minutes — I walk you through it right here. After that, it just runs. No app to manage, no dashboard to check. Calls come in, the AI handles them, you get a text summary. That's it."
+              </div>
+            </div>
+          </div>
+
+          <div class="obj-item" id="obj4">
+            <button class="obj-toggle" onclick="toggleObj('obj4')" aria-expanded="false">
+              <div class="obj-q-text">"I need to think about it."</div>
+              <svg class="obj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="obj-answer">
+              <div class="obj-answer-inner">
+                "Totally fair. Here's what I suggest: start the free trial today — no card, no commitment. You'll know within 48 hours if it's worth it just from seeing your missed calls get answered. If it's not for you, you cancel and pay nothing. What's the risk in trying it free?"
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           JOIN CTA
+      ══════════════════════════════════════ -->
+      <section class="section fade-in" id="join">
+        <span class="section-tag">Ready?</span>
+        <h2 class="section-title">Start earning this week</h2>
+
+        <div class="join-card">
+          <div class="join-title">YOUR TERRITORY. YOUR INCOME.</div>
+          <p class="join-sub">
+            Join the field team. Get your tracking link, demo materials, and onboarding within 24 hours. First door knocked, first step toward recurring income.
+          </p>
+
+          <a href="onboarding.html" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+            Join the Field Team
+          </a>
+          <a href="index.html" class="btn-secondary">← Back to Field Kit Hub</a>
+          <div class="btn-note">No quotas. No salary cap. $500 setup + $697/mo per client.</div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-brand">AutoScale AI · Field Sales</div>
+      <div class="footer-sub">D2D Rep Opportunity — Internal Use Only</div>
+    </footer>
+
+    <!-- STICKY BAR -->
+    <div class="sticky-bar" id="stickyBar" role="region" aria-label="Quick actions">
+      <a href="#join" class="sticky-btn demo">Join Team →</a>
+      <a href="index.html" class="sticky-btn back">Field Kit Hub</a>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+    <script>
+      // ── FADE IN ON SCROLL ──
+      const fadeEls = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      );
+      fadeEls.forEach(el => observer.observe(el));
+
+      // ── STICKY BAR ──
+      const stickyBar = document.getElementById('stickyBar');
+      window.addEventListener('scroll', () => {
+        stickyBar.classList.toggle('visible', window.scrollY > 300);
+      }, { passive: true });
+
+      // ── TOAST ──
+      function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2200);
+      }
+
+      // ── EARNINGS CALCULATOR ──
+      const SETUP_FEE = 500;
+      const MONTHLY_FEE = 697;
+      const SETUP_PCT = 0.50;
+      const RECURRING_PCT = 0.10;
+      const RETENTION_BONUS = 100;
+
+      const setupComm = SETUP_FEE * SETUP_PCT;         // $250
+      const recurringComm = MONTHLY_FEE * RECURRING_PCT; // $69.70
+
+      function fmt(n) {
+        return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+      }
+
+      function updateCalc() {
+        const closes = parseInt(document.getElementById('calcSlider').value);
+        document.getElementById('calcClosesVal').textContent = closes;
+
+        const setupTotal = closes * setupComm;
+        const bonusTotal = closes * RETENTION_BONUS;
+        const month1 = setupTotal + bonusTotal;
+        const monthlyBase = closes * recurringComm;
+        const month6Base = closes * 6 * recurringComm;
+
+        document.getElementById('calcMonth1').textContent = fmt(month1);
+        document.getElementById('calcSetup').textContent = fmt(setupTotal);
+        document.getElementById('calcBonus').textContent = fmt(bonusTotal);
+        document.getElementById('calcMonthly').textContent = fmt(monthlyBase);
+        document.getElementById('calc6mo').textContent = fmt(month6Base);
+        document.getElementById('calcNote').textContent =
+          `With ${closes} closes/month × 6 months = ${closes * 6} clients → ${fmt(month6Base)}/mo base`;
+
+        // Update slider progress
+        const pct = ((closes - 1) / 19) * 100;
+        const slider = document.getElementById('calcSlider');
+        slider.style.background = `linear-gradient(to right, #60a5fa ${pct}%, rgba(255,255,255,0.08) ${pct}%)`;
+
+        // Snowball track
+        renderSnowball(closes);
+      }
+
+      function renderSnowball(closesPerMonth) {
+        const track = document.getElementById('snowballTrack');
+        track.innerHTML = '';
+        const months = [1, 2, 3, 4, 5, 6];
+        const maxVal = closesPerMonth * 6 * recurringComm;
+
+        months.forEach(m => {
+          const val = closesPerMonth * m * recurringComm;
+          const pct = maxVal > 0 ? (val / maxVal) * 100 : 0;
+
+          const row = document.createElement('div');
+          row.className = 'snowball-row';
+          row.innerHTML = `
+            <span class="snowball-month">M${m}</span>
+            <div class="snowball-bar-wrap">
+              <div class="snowball-bar" style="width: ${pct}%"></div>
+            </div>
+            <span class="snowball-val">${fmt(val)}/mo</span>
+          `;
+          track.appendChild(row);
+        });
+      }
+
+      document.getElementById('calcSlider').addEventListener('input', updateCalc);
+      updateCalc(); // initial render
+
+      // ── OBJECTION ACCORDION ──
+      function toggleObj(id) {
+        const item = document.getElementById(id);
+        const btn = item.querySelector('.obj-toggle');
+        const isOpen = item.classList.contains('open');
+        // Close all
+        document.querySelectorAll('.obj-item').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.obj-toggle').setAttribute('aria-expanded', 'false');
+        });
+        // Toggle clicked
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      }
+
+      // ── COPY PITCH SCRIPT ──
+      const pitchText = `"Hey, quick question — how many calls does your business miss when you're slammed or closed? [pause] We have an AI that answers every single one, qualifies the lead, and books them right into your calendar — 24/7. Free 14-day trial, takes 2 minutes to set up. Want to hear it work right now?"`;
+
+      const demoText = `"Let me show you — call this number right now. [dial: +1 (450) 634-9636] That's an AI agent answering a live call. Your business would have its own number, trained on your services. Every missed call = money back in your pocket."`;
+
+      function copyScript() {
+        copyToClipboard(pitchText, 'pitchScript', 'Opener script copied!');
+      }
+
+      function copyDemo() {
+        copyToClipboard(demoText, 'demoScript', 'Demo script copied!');
+      }
+
+      function copyToClipboard(text, cardId, msg) {
+        const card = document.getElementById(cardId);
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(() => {
+            card.classList.add('copied');
+            setTimeout(() => card.classList.remove('copied'), 2500);
+            showToast(msg);
+          }).catch(() => fallbackCopy(text, card, msg));
+        } else {
+          fallbackCopy(text, card, msg);
+        }
+      }
+
+      function fallbackCopy(text, card, msg) {
+        const el = document.createElement('textarea');
+        el.value = text;
+        el.style.position = 'fixed';
+        el.style.opacity = '0';
+        document.body.appendChild(el);
+        el.focus();
+        el.select();
+        try {
+          document.execCommand('copy');
+          card.classList.add('copied');
+          setTimeout(() => card.classList.remove('copied'), 2500);
+          showToast(msg);
+        } catch {}
+        document.body.removeChild(el);
+      }
+
+      // Keyboard support for script cards
+      document.getElementById('pitchScript').addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyScript(); }
+      });
+      document.getElementById('demoScript').addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyDemo(); }
+      });
+    </script>
+  </body>
+</html>

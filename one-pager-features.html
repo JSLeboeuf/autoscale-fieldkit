@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <title>AutoScale AI — What We Do</title>
+    <style>
+      @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      @page {
+        size: letter;
+        margin: 0;
+      }
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: 'Satoshi', system-ui, sans-serif;
+        color: #e5e5e5;
+        background: #0a0a0f;
+        line-height: 1.45;
+      }
+
+      .page {
+        width: 8.5in;
+        max-width: 100%;
+        height: auto;
+        min-height: 11in;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: #0a0a0f;
+        position: relative;
+      }
+
+      @media (max-width: 816px) {
+        .page {
+          width: 100%;
+          min-height: auto;
+          padding: 0 8px;
+        }
+      }
+
+      @media print {
+        .page {
+          width: 8.5in;
+          height: 11in;
+          max-width: none;
+          padding: 0;
+        }
+      }
+
+      /* ── DOT GRID + GRAIN ── */
+      .page::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.08;
+        pointer-events: none;
+        z-index: 1;
+        background-image: radial-gradient(circle, rgba(0, 217, 255, 0.3) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+      .page::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.05;
+        pointer-events: none;
+        z-index: 2;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 256px 256px;
+      }
+
+      .z {
+        position: relative;
+        z-index: 5;
+      }
+
+      /* ── GRADIENT BORDER CARDS ── */
+      .glow-card {
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.25), rgba(0, 102, 179, 0.12));
+        border-radius: 12px;
+        padding: 1.5px;
+      }
+      .glow-card-inner {
+        background: #0d0d14;
+        border-radius: 11px;
+        height: 100%;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 220px;
+        gap: 20px;
+        padding: 40px 44px 24px;
+        position: relative;
+      }
+      .hero-glow {
+        position: absolute;
+        top: -60px;
+        right: -40px;
+        width: 380px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(0, 217, 255, 0.1), transparent 65%);
+        border-radius: 50%;
+        z-index: 0;
+      }
+      .hero-left {
+        z-index: 5;
+      }
+      .hero-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .logo-mark svg {
+        width: 36px;
+        height: 36px;
+      }
+      .logo-text {
+        font-family: 'Satoshi', sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #888;
+        font-weight: 700;
+      }
+      .logo-text .cy {
+        color: #00d9ff;
+      }
+      .hero-headline {
+        font-family: 'Clash Display', sans-serif;
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 0.98;
+        letter-spacing: -1.5px;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+      .hero-headline .cy {
+        color: #00d9ff;
+      }
+      .hero-sub {
+        font-size: 11px;
+        font-weight: 300;
+        color: #999;
+        max-width: 370px;
+        line-height: 1.55;
+      }
+
+      /* ── RIGHT COL ── */
+      .hero-right {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        z-index: 5;
+      }
+      .phone-wrap {
+        background: linear-gradient(135deg, #00d9ff, #0066b3);
+        border-radius: 12px;
+        padding: 1.5px;
+        box-shadow:
+          0 0 24px rgba(0, 217, 255, 0.2),
+          0 0 60px rgba(0, 217, 255, 0.06);
+      }
+      .phone-inner {
+        background: #0a0b12;
+        border-radius: 11px;
+        padding: 10px 14px;
+        text-align: center;
+      }
+      .phone-number {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 17px;
+        font-weight: 700;
+        color: #00d9ff;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.02em;
+      }
+      .phone-number a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .phone-sub {
+        font-size: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: rgba(0, 217, 255, 0.5);
+        font-weight: 700;
+        margin-top: 2px;
+      }
+
+      /* ── SECTION TITLE ── */
+      .section-title {
+        font-family: 'Clash Display', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.3px;
+        color: #fff;
+        text-transform: uppercase;
+        padding: 12px 44px 8px;
+        margin-top: 2px;
+      }
+
+      /* ── HOW IT WORKS FLOW ── */
+      .how-flow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 44px;
+        gap: 8px;
+      }
+      .flow-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        flex: 1;
+        text-align: center;
+      }
+      .flow-number {
+        width: 28px;
+        height: 28px;
+        background: #00d9ff;
+        color: #0a0a0f;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 12px;
+        flex-shrink: 0;
+        margin: 0 auto;
+      }
+      .flow-text {
+        font-size: 8.5px;
+        font-weight: 600;
+        color: #e5e5e5;
+        line-height: 1.4;
+      }
+      .flow-arrow {
+        color: #666;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      /* ── FEATURE GRID ── */
+      .feature-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 0 44px 12px;
+      }
+      .feature-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+      .feature-card-title {
+        font-family: 'Clash Display', sans-serif;
+        font-size: 9px;
+        font-weight: 600;
+        color: #00d9ff;
+        margin-bottom: 4px;
+        letter-spacing: -0.2px;
+      }
+      .feature-card-text {
+        font-size: 8px;
+        color: #999;
+        line-height: 1.5;
+      }
+
+      /* ── HOW */
+      .how-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 14px 44px;
+        font-size: 9.5px;
+        color: #999;
+      }
+      .how-step {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .how-num {
+        width: 16px;
+        height: 16px;
+        background: #00d9ff;
+        color: #0a0a0f;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 8px;
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+      .how-text {
+        font-weight: 600;
+        color: #e5e5e5;
+        font-size: 9px;
+      }
+      .how-arrow {
+        color: #666;
+        font-size: 11px;
+      }
+      .how-tail {
+        color: #666;
+        margin-left: 4px;
+        font-size: 8px;
+        font-weight: 300;
+      }
+
+      .divider {
+        height: 1px;
+        margin: 4px 44px;
+        background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.15), transparent);
+      }
+
+      /* ── CTA ── */
+      .cta-footer {
+        background: linear-gradient(135deg, #00d9ff, #0077cc);
+        padding: 20px 44px;
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 16px;
+        align-items: center;
+      }
+      .cta-left h2 {
+        font-family: 'Clash Display', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #0a0a0f;
+        letter-spacing: -0.5px;
+        margin-bottom: 1px;
+      }
+      .cta-left p {
+        font-size: 8px;
+        font-weight: 500;
+        color: rgba(10, 10, 15, 0.55);
+      }
+      .cta-phone-box {
+        background: #0a0a0f;
+        padding: 8px 16px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      }
+      .cta-phone-label {
+        font-size: 8px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: rgba(0, 217, 255, 0.5);
+        margin-bottom: 1px;
+      }
+      .cta-phone-number {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 15px;
+        font-weight: 700;
+        color: #00d9ff;
+        font-variant-numeric: tabular-nums;
+      }
+      .cta-phone-number a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .cta-qr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+      }
+      .cta-qr svg {
+        width: 52px;
+        height: 52px;
+        border-radius: 6px;
+        background: #fff;
+        padding: 3px;
+      }
+      .cta-qr-label {
+        font-size: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(10, 10, 15, 0.45);
+      }
+
+      /* ── BOTTOM ── */
+      .bottom-bar {
+        background: #0055a0;
+        padding: 5px 44px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        font-size: 8px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .bottom-bar-brand {
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .bottom-bar-sep {
+        width: 3px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+      }
+      .bottom-bar-url {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .spacer {
+        flex-grow: 1;
+      }
+
+      @media print {
+        body {
+          background: #0a0a0f;
+        }
+        .page {
+          height: 11in;
+          width: 8.5in;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- HERO -->
+      <div class="hero z">
+        <div class="hero-glow"></div>
+        <div class="hero-left">
+          <div class="hero-top">
+            <div class="logo-mark">
+              <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#0066B3" />
+                    <stop offset="100%" stop-color="#00D9FF" />
+                  </linearGradient>
+                </defs>
+                <rect width="128" height="128" fill="#0A0A0F" rx="24" />
+                <g transform="translate(14, 36) scale(0.25)">
+                  <path
+                    d="M240 200 C180 130 80 130 80 200 C80 270 180 270 240 200 C300 130 400 130 400 200 C400 270 300 270 240 200 Z"
+                    fill="url(#ig)"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div class="logo-text">AUTOSCALE <span class="cy">AI</span></div>
+          </div>
+          <h1 class="hero-headline">
+            What AutoScale<br />AI <span class="cy">Does.</span>
+          </h1>
+          <p class="hero-sub">
+            Simple. No jargon. Just calls answered. Appointments booked. Customers happy.
+          </p>
+        </div>
+        <div class="hero-right">
+          <div class="phone-wrap">
+            <div class="phone-inner">
+              <div class="phone-number"><a href="tel:+12073049892">(207) 304-9892</a></div>
+              <div class="phone-sub">Hear it live</div>
+            </div>
+          </div>
+          <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 8px 12px; display: flex; align-items: baseline; gap: 8px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 24px; line-height: 1; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; flex-shrink: 0; color: #00d9ff;">24/7</div>
+            <div style="font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; font-weight: 600; line-height: 1.4;">Always<br />answering</div>
+          </div>
+          <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 8px 12px; display: flex; align-items: baseline; gap: 8px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 24px; line-height: 1; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; flex-shrink: 0; color: #00d9ff;">Live</div>
+            <div style="font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; font-weight: 600; line-height: 1.4;">in 24<br />hours</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOW IT WORKS -->
+      <h3 class="section-title">How Calls Are Handled</h3>
+      <div class="how-flow">
+        <div class="flow-step">
+          <div class="flow-number">1</div>
+          <div class="flow-text">Customer Calls</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-number">2</div>
+          <div class="flow-text">Answered Instantly</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-number">3</div>
+          <div class="flow-text">Questions Answered</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-number">4</div>
+          <div class="flow-text">Appointment Booked</div>
+        </div>
+      </div>
+
+      <p style="font-size: 8px; color: #777; text-align: center; margin: 0 44px 10px; font-weight: 300;">No hold music. No voicemail. No missed calls. Ever.</p>
+
+      <!-- FEATURES -->
+      <h3 class="section-title">Works With Your Existing Setup</h3>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-title">Your Current Phone Number</div>
+          <div class="feature-card-text">We forward calls. No new number needed. Keep your business identity.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Your Calendar</div>
+          <div class="feature-card-text">Appointments sync automatically. Google, Outlook, or any calendar.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Your Hours, Your Rules</div>
+          <div class="feature-card-text">Custom greetings, business hours, and call handling — all configured for you.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Your Staff, Untouched</div>
+          <div class="feature-card-text">No training needed. No workflow changes. Plug in and go.</div>
+        </div>
+      </div>
+
+      <!-- SETUP -->
+      <h3 class="section-title" style="margin-top: 8px;">Live in 24 Hours</h3>
+      <div class="how-row">
+        <div class="how-step">
+          <div class="how-num">1</div>
+          <div class="how-text">Tell us about your business</div>
+        </div>
+        <div class="how-arrow">&rarr;</div>
+        <div class="how-step">
+          <div class="how-num">2</div>
+          <div class="how-text">We set everything up</div>
+        </div>
+        <div class="how-arrow">&rarr;</div>
+        <div class="how-step">
+          <div class="how-num">3</div>
+          <div class="how-text">Calls start getting answered</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="spacer"></div>
+
+      <!-- CTA -->
+      <div class="cta-footer z">
+        <div class="cta-left">
+          <h2>See It In Action.</h2>
+          <p>Call now and talk to Alex.</p>
+        </div>
+        <div class="cta-phone-box">
+          <div class="cta-phone-label">Tap to call</div>
+          <div class="cta-phone-number"><a href="tel:+12073049892">(207) 304-9892</a></div>
+        </div>
+        <div class="cta-qr">
+          <svg viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg">
+            <rect width="39" height="39" fill="white" />
+            <path
+              fill="black"
+              d="M1,1H2V2H1zM2,1H3V2H2zM3,1H4V2H3zM4,1H5V2H4zM5,1H6V2H5zM6,1H7V2H6zM7,1H8V2H7zM9,1H10V2H9zM12,1H13V2H12zM13,1H14V2H13zM14,1H15V2H14zM15,1H16V2H15zM18,1H19V2H18zM21,1H22V2H21zM22,1H23V2H22zM23,1H24V2H23zM24,1H25V2H24zM27,1H28V2H27zM31,1H32V2H31zM32,1H33V2H32zM33,1H34V2H33zM34,1H35V2H34zM35,1H36V2H35zM36,1H37V2H36zM37,1H38V2H37zM1,2H2V3H1zM7,2H8V3H7zM10,2H11V3H10zM12,2H13V3H12zM13,2H14V3H13zM16,2H17V3H16zM18,2H19V3H18zM19,2H20V3H19zM21,2H22V3H21zM22,2H23V3H22zM23,2H24V3H23zM26,2H27V3H26zM27,2H28V3H27zM29,2H30V3H29zM31,2H32V3H31zM37,2H38V3H37zM1,3H2V4H1zM3,3H4V4H3zM4,3H5V4H4zM5,3H6V4H5zM7,3H8V4H7zM9,3H10V4H9zM10,3H11V4H10zM15,3H16V4H15zM16,3H17V4H16zM19,3H20V4H19zM22,3H23V4H22zM24,3H25V4H24zM27,3H28V4H27zM28,3H29V4H28zM31,3H32V4H31zM33,3H34V4H33zM34,3H35V4H34zM35,3H36V4H35zM37,3H38V4H37zM1,4H2V5H1zM3,4H4V5H3zM4,4H5V5H4zM5,4H6V5H5zM7,4H8V5H7zM11,4H12V5H11zM15,4H16V5H15zM17,4H18V5H17zM21,4H22V5H21zM23,4H24V5H23zM26,4H27V5H26zM29,4H30V5H29zM31,4H32V5H31zM33,4H34V5H33zM34,4H35V5H34zM35,4H36V5H35zM37,4H38V5H37zM1,5H2V6H1zM3,5H4V6H3zM4,5H5V6H4zM5,5H6V6H5zM7,5H8V6H7zM9,5H10V6H9zM16,5H17V6H16zM17,5H18V6H17zM19,5H20V6H19zM20,5H21V6H20zM21,5H22V6H21zM23,5H24V6H23zM25,5H26V6H25zM26,5H27V6H26zM27,5H28V6H27zM31,5H32V6H31zM33,5H34V6H33zM34,5H35V6H34zM35,5H36V6H35zM37,5H38V6H37zM1,6H2V7H1zM7,6H8V7H7zM10,6H11V7H10zM13,6H14V7H13zM14,6H15V7H14zM17,6H18V7H17zM19,6H20V7H19zM20,6H21V7H20zM25,6H26V7H25zM26,6H27V7H26zM27,6H28V7H27zM29,6H30V7H29zM31,6H32V7H31zM37,6H38V7H37zM1,7H2V8H1zM2,7H3V8H2zM3,7H4V8H3zM4,7H5V8H4zM5,7H6V8H5zM6,7H7V8H6zM7,7H8V8H7zM9,7H10V8H9zM11,7H12V8H11zM13,7H14V8H13zM15,7H16V8H15zM17,7H18V8H17zM19,7H20V8H19zM21,7H22V8H21zM23,7H24V8H23zM25,7H26V8H25zM27,7H28V8H27zM29,7H30V8H29zM31,7H32V8H31zM32,7H33V8H32zM33,7H34V8H33zM34,7H35V8H34zM35,7H36V8H35zM36,7H37V8H36zM37,7H38V8H37z"
+            />
+          </svg>
+          <div class="cta-qr-label">Scan to book</div>
+        </div>
+      </div>
+
+      <!-- BOTTOM -->
+      <div class="bottom-bar z">
+        <div class="bottom-bar-brand">AutoScale AI</div>
+        <div class="bottom-bar-sep"></div>
+        <div>Dentists &bull; Lawyers &bull; HVAC &bull; Plumbers &bull; Salons &amp; more</div>
+        <div class="bottom-bar-sep"></div>
+        <div class="bottom-bar-url">autoscaleai.com</div>
+      </div>
+    </div>
+
+    <footer
+      style="
+        text-align: center;
+        padding: 24px 16px 32px;
+        font-size: 12px;
+        color: rgba(200, 210, 220, 0.35);
+        font-family: 'Satoshi', system-ui, sans-serif;
+      "
+    >
+      <nav
+        aria-label="Footer navigation"
+        style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px"
+      >
+        <a href="index.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Field Kit</a>
+        <a href="terms.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Terms</a>
+        <a href="privacy.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
+          >Privacy</a
+        >
+      </nav>
+      <span>&copy; 2026 AutoScale AI</span>
+    </footer>
+  </body>
+</html>
