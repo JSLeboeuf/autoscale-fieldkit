@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#09090b" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>AutoScale AI — New Client Signup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --green: #60a5fa;
+        --green-2: #3b82f6;
+        --green-dim: rgba(96, 165, 250, 0.07);
+        --green-glow: rgba(96, 165, 250, 0.15);
+        --gold: #fbbf24;
+        --red: #f87171;
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 0 20px 80px;
+        position: relative;
+        font-weight: 400;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 32px 0 24px;
+        text-align: center;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+
+      .logo-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        font-family: 'Michroma', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .header-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 38px;
+        line-height: 1;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+
+      .header-title span {
+        color: var(--green);
+      }
+
+      .header-sub {
+        font-size: 15px;
+        color: var(--muted);
+        font-weight: 400;
+        line-height: 1.5;
+      }
+
+      /* ── REP INFO ── */
+      .rep-info {
+        display: none;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 12px 16px;
+        margin: 16px 0 24px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .rep-info.visible {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .rep-info strong {
+        color: var(--text-2);
+        font-weight: 600;
+      }
+
+      /* ── PROGRESS ── */
+      .progress-wrap {
+        margin-bottom: 28px;
+      }
+
+      .progress-bar {
+        height: 4px;
+        background: var(--surface-2);
+        border-radius: 100px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--green), var(--green-2));
+        border-radius: 100px;
+        width: 33%;
+        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .progress-steps {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+
+      .progress-step {
+        font-size: 11px;
+        color: var(--border-2);
+        font-weight: 600;
+        transition: color 0.2s;
+        text-align: center;
+        flex: 1;
+      }
+
+      .progress-step.active {
+        color: var(--green);
+      }
+
+      .progress-step.done {
+        color: var(--text-2);
+      }
+
+      /* ── STEP CARD ── */
+      .step-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px 20px;
+        margin-bottom: 12px;
+        display: none;
+      }
+
+      .step-card.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .step-header {
+        margin-bottom: 20px;
+      }
+
+      .step-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--green);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+
+      .step-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 24px;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        line-height: 1;
+      }
+
+      .step-desc {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 6px;
+        line-height: 1.5;
+      }
+
+      /* ── FORM FIELDS ── */
+      .field {
+        margin-bottom: 16px;
+      }
+
+      .field:last-child {
+        margin-bottom: 0;
+      }
+
+      .field-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-2);
+        margin-bottom: 6px;
+      }
+
+      .field-label .req {
+        color: var(--red);
+        margin-left: 2px;
+      }
+
+      .field-hint {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 6px;
+        line-height: 1.4;
+      }
+
+      .field-error {
+        font-size: 12px;
+        color: var(--red);
+        margin-top: 4px;
+        display: none;
+        font-weight: 500;
+      }
+
+      .field-error.visible {
+        display: block;
+      }
+
+      input[type='text'],
+      input[type='tel'],
+      input[type='email'],
+      select {
+        width: 100%;
+        padding: 14px 16px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--text);
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 500;
+        outline: none;
+        transition: border-color 0.15s, box-shadow 0.15s;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      input::placeholder {
+        color: var(--border-2);
+        font-weight: 400;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: var(--green);
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+      }
+
+      input.invalid,
+      select.invalid {
+        border-color: var(--red);
+        box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1);
+      }
+
+      select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238e8ea0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 38px;
+        cursor: pointer;
+      }
+
+      select option {
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      /* ── BUTTONS ── */
+      .btn-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 24px;
+      }
+
+      .btn {
+        flex: 1;
+        padding: 16px;
+        border: none;
+        border-radius: var(--radius);
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+        box-shadow: 0 4px 24px rgba(96, 165, 250, 0.3);
+      }
+
+      .btn-primary:hover {
+        box-shadow: 0 6px 30px rgba(96, 165, 250, 0.4);
+      }
+
+      .btn-primary:active {
+        transform: scale(0.97);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-secondary {
+        background: var(--surface-2);
+        color: var(--text-2);
+        border: 1px solid var(--border);
+        flex: 0 0 auto;
+        padding: 16px 20px;
+      }
+
+      .btn-secondary:hover {
+        background: var(--border);
+      }
+
+      .btn .spinner {
+        display: none;
+        width: 18px;
+        height: 18px;
+        border: 2.5px solid rgba(9, 9, 11, 0.3);
+        border-top-color: var(--bg);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+
+      .btn.loading .spinner {
+        display: block;
+      }
+
+      .btn.loading .btn-text {
+        opacity: 0.7;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* ── SUCCESS SCREEN ── */
+      .success-screen {
+        display: none;
+        text-align: center;
+        padding: 40px 0;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .success-screen.visible {
+        display: block;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--green-dim);
+        border: 1.5px solid rgba(96, 165, 250, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 36px;
+      }
+
+      .success-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 36px;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        margin-bottom: 12px;
+        line-height: 1;
+      }
+
+      .success-title span {
+        color: var(--green);
+      }
+
+      .success-body {
+        font-size: 15px;
+        color: var(--text-2);
+        line-height: 1.65;
+        max-width: 340px;
+        margin: 0 auto 28px;
+      }
+
+      .success-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-align: left;
+        margin-bottom: 28px;
+      }
+
+      .success-step {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 14px 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .success-step-num {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        color: var(--green);
+        display: grid;
+        place-items: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .success-step-body {
+        flex: 1;
+        font-size: 14px;
+        color: var(--text-2);
+        line-height: 1.5;
+      }
+
+      .success-step-body strong {
+        display: block;
+        color: var(--green);
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 2px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .footer-brand {
+        font-family: 'Michroma', sans-serif;
+        font-size: 10px;
+        color: var(--text-2);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+
+      .footer-sub {
+        font-size: 10px;
+        color: var(--border-2);
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--surface-2);
+        color: var(--green);
+        padding: 12px 24px;
+        border-radius: 100px;
+        font-size: 14px;
+        font-weight: 600;
+        z-index: 100;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+        pointer-events: none;
+        border: 1px solid var(--border-2);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        white-space: nowrap;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      .toast.error {
+        color: var(--red);
+        border-color: rgba(248, 113, 113, 0.2);
+      }
+
+      /* ── REDUCED MOTION ── */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── HEADER ── -->
+    <header class="header">
+      <div class="logo-row">
+        <div class="logo-mark">
+          <img src="logo.png" alt="AutoScale AI" />
+        </div>
+        <span class="logo-text">AutoScale AI</span>
+      </div>
+
+      <h1 class="header-title">Sign Up a<br /><span>New Client</span></h1>
+      <p class="header-sub">Fill in the basics. We handle the rest.</p>
+    </header>
+
+    <!-- ── REP INFO (from URL params) ── -->
+    <div class="rep-info" id="rep-info" role="status">
+      Rep: <strong id="rep-name"></strong>
+    </div>
+
+    <!-- ── PROGRESS ── -->
+    <div class="progress-wrap">
+      <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-steps">
+        <span class="progress-step active" data-step="1">Client Info</span>
+        <span class="progress-step" data-step="2">Business</span>
+        <span class="progress-step" data-step="3">Confirm</span>
+      </div>
+    </div>
+
+    <!-- ── STEP 1: Client Info ── -->
+    <div class="step-card active" id="step-1">
+      <div class="step-header">
+        <div class="step-num">Step 1 of 3</div>
+        <div class="step-title">Client Info</div>
+        <div class="step-desc">Who's the business owner? We'll send them the contract.</div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="client_name">
+          Owner's Full Name <span class="req">*</span>
+        </label>
+        <input
+          type="text"
+          id="client_name"
+          name="client_name"
+          placeholder="e.g. John Smith"
+          autocomplete="name"
+          required
+        />
+        <div class="field-hint">First and last name of the business owner.</div>
+        <div class="field-error" id="err-client_name">Please enter the owner's name.</div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="client_phone">
+          Owner's Phone <span class="req">*</span>
+        </label>
+        <input
+          type="tel"
+          id="client_phone"
+          name="client_phone"
+          placeholder="(555) 000-0000"
+          autocomplete="tel"
+          required
+        />
+        <div class="field-hint">We'll text the contract to this number.</div>
+        <div class="field-error" id="err-client_phone">Please enter a valid phone number.</div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-primary" onclick="goToStep(2)">
+          <span class="btn-text">Next</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: Business ── -->
+    <div class="step-card" id="step-2">
+      <div class="step-header">
+        <div class="step-num">Step 2 of 3</div>
+        <div class="step-title">Business Details</div>
+        <div class="step-desc">Just the basics — we'll configure everything else.</div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="business_name">
+          Business Name <span class="req">*</span>
+        </label>
+        <input
+          type="text"
+          id="business_name"
+          name="business_name"
+          placeholder="e.g. Sunrise Med Spa"
+          autocomplete="organization"
+          required
+        />
+        <div class="field-hint">The name customers see when they call.</div>
+        <div class="field-error" id="err-business_name">Please enter the business name.</div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="industry">
+          Industry <span class="req">*</span>
+        </label>
+        <select id="industry" name="industry" required>
+          <option value="" disabled selected>Pick the closest match…</option>
+          <option value="medical">Med Spa / Healthcare</option>
+          <option value="dental">Dental</option>
+          <option value="chiro">Chiropractic</option>
+          <option value="vet">Veterinary</option>
+          <option value="salon">Salon / Beauty</option>
+          <option value="hvac">HVAC</option>
+          <option value="plumbing">Plumbing</option>
+          <option value="electrical">Electrical</option>
+          <option value="roofing">Roofing</option>
+          <option value="contractor">General Contractor</option>
+          <option value="autorepair">Auto Repair</option>
+          <option value="pestcontrol">Pest Control</option>
+          <option value="landscaping">Landscaping</option>
+          <option value="legal">Legal</option>
+          <option value="realestate">Real Estate</option>
+          <option value="other">Other</option>
+        </select>
+        <div class="field-hint">This customizes the AI voice for your client's industry.</div>
+        <div class="field-error" id="err-industry">Please select an industry.</div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="client_email">
+          Email <span style="font-size: 11px; color: var(--muted); font-weight: 400">(optional)</span>
+        </label>
+        <input
+          type="email"
+          id="client_email"
+          name="client_email"
+          placeholder="owner@business.com"
+          autocomplete="email"
+        />
+        <div class="field-hint">For the welcome email and dashboard login. Can add later.</div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-secondary" onclick="goToStep(1)">Back</button>
+        <button type="button" class="btn btn-primary" onclick="goToStep(3)">
+          <span class="btn-text">Review & Send</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: Confirm ── -->
+    <div class="step-card" id="step-3">
+      <div class="step-header">
+        <div class="step-num">Step 3 of 3</div>
+        <div class="step-title">Confirm & Send Contract</div>
+        <div class="step-desc">Review the info below, then hit send. The client gets a text with the contract link.</div>
+      </div>
+
+      <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 16px;">
+        <div style="margin-bottom: 12px;">
+          <div style="font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 3px;">Owner</div>
+          <div style="font-size: 15px; font-weight: 600; color: var(--text);" id="confirm-name">—</div>
+          <div style="font-size: 13px; color: var(--text-2);" id="confirm-phone">—</div>
+          <div style="font-size: 13px; color: var(--text-2); display: none;" id="confirm-email-row"></div>
+        </div>
+        <div style="height: 1px; background: var(--border); margin: 12px 0;"></div>
+        <div>
+          <div style="font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 3px;">Business</div>
+          <div style="font-size: 15px; font-weight: 600; color: var(--text);" id="confirm-business">—</div>
+          <div style="font-size: 13px; color: var(--text-2);" id="confirm-industry">—</div>
+        </div>
+      </div>
+
+      <div style="background: var(--green-dim); border: 1px solid rgba(96, 165, 250, 0.15); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 16px; font-size: 13px; color: var(--text-2); line-height: 1.5;">
+        <strong style="color: var(--green); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 4px;">What happens next</strong>
+        The client receives a text message with a link to sign the contract on their phone.
+        No login required — they just tap, sign, and done.
+      </div>
+
+      <div style="font-size: 11px; color: var(--muted); text-align: center; margin-bottom: 16px;">
+        Plan: $500 activation + $697/mo &middot; 12-month agreement
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-secondary" onclick="goToStep(2)">Back</button>
+        <button type="button" class="btn btn-primary" id="submit-btn" onclick="submitSignup()">
+          <div class="spinner"></div>
+          <span class="btn-text">Send Contract via Text</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── SUCCESS SCREEN ── -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">&#10003;</div>
+      <h2 class="success-title">Contract <span>Sent!</span></h2>
+      <p class="success-body">
+        The client will receive a text message with a link to sign the contract.
+        You'll get notified when they sign.
+      </p>
+
+      <div class="success-timeline">
+        <div class="success-step">
+          <div class="success-step-num">1</div>
+          <div class="success-step-body">
+            <strong>Now</strong>
+            Client gets a text with the contract signing link.
+          </div>
+        </div>
+        <div class="success-step">
+          <div class="success-step-num">2</div>
+          <div class="success-step-body">
+            <strong>Client Signs</strong>
+            They tap the link, sign on their phone — takes 2 minutes.
+          </div>
+        </div>
+        <div class="success-step">
+          <div class="success-step-num">3</div>
+          <div class="success-step-body">
+            <strong>We Handle Setup</strong>
+            AI receptionist goes live within 48 hours. Zero setup needed from the client.
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary" onclick="resetForm()" style="width: 100%;">
+        <span class="btn-text">Sign Up Another Client</span>
+      </button>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+      <div class="footer-brand">AutoScale AI</div>
+      <div class="footer-sub">&copy; 2026 AutoScale AI. All rights reserved.</div>
+    </footer>
+
+    <!-- ── TOAST ── -->
+    <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+    <script>
+      // ── CONFIG ──
+      const ENDPOINT = 'https://autoscale-ai-backend.fly.dev/api/field-sales/signup';
+      let currentStep = 1;
+
+      // ── INIT ──
+      (function init() {
+        // Read rep info from URL params
+        const params = new URLSearchParams(window.location.search);
+        const repName = params.get('rep') || '';
+        const repCode = params.get('code') || '';
+
+        if (repName) {
+          document.getElementById('rep-name').textContent = repName;
+          document.getElementById('rep-info').classList.add('visible');
+        }
+
+        // Auto-format phone as user types
+        const phoneInput = document.getElementById('client_phone');
+        phoneInput.addEventListener('input', function () {
+          let val = this.value.replace(/\D/g, '');
+          if (val.length > 10) val = val.slice(0, 10);
+          if (val.length >= 7) {
+            this.value = `(${val.slice(0, 3)}) ${val.slice(3, 6)}-${val.slice(6)}`;
+          } else if (val.length >= 4) {
+            this.value = `(${val.slice(0, 3)}) ${val.slice(3)}`;
+          } else if (val.length > 0) {
+            this.value = `(${val}`;
+          }
+        });
+
+        // Clear validation on input
+        document.querySelectorAll('input, select').forEach(el => {
+          el.addEventListener('input', function () {
+            this.classList.remove('invalid');
+            const errEl = document.getElementById('err-' + this.id);
+            if (errEl) errEl.classList.remove('visible');
+          });
+        });
+      })();
+
+      // ── STEP NAVIGATION ──
+      function goToStep(step) {
+        // Validate current step before advancing
+        if (step > currentStep && !validateStep(currentStep)) return;
+
+        // Hide current step
+        document.getElementById('step-' + currentStep).classList.remove('active');
+
+        // Show new step
+        currentStep = step;
+        document.getElementById('step-' + currentStep).classList.add('active');
+
+        // Update progress bar
+        const pct = step === 1 ? 33 : step === 2 ? 66 : 100;
+        document.getElementById('progress-fill').style.width = pct + '%';
+
+        // Update step labels
+        document.querySelectorAll('.progress-step').forEach((el, i) => {
+          const s = i + 1;
+          el.classList.toggle('active', s === step);
+          el.classList.toggle('done', s < step);
+        });
+
+        // If step 3, populate confirmation
+        if (step === 3) populateConfirmation();
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // ── VALIDATION ──
+      function validateStep(step) {
+        if (step === 1) {
+          return validateField('client_name', v => v.length >= 2)
+            && validateField('client_phone', v => /^\+?[\d\s\-().]{7,}$/.test(v));
+        }
+        if (step === 2) {
+          return validateField('business_name', v => v.length >= 2)
+            && validateField('industry', v => v.length > 0);
+        }
+        return true;
+      }
+
+      function validateField(id, testFn) {
+        const el = document.getElementById(id);
+        const err = document.getElementById('err-' + id);
+        const val = el.value.trim();
+        const ok = testFn(val);
+
+        el.classList.toggle('invalid', !ok);
+        if (err) err.classList.toggle('visible', !ok);
+
+        if (!ok) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.focus();
+        }
+
+        return ok;
+      }
+
+      // ── CONFIRMATION ──
+      function populateConfirmation() {
+        const name = document.getElementById('client_name').value.trim();
+        const phone = document.getElementById('client_phone').value.trim();
+        const email = document.getElementById('client_email').value.trim();
+        const business = document.getElementById('business_name').value.trim();
+        const industryEl = document.getElementById('industry');
+        const industryText = industryEl.options[industryEl.selectedIndex].text;
+
+        document.getElementById('confirm-name').textContent = name;
+        document.getElementById('confirm-phone').textContent = phone;
+        document.getElementById('confirm-business').textContent = business;
+        document.getElementById('confirm-industry').textContent = industryText;
+
+        const emailRow = document.getElementById('confirm-email-row');
+        if (email) {
+          emailRow.textContent = email;
+          emailRow.style.display = 'block';
+        } else {
+          emailRow.style.display = 'none';
+        }
+      }
+
+      // ── SUBMIT ──
+      async function submitSignup() {
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.classList.add('loading');
+
+        const params = new URLSearchParams(window.location.search);
+
+        const data = {
+          client_name: document.getElementById('client_name').value.trim(),
+          client_phone: document.getElementById('client_phone').value.trim(),
+          client_email: document.getElementById('client_email').value.trim() || null,
+          business_name: document.getElementById('business_name').value.trim(),
+          industry: document.getElementById('industry').value,
+          rep_name: params.get('rep') || null,
+          rep_code: params.get('code') || null,
+          submitted_at: new Date().toISOString(),
+        };
+
+        try {
+          const res = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+
+          if (!res.ok) {
+            const body = await res.json().catch(() => ({}));
+            throw new Error(body.message || 'Server error (' + res.status + ')');
+          }
+
+          // Show success
+          document.getElementById('step-' + currentStep).classList.remove('active');
+          document.querySelector('.progress-wrap').style.display = 'none';
+          document.getElementById('success-screen').classList.add('visible');
+          showToast('Contract sent!');
+        } catch (error) {
+          showToast(error.message || 'Something went wrong. Please try again.', true);
+          btn.disabled = false;
+          btn.classList.remove('loading');
+        }
+      }
+
+      // ── RESET FORM ──
+      function resetForm() {
+        document.getElementById('success-screen').classList.remove('visible');
+        document.querySelector('.progress-wrap').style.display = 'block';
+
+        // Clear all inputs
+        document.querySelectorAll('input, select').forEach(el => {
+          if (el.type === 'select-one') {
+            el.selectedIndex = 0;
+          } else {
+            el.value = '';
+          }
+          el.classList.remove('invalid');
+        });
+
+        document.querySelectorAll('.field-error').forEach(el => el.classList.remove('visible'));
+
+        // Go to step 1
+        currentStep = 1;
+        document.getElementById('step-1').classList.add('active');
+        document.getElementById('progress-fill').style.width = '33%';
+        document.querySelectorAll('.progress-step').forEach((el, i) => {
+          el.classList.toggle('active', i === 0);
+          el.classList.remove('done');
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // ── TOAST ──
+      let toastTimer = null;
+      function showToast(msg, isError) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.toggle('error', !!isError);
+        el.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+      }
+    </script>
+  </body>
+</html>
