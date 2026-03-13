@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Call Sam — AutoScale AI Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0A0A0A;
+      --cyan: #00D9FF;
+      --white: #ffffff;
+      --grey: #707070;
+      --dim: #383838;
+    }
+    html, body {
+      font-family: 'Sora', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      padding: 40px 24px;
+      max-width: 520px;
+      width: 100%;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      border: 1px solid rgba(0,217,255,0.3);
+      background: rgba(0,217,255,0.06);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 32px;
+    }
+    h1 {
+      font-size: clamp(36px, 8vw, 64px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+    h1 span {
+      color: var(--cyan);
+    }
+    .sub {
+      font-size: 16px;
+      color: var(--grey);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+    .phone-link {
+      display: block;
+      font-size: clamp(28px, 6vw, 48px);
+      font-weight: 800;
+      color: var(--cyan);
+      text-decoration: none;
+      letter-spacing: -1px;
+      margin-bottom: 32px;
+      transition: opacity 0.15s;
+    }
+    .phone-link:hover { opacity: 0.8; }
+    .qr-wrap {
+      background: var(--white);
+      border-radius: 16px;
+      display: inline-block;
+      padding: 16px;
+      margin-bottom: 32px;
+    }
+    .qr-wrap img {
+      display: block;
+      width: 180px;
+      height: 180px;
+    }
+    .hint {
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.7;
+      margin-bottom: 64px;
+    }
+    .hint strong { color: var(--white); font-weight: 600; }
+    footer {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: var(--dim);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      width: 100%;
+      max-width: 520px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">LIVE AI DEMO</div>
+    <h1>Call <span>Sam</span><br/>right now.</h1>
+    <p class="sub">He answers in under a second. Try to stump him.</p>
+
+    <a href="tel:+12072557831" class="phone-link">+1 (207) 255-7831</a>
+
+    <div class="qr-wrap">
+      <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=tel%3A%2B12072557831&color=0A0A0A&bgcolor=ffffff"
+        alt="QR code — call Sam"
+        width="180"
+        height="180"
+      />
+    </div>
+
+    <p class="hint">
+      Ask about pricing. Ask about competitors to confuse him.<br/>
+      <strong>He books real appointments.</strong>
+    </p>
+
+    <footer>AUTOSCALE AI &mdash; FOR SALES REPS ONLY</footer>
+  </div>
+</body>
+</html>

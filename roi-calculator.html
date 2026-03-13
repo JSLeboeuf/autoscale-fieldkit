@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROI Calculator — AutoScale AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0A0A0A;
+      --surface: #141414;
+      --border: #222;
+      --cyan: #00D9FF;
+      --cyan-dim: rgba(0,217,255,0.12);
+      --white: #fff;
+      --grey: #888;
+      --dim: #555;
+      --red: #FF4444;
+      --green: #00CC55;
+    }
+    html, body {
+      font-family: 'Sora', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 80px;
+    }
+
+    /* Header */
+    .logo {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      margin-bottom: 48px;
+    }
+
+    /* Title */
+    h1 {
+      font-size: clamp(28px, 6vw, 44px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    h1 span { color: var(--cyan); }
+    .subtitle {
+      text-align: center;
+      color: var(--grey);
+      font-size: 15px;
+      margin-bottom: 48px;
+      line-height: 1.5;
+    }
+
+    /* Card */
+    .calc-card {
+      width: 100%;
+      max-width: 520px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+    }
+
+    /* Slider group */
+    .slider-group {
+      margin-bottom: 32px;
+    }
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .slider-label span {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .slider-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--cyan);
+      letter-spacing: -0.5px;
+    }
+
+    /* Range slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--cyan);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 12px rgba(0,217,255,0.4);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--cyan);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 12px rgba(0,217,255,0.4);
+      cursor: pointer;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Results */
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+    }
+    .result-row .label {
+      font-size: 13px;
+      color: var(--grey);
+    }
+    .result-row .value {
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .result-row .value.loss { color: var(--red); }
+    .result-row .value.cost { color: var(--white); }
+    .result-row .value.roi { color: var(--green); }
+
+    /* Big ROI */
+    .roi-hero {
+      text-align: center;
+      padding: 24px 0 8px;
+    }
+    .roi-hero .number {
+      font-size: clamp(48px, 10vw, 72px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      color: var(--cyan);
+      line-height: 1;
+    }
+    .roi-hero .suffix {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey);
+      margin-top: 4px;
+    }
+
+    /* CTA */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      max-width: 520px;
+      margin-top: 24px;
+      padding: 18px 32px;
+      background: var(--cyan);
+      color: var(--bg);
+      font-family: 'Sora', system-ui, sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* Phone link */
+    .phone-row {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .phone-row a {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.3px;
+    }
+    .phone-row a:hover { text-decoration: underline; }
+    .phone-row .hint {
+      font-size: 12px;
+      color: var(--dim);
+      margin-top: 4px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 56px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">AUTOSCALE AI</div>
+
+  <h1>Calculate your <span>ROI</span></h1>
+  <p class="subtitle">See how much revenue you're losing to missed calls — and what happens when AI picks up.</p>
+
+  <div class="calc-card">
+    <div class="slider-group">
+      <div class="slider-label">
+        <span>Missed calls per week</span>
+        <span class="slider-value" id="calls-display">10</span>
+      </div>
+      <input type="range" id="calls" min="0" max="50" value="10" />
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-label">
+        <span>Average value per customer</span>
+        <span class="slider-value" id="value-display">$300</span>
+      </div>
+      <input type="range" id="value" min="50" max="2000" value="300" step="25" />
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="result-row">
+      <span class="label">You're losing per month</span>
+      <span class="value loss" id="loss">$12,000</span>
+    </div>
+    <div class="result-row">
+      <span class="label">AutoScale AI costs</span>
+      <span class="value cost">$697/mo</span>
+    </div>
+    <div class="result-row">
+      <span class="label">Net savings per month</span>
+      <span class="value roi" id="savings">$11,303</span>
+    </div>
+
+    <div class="roi-hero">
+      <div class="number" id="roi">17x</div>
+      <div class="suffix">return on investment in month 1</div>
+    </div>
+  </div>
+
+  <a href="/subscribe/" class="cta-btn">Start for $500 &rarr;</a>
+
+  <div class="phone-row">
+    <a href="tel:+12073049892">(207) 304-9892</a>
+    <div class="hint">Call now — hear the AI answer live</div>
+  </div>
+
+  <footer>AUTOSCALE AI</footer>
+
+  <script>
+    const callsEl = document.getElementById('calls');
+    const valueEl = document.getElementById('value');
+    const callsDisplay = document.getElementById('calls-display');
+    const valueDisplay = document.getElementById('value-display');
+    const lossEl = document.getElementById('loss');
+    const savingsEl = document.getElementById('savings');
+    const roiEl = document.getElementById('roi');
+
+    const AUTOSCALE_COST = 697;
+
+    function fmt(n) {
+      return '$' + Math.round(n).toLocaleString('en-US');
+    }
+
+    function calculate() {
+      const calls = parseInt(callsEl.value);
+      const value = parseInt(valueEl.value);
+
+      callsDisplay.textContent = calls;
+      valueDisplay.textContent = fmt(value);
+
+      const monthlyLoss = calls * value * 4.33;
+      const netSavings = monthlyLoss - AUTOSCALE_COST;
+      const roi = monthlyLoss > 0 ? monthlyLoss / AUTOSCALE_COST : 0;
+
+      lossEl.textContent = fmt(monthlyLoss);
+      savingsEl.textContent = netSavings > 0 ? fmt(netSavings) : '-' + fmt(Math.abs(netSavings));
+      roiEl.textContent = roi >= 1 ? Math.round(roi) + 'x' : roi.toFixed(1) + 'x';
+    }
+
+    callsEl.addEventListener('input', calculate);
+    valueEl.addEventListener('input', calculate);
+    calculate();
+  </script>
+</body>
+</html>
