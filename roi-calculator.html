@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ROI Calculator — AutoScale AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -21,7 +21,7 @@
       --green: #00CC55;
     }
     html, body {
-      font-family: 'Sora', system-ui, sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
       background: var(--bg);
       color: var(--white);
       min-height: 100vh;
@@ -35,13 +35,25 @@
     }
 
     /* Header */
-    .logo {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--cyan);
-      letter-spacing: 2px;
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       margin-bottom: 48px;
     }
+    .logo-mark svg {
+      width: 36px;
+      height: 36px;
+    }
+    .logo-text {
+      font-family: 'Michroma', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: 0.2em;
+    }
+    .logo-text .cy { color: var(--cyan); }
 
     /* Title */
     h1 {
@@ -183,7 +195,7 @@
       padding: 18px 32px;
       background: var(--cyan);
       color: var(--bg);
-      font-family: 'Sora', system-ui, sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
       font-size: 16px;
       font-weight: 800;
       letter-spacing: -0.3px;
@@ -226,7 +238,16 @@
   </style>
 </head>
 <body>
-  <div class="logo">AUTOSCALE AI</div>
+  <div class="logo-row">
+    <div class="logo-mark">
+      <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0066B3"/><stop offset="100%" stop-color="#00D9FF"/></linearGradient></defs>
+        <rect width="128" height="128" fill="#0A0A0F" rx="24"/>
+        <g transform="translate(14, 36) scale(0.25)"><path d="M240 200 C180 130 80 130 80 200 C80 270 180 270 240 200 C300 130 400 130 400 200 C400 270 300 270 240 200 Z" fill="url(#ig)"/></g>
+      </svg>
+    </div>
+    <div class="logo-text">ΛUTOSCΛLE <span class="cy">ΛI</span></div>
+  </div>
 
   <h1>Calculate your <span>ROI</span></h1>
   <p class="subtitle">See how much revenue you're losing to missed calls — and what happens when AI picks up.</p>
@@ -276,7 +297,7 @@
     <div class="hint">Call now — hear the AI answer live</div>
   </div>
 
-  <footer>AUTOSCALE AI</footer>
+  <footer>ΛUTOSCΛLE ΛI</footer>
 
   <script>
     const callsEl = document.getElementById('calls');
