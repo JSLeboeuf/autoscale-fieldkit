@@ -1146,7 +1146,7 @@
       </div>
       <div class="stat">
         <div class="stat-val green">20% comm</div>
-        <div class="stat-lbl">$500 setup · $697/mo</div>
+        <div class="stat-lbl">$500–$1,500 setup · $697/mo+</div>
       </div>
     </div>
 
@@ -3601,7 +3601,7 @@
                   &#10003; Minimum setup fees listed per plan — you can charge more
                 </div>
                 <div style="color: var(--green)">
-                  &#10003; Plus 20% monthly residual on every client, forever
+                  &#10003; Plus 20% monthly residual on every client, up to 12 months per client
                 </div>
               </div>
             </div>
@@ -5056,7 +5056,7 @@
             2
           </div>
           <div class="step-content">
-            <strong style="color: var(--green)">$500 activation — card or Apple Pay.</strong><br />
+            <strong style="color: var(--green)">$500–$1,500 activation — card or Apple Pay.</strong><br />
             <span style="color: var(--muted); font-size: 12px">Takes 30 seconds.</span>
           </div>
         </div>
@@ -8856,6 +8856,17 @@
           { threshold: 0 }
         );
         obs.observe(header);
+      })();
+
+      /* TID passthrough */
+      (function () {
+        var tid = new URLSearchParams(window.location.search).get('tid');
+        if (!tid) return;
+        document.querySelectorAll('a[href^="pay.html"]').forEach(function (a) {
+          if (a.href.indexOf('tid=') === -1) {
+            a.href = a.href + (a.href.indexOf('?') === -1 ? '?' : '&') + 'tid=' + encodeURIComponent(tid);
+          }
+        });
       })();
     </script>
   </body>

@@ -2049,9 +2049,9 @@
             if (data.checkoutUrl) {
               window.location.href = data.checkoutUrl;
             } else {
-              closeSheet();
-              showToast('You\'re in! We\'ll contact you within the hour.', 'success');
-              document.getElementById('ctaForm').reset();
+              /* No checkout URL — redirect to pay.html as fallback */
+              var fallback = 'pay.html?plan=' + plan + (trackingId ? '&tid=' + trackingId : '');
+              window.location.href = fallback;
             }
           })
           .catch(function (err) {

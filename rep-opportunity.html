@@ -1073,13 +1073,13 @@
       <section class="hero fade-in">
         <div class="hero-eyebrow">D2D Field Sales · FL · TX · AZ · CA · GA</div>
         <h1 class="hero-headline">
-          $250<br>
+          $100+<br>
           <span class="accent">PER CLOSE.</span>
-          FOREVER.
+          RESIDUAL INCOME.
         </h1>
         <p class="hero-sub">
           Knock doors. Demo an AI phone agent that books appointments 24/7.
-          Earn $100 setup + $139.40/month <em>per client — for life.</em>
+          Earn $100–$300 setup + $139.40/month <em>per client — up to 12 months.</em>
         </p>
 
         <div class="live-payout">
@@ -1088,10 +1088,10 @@
             First sale payout
           </div>
           <div class="payout-row">
-            <div class="payout-amount">$350</div>
-            <div class="payout-context">within 30 days</div>
+            <div class="payout-amount">$100</div>
+            <div class="payout-context">setup commission</div>
           </div>
-          <div class="payout-note">$100 setup commission + $100 retention bonus when client stays ≥30 days</div>
+          <div class="payout-note">$100 setup commission (20% of $500) + $139.40/mo residual for up to 12 months per client</div>
         </div>
       </section>
 
@@ -1168,16 +1168,16 @@
 
           <div class="calc-results">
             <div class="calc-box main">
-              <div class="calc-box-val" id="calcMonth1">$1,400</div>
-              <div class="calc-box-lbl">Month 1 earnings</div>
+              <div class="calc-box-val" id="calcMonth1">$400</div>
+              <div class="calc-box-lbl">Month 1 setup commissions</div>
             </div>
             <div class="calc-box">
               <div class="calc-box-val gold" id="calcSetup">$1,000</div>
               <div class="calc-box-lbl">Setup commissions</div>
             </div>
             <div class="calc-box">
-              <div class="calc-box-val gold" id="calcBonus">$400</div>
-              <div class="calc-box-lbl">Retention bonuses</div>
+              <div class="calc-box-val emerald" id="calcBonus">$278.80</div>
+              <div class="calc-box-lbl">Month 1 residual</div>
             </div>
             <div class="calc-box">
               <div class="calc-box-val emerald" id="calcMonthly">$278.80</div>
@@ -1245,8 +1245,8 @@
           <div class="process-step">
             <div class="process-num">05</div>
             <div class="process-content">
-              <div class="process-title">Collect $250 <span class="process-pill gold">$$$ PAID</span></div>
-              <div class="process-desc">Trial converts to $500 setup + $697/mo subscription. Your commission hits same day. $100 retention bonus drops at day 30 if they stay. Then $139.40/mo, every month, forever.</div>
+              <div class="process-title">Collect your commission <span class="process-pill gold">$$$ PAID</span></div>
+              <div class="process-desc">Trial converts to $500 setup + $697/mo subscription. Your $100 setup commission hits same day. Then $139.40/mo residual for up to 12 months per client.</div>
             </div>
           </div>
         </div>
@@ -1448,7 +1448,6 @@
       const MONTHLY_FEE = 697;
       const SETUP_PCT = 0.20;
       const RECURRING_PCT = 0.20;
-      const RETENTION_BONUS = 100;
 
       const setupComm = SETUP_FEE * SETUP_PCT;         // $100
       const recurringComm = MONTHLY_FEE * RECURRING_PCT; // $139.40
@@ -1462,14 +1461,13 @@
         document.getElementById('calcClosesVal').textContent = closes;
 
         const setupTotal = closes * setupComm;
-        const bonusTotal = closes * RETENTION_BONUS;
-        const month1 = setupTotal + bonusTotal;
+        const month1 = setupTotal;
         const monthlyBase = closes * recurringComm;
         const month6Base = closes * 6 * recurringComm;
 
         document.getElementById('calcMonth1').textContent = fmt(month1);
         document.getElementById('calcSetup').textContent = fmt(setupTotal);
-        document.getElementById('calcBonus').textContent = fmt(bonusTotal);
+        document.getElementById('calcBonus').textContent = fmt(monthlyBase);
         document.getElementById('calcMonthly').textContent = fmt(monthlyBase);
         document.getElementById('calc6mo').textContent = fmt(month6Base);
         document.getElementById('calcNote').textContent =
