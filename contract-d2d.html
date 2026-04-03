@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Independent Sales Representative Agreement — AutoScale AI Inc.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ── RESET ── */
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --ink: #0f0f10;
+        --ink-2: #2a2a35;
+        --ink-3: #555566;
+        --rule: #c8c8d8;
+        --rule-light: #e8e8f0;
+        --bg: #ffffff;
+        --bg-2: #f7f7fb;
+        --bg-accent: #f0f0f8;
+        --accent: #2563eb;
+        --accent-light: #dbeafe;
+        --warning: #92400e;
+        --warning-bg: #fffbeb;
+        --warning-border: #f59e0b;
+        --danger: #991b1b;
+        --danger-bg: #fef2f2;
+        --danger-border: #ef4444;
+        --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+        --mono: 'JetBrains Mono', 'Courier New', monospace;
+      }
+
+      html {
+        font-size: 15px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      body {
+        font-family: var(--font);
+        background: #e5e5ef;
+        color: var(--ink);
+        line-height: 1.65;
+        padding: 2rem 1rem;
+        min-height: 100vh;
+      }
+
+      /* ── DRAFT WATERMARK ── */
+      body::before {
+        content: 'DRAFT';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-35deg);
+        font-size: 18vw;
+        font-weight: 800;
+        color: rgba(37, 99, 235, 0.04);
+        pointer-events: none;
+        z-index: 0;
+        white-space: nowrap;
+        font-family: var(--font);
+        letter-spacing: 0.15em;
+      }
+
+      /* ── DOCUMENT WRAPPER ── */
+      .document {
+        position: relative;
+        z-index: 1;
+        max-width: 860px;
+        margin: 0 auto;
+        background: var(--bg);
+        box-shadow: 0 4px 40px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.08);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      /* ── DISCLAIMER BANNER ── */
+      .disclaimer-banner {
+        background: var(--danger-bg);
+        border-bottom: 3px solid var(--danger-border);
+        padding: 1rem 2.5rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.875rem;
+      }
+
+      .disclaimer-banner .icon {
+        flex-shrink: 0;
+        width: 22px;
+        height: 22px;
+        background: var(--danger-border);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1px;
+      }
+
+      .disclaimer-banner .icon svg {
+        width: 13px;
+        height: 13px;
+        fill: white;
+      }
+
+      .disclaimer-banner p {
+        font-size: 0.8rem;
+        color: var(--danger);
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .disclaimer-banner p strong {
+        font-size: 0.85rem;
+        display: block;
+        margin-bottom: 0.15rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* ── HEADER ── */
+      .doc-header {
+        padding: 2.5rem 3rem 2rem;
+        border-bottom: 2px solid var(--rule);
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+
+      .company-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .logo-box {
+        width: 44px;
+        height: 44px;
+        background: var(--ink);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .logo-box svg {
+        width: 26px;
+        height: 26px;
+        fill: white;
+      }
+
+      .company-info h1 {
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+      }
+
+      .company-info p {
+        font-size: 0.75rem;
+        color: var(--ink-3);
+        font-weight: 500;
+      }
+
+      .doc-title-block {
+        text-align: right;
+      }
+
+      .doc-title-block .doc-type {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 0.25rem;
+      }
+
+      .doc-title-block h2 {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--ink);
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+      }
+
+      .doc-title-block .doc-meta {
+        margin-top: 0.5rem;
+        font-size: 0.72rem;
+        color: var(--ink-3);
+        font-family: var(--mono);
+      }
+
+      /* ── DRAFT BADGE ── */
+      .draft-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: var(--warning-bg);
+        border: 1.5px solid var(--warning-border);
+        color: var(--warning);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        margin-top: 0.5rem;
+      }
+
+      /* ── BODY ── */
+      .doc-body {
+        padding: 2.5rem 3rem;
+      }
+
+      /* ── PARTIES BLOCK ── */
+      .parties-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+        margin-bottom: 2rem;
+      }
+
+      .party-card {
+        background: var(--bg-2);
+        border: 1.5px solid var(--rule);
+        border-radius: 6px;
+        padding: 1.25rem 1.5rem;
+      }
+
+      .party-card .party-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+
+      .party-card .party-name {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.3;
+        margin-bottom: 0.35rem;
+      }
+
+      .party-card .party-detail {
+        font-size: 0.78rem;
+        color: var(--ink-3);
+        line-height: 1.6;
+      }
+
+      .party-card .fill-line {
+        display: inline-block;
+        border-bottom: 1.5px solid var(--ink-2);
+        min-width: 180px;
+        height: 1.1em;
+        vertical-align: bottom;
+        margin-left: 4px;
+      }
+
+      /* ── RECITALS ── */
+      .recitals {
+        background: var(--bg-accent);
+        border-left: 3px solid var(--accent);
+        border-radius: 0 4px 4px 0;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .recitals p {
+        font-size: 0.82rem;
+        color: var(--ink-2);
+        line-height: 1.7;
+        font-style: italic;
+      }
+
+      /* ── SECTION ── */
+      .section {
+        margin-bottom: 1.75rem;
+        page-break-inside: avoid;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: baseline;
+        gap: 0.75rem;
+        margin-bottom: 0.875rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1.5px solid var(--rule);
+      }
+
+      .section-number {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--accent);
+        flex-shrink: 0;
+        background: var(--accent-light);
+        padding: 0.15rem 0.4rem;
+        border-radius: 3px;
+        letter-spacing: 0.05em;
+      }
+
+      .section-title {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: var(--ink);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .section p {
+        font-size: 0.84rem;
+        color: var(--ink-2);
+        line-height: 1.75;
+        margin-bottom: 0.65rem;
+      }
+
+      .section p:last-child {
+        margin-bottom: 0;
+      }
+
+      .section p strong {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      /* ── SUBSECTION ── */
+      .subsection {
+        margin-top: 0.875rem;
+        margin-bottom: 0.875rem;
+      }
+
+      .subsection-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--ink);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.4rem;
+      }
+
+      /* ── CLAUSE LIST ── */
+      .clause-list {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0;
+      }
+
+      .clause-list li {
+        display: flex;
+        gap: 0.75rem;
+        font-size: 0.84rem;
+        color: var(--ink-2);
+        line-height: 1.65;
+        margin-bottom: 0.5rem;
+        padding-left: 0.25rem;
+      }
+
+      .clause-list li::before {
+        content: '§';
+        color: var(--accent);
+        font-weight: 700;
+        flex-shrink: 0;
+        font-size: 0.75rem;
+        margin-top: 0.15rem;
+      }
+
+      /* ── PRICING TABLE ── */
+      .pricing-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0.75rem 0 1rem;
+        font-size: 0.82rem;
+      }
+
+      .pricing-table thead tr {
+        background: var(--ink);
+        color: white;
+      }
+
+      .pricing-table thead th {
+        padding: 0.6rem 0.875rem;
+        text-align: left;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+      }
+
+      .pricing-table tbody tr {
+        border-bottom: 1px solid var(--rule-light);
+      }
+
+      .pricing-table tbody tr:nth-child(even) {
+        background: var(--bg-2);
+      }
+
+      .pricing-table tbody tr:last-child {
+        border-bottom: none;
+      }
+
+      .pricing-table td {
+        padding: 0.6rem 0.875rem;
+        color: var(--ink-2);
+        vertical-align: top;
+      }
+
+      .pricing-table td:first-child {
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      .pricing-table td .plan-badge {
+        font-size: 0.65rem;
+        font-weight: 700;
+        background: var(--accent-light);
+        color: var(--accent);
+        padding: 0.1rem 0.35rem;
+        border-radius: 3px;
+        display: block;
+        width: fit-content;
+        margin-top: 0.1rem;
+        letter-spacing: 0.05em;
+      }
+
+      /* ── COMMISSION BOX ── */
+      .commission-highlight {
+        background: var(--accent-light);
+        border: 1.5px solid var(--accent);
+        border-radius: 6px;
+        padding: 1rem 1.25rem;
+        margin: 0.75rem 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+
+      .commission-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+      }
+
+      .commission-item .rate {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--accent);
+        line-height: 1;
+        font-family: var(--mono);
+      }
+
+      .commission-item .rate-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--ink-2);
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+      }
+
+      .commission-item .rate-desc {
+        font-size: 0.75rem;
+        color: var(--ink-3);
+        line-height: 1.4;
+      }
+
+      /* ── INLINE HIGHLIGHT ── */
+      .note-box {
+        background: var(--warning-bg);
+        border: 1.5px solid var(--warning-border);
+        border-radius: 5px;
+        padding: 0.75rem 1rem;
+        margin: 0.5rem 0;
+        font-size: 0.8rem;
+        color: var(--warning);
+        font-weight: 500;
+        line-height: 1.6;
+      }
+
+      /* ── DIVIDER ── */
+      hr.divider {
+        border: none;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+
+      /* ── SIGNATURE SECTION ── */
+      .signature-section {
+        border-top: 2px solid var(--rule);
+        padding-top: 2rem;
+        margin-top: 2rem;
+      }
+
+      .sig-intro {
+        font-size: 0.82rem;
+        color: var(--ink-2);
+        margin-bottom: 2rem;
+        font-style: italic;
+        line-height: 1.7;
+      }
+
+      .sig-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+
+      .sig-block {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .sig-block .sig-party {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ink-3);
+        margin-bottom: 0.75rem;
+      }
+
+      .sig-field {
+        border-bottom: 1.5px solid var(--ink-2);
+        margin-bottom: 1.25rem;
+        position: relative;
+        min-height: 50px;
+      }
+
+      .sig-field .sig-label {
+        font-size: 0.7rem;
+        color: var(--ink-3);
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+        letter-spacing: 0.04em;
+      }
+
+      .sig-field.name-field {
+        margin-top: 0.5rem;
+      }
+
+      /* ── FOOTER ── */
+      .doc-footer {
+        background: var(--bg-2);
+        border-top: 1.5px solid var(--rule);
+        padding: 1rem 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .doc-footer p {
+        font-size: 0.7rem;
+        color: var(--ink-3);
+        line-height: 1.5;
+      }
+
+      .doc-footer .page-num {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--ink-3);
+        white-space: nowrap;
+      }
+
+      /* ── PRINT ── */
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+
+        .document {
+          box-shadow: none;
+          border-radius: 0;
+          max-width: 100%;
+        }
+
+        .section {
+          page-break-inside: avoid;
+        }
+
+        .signature-section {
+          page-break-before: always;
+        }
+
+        body::before {
+          color: rgba(37, 99, 235, 0.06);
+        }
+      }
+
+      @page {
+        margin: 1.5cm 2cm;
+        size: letter portrait;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 640px) {
+        body { padding: 0.5rem; }
+        .doc-header { padding: 1.5rem; flex-direction: column; gap: 1rem; }
+        .doc-title-block { text-align: left; }
+        .doc-body { padding: 1.5rem; }
+        .parties-grid { grid-template-columns: 1fr; }
+        .sig-grid { grid-template-columns: 1fr; }
+        .commission-highlight { grid-template-columns: 1fr 1fr; }
+        .doc-footer { padding: 1rem 1.5rem; flex-direction: column; align-items: flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="document">
+
+      <!-- DISCLAIMER BANNER -->
+      <div class="disclaimer-banner">
+        <div class="icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 3a1 1 0 011 1v4a1 1 0 11-2 0V6a1 1 0 011-1zm0 8a1 1 0 100 2 1 1 0 000-2z"/>
+          </svg>
+        </div>
+        <p>
+          <strong>THIS IS A DRAFT TEMPLATE — NOT LEGAL ADVICE</strong>
+          This document is provided as a starting point for discussion only. It does not constitute legal advice and creates no attorney-client relationship. Have a qualified attorney licensed in your jurisdiction review, revise, and approve this agreement before use or signature. AutoScale AI Inc. disclaims all liability for use of this template without independent legal counsel.
+        </p>
+      </div>
+
+      <!-- DOCUMENT HEADER -->
+      <div class="doc-header">
+        <div class="company-brand">
+          <div class="logo-box">
+            <!-- Logo placeholder: replace with <img src="logo.png" /> -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="company-info">
+            <h1>AutoScale AI Inc.</h1>
+            <p>Incorporated in Delaware, USA</p>
+          </div>
+        </div>
+        <div class="doc-title-block">
+          <div class="doc-type">Legal Agreement</div>
+          <h2>Independent Sales<br>Representative Agreement</h2>
+          <div class="doc-meta">Version 1.0 &nbsp;·&nbsp; Effective Date: ___________</div>
+          <div class="draft-badge">
+            <svg width="10" height="10" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 3a1 1 0 011 1v4a1 1 0 11-2 0V6a1 1 0 011-1zm0 8a1 1 0 100 2 1 1 0 000-2z"/></svg>
+            Draft — Lawyer Review Required
+          </div>
+        </div>
+      </div>
+
+      <!-- DOCUMENT BODY -->
+      <div class="doc-body">
+
+        <!-- PARTIES -->
+        <div class="parties-grid">
+          <div class="party-card">
+            <div class="party-label">The Company</div>
+            <div class="party-name">AutoScale AI Inc.</div>
+            <div class="party-detail">
+              A Delaware Limited Liability Company<br>
+              ("Company," "AutoScale AI," or "We")
+            </div>
+          </div>
+          <div class="party-card">
+            <div class="party-label">The Representative</div>
+            <div class="party-name">
+              <span class="fill-line" style="min-width: 200px;">&nbsp;</span>
+            </div>
+            <div class="party-detail">
+              Independent Contractor<br>
+              ("Representative," "Rep," or "You")<br>
+              Address: <span class="fill-line" style="min-width: 160px;">&nbsp;</span><br>
+              Tax ID / SSN: <span class="fill-line" style="min-width: 130px;">&nbsp;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECITALS -->
+        <div class="recitals">
+          <p>
+            <strong>WHEREAS,</strong> AutoScale AI Inc. develops and operates AI-powered voice receptionist and appointment booking software services for businesses (the "Service"); and
+            <strong>WHEREAS,</strong> Representative desires to market and sell the Service as an independent contractor pursuant to the terms and conditions set forth herein;
+            <strong>NOW, THEREFORE,</strong> in consideration of the mutual covenants herein, the parties agree as follows:
+          </p>
+        </div>
+
+        <!-- 1. INDEPENDENT CONTRACTOR STATUS -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 1</span>
+            <span class="section-title">Independent Contractor Status</span>
+          </div>
+          <p>
+            <strong>1.1 No Employment Relationship.</strong> Representative is an independent contractor, not an employee, agent, partner, or joint venturer of the Company. Nothing in this Agreement shall be construed to create an employment relationship between the parties.
+          </p>
+          <p>
+            <strong>1.2 No Benefits.</strong> Representative is not entitled to, and shall not receive, any employee benefits, including without limitation workers' compensation, unemployment insurance, health insurance, retirement plans, paid leave, or any other benefit that Company provides to its employees.
+          </p>
+          <p>
+            <strong>1.3 Tax Obligations.</strong> Representative is solely responsible for all federal, state, and local income taxes, self-employment taxes, and any other taxes or assessments arising from amounts paid under this Agreement. Company will issue Form 1099-NEC to Representative for any compensation exceeding $600 in a calendar year. Representative shall provide a completed Form W-9 prior to receiving any compensation.
+          </p>
+          <p>
+            <strong>1.4 Business Expenses.</strong> Representative is solely responsible for all costs and expenses incurred in the performance of services under this Agreement, including but not limited to transportation, meals, lodging, phone, internet, and equipment.
+          </p>
+          <p>
+            <strong>1.5 Control of Work.</strong> Representative retains the right to set their own hours, choose their own methods, and determine their own schedule for performing services, subject to the terms of this Agreement. Representative is free to provide services to other businesses, provided they do not conflict with the Non-Compete obligations set forth in Section 11.
+          </p>
+        </div>
+
+        <!-- 2. SCOPE OF SERVICES -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 2</span>
+            <span class="section-title">Scope of Services</span>
+          </div>
+          <p>
+            <strong>2.1 Services.</strong> Representative agrees to solicit potential customers for the Company's AI receptionist and voice booking services through door-to-door and in-person sales activities within the Territory defined in Section 10.
+          </p>
+          <p>
+            <strong>2.2 Company-Provided Resources.</strong> Company shall provide Representative with the following resources at no cost:
+          </p>
+          <ul class="clause-list">
+            <li>Access to sales presentation materials, digital pitch decks, and product demos</li>
+            <li>Access to field sales tools at the designated representative portal URL</li>
+            <li>Read-only access to the Company CRM for leads assigned by Representative</li>
+            <li>Training materials and onboarding documentation</li>
+            <li>Unique representative tracking ID (TID) for attribution of sales</li>
+          </ul>
+          <p>
+            <strong>2.3 Representative Obligations.</strong> Representative shall: (a) present the Service accurately and in good faith; (b) comply with all applicable federal, state, and local laws; (c) not make any representations or warranties beyond those authorized by Company; (d) promptly report customer complaints to Company; and (e) maintain professional conduct at all times while representing AutoScale AI.
+          </p>
+        </div>
+
+        <!-- 3. PRICING -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 3</span>
+            <span class="section-title">Service Pricing</span>
+          </div>
+          <p>
+            <strong>3.1 Authorized Pricing.</strong> Representative shall only offer the Service at the following Company-established prices. Representative has no authority to deviate from, discount, or negotiate pricing without prior written approval from Company.
+          </p>
+
+          <table class="pricing-table">
+            <thead>
+              <tr>
+                <th>Plan</th>
+                <th>Initial Sale Price</th>
+                <th>Setup Fee</th>
+                <th>1st Month</th>
+                <th>Monthly Recurring</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Core
+                  <span class="plan-badge">ENTRY</span>
+                </td>
+                <td><strong>$997</strong></td>
+                <td>$500</td>
+                <td>$497</td>
+                <td>$697 / mo</td>
+              </tr>
+              <tr>
+                <td>
+                  Growth
+                  <span class="plan-badge">POPULAR</span>
+                </td>
+                <td><strong>$1,497</strong></td>
+                <td>$500</td>
+                <td>$997</td>
+                <td>$997 / mo</td>
+              </tr>
+              <tr>
+                <td>
+                  Scale
+                  <span class="plan-badge">ADVANCED</span>
+                </td>
+                <td><strong>$1,997</strong></td>
+                <td>$500</td>
+                <td>$1,497</td>
+                <td>$1,497 / mo</td>
+              </tr>
+              <tr>
+                <td>
+                  AutoScale
+                  <span class="plan-badge">ENTERPRISE</span>
+                </td>
+                <td><strong>$2,997</strong></td>
+                <td>$500</td>
+                <td>$2,497</td>
+                <td>$2,497 / mo</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            <strong>3.2 Price Changes.</strong> Company reserves the right to modify pricing at any time with thirty (30) days' written notice to Representative. Sales in progress at time of price change shall be honored at the original price for a period not to exceed fifteen (15) days after the notice date.
+          </p>
+        </div>
+
+        <!-- 4. COMMISSIONS -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 4</span>
+            <span class="section-title">Commission Structure</span>
+          </div>
+
+          <div class="commission-highlight">
+            <div class="commission-item">
+              <span class="rate">50%</span>
+              <span class="rate-label">Initial Sale</span>
+              <span class="rate-desc">of gross profit on setup fee + first month payment</span>
+            </div>
+            <div class="commission-item">
+              <span class="rate">10%</span>
+              <span class="rate-label">Recurring</span>
+              <span class="rate-desc">monthly commission on active client subscriptions</span>
+            </div>
+          </div>
+
+          <p>
+            <strong>4.1 Initial Sale Commission.</strong> Representative shall earn a commission equal to fifty percent (50%) of the gross profit from each closed sale. Gross profit on the initial sale is calculated as the total of the setup fee plus the first month's payment, minus any applicable payment processing fees (typically 2.9% + $0.30 per Stripe transaction). No deduction shall be made for Company overhead, infrastructure, or operational costs.
+          </p>
+          <p>
+            <strong>4.2 Recurring Commission.</strong> Representative shall earn a monthly recurring commission of ten percent (10%) of each active client's monthly subscription fee (the stated recurring rate) for as long as the client remains an active paying subscriber and this Agreement remains in effect, plus the post-termination tail period described in Section 8.4.
+          </p>
+          <p>
+            <strong>4.3 Commission Attribution.</strong> Sales are attributed to Representative via the unique tracking ID (TID) embedded in the pay link. Representative is responsible for ensuring clients use their assigned TID link. Sales without a valid TID are not eligible for commission.
+          </p>
+          <p>
+            <strong>4.4 Payment Timing.</strong> Commissions are paid NET-15. Company shall disburse commissions within fifteen (15) calendar days after the client's payment has cleared and funds are available to Company. Recurring commissions are paid monthly, fifteen (15) days after the close of each billing cycle.
+          </p>
+          <p>
+            <strong>4.5 Chargebacks and Refunds.</strong> If a client successfully initiates a chargeback, payment dispute, or if Company issues a refund for any reason, the corresponding commission shall be deducted from Representative's next commission payment or, if no future payment is due, Representative shall reimburse Company within thirty (30) days of written notice.
+          </p>
+          <div class="note-box">
+            <strong>Early Cancellation Clawback:</strong> If a client cancels their subscription or fails to pay within the first thirty (30) days following their initial payment, the initial sale commission shall be forfeited in its entirety. If already paid, such commission shall be deducted from future earnings or refunded within thirty (30) days.
+          </div>
+          <p>
+            <strong>4.6 Commission Statements.</strong> Company shall provide Representative with a written commission statement for each payment issued, itemizing the clients, amounts, and calculation basis for all commissions paid.
+          </p>
+        </div>
+
+        <!-- 5. CUSTOMER DATA OWNERSHIP -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 5</span>
+            <span class="section-title">Data Ownership &amp; Intellectual Property</span>
+          </div>
+          <p>
+            <strong>5.1 Company Ownership.</strong> All customer data, lead information, contact records, call recordings, AI conversation logs, voice transcripts, business intelligence, and any other data generated or collected in connection with the Service or sales process is and shall remain the exclusive property of AutoScale AI Inc. This includes data entered into Company systems by Representative.
+          </p>
+          <p>
+            <strong>5.2 No Personal Use of Data.</strong> Representative shall not copy, export, store, share, sell, or otherwise misappropriate any customer data or Company data for any purpose other than performing their obligations under this Agreement.
+          </p>
+          <p>
+            <strong>5.3 AI Training Data.</strong> Any call recordings, conversation scripts, objection-handling data, or other materials arising from Representative's sales activities may be used by Company to train and improve its AI systems. Representative grants Company a perpetual, royalty-free, worldwide license to use such materials for this purpose.
+          </p>
+          <p>
+            <strong>5.4 Survival.</strong> The data ownership provisions of this Section survive termination of this Agreement indefinitely.
+          </p>
+          <p>
+            <strong>5.5 Return of Materials.</strong> Upon termination of this Agreement, Representative shall promptly return or destroy all Company materials, customer data, and proprietary information in their possession and certify such destruction or return in writing upon request.
+          </p>
+        </div>
+
+        <!-- 6. CONFIDENTIALITY -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 6</span>
+            <span class="section-title">Confidentiality &amp; Non-Disclosure</span>
+          </div>
+          <p>
+            <strong>6.1 Confidential Information.</strong> "Confidential Information" means any non-public information of Company, including without limitation: pricing structures, commission rates, technology stack, software architecture, system prompts, AI model configurations, customer lists, prospect databases, business plans, marketing strategies, financial data, and the terms of this Agreement.
+          </p>
+          <p>
+            <strong>6.2 Obligations.</strong> Representative shall: (a) hold all Confidential Information in strict confidence; (b) not disclose Confidential Information to any third party without prior written consent; (c) use Confidential Information solely to perform their obligations under this Agreement; and (d) protect Confidential Information with the same degree of care used to protect their own confidential information, but in no event less than reasonable care.
+          </p>
+          <p>
+            <strong>6.3 Exclusions.</strong> Confidentiality obligations do not apply to information that: (a) is or becomes publicly available through no fault of Representative; (b) was rightfully known to Representative prior to disclosure; or (c) is required to be disclosed by law or court order, provided Representative gives Company prompt written notice before disclosure.
+          </p>
+          <p>
+            <strong>6.4 Duration.</strong> Confidentiality obligations survive termination of this Agreement for a period of <strong>two (2) years</strong> from the date of termination.
+          </p>
+        </div>
+
+        <!-- 7. NON-COMPETE / NON-SOLICITATION -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 7</span>
+            <span class="section-title">Non-Compete &amp; Non-Solicitation</span>
+          </div>
+          <p>
+            <strong>7.1 Non-Compete.</strong> During the term of this Agreement and for a period of <strong>twelve (12) months</strong> following termination, Representative shall not, directly or indirectly, market, sell, promote, represent, or solicit sales for any product or service that is substantially similar to the Company's AI voice receptionist or AI appointment booking services. This restriction is limited to the AI voice AI and AI receptionist category and does not prohibit Representative from engaging in other software sales or business activities outside this category.
+          </p>
+          <p>
+            <strong>7.2 Non-Solicitation of Customers.</strong> During the term of this Agreement and for a period of <strong>twelve (12) months</strong> following termination, Representative shall not, directly or indirectly, solicit, contact, or induce any customer or prospective customer introduced to Company by Representative (or otherwise known to Representative through their engagement with Company) to reduce, cancel, or transfer their business away from Company.
+          </p>
+          <p>
+            <strong>7.3 Non-Solicitation of Personnel.</strong> During the term of this Agreement and for a period of <strong>twelve (12) months</strong> following termination, Representative shall not, directly or indirectly, recruit, solicit, or induce any other Company representative or employee to terminate their relationship with Company.
+          </p>
+          <p>
+            <strong>7.4 Geographic Scope.</strong> The non-compete restriction applies within the United States. The non-solicitation restrictions apply globally and are not geographically limited.
+          </p>
+          <div class="note-box">
+            <strong>Attorney Note:</strong> Non-compete enforceability varies significantly by state. California, Minnesota, North Dakota, and Oklahoma have strong restrictions. Florida, Texas, and Georgia generally permit non-competes with reasonable scope. Review enforceability in each Representative's state of residence. Consider blue-penciling provisions.
+          </div>
+        </div>
+
+        <!-- 8. TERMINATION -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 8</span>
+            <span class="section-title">Term &amp; Termination</span>
+          </div>
+          <p>
+            <strong>8.1 Term.</strong> This Agreement commences on the Effective Date and continues until terminated by either party pursuant to the provisions of this Section.
+          </p>
+          <p>
+            <strong>8.2 Termination Without Cause.</strong> Either party may terminate this Agreement without cause upon thirty (30) days' prior written notice to the other party.
+          </p>
+          <p>
+            <strong>8.3 Termination for Cause.</strong> Company may terminate this Agreement immediately upon written notice if Representative: (a) commits fraud or makes material misrepresentations to customers; (b) violates any applicable law or regulation; (c) breaches Section 5 (Data Ownership), Section 6 (Confidentiality), Section 7 (Non-Compete), or engages in misconduct that could harm Company's reputation; or (d) fails to cure a material breach within ten (10) days of written notice. Representative may terminate for cause if Company materially breaches its payment obligations and fails to cure within fifteen (15) days of written notice.
+          </p>
+          <p>
+            <strong>8.4 Post-Termination Commissions.</strong> Following termination for any reason other than for cause by Company, Representative shall continue to receive recurring commissions (Section 4.2) on existing active clients for a period of <strong>six (6) months</strong> following the termination effective date. No commissions shall be owed for new clients acquired after the termination date. Termination for cause by Company results in immediate forfeiture of all unpaid and future commissions.
+          </p>
+          <p>
+            <strong>8.5 Effect of Termination.</strong> Upon termination: (a) Representative shall immediately cease representing themselves as affiliated with Company; (b) all rights and licenses granted herein terminate immediately; (c) Representative shall return all Company materials; and (d) the following provisions survive: Sections 5, 6, 7, 9, 12, and 14.
+          </p>
+        </div>
+
+        <!-- 9. LIABILITY & INDEMNIFICATION -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 9</span>
+            <span class="section-title">Liability, Insurance &amp; Indemnification</span>
+          </div>
+          <p>
+            <strong>9.1 Company Responsibilities.</strong> Company is responsible for the Service, its functionality, AI performance, uptime, data security, customer technical support, and billing. Company represents that it maintains Errors &amp; Omissions (E&amp;O) insurance appropriate for its business activities.
+          </p>
+          <p>
+            <strong>9.2 Representative Responsibilities.</strong> Representative is solely responsible for their own conduct, statements, and actions during sales activities. Representative shall not make any guarantee, representation, or warranty regarding the Service beyond those set forth in Company-approved materials. Representative is responsible for compliance with all federal, state, and local sales, solicitation, and consumer protection laws.
+          </p>
+          <p>
+            <strong>9.3 Insurance.</strong> Representative is strongly encouraged to obtain and maintain general liability insurance with a minimum coverage of <strong>$1,000,000</strong> per occurrence. Representative shall name Company as an additional insured upon written request.
+          </p>
+          <p>
+            <strong>9.4 Indemnification by Representative.</strong> Representative shall indemnify, defend, and hold harmless Company, its officers, directors, employees, and agents from and against any and all claims, damages, losses, costs, and expenses (including reasonable attorneys' fees) arising out of or relating to: (a) Representative's breach of this Agreement; (b) Representative's negligence or willful misconduct; (c) any misrepresentation made by Representative to a customer; or (d) Representative's violation of applicable law.
+          </p>
+          <p>
+            <strong>9.5 Indemnification by Company.</strong> Company shall indemnify, defend, and hold harmless Representative from and against any claims arising out of or relating to: (a) the Service itself (excluding misuse or misrepresentation by Representative); or (b) Company's breach of this Agreement.
+          </p>
+          <p>
+            <strong>9.6 Limitation of Liability.</strong> IN NO EVENT SHALL EITHER PARTY BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. COMPANY'S AGGREGATE LIABILITY TO REPRESENTATIVE SHALL NOT EXCEED THE TOTAL COMMISSIONS PAID TO REPRESENTATIVE IN THE THREE (3) MONTHS PRECEDING THE CLAIM.
+          </p>
+        </div>
+
+        <!-- 10. TERRITORY -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 10</span>
+            <span class="section-title">Territory</span>
+          </div>
+          <p>
+            <strong>10.1 Non-Exclusive Territory.</strong> Company grants Representative a non-exclusive license to solicit customers in the following United States markets: <strong>Florida, Texas, Arizona, California, and Georgia</strong> (collectively, the "Territory").
+          </p>
+          <p>
+            <strong>10.2 No Exclusive Rights.</strong> This Agreement does not grant Representative any exclusive rights to any territory. Company reserves the right to appoint additional representatives in the same Territory, sell directly to customers in the Territory, and to expand or modify territory boundaries.
+          </p>
+          <p>
+            <strong>10.3 Territory Expansion.</strong> Additional territories may be added by mutual written agreement of the parties.
+          </p>
+        </div>
+
+        <!-- 11. REPRESENTATIONS AND WARRANTIES -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 11</span>
+            <span class="section-title">Representations &amp; Warranties</span>
+          </div>
+          <p>
+            <strong>11.1 Mutual Representations.</strong> Each party represents and warrants that: (a) they have full authority to enter into this Agreement; (b) the Agreement does not conflict with any other obligation they have; and (c) they will comply with all applicable laws in performing their obligations.
+          </p>
+          <p>
+            <strong>11.2 Representative Representations.</strong> Representative additionally represents and warrants that: (a) they are not subject to any non-compete, non-solicitation, or other restrictive agreement that would prohibit performance under this Agreement; (b) they have no criminal convictions involving fraud, theft, or dishonesty; and (c) they will accurately represent the Service in all customer interactions.
+          </p>
+        </div>
+
+        <!-- 12. DISPUTE RESOLUTION -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 12</span>
+            <span class="section-title">Dispute Resolution &amp; Governing Law</span>
+          </div>
+          <p>
+            <strong>12.1 Governing Law.</strong> This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of law provisions.
+          </p>
+          <p>
+            <strong>12.2 Arbitration.</strong> Any dispute, controversy, or claim arising out of or relating to this Agreement, or the breach thereof, shall be settled by binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules. The arbitration shall take place in Delaware or, at the mutual agreement of the parties, via videoconference. The arbitrator's decision shall be final and binding, and judgment may be entered in any court of competent jurisdiction.
+          </p>
+          <p>
+            <strong>12.3 Class Action Waiver.</strong> Representative waives any right to participate in a class action lawsuit or class-wide arbitration against Company.
+          </p>
+          <p>
+            <strong>12.4 Injunctive Relief.</strong> Notwithstanding Section 12.2, either party may seek injunctive or other equitable relief in any court of competent jurisdiction to prevent irreparable harm, particularly with respect to breaches of Sections 5, 6, and 7 of this Agreement.
+          </p>
+        </div>
+
+        <!-- 13. MISCELLANEOUS -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-number">§ 13</span>
+            <span class="section-title">General Provisions</span>
+          </div>
+          <p>
+            <strong>13.1 Entire Agreement.</strong> This Agreement constitutes the entire agreement between the parties with respect to its subject matter and supersedes all prior and contemporaneous negotiations, representations, warranties, and agreements, whether oral or written.
+          </p>
+          <p>
+            <strong>13.2 Amendments.</strong> This Agreement may not be amended, modified, or supplemented except by a written instrument signed by authorized representatives of both parties.
+          </p>
+          <p>
+            <strong>13.3 Waiver.</strong> No waiver of any provision of this Agreement shall be effective unless in writing. Failure to enforce any right or provision shall not constitute a waiver of such right or provision.
+          </p>
+          <p>
+            <strong>13.4 Severability.</strong> If any provision of this Agreement is held invalid, illegal, or unenforceable, the remaining provisions shall continue in full force and effect. If a court finds a non-compete or non-solicitation provision overly broad, such provision shall be modified to the minimum extent necessary to make it enforceable ("blue pencil" doctrine).
+          </p>
+          <p>
+            <strong>13.5 Assignment.</strong> Representative may not assign or transfer any rights or obligations under this Agreement without prior written consent of Company. Company may assign this Agreement in connection with a merger, acquisition, or sale of substantially all of its assets.
+          </p>
+          <p>
+            <strong>13.6 Notices.</strong> All notices under this Agreement shall be in writing and delivered by: (a) hand delivery; (b) overnight courier; (c) certified mail, return receipt requested; or (d) email with confirmed receipt. Notices to Company shall be addressed to its registered agent or principal place of business. Notices to Representative shall be at the address set forth on the signature page.
+          </p>
+          <p>
+            <strong>13.7 Force Majeure.</strong> Neither party shall be liable for delays or failures in performance resulting from circumstances beyond their reasonable control, including acts of God, government actions, labor disputes, or infrastructure failures.
+          </p>
+          <p>
+            <strong>13.8 Counterparts.</strong> This Agreement may be executed in counterparts, including by electronic signature (e.g., DocuSign, Adobe Sign), each of which shall be deemed an original and together constitute one and the same instrument.
+          </p>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- SIGNATURES -->
+        <div class="signature-section">
+          <p class="sig-intro">
+            IN WITNESS WHEREOF, the parties hereto have executed this Independent Sales Representative Agreement as of the Effective Date first written above. Each signatory below represents and warrants that they have read this Agreement in its entirety, understand its terms and conditions, and have the authority to bind the respective party.
+          </p>
+
+          <div class="sig-grid">
+
+            <!-- COMPANY SIGNATURE -->
+            <div class="sig-block">
+              <div class="sig-party">AutoScale AI Inc. — The Company</div>
+
+              <div class="sig-field" style="min-height: 60px;">
+                <span class="sig-label">Authorized Signature</span>
+              </div>
+
+              <div class="sig-field name-field">
+                <span class="sig-label">Printed Name</span>
+              </div>
+
+              <div class="sig-field name-field">
+                <span class="sig-label">Title</span>
+              </div>
+
+              <div class="sig-field name-field">
+                <span class="sig-label">Date</span>
+              </div>
+
+              <div class="sig-field name-field">
+                <span class="sig-label">Email Address</span>
+              </div>
+            </div>
+
+            <!-- REP SIGNATURE -->
+            <div class="sig-block">
+              <div class="sig-party">Independent Sales Representative</div>
+
+              <div class="sig-field" style="min-height: 60px;">
+                <span class="sig-label">Signature</span>
+              </div>
+
+              <div class="sig-field name-field">
+                <span class="sig-label">Printed Full Legal Name</span>
+              </div>
+
+              <div class="sig-field name-field">
+                <span class="sig-label">Business Name (if applicable)</span>
+              </div>
+
+              <div class="sig-field name-field">
+                <span class="sig-label">Date</span>
+              </div>
+
+              <div class="sig-field name-field">
+                <span class="sig-label">Email Address</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- W9 REMINDER -->
+          <div class="note-box" style="margin-top: 2rem;">
+            <strong>Required at Signing:</strong> Representative must attach a completed IRS Form W-9 to this Agreement prior to receiving any commission payment. Failure to provide a valid W-9 may result in backup withholding at the applicable rate. Form W-9 available at irs.gov/forms-pubs/about-form-w-9.
+          </div>
+
+        </div>
+
+      </div><!-- /doc-body -->
+
+      <!-- FOOTER -->
+      <div class="doc-footer">
+        <p>
+          AutoScale AI Inc. &nbsp;·&nbsp; Independent Sales Representative Agreement v1.0<br>
+          <strong>DRAFT — FOR ATTORNEY REVIEW ONLY — NOT LEGAL ADVICE</strong>
+        </p>
+        <div class="page-num">Page 1 of 1 &nbsp;·&nbsp; Confidential</div>
+      </div>
+
+    </div><!-- /document -->
+  </body>
+</html>

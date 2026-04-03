@@ -6,7 +6,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <title>Live Demo Dashboard — AutoScale AI</title>
+    <title>Live Dashboard — AutoScale AI</title>
     <meta name="robots" content="noindex, nofollow" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,12 +15,7 @@
       rel="stylesheet"
     />
     <style>
-      /* ========================================
-   RESET & BASE
-   ======================================== */
-      *,
-      *::before,
-      *::after {
+      * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -35,12 +30,9 @@
         --red: #ff5252;
         --cyan: #00c8ff;
         --purple: #a78bfa;
-        --yellow: #fbbf24;
         --text: #eef0f4;
         --muted: rgba(200, 210, 220, 0.4);
         --muted-low: rgba(200, 210, 220, 0.25);
-        --muted-xlow: rgba(200, 210, 220, 0.2);
-        --border-subtle: rgba(60, 70, 80, 0.2);
         --mono: 'JetBrains Mono', ui-monospace, monospace;
         --display: 'Plus Jakarta Sans', system-ui, sans-serif;
       }
@@ -53,161 +45,36 @@
 
       ::-webkit-scrollbar {
         width: 4px;
-        height: 4px;
-      }
-      ::-webkit-scrollbar-track {
-        background: transparent;
       }
       ::-webkit-scrollbar-thumb {
         background: rgba(59, 158, 255, 0.2);
         border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: rgba(59, 158, 255, 0.4);
       }
 
       body {
         font-family: var(--display);
         background: var(--bg);
         color: #e0e4ea;
-        /* FIX: use overflow-x: hidden on body instead of overflow: hidden
-           to avoid iOS Safari scroll-blocking */
         overflow-x: hidden;
-        /* FIX: bottom padding for sticky CTA bar */
         padding-bottom: 64px;
       }
 
-      /* ========================================
-   ANIMATIONS
-   ======================================== */
-      @keyframes wave {
-        0%,
-        100% {
-          transform: scaleY(1);
-        }
-        50% {
-          transform: scaleY(0.25);
-        }
-      }
       @keyframes pulse-dot {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.3;
-        }
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
       }
       @keyframes fade-up {
-        from {
-          opacity: 0;
-          transform: translateY(12px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @keyframes shimmer {
-        0% {
-          background-position: 200% 0;
-        }
-        100% {
-          background-position: -200% 0;
-        }
-      }
-      @keyframes glow-pulse {
-        0%,
-        100% {
-          opacity: 0.6;
-        }
-        50% {
-          opacity: 1;
-        }
-      }
-      @keyframes slide-down {
-        from {
-          opacity: 0;
-          transform: translateY(-6px);
-          max-height: 0;
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-          max-height: 600px;
-        }
-      }
-      @keyframes live-pulse {
-        0%,
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-        50% {
-          transform: scale(1.15);
-          opacity: 0.7;
-        }
-      }
-      @keyframes notif-slide-in {
-        from {
-          opacity: 0;
-          transform: translateY(16px) scale(0.96);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
-      @keyframes notif-slide-out {
-        from {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-        to {
-          opacity: 0;
-          transform: translateY(16px) scale(0.96);
-        }
-      }
-      @keyframes fomo-slide {
-        from {
-          opacity: 0;
-          transform: translateY(-8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @keyframes sticky-slide-up {
-        from {
-          transform: translateY(100%);
-        }
-        to {
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-          animation-duration: 0.01ms !important;
-          transition-duration: 0.01ms !important;
-        }
-      }
-
-      /* ========================================
-   LAYOUT SHELL
-   ======================================== */
       #app {
         position: relative;
-        z-index: 1;
         display: flex;
         flex-direction: column;
         min-height: 100dvh;
       }
 
-      /* Grid overlay */
       #app::before {
         content: '';
         position: fixed;
@@ -220,19 +87,15 @@
         z-index: 0;
       }
 
-      /* Noise grain overlay */
       .grain-overlay {
         position: fixed;
         inset: 0;
         pointer-events: none;
         opacity: 0.03;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        background-repeat: repeat;
-        background-size: 128px 128px;
         z-index: 1;
       }
 
-      /* Top vignette */
       .top-vignette {
         position: fixed;
         top: 0;
@@ -244,7 +107,6 @@
         z-index: 2;
       }
 
-      /* Bottom glow */
       .bottom-glow {
         position: fixed;
         bottom: 0;
@@ -252,17 +114,10 @@
         right: 0;
         height: 12rem;
         pointer-events: none;
-        background: radial-gradient(
-          ellipse at 50% 100%,
-          rgba(59, 158, 255, 0.06) 0%,
-          transparent 70%
-        );
+        background: radial-gradient(ellipse at 50% 100%, rgba(59, 158, 255, 0.06) 0%, transparent 70%);
         z-index: 2;
       }
 
-      /* ========================================
-   TOP BAR
-   ======================================== */
       .top-bar {
         position: sticky;
         top: 0;
@@ -286,28 +141,25 @@
         gap: 10px;
       }
 
-      .pulse-green {
+      .live-dot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
         background: var(--green);
         animation: pulse-dot 2s ease-in-out infinite;
-        flex-shrink: 0;
       }
 
       .agent-label {
         font-family: var(--mono);
         font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
-        color: var(--muted);
+        color: var(--text);
       }
 
       .agent-label span {
-        color: rgba(200, 210, 220, 0.25);
-        font-weight: 400;
-        margin-left: 6px;
+        color: var(--muted);
+        margin-left: 4px;
       }
 
       .top-bar-right {
@@ -319,11 +171,11 @@
       .live-badge {
         display: flex;
         align-items: center;
-        gap: 6px;
-        padding: 2px 8px;
-        border-radius: 999px;
-        background: rgba(255, 82, 82, 0.08);
-        border: 1px solid rgba(255, 82, 82, 0.15);
+        gap: 5px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        background: rgba(255, 82, 82, 0.1);
+        border: 1px solid rgba(255, 82, 82, 0.3);
       }
 
       .pulse-red {
@@ -331,151 +183,79 @@
         height: 6px;
         border-radius: 50%;
         background: var(--red);
-        animation: live-pulse 1.5s ease-in-out infinite;
+        animation: pulse-dot 1s ease-in-out infinite;
       }
 
       .live-text {
         font-family: var(--mono);
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: 600;
         color: var(--red);
-      }
-
-      .waveform {
-        display: flex;
-        align-items: center;
-        gap: 3px;
-        height: 16px;
-      }
-
-      .waveform-bar {
-        width: 2px;
-        height: 100%;
-        border-radius: 999px;
-        background: var(--blue);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
       }
 
       .date-label {
         font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.05em;
-        color: rgba(200, 210, 220, 0.3);
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: 0.5px;
       }
 
       .top-bar-line {
         height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(59, 158, 255, 0.2),
-          rgba(0, 200, 255, 0.15),
-          transparent
-        );
+        background: linear-gradient(90deg, transparent, rgba(60, 70, 80, 0.3), transparent);
       }
 
-      /* ========================================
-   SCROLL CONTAINER
-   ======================================== */
       .scroll-container {
-        position: relative;
-        z-index: 20;
         flex: 1;
+        overflow-y: auto;
+        position: relative;
+        z-index: 3;
       }
 
       .content-wrap {
-        max-width: 1152px;
+        max-width: 1400px;
         margin: 0 auto;
-        padding: 12px 24px 0;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+        padding: 40px 24px;
+        position: relative;
+        z-index: 3;
       }
 
-      /* ========================================
-   FOMO BANNER
-   ======================================== */
-      .fomo-banner {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 16px;
-        border-radius: 8px;
-        background: rgba(251, 191, 36, 0.06);
-        border: 1px solid rgba(251, 191, 36, 0.18);
-        opacity: 0;
-        animation: fomo-slide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.8s both;
-      }
-
-      .fomo-icon {
-        font-size: 14px;
-        flex-shrink: 0;
-      }
-
-      .fomo-text {
-        font-size: 12px;
-        color: rgba(251, 191, 36, 0.85);
-        line-height: 1.4;
-      }
-
-      .fomo-text strong {
-        color: var(--yellow);
-        font-weight: 700;
-      }
-
-      .fomo-badge {
-        margin-left: auto;
-        flex-shrink: 0;
-        font-family: var(--mono);
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        padding: 2px 8px;
-        border-radius: 4px;
-        background: rgba(251, 191, 36, 0.12);
-        color: var(--yellow);
-      }
-
-      /* ========================================
-   BUSINESS HEADER
-   ======================================== */
       .biz-header {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
-        opacity: 0;
+        margin-bottom: 32px;
         animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
       }
 
       .biz-name {
-        font-size: 20px;
+        font-size: 28px;
         font-weight: 700;
         color: var(--text);
-        line-height: 1.2;
+        letter-spacing: -0.5px;
       }
 
       .biz-sub {
         font-size: 12px;
-        color: rgba(200, 210, 220, 0.3);
-        margin-top: 2px;
+        color: var(--muted);
+        margin-top: 4px;
       }
 
       .biz-right {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 4px;
+        align-items: center;
+        gap: 12px;
       }
 
       .agent-active-badge {
         display: flex;
         align-items: center;
         gap: 6px;
-        padding: 6px 12px;
-        border-radius: 999px;
-        background: rgba(74, 222, 128, 0.08);
+        padding: 8px 12px;
+        border-radius: 16px;
+        background: rgba(74, 222, 128, 0.1);
         border: 1px solid rgba(74, 222, 128, 0.2);
       }
 
@@ -485,47 +265,32 @@
         border-radius: 50%;
         background: var(--green);
         animation: pulse-dot 2s ease-in-out infinite;
-        flex-shrink: 0;
       }
 
       .agent-active-text {
-        font-size: 11px;
+        font-family: var(--mono);
+        font-size: 10px;
         font-weight: 600;
         color: var(--green);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
       }
 
-      .rep-label {
-        font-family: var(--mono);
-        font-size: 9px;
-        letter-spacing: 0.08em;
-        color: rgba(200, 210, 220, 0.25);
-        text-align: right;
-      }
-
-      /* ========================================
-   METRIC CARDS
-   ======================================== */
       .metrics-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-      }
-
-      @media (max-width: 768px) {
-        .metrics-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 32px;
       }
 
       .metric-card {
         position: relative;
-        overflow: hidden;
+        padding: 24px;
         border-radius: 12px;
-        padding: 16px 20px;
         background: var(--glass-bg);
         border: var(--glass-border);
-        opacity: 0;
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(16px);
+        overflow: hidden;
       }
 
       .metric-card-glow-line {
@@ -533,93 +298,51 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 2px;
+        height: 1px;
+        opacity: 0.5;
       }
 
       .metric-card-ambient {
         position: absolute;
-        top: -32px;
-        left: -32px;
-        width: 96px;
-        height: 96px;
-        border-radius: 50%;
+        inset: 0;
         pointer-events: none;
-        animation: glow-pulse 4s ease-in-out infinite;
+        opacity: 0.3;
       }
 
       .metric-value {
-        font-size: 30px;
-        font-weight: 800;
-        letter-spacing: -0.03em;
-        font-variant-numeric: tabular-nums;
-        font-feature-settings: 'tnum';
+        position: relative;
+        z-index: 2;
+        font-size: 28px;
+        font-weight: 700;
         line-height: 1;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
       }
 
       .metric-label {
-        font-family: var(--mono);
-        font-size: 11px;
+        position: relative;
+        z-index: 2;
+        font-size: 12px;
         font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
         color: var(--muted);
-        margin-top: 6px;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
       }
 
       .metric-sub {
-        font-size: 10px;
-        color: rgba(200, 210, 220, 0.25);
-        margin-top: 4px;
-      }
-
-      /* ========================================
-   STATUS STRIP
-   ======================================== */
-      .status-strip {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-        padding: 10px 16px;
-        border-radius: 8px;
-        background: rgba(30, 38, 42, 0.3);
-        border: 1px solid rgba(60, 70, 80, 0.15);
-        overflow-x: auto;
-        opacity: 0;
-        animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
-        scrollbar-width: none;
-      }
-      .status-strip::-webkit-scrollbar {
-        display: none;
-      }
-
-      .status-item {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        flex-shrink: 0;
-      }
-
-      .status-dot {
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-      }
-
-      .status-label {
-        font-family: var(--mono);
+        position: relative;
+        z-index: 2;
         font-size: 11px;
-        font-weight: 500;
-        white-space: nowrap;
-        color: rgba(200, 210, 220, 0.45);
+        color: var(--muted-low);
+        line-height: 1.4;
       }
 
-      /* ========================================
-   MAIN GRID (Calls + Sidebar)
-   ======================================== */
       .main-grid {
         display: grid;
-        grid-template-columns: 3fr 2fr;
-        gap: 16px;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 32px;
       }
 
       @media (max-width: 1024px) {
@@ -628,4518 +351,390 @@
         }
       }
 
-      /* ========================================
-   SECTION LABEL
-   ======================================== */
-      .section-label {
-        font-family: var(--mono);
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: rgba(200, 210, 220, 0.35);
-        margin-bottom: 10px;
-      }
-
-      /* ========================================
-   SECTION LABEL WITH LIVE INDICATOR
-   ======================================== */
       .section-label-wrap {
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin-bottom: 10px;
+        justify-content: space-between;
+        margin-bottom: 16px;
       }
 
-      .section-label-wrap .section-label {
-        margin-bottom: 0;
+      .section-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
       }
 
       .live-indicator {
         display: flex;
         align-items: center;
-        gap: 5px;
-        padding: 1px 7px;
-        border-radius: 999px;
-        background: rgba(255, 82, 82, 0.08);
-        border: 1px solid rgba(255, 82, 82, 0.15);
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 12px;
+        background: rgba(74, 222, 128, 0.1);
+        border: 1px solid rgba(74, 222, 128, 0.2);
       }
 
       .live-indicator-dot {
-        width: 5px;
-        height: 5px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
-        background: var(--red);
-        animation: live-pulse 1.5s ease-in-out infinite;
+        background: var(--green);
+        animation: pulse-dot 1.5s ease-in-out infinite;
       }
 
       .live-indicator-text {
         font-family: var(--mono);
-        font-size: 8px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
+        font-size: 9px;
+        font-weight: 600;
+        color: var(--green);
+        letter-spacing: 0.3px;
         text-transform: uppercase;
-        color: var(--red);
       }
 
-      /* ========================================
-   GLASS CARD
-   ======================================== */
-      .glass-card {
+      .leaderboard-section {
+        position: relative;
+        padding: 24px;
+        border-radius: 12px;
         background: var(--glass-bg);
         border: var(--glass-border);
-        border-radius: 12px;
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(16px);
       }
 
-      /* ========================================
-   CALLS LIST
-   ======================================== */
-      .calls-list {
-        border-radius: 12px;
-        overflow: hidden;
-        background: var(--glass-bg);
-        border: var(--glass-border);
-        backdrop-filter: blur(12px);
+      .leaderboard-table {
+        width: 100%;
+        border-collapse: collapse;
       }
 
-      .call-row {
+      .leaderboard-table thead {
         border-bottom: 1px solid rgba(60, 70, 80, 0.2);
-        opacity: 0;
       }
 
-      .call-row:last-child {
-        border-bottom: none;
-      }
-
-      .call-header {
-        padding: 12px 20px 14px;
-        cursor: pointer;
-        transition: background 0.15s ease;
-      }
-
-      .call-header:hover {
-        background: rgba(59, 158, 255, 0.02);
-      }
-
-      .call-header.expanded {
-        background: rgba(59, 158, 255, 0.04);
-      }
-
-      .call-row-1 {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .call-row-left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        min-width: 0;
-      }
-
-      .call-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        flex-shrink: 0;
-      }
-
-      .call-name {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .badge {
-        font-family: var(--mono);
-        font-size: 10px;
-        font-weight: 500;
-        padding: 2px 6px;
-        border-radius: 4px;
-        white-space: nowrap;
-        flex-shrink: 0;
-      }
-
-      .badge-new {
-        color: var(--green);
-        background: rgba(74, 222, 128, 0.1);
-        font-weight: 700;
-      }
-
-      .badge-after {
-        color: var(--yellow);
-        background: rgba(251, 191, 36, 0.1);
-      }
-
-      .call-row-right {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-shrink: 0;
-        margin-left: 12px;
-      }
-
-      .score-badge {
-        font-family: var(--mono);
-        font-size: 10px;
-        font-weight: 700;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .headphone-icon {
-        width: 14px;
-        height: 14px;
-        color: rgba(200, 210, 220, 0.25);
-      }
-
-      .call-duration {
-        font-family: var(--mono);
-        font-size: 12px;
-        color: rgba(200, 210, 220, 0.5);
-        font-variant-numeric: tabular-nums;
-        font-feature-settings: 'tnum';
-      }
-
-      .chevron {
-        width: 14px;
-        height: 14px;
-        color: rgba(200, 210, 220, 0.25);
-        transition: transform 0.2s ease;
-        flex-shrink: 0;
-      }
-
-      .chevron.open {
-        transform: rotate(180deg);
-      }
-
-      .call-row-2 {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 4px;
-        padding-left: 18px;
-      }
-
-      .call-service {
-        font-size: 12px;
-        color: rgba(200, 210, 220, 0.35);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      .call-time {
-        font-size: 10px;
-        color: rgba(200, 210, 220, 0.2);
-        flex-shrink: 0;
-        margin-left: 8px;
-      }
-
-      .call-summary-row {
-        display: flex;
-        align-items: flex-start;
-        gap: 6px;
-        margin-top: 6px;
-        padding-left: 18px;
-      }
-
-      .play-icon {
-        width: 12px;
-        height: 12px;
-        color: rgba(59, 158, 255, 0.4);
-        margin-top: 1px;
-        flex-shrink: 0;
-      }
-
-      .call-summary {
-        font-size: 11px;
-        line-height: 1.5;
-        color: rgba(200, 210, 220, 0.3);
-      }
-
-      /* ========================================
-   EXPANDED CALL PANEL
-   ======================================== */
-      .call-expanded {
-        padding: 0 20px 20px;
-        border-top: 1px solid rgba(59, 158, 255, 0.08);
-        background: rgba(59, 158, 255, 0.02);
-        display: none;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .call-expanded.open {
-        display: flex;
-        animation: fade-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
-      }
-
-      .expand-section-label {
-        font-family: var(--mono);
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: rgba(200, 210, 220, 0.3);
-        margin-bottom: 8px;
-        margin-top: 12px;
-      }
-
-      /* Audio player — disabled state */
-      .audio-player {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 10px 12px;
-        border-radius: 8px;
-        background: rgba(59, 158, 255, 0.04);
-        border: 1px solid rgba(59, 158, 255, 0.08);
-        opacity: 0.6;
-      }
-
-      .audio-player-note {
-        font-family: var(--mono);
-        font-size: 9px;
-        color: rgba(200, 210, 220, 0.3);
-        letter-spacing: 0.06em;
-        flex: 1;
-        text-align: center;
-      }
-
-      .audio-live-demo-tag {
-        font-family: var(--mono);
-        font-size: 9px;
-        color: rgba(59, 158, 255, 0.5);
-        letter-spacing: 0.06em;
-        flex-shrink: 0;
-      }
-
-      .play-btn {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: rgba(59, 158, 255, 0.08);
-        border: none;
-        cursor: not-allowed;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        opacity: 0.5;
-      }
-
-      .play-btn svg {
-        width: 14px;
-        height: 14px;
-        color: var(--blue);
-        fill: var(--blue);
-      }
-
-      .waveform-player {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        gap: 2px;
-        height: 24px;
-      }
-
-      .wave-bar {
-        flex: 1;
-        border-radius: 999px;
-        background: rgba(59, 158, 255, 0.12);
-      }
-
-      .audio-right {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-shrink: 0;
-      }
-
-      .audio-duration {
-        font-family: var(--mono);
-        font-size: 10px;
-        color: rgba(200, 210, 220, 0.3);
-        font-variant-numeric: tabular-nums;
-      }
-
-      /* Transcript */
-      .transcript {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .transcript-msg {
-        display: flex;
-        gap: 10px;
-      }
-
-      .msg-avatar {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 2px;
-      }
-
-      .msg-avatar span {
-        font-family: var(--mono);
-        font-size: 7px;
-        font-weight: 700;
-      }
-
-      .msg-avatar.ai {
-        background: rgba(255, 82, 82, 0.12);
-      }
-      .msg-avatar.ai span {
-        color: var(--red);
-      }
-
-      .msg-avatar.caller {
-        background: rgba(200, 210, 220, 0.08);
-      }
-      .msg-avatar.caller span {
-        color: rgba(200, 210, 220, 0.5);
-      }
-
-      .msg-content {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .msg-speaker {
-        font-family: var(--mono);
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        display: block;
-      }
-
-      .msg-speaker.ai {
-        color: rgba(255, 82, 82, 0.6);
-      }
-      .msg-speaker.caller {
-        color: rgba(200, 210, 220, 0.3);
-      }
-
-      .msg-text {
-        font-size: 11px;
-        line-height: 1.6;
-        color: rgba(220, 225, 235, 0.7);
-        margin-top: 2px;
-      }
-
-      /* Show all calls button */
-      .show-all-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        width: 100%;
-        margin-top: 8px;
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid rgba(60, 70, 80, 0.2);
-        background: rgba(30, 38, 42, 0.3);
-        font-family: var(--mono);
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: rgba(200, 210, 220, 0.4);
-        cursor: pointer;
-        transition: all 0.15s ease;
-      }
-
-      .show-all-btn:hover {
-        border-color: rgba(59, 158, 255, 0.15);
-        color: rgba(200, 210, 220, 0.55);
-      }
-
-      .show-all-btn:active {
-        transform: scale(0.995);
-      }
-
-      .show-all-btn .chevron {
-        transition: transform 0.2s ease;
-      }
-
-      /* ========================================
-   SIDEBAR
-   ======================================== */
-      .sidebar {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      /* ========================================
-   WEEKLY CHART
-   ======================================== */
-      .weekly-chart {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 6px;
-        height: 96px;
-        padding-top: 8px;
-      }
-
-      .weekly-col {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        height: 100%;
-      }
-
-      .weekly-count {
-        font-family: var(--mono);
-        font-size: 9px;
-        color: rgba(200, 210, 220, 0.25);
-        font-variant-numeric: tabular-nums;
-        line-height: 1;
-      }
-
-      .weekly-bar-wrap {
-        flex: 1;
-        width: 100%;
-        display: flex;
-        align-items: flex-end;
-      }
-
-      .weekly-bar {
-        width: 100%;
-        border-radius: 2px 2px 0 0;
-        height: 0%;
-        transition: height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      .weekly-day {
-        font-family: var(--mono);
-        font-size: 9px;
-        color: rgba(200, 210, 220, 0.25);
-        line-height: 1;
-      }
-
-      .weekly-day.today {
-        color: var(--blue);
-        font-weight: 700;
-      }
-
-      .weekly-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 12px;
-        padding-top: 12px;
-        border-top: 1px solid rgba(60, 70, 80, 0.2);
-      }
-
-      .weekly-footer-label {
-        font-family: var(--mono);
-        font-size: 10px;
-        color: rgba(200, 210, 220, 0.3);
-      }
-
-      .weekly-footer-value {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--blue);
-        font-variant-numeric: tabular-nums;
-      }
-
-      /* ========================================
-   PEAK HOURS CHART
-   ======================================== */
-      .peak-bars {
-        display: flex;
-        align-items: flex-end;
-        gap: 3px;
-        height: 56px;
-      }
-
-      .peak-bar {
-        flex: 1;
-        border-radius: 2px 2px 0 0;
-        height: 0%;
-        transition: height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      .peak-labels {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 8px;
-      }
-
-      .peak-label-text {
-        font-family: var(--mono);
-        font-size: 8px;
-        color: rgba(200, 210, 220, 0.2);
-      }
-
-      .after-hours-stat {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 8px 12px;
-        border-radius: 8px;
-        background: rgba(251, 191, 36, 0.06);
-        border: 1px solid rgba(251, 191, 36, 0.12);
-        margin-top: 8px;
-      }
-
-      .after-hours-left {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .dot-yellow {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--yellow);
-        flex-shrink: 0;
-      }
-
-      .after-hours-label {
-        font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: rgba(200, 210, 220, 0.4);
-      }
-
-      .after-hours-value {
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--yellow);
-        font-variant-numeric: tabular-nums;
-      }
-
-      /* ========================================
-   CALL REASONS CHART
-   ======================================== */
-      .call-reasons {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .reason-row {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
-
-      .reason-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .reason-label {
-        font-size: 11px;
-        color: rgba(200, 210, 220, 0.55);
-      }
-
-      .reason-count {
-        font-family: var(--mono);
-        font-size: 10px;
-        font-weight: 600;
-        color: rgba(200, 210, 220, 0.7);
-        font-variant-numeric: tabular-nums;
-      }
-
-      .reason-track {
-        height: 6px;
-        border-radius: 999px;
-        background: rgba(60, 70, 80, 0.25);
-      }
-
-      .reason-fill {
-        height: 100%;
-        border-radius: 999px;
-        opacity: 0.7;
-        width: 0%;
-        transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      /* ========================================
-   DONUT CHART (Call Outcomes)
-   ======================================== */
-      .donut-wrap {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
-
-      .donut-container {
-        position: relative;
-        width: 96px;
-        height: 96px;
-        flex-shrink: 0;
-      }
-
-      .donut-circle {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background: rgba(60, 70, 80, 0.3);
-        transition: background 1s ease 0.5s;
-      }
-
-      .donut-hole {
-        position: absolute;
-        top: 16px;
-        left: 16px;
-        right: 16px;
-        bottom: 16px;
-        border-radius: 50%;
-        background: rgba(10, 11, 16, 0.95);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .donut-total {
-        font-size: 18px;
-        font-weight: 800;
-        color: var(--text);
-        font-variant-numeric: tabular-nums;
-        line-height: 1;
-      }
-
-      .donut-unit {
-        font-family: var(--mono);
-        font-size: 8px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: rgba(200, 210, 220, 0.3);
-        margin-top: 2px;
-      }
-
-      .donut-legend {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .legend-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .legend-left {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .legend-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        flex-shrink: 0;
-      }
-
-      .legend-name {
-        font-size: 12px;
-        color: rgba(200, 210, 220, 0.6);
-      }
-
-      .legend-right {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .legend-count {
-        font-size: 12px;
-        font-weight: 600;
-        color: rgba(200, 210, 220, 0.8);
-        font-variant-numeric: tabular-nums;
-      }
-
-      .legend-pct {
-        font-family: var(--mono);
-        font-size: 10px;
-        color: rgba(200, 210, 220, 0.3);
-        font-variant-numeric: tabular-nums;
-      }
-
-      /* ========================================
-   COST SAVINGS
-   ======================================== */
-      .cost-savings {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .cost-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .cost-label {
-        font-size: 12px;
-        color: rgba(200, 210, 220, 0.5);
-      }
-
-      .cost-value-green {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--green);
-        font-variant-numeric: tabular-nums;
-      }
-
-      .cost-value-strike {
-        font-size: 14px;
-        color: rgba(200, 210, 220, 0.3);
-        text-decoration: line-through;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .cost-divider {
-        height: 1px;
-        background: rgba(60, 70, 80, 0.3);
-      }
-
-      .savings-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .savings-label {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--green);
-      }
-
-      .savings-amount {
-        text-align: right;
-      }
-
-      .savings-mo {
-        font-size: 18px;
-        font-weight: 800;
-        color: var(--green);
-        font-variant-numeric: tabular-nums;
-        display: block;
-      }
-
-      .savings-yr {
-        font-family: var(--mono);
-        font-size: 10px;
-        color: rgba(200, 210, 220, 0.25);
-        display: block;
-        margin-top: 1px;
-      }
-
-      .roi-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 8px 12px;
-        border-radius: 8px;
-        background: rgba(74, 222, 128, 0.06);
-        border: 1px solid rgba(74, 222, 128, 0.12);
-        position: relative;
-      }
-
-      .roi-label {
-        font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: rgba(200, 210, 220, 0.4);
-      }
-
-      .roi-value-wrap {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .roi-value {
-        font-size: 14px;
-        font-weight: 800;
-        color: var(--green);
-        font-variant-numeric: tabular-nums;
-      }
-
-      .roi-tooltip-icon {
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: rgba(74, 222, 128, 0.12);
-        border: 1px solid rgba(74, 222, 128, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: help;
-        font-family: var(--mono);
-        font-size: 8px;
-        font-weight: 700;
-        color: var(--green);
-        flex-shrink: 0;
-        position: relative;
-      }
-
-      .roi-tooltip-icon .tooltip-bubble {
-        display: none;
-        position: absolute;
-        bottom: calc(100% + 8px);
-        right: 0;
-        width: 200px;
-        background: rgba(20, 28, 32, 0.98);
-        border: 1px solid rgba(74, 222, 128, 0.2);
-        border-radius: 8px;
-        padding: 10px 12px;
-        z-index: 100;
-        pointer-events: none;
-      }
-
-      .roi-tooltip-icon:hover .tooltip-bubble {
-        display: block;
-      }
-
-      .tooltip-title {
-        font-family: var(--mono);
-        font-size: 8px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: rgba(200, 210, 220, 0.4);
-        margin-bottom: 6px;
-      }
-
-      .tooltip-line {
-        display: flex;
-        justify-content: space-between;
-        font-size: 10px;
-        color: rgba(200, 210, 220, 0.6);
-        margin-bottom: 3px;
-      }
-
-      .tooltip-line strong {
-        color: var(--green);
-        font-weight: 700;
-      }
-
-      .tooltip-formula {
-        margin-top: 6px;
-        padding-top: 6px;
-        border-top: 1px solid rgba(60, 70, 80, 0.3);
-        font-family: var(--mono);
-        font-size: 9px;
-        color: rgba(74, 222, 128, 0.7);
-        text-align: center;
-      }
-
-      /* ========================================
-   WITH/WITHOUT ALEX COMPARISON
-   ======================================== */
-      .comparison-section {
-        opacity: 0;
-        animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both;
-      }
-
-      .comparison-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-
-      @media (max-width: 640px) {
-        .comparison-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .content-wrap {
-          padding: 12px 12px 0;
-          overflow-x: hidden;
-        }
-        .status-strip {
-          max-width: calc(100vw - 24px);
-          gap: 12px;
-        }
-        .status-label {
-          font-size: 9px;
-        }
-        .metrics-grid {
-          grid-template-columns: 1fr;
-          gap: 8px;
-        }
-        .metric-card {
-          padding: 12px 14px;
-        }
-        .header-top {
-          flex-wrap: wrap;
-          gap: 8px;
-        }
-      }
-
-      .comparison-card {
-        border-radius: 12px;
-        padding: 16px;
-        backdrop-filter: blur(12px);
-      }
-
-      .comparison-card.without {
-        background: rgba(255, 82, 82, 0.04);
-        border: 1px solid rgba(255, 82, 82, 0.12);
-      }
-
-      .comparison-card.with {
-        background: rgba(74, 222, 128, 0.04);
-        border: 1px solid rgba(74, 222, 128, 0.15);
-      }
-
-      .comparison-card-header {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
-      }
-
-      .comparison-icon {
-        font-size: 14px;
-      }
-
-      .comparison-title {
-        font-family: var(--mono);
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-
-      .comparison-card.without .comparison-title {
-        color: rgba(255, 82, 82, 0.6);
-      }
-
-      .comparison-card.with .comparison-title {
-        color: rgba(74, 222, 128, 0.7);
-      }
-
-      .comparison-items {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .comparison-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        font-size: 12px;
-      }
-
-      .comparison-item-dot {
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        margin-top: 5px;
-        flex-shrink: 0;
-      }
-
-      .comparison-card.without .comparison-item-dot {
-        background: rgba(255, 82, 82, 0.5);
-      }
-
-      .comparison-card.with .comparison-item-dot {
-        background: rgba(74, 222, 128, 0.6);
-      }
-
-      .comparison-card.without .comparison-item {
-        color: rgba(200, 210, 220, 0.45);
-      }
-
-      .comparison-card.with .comparison-item {
-        color: rgba(200, 210, 220, 0.6);
-      }
-
-      .comparison-item strong {
-        font-weight: 700;
-      }
-
-      .comparison-card.with .comparison-item strong {
-        color: var(--green);
-      }
-
-      .comparison-card.without .comparison-item strong {
-        color: var(--red);
-      }
-
-      /* ========================================
-   CRM PIPELINE
-   ======================================== */
-      .crm-section {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .pipeline-stages {
-        display: flex;
-        gap: 8px;
-      }
-
-      .pipeline-stage-card {
-        flex: 1;
-        border-radius: 8px;
-        padding: 12px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        background: var(--glass-bg);
-        border: var(--glass-border);
-        backdrop-filter: blur(12px);
-        opacity: 0;
-      }
-
-      .stage-glow {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-      }
-
-      .stage-accent-bar {
-        position: absolute;
-        top: 0;
-        left: 20%;
-        right: 20%;
-        height: 2px;
-        border-radius: 0 0 999px 999px;
-        opacity: 0.5;
-      }
-
-      .stage-count {
-        font-size: 24px;
-        font-weight: 800;
-        font-variant-numeric: tabular-nums;
-        position: relative;
-        line-height: 1;
-      }
-
-      .stage-name {
-        font-family: var(--mono);
-        font-size: 9px;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: rgba(200, 210, 220, 0.35);
-        margin-top: 2px;
-        position: relative;
-      }
-
-      /* Pipeline flow bar */
-      .pipeline-flow {
-        display: flex;
-        height: 6px;
-        border-radius: 999px;
-        overflow: hidden;
-        gap: 2px;
-      }
-
-      .flow-segment {
-        border-radius: 999px;
-        opacity: 0.6;
-        width: 0%;
-        transition: width 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
-      }
-
-      /* Leads list */
-      .leads-list {
-        border-radius: 12px;
-        overflow: hidden;
-        background: var(--glass-bg);
-        border: var(--glass-border);
-        backdrop-filter: blur(12px);
-      }
-
-      .lead-row {
-        padding: 12px 20px 14px;
-        border-bottom: 1px solid rgba(60, 70, 80, 0.2);
-        transition: background 0.15s ease;
-        opacity: 0;
-      }
-
-      .lead-row:last-child {
-        border-bottom: none;
-      }
-
-      .lead-row-1 {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .lead-row-left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        min-width: 0;
-        flex-wrap: wrap;
-      }
-
-      .lead-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        flex-shrink: 0;
-      }
-
-      .lead-name {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      .lead-stage-badge {
-        font-family: var(--mono);
-        font-size: 10px;
-        font-weight: 500;
-        padding: 2px 6px;
-        border-radius: 4px;
-        white-space: nowrap;
-        flex-shrink: 0;
-      }
-
-      .captured-badge {
-        font-family: var(--mono);
-        font-size: 9px;
-        font-weight: 600;
-        padding: 1px 6px;
-        border-radius: 4px;
-        white-space: nowrap;
-        flex-shrink: 0;
-        background: rgba(59, 158, 255, 0.1);
-        color: rgba(59, 158, 255, 0.7);
-        border: 1px solid rgba(59, 158, 255, 0.15);
-        letter-spacing: 0.04em;
-      }
-
-      .lead-value {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--text);
-        font-variant-numeric: tabular-nums;
-        flex-shrink: 0;
-        margin-left: 12px;
-      }
-
-      .lead-row-2 {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 4px;
-        padding-left: 18px;
-      }
-
-      .lead-service {
-        font-size: 12px;
-        color: rgba(200, 210, 220, 0.35);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      .lead-phone {
-        font-family: var(--mono);
-        font-size: 10px;
-        color: rgba(200, 210, 220, 0.25);
-        flex-shrink: 0;
-        margin-left: 8px;
-      }
-
-      .lead-activity {
-        font-size: 11px;
-        color: rgba(200, 210, 220, 0.3);
-        margin-top: 4px;
-        padding-left: 18px;
-      }
-
-      /* Hidden rows */
-      .lead-row.hidden {
-        display: none;
-      }
-
-      /* Pipeline value */
-      .pipeline-value-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 20px;
-        border-radius: 8px;
-        position: relative;
-        overflow: hidden;
-        background: rgba(74, 222, 128, 0.06);
-        border: 1px solid rgba(74, 222, 128, 0.15);
-      }
-
-      .pipeline-value-glow {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: radial-gradient(
-          ellipse at 80% 50%,
-          rgba(74, 222, 128, 0.08) 0%,
-          transparent 60%
-        );
-      }
-
-      .pipeline-value-label {
-        font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: rgba(200, 210, 220, 0.5);
-        position: relative;
-      }
-
-      .pipeline-value-amount {
-        font-size: 18px;
-        font-weight: 800;
-        color: var(--green);
-        font-variant-numeric: tabular-nums;
-        position: relative;
-      }
-
-      /* ========================================
-   CTA SECTION
-   ======================================== */
-      .cta-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 24px 0 40px;
-        gap: 20px;
-        position: relative;
-        opacity: 0;
-        animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both;
-      }
-
-      .cta-ambient {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 320px;
-        height: 160px;
-        pointer-events: none;
-        background: radial-gradient(ellipse, rgba(59, 158, 255, 0.08) 0%, transparent 70%);
-      }
-
-      .cta-divider {
-        width: 80px;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(59, 158, 255, 0.3), transparent);
-      }
-
-      .cta-text {
-        text-align: center;
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 1.6;
-        color: rgba(200, 210, 220, 0.7);
-        max-width: 400px;
-        position: relative;
-      }
-
-      .cta-text strong {
-        color: var(--green);
-        font-weight: 800;
-      }
-
-      .cta-text small {
-        display: block;
-        margin-top: 4px;
-        font-size: 14px;
-        font-weight: 400;
-        color: rgba(200, 210, 220, 0.4);
-      }
-
-      .cta-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 16px 40px;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        color: #0a0b10;
-        background: linear-gradient(135deg, #3b9eff, #00c8ff);
-        box-shadow:
-          0 0 40px rgba(59, 158, 255, 0.25),
-          0 0 80px rgba(59, 158, 255, 0.1),
-          0 4px 20px rgba(0, 0, 0, 0.4);
-        transition:
-          transform 0.15s ease,
-          box-shadow 0.15s ease;
-        position: relative;
-      }
-
-      .cta-btn:hover {
-        transform: scale(1.03);
-        box-shadow:
-          0 0 60px rgba(59, 158, 255, 0.35),
-          0 0 100px rgba(59, 158, 255, 0.15),
-          0 4px 30px rgba(0, 0, 0, 0.4);
-      }
-
-      .cta-btn:active {
-        transform: scale(0.97);
-      }
-
-      .cta-btn svg {
-        width: 16px;
-        height: 16px;
-      }
-
-      .cta-phone {
-        font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: rgba(200, 210, 220, 0.25);
-      }
-
-      .slots-warning {
-        font-family: var(--mono);
-        font-size: 9px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: rgba(251, 191, 36, 0.6);
-        border: 1px solid rgba(251, 191, 36, 0.15);
-        padding: 4px 10px;
-        border-radius: 4px;
-        background: rgba(251, 191, 36, 0.04);
-      }
-
-      /* ========================================
-   STICKY CTA BAR
-   ======================================== */
-      .sticky-cta {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 200;
-        background: rgba(10, 11, 16, 0.96);
-        border-top: 1px solid rgba(59, 158, 255, 0.2);
-        backdrop-filter: blur(20px);
-        animation: sticky-slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2s both;
-      }
-
-      .sticky-cta-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 10px 20px;
-        max-width: 1152px;
-        margin: 0 auto;
-      }
-
-      .sticky-cta-text {
-        font-size: 12px;
-        font-weight: 600;
-        color: rgba(200, 210, 220, 0.6);
-        flex: 1;
-        min-width: 0;
-      }
-
-      .sticky-cta-text strong {
-        color: var(--green);
-      }
-
-      .sticky-cta-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 700;
-        text-decoration: none;
-        color: #0a0b10;
-        background: linear-gradient(135deg, #3b9eff, #00c8ff);
-        white-space: nowrap;
-        flex-shrink: 0;
-        transition: transform 0.15s ease;
-        box-shadow: 0 0 20px rgba(59, 158, 255, 0.2);
-      }
-
-      .sticky-cta-btn:hover {
-        transform: scale(1.02);
-      }
-
-      .sticky-cta-btn:active {
-        transform: scale(0.97);
-      }
-
-      .sticky-cta-btn svg {
-        width: 14px;
-        height: 14px;
-      }
-
-      .sticky-cta-rep {
-        font-size: 10px;
-        font-weight: 500;
-        color: rgba(200, 210, 220, 0.35);
-        letter-spacing: 0.04em;
-        white-space: nowrap;
-        flex-shrink: 0;
-      }
-
-      .sticky-cta-rep span {
-        color: rgba(200, 210, 220, 0.55);
-      }
-
-      /* ========================================
-   DEMO DISCLAIMER
-   ======================================== */
-      .demo-disclaimer {
-        text-align: center;
-        padding: 12px 24px 20px;
-        font-size: 10px;
-        color: rgba(200, 210, 220, 0.25);
-        letter-spacing: 0.03em;
-        line-height: 1.5;
-      }
-
-      /* ========================================
-   LIVE NOTIFICATION TOAST
-   ======================================== */
-      .live-notif {
-        position: fixed;
-        bottom: 72px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 300;
-        width: min(340px, calc(100vw - 32px));
-        background: rgba(15, 20, 28, 0.98);
-        border: 1px solid rgba(74, 222, 128, 0.25);
-        border-radius: 12px;
+      .leaderboard-table th {
         padding: 12px 16px;
-        box-shadow:
-          0 4px 32px rgba(0, 0, 0, 0.6),
-          0 0 0 1px rgba(74, 222, 128, 0.08);
-        display: none;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .live-notif.visible {
-        display: flex;
-        animation: notif-slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-      }
-
-      .live-notif.hiding {
-        display: flex;
-        animation: notif-slide-out 0.35s cubic-bezier(0.4, 0, 1, 1) both;
-      }
-
-      .notif-icon-wrap {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: rgba(74, 222, 128, 0.12);
-        border: 1px solid rgba(74, 222, 128, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-      }
-
-      .notif-content {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .notif-title {
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--text);
-        line-height: 1.3;
-      }
-
-      .notif-sub {
-        font-family: var(--mono);
+        text-align: left;
         font-size: 10px;
-        color: rgba(200, 210, 220, 0.35);
-        margin-top: 1px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
       }
 
-      .notif-close {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: rgba(60, 70, 80, 0.3);
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        color: rgba(200, 210, 220, 0.4);
+      .leaderboard-table td {
+        padding: 14px 16px;
+        font-size: 13px;
+        color: var(--text);
+        border-bottom: 1px solid rgba(60, 70, 80, 0.1);
+      }
+
+      .leaderboard-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .rep-rank {
+        font-family: var(--mono);
+        font-weight: 700;
+        color: var(--blue);
+      }
+
+      .rep-name {
+        font-weight: 600;
+      }
+
+      .rep-signups {
+        font-family: var(--mono);
+        color: var(--green);
+        font-weight: 600;
+      }
+
+      .rep-revenue {
+        font-family: var(--mono);
+        color: var(--cyan);
+        font-weight: 600;
+      }
+
+      .rep-activity {
+        font-size: 11px;
+        color: var(--muted-low);
+      }
+
+      .footer {
+        text-align: center;
+        padding: 24px;
+        font-size: 11px;
+        color: var(--muted-low);
+        border-top: 1px solid rgba(60, 70, 80, 0.1);
+      }
+
+      .error-notice {
+        padding: 16px;
+        border-radius: 8px;
+        background: rgba(255, 82, 82, 0.1);
+        border: 1px solid rgba(255, 82, 82, 0.2);
+        color: var(--red);
         font-size: 12px;
-        line-height: 1;
+        margin: 16px 0;
+        display: none;
       }
 
-      /* ========================================
-   BOTTOM SHIMMER BAR
-   ======================================== */
-      .shimmer-bar {
-        position: relative;
-        z-index: 20;
-        height: 2px;
-        background: rgba(20, 30, 40, 0.5);
-        flex-shrink: 0;
-      }
-
-      .shimmer-bar::after {
-        content: '';
+      .error-notice.show {
         display: block;
-        height: 100%;
-        width: 100%;
-        background: linear-gradient(90deg, transparent, #3b9eff, #00c8ff, transparent);
-        background-size: 200% 100%;
-        animation: shimmer 3s linear infinite;
+      }
+
+      .manager-stat {
+        margin-bottom: 24px;
+      }
+
+      .manager-stat-label {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .manager-stat-value {
+        font-size: 24px;
+        font-weight: 700;
       }
     </style>
   </head>
   <body>
     <div id="app">
-      <!-- Overlays -->
       <div class="grain-overlay"></div>
       <div class="top-vignette"></div>
       <div class="bottom-glow"></div>
 
-      <!-- TOP BAR -->
       <div class="top-bar">
         <div class="top-bar-inner">
-          <!-- Left: Agent name -->
           <div class="agent-badge">
-            <div class="pulse-green"></div>
-            <div class="agent-label">Alex <span>AI Receptionist</span></div>
+            <div class="live-dot"></div>
+            <div class="agent-label">Live Dashboard <span>Real-Time Data</span></div>
           </div>
-          <!-- Right: LIVE badge + waveform + date -->
           <div class="top-bar-right">
             <div class="live-badge">
               <div class="pulse-red"></div>
               <span class="live-text">Live</span>
             </div>
-            <div class="waveform" id="waveform"></div>
             <span class="date-label" id="date-label"></span>
           </div>
         </div>
         <div class="top-bar-line"></div>
       </div>
 
-      <!-- SCROLLABLE CONTENT -->
       <div class="scroll-container">
         <div class="content-wrap">
-          <!-- Business Header -->
+          <div class="error-notice" id="error-notice"></div>
+
           <div class="biz-header">
             <div>
-              <h1 class="biz-name" id="biz-name">Mike's Roofing Co.</h1>
-              <p class="biz-sub" id="biz-sub">Dashboard &middot; Last call 18m ago</p>
+              <h1 class="biz-name">AutoScale AI Dashboard</h1>
+              <p class="biz-sub">Live data &middot; Refreshing every 30 seconds</p>
             </div>
             <div class="biz-right">
               <div class="agent-active-badge">
                 <div class="pulse-green-sm"></div>
-                <span class="agent-active-text">Agent Active</span>
+                <span class="agent-active-text">Live Feed</span>
               </div>
-              <span class="rep-label" id="rep-label"></span>
             </div>
           </div>
 
-          <!-- FOMO Banner -->
-          <div class="fomo-banner" id="fomo-banner">
-            <span class="fomo-icon">&#9889;</span>
-            <span class="fomo-text" id="fomo-text">
-              <strong>3 calls answered</strong> while competitors were closed last weekend. 0
-              missed.
-            </span>
-            <span class="fomo-badge">This Week</span>
-          </div>
-
-          <!-- Metrics Grid — Order: Revenue Recovered | Calls Answered | Booking Rate | Appts Today -->
           <div class="metrics-grid">
-            <!-- 1. Revenue Recovered (FIRST — money talks) -->
-            <div
-              class="metric-card"
-              style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both"
-            >
-              <div
-                class="metric-card-glow-line"
-                style="background: linear-gradient(90deg, #4ade80, transparent)"
-              ></div>
-              <div
-                class="metric-card-ambient"
-                style="
-                  background: radial-gradient(circle, rgba(74, 222, 128, 0.15) 0%, transparent 70%);
-                "
-              ></div>
-              <div
-                class="metric-value"
-                style="color: #4ade80; font-size: 28px"
-                data-counter="18400"
-                data-prefix="$"
-                data-suffix=""
-                data-decimals="0"
-                data-format="full"
-                id="metric-revenue"
-              >
-                $0
-              </div>
-              <div class="metric-label">Revenue Recovered</div>
-              <div class="metric-sub" id="metric-revenue-sub">From calls you'd have missed</div>
+            <div class="metric-card" style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both">
+              <div class="metric-card-glow-line" style="background: linear-gradient(90deg, #3b9eff, transparent)"></div>
+              <div class="metric-card-ambient" style="background: radial-gradient(circle, rgba(59, 158, 255, 0.15) 0%, transparent 70%);"></div>
+              <div class="metric-value" style="color: #3b9eff" id="calls-today">—</div>
+              <div class="metric-label">Calls Today</div>
+              <div class="metric-sub" id="calls-today-sub">Loading...</div>
             </div>
 
-            <!-- 2. Calls Answered -->
-            <div
-              class="metric-card"
-              style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both"
-            >
-              <div
-                class="metric-card-glow-line"
-                style="background: linear-gradient(90deg, #3b9eff, transparent)"
-              ></div>
-              <div
-                class="metric-card-ambient"
-                style="
-                  background: radial-gradient(circle, rgba(59, 158, 255, 0.15) 0%, transparent 70%);
-                "
-              ></div>
-              <div
-                class="metric-value"
-                style="color: #3b9eff"
-                data-counter="127"
-                data-prefix=""
-                data-suffix=""
-                data-decimals="0"
-                id="metric-calls"
-              >
-                0
-              </div>
-              <div class="metric-label">Calls Answered</div>
-              <div class="metric-sub">0 missed this month</div>
+            <div class="metric-card" style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both">
+              <div class="metric-card-glow-line" style="background: linear-gradient(90deg, #4ade80, transparent)"></div>
+              <div class="metric-card-ambient" style="background: radial-gradient(circle, rgba(74, 222, 128, 0.15) 0%, transparent 70%);"></div>
+              <div class="metric-value" style="color: #4ade80" id="bookings-today">—</div>
+              <div class="metric-label">Bookings Today</div>
+              <div class="metric-sub">From AI booking automation</div>
             </div>
 
-            <!-- 3. Booking Rate -->
-            <div
-              class="metric-card"
-              style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both"
-            >
-              <div
-                class="metric-card-glow-line"
-                style="background: linear-gradient(90deg, #00c8ff, transparent)"
-              ></div>
-              <div
-                class="metric-card-ambient"
-                style="
-                  background: radial-gradient(circle, rgba(0, 200, 255, 0.15) 0%, transparent 70%);
-                "
-              ></div>
-              <div
-                class="metric-value"
-                style="color: #00c8ff"
-                data-counter="65"
-                data-prefix=""
-                data-suffix="%"
-                data-decimals="0"
-                id="metric-booking"
-              >
-                0%
-              </div>
-              <div class="metric-label">Booking Rate</div>
-              <div class="metric-sub">Industry avg: 25–35%</div>
+            <div class="metric-card" style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both">
+              <div class="metric-card-glow-line" style="background: linear-gradient(90deg, #00c8ff, transparent)"></div>
+              <div class="metric-card-ambient" style="background: radial-gradient(circle, rgba(0, 200, 255, 0.15) 0%, transparent 70%);"></div>
+              <div class="metric-value" style="color: #00c8ff" id="revenue-month">—</div>
+              <div class="metric-label">Revenue This Month</div>
+              <div class="metric-sub">Estimated from bookings</div>
             </div>
 
-            <!-- 4. Appts Today -->
-            <div
-              class="metric-card"
-              style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both"
-            >
-              <div
-                class="metric-card-glow-line"
-                style="background: linear-gradient(90deg, #4ade80, transparent)"
-              ></div>
-              <div
-                class="metric-card-ambient"
-                style="
-                  background: radial-gradient(circle, rgba(74, 222, 128, 0.15) 0%, transparent 70%);
-                "
-              ></div>
-              <div
-                class="metric-value"
-                style="color: #4ade80"
-                data-counter="6"
-                data-prefix=""
-                data-suffix=""
-                data-decimals="0"
-                id="metric-appts"
-              >
-                0
-              </div>
-              <div class="metric-label">Appts Today</div>
-              <div class="metric-sub">booked while you worked</div>
+            <div class="metric-card" style="animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both">
+              <div class="metric-card-glow-line" style="background: linear-gradient(90deg, #a78bfa, transparent)"></div>
+              <div class="metric-card-ambient" style="background: radial-gradient(circle, rgba(167, 139, 250, 0.15) 0%, transparent 70%);"></div>
+              <div class="metric-value" style="color: #a78bfa" id="conversion-rate">—</div>
+              <div class="metric-label">Conversion Rate</div>
+              <div class="metric-sub">Call to booking ratio</div>
             </div>
           </div>
 
-          <!-- Status Strip -->
-          <div class="status-strip">
-            <div class="status-item">
-              <div class="status-dot" style="background: #4ade80"></div>
-              <span class="status-label">0 Missed</span>
-            </div>
-            <div class="status-item">
-              <div class="status-dot" style="background: #3b9eff"></div>
-              <span class="status-label">24/7 Active</span>
-            </div>
-            <div class="status-item">
-              <div class="status-dot" style="background: #00c8ff"></div>
-              <span class="status-label">&gt;99% Uptime</span>
-            </div>
-            <div class="status-item">
-              <div class="status-dot" style="background: #a78bfa"></div>
-              <span class="status-label">Picks up in 1 ring</span>
-            </div>
-            <div class="status-item">
-              <div class="status-dot" style="background: #ff5252"></div>
-              <span class="status-label">6 Booked Today</span>
-            </div>
-          </div>
-
-          <!-- Main Grid -->
           <div class="main-grid">
-            <!-- LEFT: Recent Calls -->
-            <div class="calls-col">
+            <div>
               <div class="section-label-wrap">
-                <span class="section-label">Recent Calls</span>
+                <span class="section-label">Field Sales Leaderboard</span>
                 <div class="live-indicator">
                   <div class="live-indicator-dot"></div>
                   <span class="live-indicator-text">Live</span>
                 </div>
               </div>
-
-              <div class="calls-list" id="calls-list">
-                <!-- Call 0: Sarah J. — EXPANDED by default -->
-                <div
-                  class="call-row"
-                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.05s both"
-                >
-                  <div class="call-header expanded" id="call-header-0" onclick="toggleCall(0)">
-                    <div class="call-row-1">
-                      <div class="call-row-left">
-                        <div
-                          class="call-dot"
-                          style="background: #4ade80; animation: pulse-dot 2s infinite"
-                        ></div>
-                        <span class="call-name">Sarah J.</span>
-                        <span
-                          class="badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
-                          >Booked</span
-                        >
-                        <span class="badge badge-new">NEW</span>
-                      </div>
-                      <div class="call-row-right">
-                        <span
-                          class="score-badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
-                          >10/10</span
-                        >
-                        <svg
-                          class="headphone-icon"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                          <path
-                            d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
-                          />
-                        </svg>
-                        <span class="call-duration">2:15</span>
-                        <svg
-                          class="chevron open"
-                          id="chevron-0"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="call-row-2">
-                      <span class="call-service" id="call-0-service">Roof Inspection</span>
-                      <span class="call-time">18m ago</span>
-                    </div>
-                    <div class="call-summary-row">
-                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                      </svg>
-                      <p class="call-summary" id="call-0-summary">
-                        Booked emergency roof inspection for tomorrow 9 AM at 142 Oak St.
-                      </p>
-                    </div>
-                  </div>
-                  <!-- Expanded panel -->
-                  <div class="call-expanded open" id="call-expand-0">
-                    <div>
-                      <div class="expand-section-label">Call Recording</div>
-                      <div class="audio-player">
-                        <button class="play-btn" disabled title="Available in live demo">
-                          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                        </button>
-                        <span class="audio-player-note">Tap to hear sample call</span>
-                        <span class="audio-live-demo-tag">Live demo only</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="expand-section-label">Transcript</div>
-                      <div class="transcript" id="transcript-0">
-                        <!-- Populated by JS based on industry -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- /call 0 -->
-
-                <!-- Call 1: Mark T. -->
-                <div
-                  class="call-row"
-                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.12s both"
-                >
-                  <div class="call-header" id="call-header-1" onclick="toggleCall(1)">
-                    <div class="call-row-1">
-                      <div class="call-row-left">
-                        <div class="call-dot" style="background: #4ade80"></div>
-                        <span class="call-name" id="call-1-name">Mark T.</span>
-                        <span
-                          class="badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
-                          >Booked</span
-                        >
-                        <span class="badge badge-after">AFTER HRS</span>
-                      </div>
-                      <div class="call-row-right">
-                        <span
-                          class="score-badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
-                          >10/10</span
-                        >
-                        <svg
-                          class="headphone-icon"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                          <path
-                            d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
-                          />
-                        </svg>
-                        <span class="call-duration">3:42</span>
-                        <svg
-                          class="chevron"
-                          id="chevron-1"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="call-row-2">
-                      <span class="call-service" id="call-1-service">Emergency Leak Repair</span>
-                      <span class="call-time">45m ago</span>
-                    </div>
-                    <div class="call-summary-row">
-                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                      </svg>
-                      <p class="call-summary" id="call-1-summary">
-                        Scheduled same-day leak repair — water damage in master bedroom.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="call-expanded" id="call-expand-1">
-                    <div>
-                      <div class="expand-section-label">Call Recording</div>
-                      <div class="audio-player">
-                        <button class="play-btn" disabled title="Available in live demo">
-                          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                        </button>
-                        <span class="audio-player-note">Tap to hear sample call</span>
-                        <span class="audio-live-demo-tag">Live demo only</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="expand-section-label">Transcript</div>
-                      <div class="transcript" id="transcript-1">
-                        <!-- Populated by JS based on industry -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- /call 1 -->
-
-                <!-- Call 2: Lisa R. -->
-                <div
-                  class="call-row"
-                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.19s both"
-                >
-                  <div class="call-header" id="call-header-2" onclick="toggleCall(2)">
-                    <div class="call-row-1">
-                      <div class="call-row-left">
-                        <div class="call-dot" style="background: #4ade80"></div>
-                        <span class="call-name">Lisa R.</span>
-                        <span
-                          class="badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
-                          >Booked</span
-                        >
-                      </div>
-                      <div class="call-row-right">
-                        <span
-                          class="score-badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
-                          >9/10</span
-                        >
-                        <svg
-                          class="headphone-icon"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                          <path
-                            d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
-                          />
-                        </svg>
-                        <span class="call-duration">1:52</span>
-                        <svg
-                          class="chevron"
-                          id="chevron-2"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="call-row-2">
-                      <span class="call-service" id="call-2-service">Free Estimate</span>
-                      <span class="call-time">1h ago</span>
-                    </div>
-                    <div class="call-summary-row">
-                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                      </svg>
-                      <p class="call-summary" id="call-2-summary">
-                        Booked free estimate for new construction roofing project.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="call-expanded" id="call-expand-2">
-                    <div>
-                      <div class="expand-section-label">Call Recording</div>
-                      <div class="audio-player">
-                        <button class="play-btn" disabled title="Available in live demo">
-                          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                        </button>
-                        <span class="audio-player-note">Tap to hear sample call</span>
-                        <span class="audio-live-demo-tag">Live demo only</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="expand-section-label">Transcript</div>
-                      <div class="transcript" id="transcript-2"></div>
-                    </div>
-                  </div>
-                </div>
-                <!-- /call 2 -->
-
-                <!-- Call 3: James K. -->
-                <div
-                  class="call-row"
-                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.26s both"
-                >
-                  <div class="call-header" id="call-header-3" onclick="toggleCall(3)">
-                    <div class="call-row-1">
-                      <div class="call-row-left">
-                        <div class="call-dot" style="background: #3b9eff"></div>
-                        <span class="call-name">James K.</span>
-                        <span
-                          class="badge"
-                          style="color: #3b9eff; background: rgba(59, 158, 255, 0.15)"
-                          >Info</span
-                        >
-                      </div>
-                      <div class="call-row-right">
-                        <span
-                          class="score-badge"
-                          style="color: #3b9eff; background: rgba(59, 158, 255, 0.12)"
-                          >8/10</span
-                        >
-                        <svg
-                          class="headphone-icon"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                          <path
-                            d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
-                          />
-                        </svg>
-                        <span class="call-duration">1:28</span>
-                        <svg
-                          class="chevron"
-                          id="chevron-3"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="call-row-2">
-                      <span class="call-service" id="call-3-service">Pricing Inquiry</span>
-                      <span class="call-time">2h ago</span>
-                    </div>
-                    <div class="call-summary-row">
-                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                      </svg>
-                      <p class="call-summary" id="call-3-summary">
-                        Provided pricing info, offered free estimate. Callback scheduled.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="call-expanded" id="call-expand-3">
-                    <div>
-                      <div class="expand-section-label">Call Recording</div>
-                      <div class="audio-player">
-                        <button class="play-btn" disabled title="Available in live demo">
-                          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                        </button>
-                        <span class="audio-player-note">Tap to hear sample call</span>
-                        <span class="audio-live-demo-tag">Live demo only</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="expand-section-label">Transcript</div>
-                      <div class="transcript" id="transcript-3"></div>
-                    </div>
-                  </div>
-                </div>
-                <!-- /call 3 -->
-
-                <!-- Call 4: Amy D. -->
-                <div
-                  class="call-row"
-                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.33s both"
-                >
-                  <div class="call-header" id="call-header-4" onclick="toggleCall(4)">
-                    <div class="call-row-1">
-                      <div class="call-row-left">
-                        <div class="call-dot" style="background: #4ade80"></div>
-                        <span class="call-name">Amy D.</span>
-                        <span
-                          class="badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
-                          >Booked</span
-                        >
-                        <span class="badge badge-after">AFTER HRS</span>
-                      </div>
-                      <div class="call-row-right">
-                        <span
-                          class="score-badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
-                          >10/10</span
-                        >
-                        <svg
-                          class="headphone-icon"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                          <path
-                            d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
-                          />
-                        </svg>
-                        <span class="call-duration">4:08</span>
-                        <svg
-                          class="chevron"
-                          id="chevron-4"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="call-row-2">
-                      <span class="call-service" id="call-4-service">Emergency Appointment</span>
-                      <span class="call-time">3h ago</span>
-                    </div>
-                    <div class="call-summary-row">
-                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                      </svg>
-                      <p class="call-summary" id="call-4-summary">
-                        Booked urgent appointment for Friday PM — confirmed via text.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="call-expanded" id="call-expand-4">
-                    <div>
-                      <div class="expand-section-label">Call Recording</div>
-                      <div class="audio-player">
-                        <button class="play-btn" disabled title="Available in live demo">
-                          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                        </button>
-                        <span class="audio-player-note">Tap to hear sample call</span>
-                        <span class="audio-live-demo-tag">Live demo only</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="expand-section-label">Transcript</div>
-                      <div class="transcript" id="transcript-4"></div>
-                    </div>
-                  </div>
-                </div>
-                <!-- /call 4 -->
-
-                <!-- Calls 5-7 hidden by default -->
-                <div
-                  class="call-row hidden extra-call"
-                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both"
-                >
-                  <div class="call-header" id="call-header-5" onclick="toggleCall(5)">
-                    <div class="call-row-1">
-                      <div class="call-row-left">
-                        <div class="call-dot" style="background: #fbbf24"></div>
-                        <span class="call-name">Chris W.</span>
-                        <span
-                          class="badge"
-                          style="color: #fbbf24; background: rgba(251, 191, 36, 0.15)"
-                          >Callback</span
-                        >
-                      </div>
-                      <div class="call-row-right">
-                        <span
-                          class="score-badge"
-                          style="color: #fbbf24; background: rgba(251, 191, 36, 0.12)"
-                          >7/10</span
-                        >
-                        <svg
-                          class="headphone-icon"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                          <path
-                            d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
-                          />
-                        </svg>
-                        <span class="call-duration">0:45</span>
-                        <svg
-                          class="chevron"
-                          id="chevron-5"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="call-row-2">
-                      <span class="call-service" id="call-5-service">Service Request</span>
-                      <span class="call-time">4h ago</span>
-                    </div>
-                    <div class="call-summary-row">
-                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                      </svg>
-                      <p class="call-summary">
-                        Customer driving, requested callback. Number saved for follow-up.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="call-expanded" id="call-expand-5"></div>
-                </div>
-
-                <div
-                  class="call-row hidden extra-call"
-                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.47s both"
-                >
-                  <div class="call-header" id="call-header-6" onclick="toggleCall(6)">
-                    <div class="call-row-1">
-                      <div class="call-row-left">
-                        <div class="call-dot" style="background: #4ade80"></div>
-                        <span class="call-name">Karen M.</span>
-                        <span
-                          class="badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
-                          >Booked</span
-                        >
-                        <span class="badge badge-after">AFTER HRS</span>
-                      </div>
-                      <div class="call-row-right">
-                        <span
-                          class="score-badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
-                          >9/10</span
-                        >
-                        <svg
-                          class="headphone-icon"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                          <path
-                            d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
-                          />
-                        </svg>
-                        <span class="call-duration">2:38</span>
-                        <svg
-                          class="chevron"
-                          id="chevron-6"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="call-row-2">
-                      <span class="call-service" id="call-6-service">Large Service Quote</span>
-                      <span class="call-time">5h ago</span>
-                    </div>
-                    <div class="call-summary-row">
-                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                      </svg>
-                      <p class="call-summary" id="call-6-summary">
-                        Booked full service quote — confirmed via SMS.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="call-expanded" id="call-expand-6"></div>
-                </div>
-
-                <div
-                  class="call-row hidden extra-call"
-                  style="animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.54s both"
-                >
-                  <div class="call-header" id="call-header-7" onclick="toggleCall(7)">
-                    <div class="call-row-1">
-                      <div class="call-row-left">
-                        <div class="call-dot" style="background: #4ade80"></div>
-                        <span class="call-name">Tom B.</span>
-                        <span
-                          class="badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.15)"
-                          >Booked</span
-                        >
-                      </div>
-                      <div class="call-row-right">
-                        <span
-                          class="score-badge"
-                          style="color: #4ade80; background: rgba(74, 222, 128, 0.12)"
-                          >10/10</span
-                        >
-                        <svg
-                          class="headphone-icon"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                          <path
-                            d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
-                          />
-                        </svg>
-                        <span class="call-duration">3:15</span>
-                        <svg
-                          class="chevron"
-                          id="chevron-7"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="call-row-2">
-                      <span class="call-service" id="call-7-service">Emergency Service</span>
-                      <span class="call-time">6h ago</span>
-                    </div>
-                    <div class="call-summary-row">
-                      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                      </svg>
-                      <p class="call-summary" id="call-7-summary">
-                        Booked emergency service assessment — possible insurance claim.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="call-expanded" id="call-expand-7"></div>
-                </div>
-              </div>
-              <!-- /calls-list -->
-
-              <!-- Show all / collapse button -->
-              <button class="show-all-btn" id="show-all-btn" onclick="toggleShowAll()">
-                <span id="show-all-text">View all 8 calls</span>
-                <svg
-                  class="chevron"
-                  id="show-all-chevron"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </button>
-            </div>
-            <!-- /calls-col -->
-
-            <!-- RIGHT: Sidebar -->
-            <div class="sidebar">
-              <!-- This Week -->
-              <div>
-                <div class="section-label">This Week</div>
-                <div class="glass-card" style="padding: 16px">
-                  <div class="weekly-chart" id="weekly-chart"></div>
-                  <div class="weekly-footer">
-                    <span class="weekly-footer-label">Weekly Total</span>
-                    <span class="weekly-footer-value">127 calls</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Peak Hours -->
-              <div>
-                <div class="section-label">Peak Hours</div>
-                <div class="glass-card" style="padding: 16px">
-                  <div class="peak-bars" id="peak-bars"></div>
-                  <div class="peak-labels">
-                    <span class="peak-label-text">6 AM</span>
-                    <span class="peak-label-text">12 PM</span>
-                    <span class="peak-label-text">9 PM</span>
-                  </div>
-                  <div class="after-hours-stat">
-                    <div class="after-hours-left">
-                      <div class="dot-yellow"></div>
-                      <span class="after-hours-label">After-hours calls</span>
-                    </div>
-                    <span class="after-hours-value">34 answered</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Top Call Reasons -->
-              <div>
-                <div class="section-label" id="call-reasons-label">Top Call Reasons</div>
-                <div class="glass-card" style="padding: 16px">
-                  <div class="call-reasons" id="call-reasons"></div>
-                </div>
-              </div>
-
-              <!-- Call Outcomes -->
-              <div>
-                <div class="section-label">Call Outcomes</div>
-                <div class="glass-card" style="padding: 16px">
-                  <div class="donut-wrap">
-                    <div class="donut-container">
-                      <div class="donut-circle" id="donut-circle"></div>
-                      <div class="donut-hole">
-                        <span class="donut-total">127</span>
-                        <span class="donut-unit">calls</span>
-                      </div>
-                    </div>
-                    <div class="donut-legend" id="donut-legend"></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Cost Savings -->
-              <div>
-                <div class="section-label">Cost Savings</div>
-                <div class="glass-card" style="padding: 16px">
-                  <div class="cost-savings">
-                    <div class="cost-row">
-                      <span class="cost-label">Alex AI (from $697/mo)</span>
-                      <span
-                        class="cost-value-green"
-                        data-counter="697"
-                        data-prefix="$"
-                        data-suffix="/mo"
-                        >$0/mo</span
-                      >
-                    </div>
-                    <div
-                      style="
-                        font-size: 10px;
-                        color: var(--muted);
-                        margin: -4px 0 6px;
-                        padding-left: 0;
-                      "
-                    >
-                      Starting at $697/mo on the Core plan
-                    </div>
-                    <div class="cost-row">
-                      <span class="cost-label">Human receptionist</span>
-                      <span class="cost-value-strike">$4,400/mo</span>
-                    </div>
-                    <div class="cost-divider"></div>
-                    <div class="savings-row">
-                      <span class="savings-label">You save</span>
-                      <div class="savings-amount">
-                        <span class="savings-mo">$3,703/mo</span>
-                        <span class="savings-yr">$44,436/yr saved</span>
-                      </div>
-                    </div>
-                    <div class="roi-row">
-                      <span class="roi-label">Revenue ROI</span>
-                      <div class="roi-value-wrap">
-                        <span class="roi-value" data-counter="26" data-prefix="" data-suffix="x"
-                          >0x</span
-                        >
-                        <div class="roi-tooltip-icon">
-                          ?
-                          <div class="tooltip-bubble">
-                            <div class="tooltip-title">ROI Breakdown</div>
-                            <div class="tooltip-line">
-                              <span>Investment</span>
-                              <strong>from $697/mo</strong>
-                            </div>
-                            <div class="tooltip-line">
-                              <span>Revenue recovered</span>
-                              <strong>$18,400</strong>
-                            </div>
-                            <div class="tooltip-line">
-                              <span>Net gain</span>
-                              <strong>$17,703</strong>
-                            </div>
-                            <div class="tooltip-formula">$18,400 ÷ $697 = 26x return</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div class="leaderboard-section">
+                <table class="leaderboard-table">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Rep Name</th>
+                      <th>Signups</th>
+                      <th>Revenue</th>
+                      <th>Last Activity</th>
+                    </tr>
+                  </thead>
+                  <tbody id="leaderboard-body">
+                    <tr>
+                      <td colspan="5" style="text-align: center; padding: 24px;">Loading...</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
-            <!-- /sidebar -->
-          </div>
-          <!-- /main-grid -->
 
-          <!-- With Alex vs Without Alex Comparison -->
-          <div class="comparison-section">
-            <div class="section-label">With Alex vs. Without</div>
-            <div class="comparison-grid">
-              <div class="comparison-card without">
-                <div class="comparison-card-header">
-                  <span class="comparison-icon">&#10060;</span>
-                  <span class="comparison-title">Without Alex</span>
-                </div>
-                <div class="comparison-items">
-                  <div class="comparison-item">
-                    <div class="comparison-item-dot"></div>
-                    <span><strong>40%</strong> of calls missed (voicemail or no answer)</span>
-                  </div>
-                  <div class="comparison-item">
-                    <div class="comparison-item-dot"></div>
-                    <span><strong>$0</strong> after-hours revenue — doors closed at 5 PM</span>
-                  </div>
-                  <div class="comparison-item">
-                    <div class="comparison-item-dot"></div>
-                    <span>No follow-up — lost leads disappear forever</span>
-                  </div>
-                  <div class="comparison-item">
-                    <div class="comparison-item-dot"></div>
-                    <span>Owner answers calls during jobs, estimates, weekends</span>
-                  </div>
+            <div>
+              <div class="section-label-wrap">
+                <span class="section-label">Manager Dashboard</span>
+                <div class="live-indicator">
+                  <div class="live-indicator-dot"></div>
+                  <span class="live-indicator-text">Live</span>
                 </div>
               </div>
-              <div class="comparison-card with">
-                <div class="comparison-card-header">
-                  <span class="comparison-icon">&#9989;</span>
-                  <span class="comparison-title">With Alex</span>
+              <div class="leaderboard-section">
+                <div class="manager-stat">
+                  <div class="manager-stat-label">Total Team Revenue</div>
+                  <div class="manager-stat-value" style="color: var(--cyan);" id="team-revenue">—</div>
                 </div>
-                <div class="comparison-items">
-                  <div class="comparison-item">
-                    <div class="comparison-item-dot"></div>
-                    <span
-                      ><strong>&gt;99%</strong> system uptime — every call handled instantly</span
-                    >
-                  </div>
-                  <div class="comparison-item">
-                    <div class="comparison-item-dot"></div>
-                    <span
-                      ><strong>$18,400+</strong> recovered from after-hours &amp; missed calls</span
-                    >
-                  </div>
-                  <div class="comparison-item">
-                    <div class="comparison-item-dot"></div>
-                    <span>Automatic booking + SMS confirmation — zero manual work</span>
-                  </div>
-                  <div class="comparison-item">
-                    <div class="comparison-item-dot"></div>
-                    <span>Owner focused on jobs — Alex handles the phones 24/7</span>
-                  </div>
+                <div class="manager-stat">
+                  <div class="manager-stat-label">Active Reps</div>
+                  <div class="manager-stat-value" style="color: var(--green);" id="active-reps">—</div>
+                </div>
+                <div class="manager-stat">
+                  <div class="manager-stat-label">Total Signups</div>
+                  <div class="manager-stat-value" style="color: var(--blue);" id="total-signups">—</div>
+                </div>
+                <div class="manager-stat" style="padding-top: 24px; border-top: 1px solid rgba(60, 70, 80, 0.2);">
+                  <div class="manager-stat-label">Avg Revenue per Rep</div>
+                  <div class="manager-stat-value" style="color: var(--purple);" id="avg-revenue">—</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- CRM Pipeline -->
-          <div class="crm-section">
-            <div class="section-label">Lead Pipeline (CRM)</div>
-
-            <!-- Stage summary cards -->
-            <div class="pipeline-stages" id="pipeline-stages"></div>
-
-            <!-- Flow bar -->
-            <div class="pipeline-flow" id="pipeline-flow"></div>
-
-            <!-- Leads list -->
-            <div class="leads-list" id="leads-list"></div>
-
-            <!-- Show all leads btn -->
-            <button class="show-all-btn" id="show-all-leads-btn" onclick="toggleShowAllLeads()">
-              <span id="show-all-leads-text">View all 8 leads</span>
-              <svg
-                class="chevron"
-                id="show-all-leads-chevron"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </button>
-
-            <!-- Pipeline value — FIX: $55,450 (actual sum of leads) -->
-            <div class="pipeline-value-bar">
-              <div class="pipeline-value-glow"></div>
-              <span class="pipeline-value-label">Pipeline Value</span>
-              <span class="pipeline-value-amount" id="pipeline-value-amount">$55,450</span>
-            </div>
-          </div>
-
-          <!-- CTA -->
-          <div class="cta-section">
-            <div class="cta-ambient"></div>
-            <div class="cta-divider"></div>
-            <p class="cta-text">
-              Zero missed calls. <strong>$18,400 recovered</strong>.
-              <small>Hear Alex handle a real call — right now.</small>
-            </p>
-            <a href="tel:+12073049892" class="cta-btn">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.41 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
-                />
-              </svg>
-              Try the Live Demo
-            </a>
-            <span class="cta-phone">Call (207) 304-9892 &middot; Tap to call live demo</span>
-            <span class="slots-warning"
-              >&#9888; Setup available this week — limited onboarding slots</span
-            >
+          <div class="footer">
+            AutoScale AI — Live Dashboard · Refreshes every 30 seconds · Last updated <span id="last-updated">never</span>
           </div>
         </div>
-        <!-- /content-wrap -->
       </div>
-      <!-- /scroll-container -->
-
-      <!-- Bottom shimmer bar -->
-      <div class="shimmer-bar"></div>
-    </div>
-    <!-- /#app -->
-
-    <!-- Sticky CTA Bar -->
-    <div class="sticky-cta">
-      <div class="sticky-cta-inner">
-        <div class="sticky-cta-text">
-          <strong>Try the Live Demo</strong> &mdash; Alex answers your first call tonight
-        </div>
-        <div class="sticky-cta-rep" id="sticky-rep" style="display: none">
-          Your rep: <span id="sticky-rep-name"></span>
-        </div>
-        <a href="tel:+12073049892" class="sticky-cta-btn">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.41 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
-            />
-          </svg>
-          (207) 304-9892
-        </a>
-      </div>
-    </div>
-
-    <!-- Live Notification Toast -->
-    <div class="live-notif" id="live-notif" role="alert" aria-live="polite">
-      <div class="notif-icon-wrap">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#4ade80"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <polyline points="20 6 9 17 4 12" />
-        </svg>
-      </div>
-      <div class="notif-content">
-        <div class="notif-title" id="notif-title">New call answered by Alex</div>
-        <div class="notif-sub" id="notif-sub">Booking confirmed &mdash; SMS sent</div>
-      </div>
-      <button class="notif-close" onclick="hideNotif()" aria-label="Dismiss">&#x2715;</button>
     </div>
 
     <script>
-      /* ========================================
-   URL PARAMS — Parse at top, used throughout
-   ======================================== */
-      const params = new URLSearchParams(window.location.search);
-      const PARAM_BUSINESS = params.get('business') || null;
-      const PARAM_INDUSTRY = (params.get('industry') || 'roofing').toLowerCase();
-      const PARAM_REP = params.get('rep') || null;
-      const PARAM_STATE = params.get('state') || null;
+      const API_BASE = window.location.origin;
+      const POLL_INTERVAL = 30000;
 
-      /* ========================================
-   INDUSTRY CONTENT SETS
-   ======================================== */
-      const INDUSTRY_DATA = {
-        roofing: {
-          bizDefault: "Mike's Roofing Co.",
-          callReasons: [
-            { label: 'Emergency Repair', count: 38, color: '#ff5252' },
-            { label: 'Free Estimate', count: 31, color: '#3b9eff' },
-            { label: 'Insurance Claim', count: 24, color: '#fbbf24' },
-            { label: 'New Roof Quote', count: 19, color: '#00c8ff' },
-            { label: 'Gutter Service', count: 15, color: '#a78bfa' },
-          ],
-          calls: [
-            {
-              service: 'Roof Inspection',
-              summary: 'Booked emergency roof inspection for tomorrow 9 AM at 142 Oak St.',
-            },
-            {
-              service: 'Emergency Leak Repair',
-              summary: 'Scheduled same-day leak repair — water damage in master bedroom.',
-            },
-            {
-              service: 'Free Estimate',
-              summary: 'Booked free estimate for new construction roofing project.',
-            },
-            {
-              service: 'Gutter Pricing Inquiry',
-              summary: 'Provided pricing info for gutter replacement, offered estimate.',
-            },
-            {
-              service: 'Insurance Inspection',
-              summary: 'Booked insurance claim inspection for Friday PM — hail damage.',
-            },
-            {
-              service: 'Shingle Replacement',
-              summary: 'Customer driving, requested callback. Number saved for follow-up.',
-            },
-            {
-              service: 'Full Roof Quote',
-              summary: 'Booked full roof replacement quote — 2,400 sq ft ranch.',
-            },
-            {
-              service: 'Storm Damage Assessment',
-              summary: 'Booked storm damage assessment — possible insurance claim.',
-            },
-          ],
-          transcripts: [
-            [
-              {
-                role: 'ai',
-                text: 'Hey, thanks for calling. This is Alex, how can I help you today?',
-              },
-              {
-                role: 'caller',
-                text: 'Hi, I have a leak in my roof after the storm last night. I need someone out ASAP.',
-              },
-              {
-                role: 'ai',
-                text: "I'm so sorry to hear that — sounds urgent. Can I get your name and address so we can get an emergency inspection scheduled?",
-              },
-              { role: 'caller', text: "Sure, it's Sarah Johnson, 142 Oak Street." },
-              {
-                role: 'ai',
-                text: 'Got it, Sarah. I have a slot available tomorrow morning at 9 AM. Does that work for you?',
-              },
-              { role: 'caller', text: "Yes, that's perfect. Thank you so much." },
-              {
-                role: 'ai',
-                text: "You're booked. I'll send you a confirmation text with all the details right now. Anything else I can help with?",
-              },
-            ],
-            [
-              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help?' },
-              {
-                role: 'caller',
-                text: "I've got water coming through my ceiling right now. It's an emergency.",
-              },
-              {
-                role: 'ai',
-                text: "I understand that's urgent. Can I get your name first so I can pull up the schedule?",
-              },
-              { role: 'caller', text: "It's Mark Torres." },
-              {
-                role: 'ai',
-                text: "Thanks Mark. Let me get you on our emergency schedule right away. What's your address?",
-              },
-              {
-                role: 'caller',
-                text: '427 Maple Drive. The leak is in the master bedroom above the bed.',
-              },
-              {
-                role: 'ai',
-                text: 'Got it. I have a crew available this afternoon at 2 PM for emergency repair. Sending confirmation now.',
-              },
-              { role: 'caller', text: 'Thank God. Yes, please. That works.' },
-            ],
-            [
-              { role: 'ai', text: "Hi, you've reached us. This is Alex. What can I do for you?" },
-              {
-                role: 'caller',
-                text: "Hi, I'm building a new home and need a quote for the roof.",
-              },
-              {
-                role: 'ai',
-                text: "Congratulations on the new build! I'd love to set up a free estimate. Can I get your name?",
-              },
-              { role: 'caller', text: 'Lisa Reed.' },
-              { role: 'ai', text: "Great, Lisa! What's the square footage of the home?" },
-              { role: 'caller', text: 'About 2,800 square feet. The architect has the plans.' },
-              {
-                role: 'ai',
-                text: "Let me book you for a free estimate — Thursday at 2 PM work? We'll review the plans and give you a detailed quote.",
-              },
-            ],
-            [
-              { role: 'ai', text: 'Alex speaking, how can I help?' },
-              {
-                role: 'caller',
-                text: 'Yeah, I need to replace my gutters. How much does that usually run?',
-              },
-              {
-                role: 'ai',
-                text: 'For aluminum gutters we typically see $8–15 per linear foot installed. How many linear feet are we looking at?',
-              },
-              { role: 'caller', text: "I'm not sure, maybe 120 feet? It's a ranch-style home." },
-              {
-                role: 'ai',
-                text: "For 120 feet you're looking at roughly $1,400–2,100 depending on the style. Can I schedule a free on-site measurement?",
-              },
-            ],
-          ],
-          leads: [
-            {
-              name: 'Sarah Johnson',
-              phone: '(813) 4••-••••',
-              service: 'Roof Inspection',
-              stage: 'estimate_scheduled',
-              value: '$850',
-              lastActivity: 'Inspection booked — tomorrow 9 AM',
-            },
-            {
-              name: 'Mark Torres',
-              phone: '(602) 8••-••••',
-              service: 'Emergency Leak Repair',
-              stage: 'won',
-              value: '$3,200',
-              lastActivity: 'Same-day repair confirmed',
-            },
-            {
-              name: 'Lisa Reed',
-              phone: '(214) 3••-••••',
-              service: 'New Construction',
-              stage: 'new_lead',
-              value: '$12,500',
-              lastActivity: 'Called in — wants full roof quote',
-            },
-            {
-              name: 'James Kim',
-              phone: '(404) 6••-••••',
-              service: 'Gutter Replacement',
-              stage: 'new_lead',
-              value: '$2,100',
-              lastActivity: 'Info sent — awaiting callback',
-            },
-            {
-              name: 'Amy Dawson',
-              phone: '(310) 7••-••••',
-              service: 'Insurance Claim',
-              stage: 'estimate_scheduled',
-              value: '$8,400',
-              lastActivity: 'Inspection booked — Friday PM',
-            },
-            {
-              name: 'Chris Wallace',
-              phone: '(512) 9••-••••',
-              service: 'Shingle Replacement',
-              stage: 'quote_sent',
-              value: '$4,600',
-              lastActivity: 'Quote sent — awaiting approval',
-            },
-            {
-              name: 'Karen Mitchell',
-              phone: '(954) 2••-••••',
-              service: 'Full Roof Replacement',
-              stage: 'quote_sent',
-              value: '$18,000',
-              lastActivity: 'Quote sent — 2,400 sq ft ranch',
-            },
-            {
-              name: 'Tom Bradley',
-              phone: '(480) 4••-••••',
-              service: 'Storm Damage',
-              stage: 'new_lead',
-              value: '$5,800',
-              lastActivity: 'Called in — storm damage assessment',
-            },
-          ],
-          // $850+3200+12500+2100+8400+4600+18000+5800 = 55,450
-          pipelineValue: '$55,450',
-          notifMessages: [
-            { title: 'New call answered by Alex', sub: 'Booking confirmed — SMS sent' },
-            { title: 'After-hours call handled', sub: 'Roof leak inquiry — estimate scheduled' },
-            { title: 'Lead captured automatically', sub: 'Storm damage call — added to CRM' },
-          ],
-          fomoText:
-            '<strong>3 calls answered</strong> while competitors were closed last weekend. 0 missed.',
-        },
-
-        plumbing: {
-          bizDefault: "Mike's Plumbing Services",
-          callReasons: [
-            { label: 'Emergency Leak', count: 42, color: '#ff5252' },
-            { label: 'Water Heater', count: 28, color: '#3b9eff' },
-            { label: 'Drain Cleaning', count: 22, color: '#fbbf24' },
-            { label: 'Pipe Repair', count: 18, color: '#00c8ff' },
-            { label: 'Sewer Line', count: 17, color: '#a78bfa' },
-          ],
-          calls: [
-            {
-              service: 'Emergency Leak',
-              summary: 'Booked emergency same-day leak repair — burst pipe in kitchen.',
-            },
-            {
-              service: 'Water Heater Replacement',
-              summary: 'Scheduled water heater replacement — unit over 12 years old.',
-            },
-            {
-              service: 'Drain Cleaning',
-              summary: 'Booked main drain cleaning — slow drains throughout home.',
-            },
-            {
-              service: 'Pipe Repair Pricing',
-              summary: 'Provided pipe repair estimate, offered free inspection.',
-            },
-            {
-              service: 'Sewer Inspection',
-              summary: 'Booked sewer camera inspection for Friday PM.',
-            },
-            { service: 'Toilet Repair', summary: 'Customer requested callback — running toilet.' },
-            {
-              service: 'Bathroom Remodel Quote',
-              summary: 'Booked full bathroom plumbing quote for renovation.',
-            },
-            {
-              service: 'Gas Line Check',
-              summary: 'Booked gas line safety inspection — smell reported.',
-            },
-          ],
-          transcripts: [
-            [
-              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help you today?' },
-              {
-                role: 'caller',
-                text: "Hi, I have water gushing from under my kitchen sink. It's flooding.",
-              },
-              {
-                role: 'ai',
-                text: 'That sounds urgent. Can I get your name so I can get someone out to you immediately?',
-              },
-              { role: 'caller', text: 'Sarah Johnson, 142 Oak Street.' },
-              {
-                role: 'ai',
-                text: 'Sarah, I have an emergency technician available within the hour. Let me book you right now and send you a confirmation text.',
-              },
-              { role: 'caller', text: 'Yes please, hurry!' },
-              {
-                role: 'ai',
-                text: "Done. Technician is on the way. You'll get a text with their name and ETA. Is there anything else?",
-              },
-            ],
-            [
-              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help?' },
-              {
-                role: 'caller',
-                text: 'My hot water is completely out. The water heater stopped working last night.',
-              },
-              {
-                role: 'ai',
-                text: 'I understand — no hot water is a real problem. Can I get your name?',
-              },
-              { role: 'caller', text: "It's Mark Torres." },
-              { role: 'ai', text: 'Thanks Mark. How old is your water heater — do you know?' },
-              { role: 'caller', text: "I think it's about 12 years old." },
-              {
-                role: 'ai',
-                text: "That's right at end-of-life. I can get a tech out tomorrow morning to assess it. Does 9 AM work?",
-              },
-              { role: 'caller', text: "That's great. Yes." },
-            ],
-            [
-              { role: 'ai', text: 'Hi there, Alex speaking. What can I do for you?' },
-              {
-                role: 'caller',
-                text: 'All my drains are running super slow. Sinks, shower, everything.',
-              },
-              {
-                role: 'ai',
-                text: 'Sounds like a main line blockage. Can I get your name to schedule a cleaning?',
-              },
-              { role: 'caller', text: 'Lisa Reed.' },
-              {
-                role: 'ai',
-                text: 'Lisa, I can have someone out Thursday afternoon for a main drain clean. Does that work?',
-              },
-              { role: 'caller', text: "Yes that's perfect, thank you." },
-            ],
-            [
-              { role: 'ai', text: 'Alex speaking, how can I help?' },
-              {
-                role: 'caller',
-                text: "Yeah, what's it cost to replace copper pipes in an older home?",
-              },
-              {
-                role: 'ai',
-                text: 'It really depends on the scope — usually $1,500–8,000+ for a full repipe. Can I schedule a free inspection to give you an exact quote?',
-              },
-              { role: 'caller', text: 'Sure, that makes sense.' },
-              { role: 'ai', text: 'Great. I have Friday morning open — does that work for you?' },
-            ],
-          ],
-          leads: [
-            {
-              name: 'Sarah Johnson',
-              phone: '(813) 4••-••••',
-              service: 'Emergency Leak',
-              stage: 'won',
-              value: '$680',
-              lastActivity: 'Emergency repair completed',
-            },
-            {
-              name: 'Mark Torres',
-              phone: '(602) 8••-••••',
-              service: 'Water Heater Replace',
-              stage: 'estimate_scheduled',
-              value: '$2,400',
-              lastActivity: 'Assessment booked — tomorrow 9 AM',
-            },
-            {
-              name: 'Lisa Reed',
-              phone: '(214) 3••-••••',
-              service: 'Main Drain Cleaning',
-              stage: 'estimate_scheduled',
-              value: '$450',
-              lastActivity: 'Service scheduled — Thursday PM',
-            },
-            {
-              name: 'James Kim',
-              phone: '(404) 6••-••••',
-              service: 'Full Repipe',
-              stage: 'new_lead',
-              value: '$6,200',
-              lastActivity: 'Info sent — awaiting callback',
-            },
-            {
-              name: 'Amy Dawson',
-              phone: '(310) 7••-••••',
-              service: 'Sewer Line Inspection',
-              stage: 'estimate_scheduled',
-              value: '$3,800',
-              lastActivity: 'Camera inspection booked — Friday',
-            },
-            {
-              name: 'Chris Wallace',
-              phone: '(512) 9••-••••',
-              service: 'Bathroom Remodel',
-              stage: 'quote_sent',
-              value: '$8,400',
-              lastActivity: 'Quote sent — awaiting approval',
-            },
-            {
-              name: 'Karen Mitchell',
-              phone: '(954) 2••-••••',
-              service: 'Gas Line Safety Check',
-              stage: 'new_lead',
-              value: '$1,200',
-              lastActivity: 'Called in — gas smell reported',
-            },
-            {
-              name: 'Tom Bradley',
-              phone: '(480) 4••-••••',
-              service: 'Pipe Leak Repair',
-              stage: 'quote_sent',
-              value: '$2,900',
-              lastActivity: 'Quote sent — pipe replacement',
-            },
-          ],
-          // 680+2400+450+6200+3800+8400+1200+2900 = 26,030
-          pipelineValue: '$26,030',
-          notifMessages: [
-            { title: 'Emergency call answered', sub: 'Burst pipe — tech dispatched immediately' },
-            { title: 'After-hours booking confirmed', sub: 'Water heater repair — 9 AM tomorrow' },
-            { title: 'Lead captured automatically', sub: 'Drain issue — added to CRM' },
-          ],
-          fomoText:
-            '<strong>4 emergency calls answered</strong> after hours last weekend. All booked.',
-        },
-
-        hvac: {
-          bizDefault: "Mike's HVAC Solutions",
-          callReasons: [
-            { label: 'AC Not Cooling', count: 44, color: '#ff5252' },
-            { label: 'Furnace Repair', count: 29, color: '#3b9eff' },
-            { label: 'Maintenance Plan', count: 21, color: '#fbbf24' },
-            { label: 'System Install', count: 16, color: '#00c8ff' },
-            { label: 'Air Quality', count: 17, color: '#a78bfa' },
-          ],
-          calls: [
-            {
-              service: 'AC Not Cooling',
-              summary: 'Booked emergency AC service — 92° inside, family with kids.',
-            },
-            {
-              service: 'Furnace Breakdown',
-              summary: 'Scheduled same-day furnace repair — no heat in 28° weather.',
-            },
-            {
-              service: 'Annual Maintenance',
-              summary: 'Enrolled in yearly maintenance plan — spring/fall tune-up.',
-            },
-            {
-              service: 'System Replace Quote',
-              summary: 'Booked estimate for full HVAC system replacement.',
-            },
-            {
-              service: 'Emergency AC Repair',
-              summary: 'Booked urgent AC repair for Friday PM — compressor issue.',
-            },
-            {
-              service: 'Filter Replacement',
-              summary: 'Customer requested callback — filter questions.',
-            },
-            {
-              service: 'New System Install',
-              summary: 'Booked estimate for new construction HVAC install.',
-            },
-            {
-              service: 'Heat Pump Issue',
-              summary: 'Booked diagnostic — heat pump not switching modes.',
-            },
-          ],
-          transcripts: [
-            [
-              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help you today?' },
-              {
-                role: 'caller',
-                text: "Hi, my AC stopped working and it's 92 degrees in my house. I have two kids.",
-              },
-              {
-                role: 'ai',
-                text: "That's a real emergency — I'm so sorry. Can I get your name so I can dispatch someone right away?",
-              },
-              { role: 'caller', text: 'Sarah Johnson, 142 Oak Street.' },
-              {
-                role: 'ai',
-                text: 'Sarah, I have a technician who can be there within 2 hours. Let me book you now and send a confirmation text.',
-              },
-              { role: 'caller', text: "Oh thank you, that's a relief." },
-              {
-                role: 'ai',
-                text: "You're booked. Stay cool — they're on their way. Anything else I can help with?",
-              },
-            ],
-            [
-              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help?' },
-              {
-                role: 'caller',
-                text: "My furnace just died. It's 28 degrees out and my house is freezing.",
-              },
-              { role: 'ai', text: "That's urgent. Can I get your name first?" },
-              { role: 'caller', text: 'Mark Torres.' },
-              {
-                role: 'ai',
-                text: "Mark, I have an emergency tech available this afternoon. What's your address?",
-              },
-              { role: 'caller', text: '427 Maple Drive.' },
-              {
-                role: 'ai',
-                text: "Got it. Tech will be there by 2 PM. I'm sending the confirmation right now.",
-              },
-              { role: 'caller', text: 'Perfect, thank you so much.' },
-            ],
-            [
-              { role: 'ai', text: 'Hi, Alex speaking. What can I do for you?' },
-              {
-                role: 'caller',
-                text: 'I want to sign up for a yearly maintenance plan for my HVAC.',
-              },
-              { role: 'ai', text: 'Absolutely — great idea. Can I get your name?' },
-              { role: 'caller', text: 'Lisa Reed.' },
-              {
-                role: 'ai',
-                text: 'Lisa, our annual plan includes spring AC tune-up and fall furnace check. I can book your first visit for Thursday. Does that work?',
-              },
-              { role: 'caller', text: 'Yes, that sounds great.' },
-            ],
-            [
-              { role: 'ai', text: 'Alex speaking, how can I help?' },
-              { role: 'caller', text: 'How much does it cost to replace a full HVAC system?' },
-              {
-                role: 'ai',
-                text: 'It depends on the size of your home — typically $4,000–10,000 for a full system. Want me to schedule a free in-home assessment?',
-              },
-              { role: 'caller', text: 'Yeah that makes sense.' },
-              {
-                role: 'ai',
-                text: "Great. I have Friday morning open. What's your name and address?",
-              },
-            ],
-          ],
-          leads: [
-            {
-              name: 'Sarah Johnson',
-              phone: '(813) 4••-••••',
-              service: 'AC Emergency Repair',
-              stage: 'won',
-              value: '$890',
-              lastActivity: 'Repair completed — compressor replaced',
-            },
-            {
-              name: 'Mark Torres',
-              phone: '(602) 8••-••••',
-              service: 'Furnace Breakdown',
-              stage: 'estimate_scheduled',
-              value: '$1,800',
-              lastActivity: 'Tech dispatched — 2 PM today',
-            },
-            {
-              name: 'Lisa Reed',
-              phone: '(214) 3••-••••',
-              service: 'Annual Maintenance Plan',
-              stage: 'won',
-              value: '$399',
-              lastActivity: 'Enrolled in yearly plan',
-            },
-            {
-              name: 'James Kim',
-              phone: '(404) 6••-••••',
-              service: 'Full System Replace',
-              stage: 'new_lead',
-              value: '$7,200',
-              lastActivity: 'Called in — 15-year-old unit',
-            },
-            {
-              name: 'Amy Dawson',
-              phone: '(310) 7••-••••',
-              service: 'Heat Pump Diagnostic',
-              stage: 'estimate_scheduled',
-              value: '$1,200',
-              lastActivity: 'Diagnostic booked — Friday PM',
-            },
-            {
-              name: 'Chris Wallace',
-              phone: '(512) 9••-••••',
-              service: 'New Construction HVAC',
-              stage: 'quote_sent',
-              value: '$9,400',
-              lastActivity: 'Quote sent — 2,600 sq ft home',
-            },
-            {
-              name: 'Karen Mitchell',
-              phone: '(954) 2••-••••',
-              service: 'Ductwork Replacement',
-              stage: 'quote_sent',
-              value: '$4,800',
-              lastActivity: 'Quote sent — full ductwork job',
-            },
-            {
-              name: 'Tom Bradley',
-              phone: '(480) 4••-••••',
-              service: 'Air Quality Install',
-              stage: 'new_lead',
-              value: '$2,100',
-              lastActivity: 'Called in — air quality concerns',
-            },
-          ],
-          // 890+1800+399+7200+1200+9400+4800+2100 = 27,789
-          pipelineValue: '$27,789',
-          notifMessages: [
-            { title: 'Emergency AC call answered', sub: 'Tech dispatched — family with kids' },
-            { title: 'After-hours booking confirmed', sub: 'Furnace repair — morning appointment' },
-            {
-              title: 'Lead captured automatically',
-              sub: 'System replacement inquiry — CRM updated',
-            },
-          ],
-          fomoText:
-            '<strong>5 AC emergency calls answered</strong> over the weekend. All converted.',
-        },
-
-        dental: {
-          bizDefault: 'Bright Smile Dental',
-          callReasons: [
-            { label: 'New Patient Appt', count: 48, color: '#4ade80' },
-            { label: 'Cleaning/Checkup', count: 32, color: '#3b9eff' },
-            { label: 'Emergency Toothache', count: 18, color: '#ff5252' },
-            { label: 'Teeth Whitening', count: 16, color: '#fbbf24' },
-            { label: 'Invisalign Consult', count: 13, color: '#a78bfa' },
-          ],
-          calls: [
-            {
-              service: 'New Patient Appointment',
-              summary: 'Booked new patient exam + X-rays for Thursday 10 AM.',
-            },
-            {
-              service: 'Emergency Toothache',
-              summary: 'Scheduled same-day emergency pain appointment — wisdom tooth.',
-            },
-            {
-              service: 'Routine Cleaning',
-              summary: 'Booked 6-month cleaning and checkup for next Tuesday.',
-            },
-            {
-              service: 'Teeth Whitening Consult',
-              summary: 'Booked whitening consultation and treatment appointment.',
-            },
-            {
-              service: 'Invisalign Consultation',
-              summary: 'Booked free Invisalign consultation for Friday PM.',
-            },
-            { service: 'Crown Inquiry', summary: 'Patient requested callback — crown questions.' },
-            { service: 'Pediatric Checkup', summary: 'Booked 2 kids for back-to-school checkups.' },
-            {
-              service: 'Root Canal Consult',
-              summary: 'Urgent consult booked — severe tooth pain since yesterday.',
-            },
-          ],
-          transcripts: [
-            [
-              {
-                role: 'ai',
-                text: 'Thank you for calling. This is Alex, how can I help you today?',
-              },
-              {
-                role: 'caller',
-                text: "Hi, I'm looking for a new dentist and want to make an appointment.",
-              },
-              { role: 'ai', text: "Welcome! We'd love to have you. Can I get your name?" },
-              { role: 'caller', text: 'Sarah Johnson.' },
-              {
-                role: 'ai',
-                text: 'Great, Sarah. Are you looking for a new patient exam with X-rays, or just a cleaning?',
-              },
-              { role: 'caller', text: 'The full new patient thing — exam and cleaning.' },
-              {
-                role: 'ai',
-                text: "Perfect. I have Thursday at 10 AM open. I'll send you a confirmation with what to bring and our new patient forms.",
-              },
-              { role: 'caller', text: 'That works. Thank you!' },
-            ],
-            [
-              { role: 'ai', text: 'Thank you for calling. This is Alex, how can I help?' },
-              {
-                role: 'caller',
-                text: 'I have horrible tooth pain. I need to be seen today if possible.',
-              },
-              {
-                role: 'ai',
-                text: "I'm sorry to hear that — tooth pain is really tough. Can I get your name?",
-              },
-              { role: 'caller', text: 'Mark Torres.' },
-              {
-                role: 'ai',
-                text: 'Mark, we have an emergency slot available at 2 PM today. Can you make that?',
-              },
-              { role: 'caller', text: "Yes, I'll be there." },
-              {
-                role: 'ai',
-                text: "You're booked. I'm sending you a text with our address and what to expect. Hang in there!",
-              },
-            ],
-            [
-              { role: 'ai', text: 'Hi there, Alex speaking. What can I do for you?' },
-              { role: 'caller', text: 'I need to schedule my 6-month cleaning.' },
-              { role: 'ai', text: 'Absolutely. Can I get your name to look up your file?' },
-              { role: 'caller', text: 'Lisa Reed.' },
-              {
-                role: 'ai',
-                text: 'Thanks Lisa. I have Tuesday the 14th at 11 AM open — does that work?',
-              },
-              { role: 'caller', text: "Yes, that's perfect." },
-            ],
-            [
-              { role: 'ai', text: 'Alex speaking, how can I help?' },
-              {
-                role: 'caller',
-                text: 'What does teeth whitening cost, and how long does it take?',
-              },
-              {
-                role: 'ai',
-                text: 'Our in-office whitening is $499 and takes about 90 minutes. We also have take-home kits for $199. Want me to book a free consult to see which is right for you?',
-              },
-              { role: 'caller', text: 'Sure, that sounds good.' },
-            ],
-          ],
-          leads: [
-            {
-              name: 'Sarah Johnson',
-              phone: '(813) 4••-••••',
-              service: 'New Patient Exam',
-              stage: 'estimate_scheduled',
-              value: '$380',
-              lastActivity: 'Exam booked — Thursday 10 AM',
-            },
-            {
-              name: 'Mark Torres',
-              phone: '(602) 8••-••••',
-              service: 'Emergency Tooth Pain',
-              stage: 'won',
-              value: '$520',
-              lastActivity: 'Emergency seen — treatment plan sent',
-            },
-            {
-              name: 'Lisa Reed',
-              phone: '(214) 3••-••••',
-              service: 'Cleaning + Checkup',
-              stage: 'estimate_scheduled',
-              value: '$220',
-              lastActivity: 'Cleaning booked — Tuesday 11 AM',
-            },
-            {
-              name: 'James Kim',
-              phone: '(404) 6••-••••',
-              service: 'Teeth Whitening',
-              stage: 'new_lead',
-              value: '$499',
-              lastActivity: 'Consult scheduled — Thursday',
-            },
-            {
-              name: 'Amy Dawson',
-              phone: '(310) 7••-••••',
-              service: 'Invisalign Consult',
-              stage: 'estimate_scheduled',
-              value: '$4,800',
-              lastActivity: 'Free consult booked — Friday PM',
-            },
-            {
-              name: 'Chris Wallace',
-              phone: '(512) 9••-••••',
-              service: 'Crown + Bridge',
-              stage: 'quote_sent',
-              value: '$2,800',
-              lastActivity: 'Treatment plan sent — awaiting approval',
-            },
-            {
-              name: 'Karen Mitchell',
-              phone: '(954) 2••-••••',
-              service: 'Pediatric Checkups',
-              stage: 'won',
-              value: '$440',
-              lastActivity: '2 kids seen — next visits scheduled',
-            },
-            {
-              name: 'Tom Bradley',
-              phone: '(480) 4••-••••',
-              service: 'Root Canal Consult',
-              stage: 'new_lead',
-              value: '$1,400',
-              lastActivity: 'Urgent consult booked — severe pain',
-            },
-          ],
-          // 380+520+220+499+4800+2800+440+1400 = 11,059
-          pipelineValue: '$11,059',
-          notifMessages: [
-            { title: 'New patient booked by Alex', sub: 'Exam + X-rays — Thursday 10 AM' },
-            { title: 'Emergency appointment filled', sub: 'Tooth pain — seen same day' },
-            { title: 'Lead captured automatically', sub: 'Invisalign inquiry — consult booked' },
-          ],
-          fomoText: '<strong>12 new patients booked</strong> by Alex this week. Zero missed calls.',
-        },
-
-        autorepair: {
-          bizDefault: "Mike's Auto Repair",
-          callReasons: [
-            { label: 'Check Engine Light', count: 38, color: '#ff5252' },
-            { label: 'Oil Change', count: 34, color: '#3b9eff' },
-            { label: 'Brake Inspection', count: 24, color: '#fbbf24' },
-            { label: 'Tire Service', count: 19, color: '#00c8ff' },
-            { label: 'AC Repair', count: 12, color: '#a78bfa' },
-          ],
-          calls: [
-            {
-              service: 'Check Engine Diagnostic',
-              summary: 'Booked diagnostic appointment — CEL on for 3 days.',
-            },
-            {
-              service: 'Oil Change + Inspection',
-              summary: 'Scheduled oil change + multi-point inspection for tomorrow.',
-            },
-            {
-              service: 'Brake Inspection',
-              summary: 'Booked brake inspection — grinding noise reported.',
-            },
-            {
-              service: 'Tire Rotation Pricing',
-              summary: 'Provided pricing for tire rotation + balance service.',
-            },
-            {
-              service: 'AC Recharge',
-              summary: 'Booked AC recharge appointment — not blowing cold.',
-            },
-            {
-              service: 'Transmission Inquiry',
-              summary: 'Customer requested callback — transmission slipping.',
-            },
-            {
-              service: 'Pre-Purchase Inspection',
-              summary: 'Booked pre-purchase inspection for used car buying.',
-            },
-            {
-              service: 'Battery Replacement',
-              summary: 'Booked battery test + replacement — car slow to start.',
-            },
-          ],
-          transcripts: [
-            [
-              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help you today?' },
-              {
-                role: 'caller',
-                text: "Hi, my check engine light came on 3 days ago and it won't go off.",
-              },
-              { role: 'ai', text: 'I can get that diagnosed for you. Can I get your name?' },
-              { role: 'caller', text: 'Sarah Johnson.' },
-              {
-                role: 'ai',
-                text: "Sarah, we have a diagnostic slot tomorrow morning at 9 AM. We'll pull the codes and give you a full picture. Does that work?",
-              },
-              { role: 'caller', text: "Yes, that's great." },
-              {
-                role: 'ai',
-                text: "You're booked. I'll send you a text with our address. See you tomorrow!",
-              },
-            ],
-            [
-              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help?' },
-              { role: 'caller', text: 'I need an oil change. How soon can I get in?' },
-              {
-                role: 'ai',
-                text: "We can get you in tomorrow. Can I get your name and what you're driving?",
-              },
-              { role: 'caller', text: "Mark Torres. It's a 2018 Honda Civic." },
-              {
-                role: 'ai',
-                text: 'Perfect. I have 10 AM or 2 PM open tomorrow — which works better for you?',
-              },
-              { role: 'caller', text: '10 AM is great.' },
-              {
-                role: 'ai',
-                text: "Booked, Mark. I'll include a complimentary multi-point inspection too. See you then!",
-              },
-            ],
-            [
-              { role: 'ai', text: 'Hi there, Alex speaking. What can I do for you?' },
-              {
-                role: 'caller',
-                text: "I'm hearing a grinding noise when I brake. It started yesterday.",
-              },
-              {
-                role: 'ai',
-                text: "That's worth getting looked at right away. Can I get your name?",
-              },
-              { role: 'caller', text: 'Lisa Reed.' },
-              {
-                role: 'ai',
-                text: "Lisa, I can have you in for a brake inspection this afternoon at 3 PM. Free inspection — we'll tell you exactly what's needed.",
-              },
-              { role: 'caller', text: "That's perfect, thank you." },
-            ],
-            [
-              { role: 'ai', text: 'Alex speaking, how can I help?' },
-              { role: 'caller', text: 'How much do you charge for a tire rotation?' },
-              {
-                role: 'ai',
-                text: 'Tire rotation is $29, and we bundle it with balancing for $59. Want me to get you scheduled?',
-              },
-              { role: 'caller', text: "Sure, what's available this week?" },
-              { role: 'ai', text: 'Thursday at 11 AM or Friday at 2 PM. Which works for you?' },
-            ],
-          ],
-          leads: [
-            {
-              name: 'Sarah Johnson',
-              phone: '(813) 4••-••••',
-              service: 'CEL Diagnostic',
-              stage: 'estimate_scheduled',
-              value: '$320',
-              lastActivity: 'Diagnostic booked — tomorrow 9 AM',
-            },
-            {
-              name: 'Mark Torres',
-              phone: '(602) 8••-••••',
-              service: 'Oil Change + Inspection',
-              stage: 'won',
-              value: '$89',
-              lastActivity: 'Service completed — returned customer',
-            },
-            {
-              name: 'Lisa Reed',
-              phone: '(214) 3••-••••',
-              service: 'Brake Replacement',
-              stage: 'estimate_scheduled',
-              value: '$580',
-              lastActivity: 'Inspection done — rotors + pads needed',
-            },
-            {
-              name: 'James Kim',
-              phone: '(404) 6••-••••',
-              service: 'Tire Rotation + Balance',
-              stage: 'new_lead',
-              value: '$59',
-              lastActivity: 'Scheduled — Thursday 11 AM',
-            },
-            {
-              name: 'Amy Dawson',
-              phone: '(310) 7••-••••',
-              service: 'AC Recharge',
-              stage: 'won',
-              value: '$180',
-              lastActivity: 'AC recharged — customer satisfied',
-            },
-            {
-              name: 'Chris Wallace',
-              phone: '(512) 9••-••••',
-              service: 'Transmission Service',
-              stage: 'quote_sent',
-              value: '$1,800',
-              lastActivity: 'Quote sent — rebuild needed',
-            },
-            {
-              name: 'Karen Mitchell',
-              phone: '(954) 2••-••••',
-              service: 'Pre-Purchase Inspect',
-              stage: 'new_lead',
-              value: '$180',
-              lastActivity: 'Inspection booked — used car purchase',
-            },
-            {
-              name: 'Tom Bradley',
-              phone: '(480) 4••-••••',
-              service: 'Battery + Alternator',
-              stage: 'quote_sent',
-              value: '$420',
-              lastActivity: 'Quote sent — both need replacement',
-            },
-          ],
-          // 320+89+580+59+180+1800+180+420 = 3,628
-          pipelineValue: '$3,628',
-          notifMessages: [
-            { title: 'Appointment booked by Alex', sub: 'CEL diagnostic — tomorrow 9 AM' },
-            { title: 'After-hours call handled', sub: 'Brake inspection — morning slot saved' },
-            { title: 'Lead captured automatically', sub: 'Transmission inquiry — added to CRM' },
-          ],
-          fomoText:
-            '<strong>8 appointments booked</strong> by Alex this week while you were in the shop.',
-        },
-
-        general: {
-          bizDefault: "Mike's Local Business",
-          callReasons: [
-            { label: 'Appointment Booking', count: 45, color: '#4ade80' },
-            { label: 'Pricing Inquiry', count: 30, color: '#3b9eff' },
-            { label: 'Service Question', count: 22, color: '#fbbf24' },
-            { label: 'Emergency Request', count: 18, color: '#ff5252' },
-            { label: 'Follow-Up', count: 12, color: '#a78bfa' },
-          ],
-          calls: [
-            {
-              service: 'Appointment Booking',
-              summary: 'Booked appointment for tomorrow 9 AM — confirmed via SMS.',
-            },
-            {
-              service: 'Emergency Service',
-              summary: 'Scheduled same-day emergency service — urgent situation.',
-            },
-            { service: 'Service Estimate', summary: 'Booked free estimate for service project.' },
-            {
-              service: 'Pricing Inquiry',
-              summary: 'Provided pricing info and offered free consultation.',
-            },
-            {
-              service: 'Follow-Up Booking',
-              summary: 'Booked follow-up appointment from previous inquiry.',
-            },
-            {
-              service: 'General Inquiry',
-              summary: 'Customer requested callback — complex question.',
-            },
-            {
-              service: 'Large Project Quote',
-              summary: 'Booked quote appointment for large service project.',
-            },
-            {
-              service: 'After-Hours Booking',
-              summary: 'After-hours booking confirmed — morning appointment set.',
-            },
-          ],
-          transcripts: [
-            [
-              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help you today?' },
-              { role: 'caller', text: "Hi, I'd like to book an appointment." },
-              { role: 'ai', text: 'Absolutely. Can I get your name?' },
-              { role: 'caller', text: 'Sarah Johnson.' },
-              {
-                role: 'ai',
-                text: 'Sarah, I have tomorrow at 9 AM or 2 PM open. Which works better for you?',
-              },
-              { role: 'caller', text: '9 AM please.' },
-              {
-                role: 'ai',
-                text: "Perfect — you're booked. I'll send you a confirmation text right now with everything you need to know.",
-              },
-            ],
-            [
-              { role: 'ai', text: 'Thanks for calling. This is Alex, how can I help?' },
-              {
-                role: 'caller',
-                text: 'I have an emergency situation and need someone today if possible.',
-              },
-              {
-                role: 'ai',
-                text: 'Of course — we take care of urgent situations. Can I get your name?',
-              },
-              { role: 'caller', text: 'Mark Torres.' },
-              {
-                role: 'ai',
-                text: "Mark, I can get someone out to you this afternoon. What's the address?",
-              },
-              { role: 'caller', text: '427 Maple Drive.' },
-              {
-                role: 'ai',
-                text: "Got it. You're on the schedule for 2 PM. Sending you a confirmation now.",
-              },
-            ],
-            [
-              { role: 'ai', text: 'Hi there, Alex speaking. What can I do for you?' },
-              { role: 'caller', text: "I'd like to get a quote for some work." },
-              {
-                role: 'ai',
-                text: "Happy to help. Can I get your name and what kind of work you're looking at?",
-              },
-              { role: 'caller', text: "Lisa Reed — it's a bigger project." },
-              {
-                role: 'ai',
-                text: 'Lisa, I can set you up with a free estimate appointment. Thursday afternoon at 3 PM?',
-              },
-              { role: 'caller', text: 'That works great.' },
-            ],
-            [
-              { role: 'ai', text: 'Alex speaking, how can I help?' },
-              { role: 'caller', text: 'What are your rates for your main service?' },
-              {
-                role: 'ai',
-                text: 'Our pricing starts at $X and varies by project size. Would you like me to schedule a free consultation so we can give you an exact quote?',
-              },
-              { role: 'caller', text: 'Yeah, that makes sense.' },
-              { role: 'ai', text: 'Great. I have Friday morning open — does that work for you?' },
-            ],
-          ],
-          leads: [
-            {
-              name: 'Sarah Johnson',
-              phone: '(813) 4••-••••',
-              service: 'Appointment',
-              stage: 'estimate_scheduled',
-              value: '$850',
-              lastActivity: 'Appointment booked — tomorrow 9 AM',
-            },
-            {
-              name: 'Mark Torres',
-              phone: '(602) 8••-••••',
-              service: 'Emergency Service',
-              stage: 'won',
-              value: '$3,200',
-              lastActivity: 'Emergency handled — confirmed',
-            },
-            {
-              name: 'Lisa Reed',
-              phone: '(214) 3••-••••',
-              service: 'Large Project',
-              stage: 'new_lead',
-              value: '$12,500',
-              lastActivity: 'Called in — wants estimate',
-            },
-            {
-              name: 'James Kim',
-              phone: '(404) 6••-••••',
-              service: 'Pricing Inquiry',
-              stage: 'new_lead',
-              value: '$2,100',
-              lastActivity: 'Info sent — awaiting callback',
-            },
-            {
-              name: 'Amy Dawson',
-              phone: '(310) 7••-••••',
-              service: 'Follow-Up Booking',
-              stage: 'estimate_scheduled',
-              value: '$8,400',
-              lastActivity: 'Follow-up booked — Friday PM',
-            },
-            {
-              name: 'Chris Wallace',
-              phone: '(512) 9••-••••',
-              service: 'Service Quote',
-              stage: 'quote_sent',
-              value: '$4,600',
-              lastActivity: 'Quote sent — awaiting approval',
-            },
-            {
-              name: 'Karen Mitchell',
-              phone: '(954) 2••-••••',
-              service: 'Project Contract',
-              stage: 'quote_sent',
-              value: '$18,000',
-              lastActivity: 'Quote sent — large project',
-            },
-            {
-              name: 'Tom Bradley',
-              phone: '(480) 4••-••••',
-              service: 'Service Assessment',
-              stage: 'new_lead',
-              value: '$5,800',
-              lastActivity: 'Called in — assessment needed',
-            },
-          ],
-          pipelineValue: '$55,450',
-          notifMessages: [
-            { title: 'New call answered by Alex', sub: 'Booking confirmed — SMS sent' },
-            { title: 'After-hours call handled', sub: 'Appointment booked — morning slot' },
-            { title: 'Lead captured automatically', sub: 'Inquiry — added to CRM' },
-          ],
-          fomoText:
-            '<strong>3 calls answered</strong> while competitors were closed last weekend. 0 missed.',
-        },
+      let lastData = {
+        callsToday: 0,
+        bookingsToday: 0,
+        revenueMonth: 0,
+        conversionRate: 0,
+        leaderboard: [],
+        teamRevenue: 0,
+        activeReps: 0,
+        totalSignups: 0,
       };
 
-      /* ========================================
-   RESOLVE INDUSTRY KEY
-   ======================================== */
-      function resolveIndustry(raw) {
-        const map = {
-          roofing: 'roofing',
-          roof: 'roofing',
-          plumbing: 'plumbing',
-          plumber: 'plumbing',
-          hvac: 'hvac',
-          ac: 'hvac',
-          heat: 'hvac',
-          dental: 'dental',
-          dentist: 'dental',
-          auto: 'autorepair',
-          autorepair: 'autorepair',
-          car: 'autorepair',
-          automotive: 'autorepair',
-        };
-        return map[raw] || 'general';
+      function updateDate() {
+        const now = new Date();
+        document.getElementById('date-label').textContent = now.toLocaleString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+        document.getElementById('last-updated').textContent = now.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        });
       }
 
-      const INDUSTRY_KEY = resolveIndustry(PARAM_INDUSTRY);
-      const IND = INDUSTRY_DATA[INDUSTRY_KEY] || INDUSTRY_DATA.general;
-
-      /* ========================================
-   APPLY URL PARAMS TO PAGE
-   ======================================== */
-      (function applyParams() {
-        // Business name
-        const bizName = PARAM_BUSINESS || IND.bizDefault;
-        document.getElementById('biz-name').textContent = bizName;
-
-        // Rep label
-        if (PARAM_REP) {
-          const repEl = document.getElementById('rep-label');
-          repEl.textContent = 'Your AutoScale Rep: ' + PARAM_REP;
-        }
-
-        // Page title
-        document.title = bizName + ' — Alex AI Dashboard';
-
-        // FOMO banner
-        document.getElementById('fomo-banner').innerHTML =
-          '<span class="fomo-icon">&#9889;</span>' +
-          '<span class="fomo-text">' +
-          IND.fomoText +
-          (PARAM_STATE ? ' (<span id="fomo-state">' + PARAM_STATE + '</span>)' : '') +
-          '</span>' +
-          '<span class="fomo-badge">This Week</span>';
-
-        // Update call services and summaries for industry
-        IND.calls.forEach((c, i) => {
-          const svcEl = document.getElementById('call-' + i + '-service');
-          const sumEl = document.getElementById('call-' + i + '-summary');
-          if (svcEl) svcEl.textContent = c.service;
-          if (sumEl) sumEl.textContent = c.summary;
-        });
-
-        // Build transcripts for calls 0-3 (expanded ones)
-        IND.transcripts.forEach((lines, idx) => {
-          const container = document.getElementById('transcript-' + idx);
-          if (!container) return;
-          lines.forEach((line) => {
-            const msg = document.createElement('div');
-            msg.className = 'transcript-msg';
-            const avatar = document.createElement('div');
-            avatar.className = 'msg-avatar ' + (line.role === 'ai' ? 'ai' : 'caller');
-            const avatarSpan = document.createElement('span');
-            avatarSpan.textContent = line.role === 'ai' ? 'AI' : 'C';
-            avatar.appendChild(avatarSpan);
-            const content = document.createElement('div');
-            content.className = 'msg-content';
-            const speaker = document.createElement('span');
-            speaker.className = 'msg-speaker ' + (line.role === 'ai' ? 'ai' : 'caller');
-            speaker.textContent = line.role === 'ai' ? 'Alex' : 'Caller';
-            const text = document.createElement('p');
-            text.className = 'msg-text';
-            // Replace business name placeholder with actual biz name
-            text.textContent = line.text.replace(/Mike's Roofing/g, bizName);
-            content.appendChild(speaker);
-            content.appendChild(text);
-            msg.appendChild(avatar);
-            msg.appendChild(content);
-            container.appendChild(msg);
-          });
-        });
-
-        // Pipeline value
-        const pvEl = document.getElementById('pipeline-value-amount');
-        if (pvEl) pvEl.textContent = IND.pipelineValue;
-      })();
-
-      /* ========================================
-   DATA — Uses industry-specific data
-   ======================================== */
-      const WEEKLY = [
-        { day: 'Mon', calls: 18 },
-        { day: 'Tue', calls: 24 },
-        { day: 'Wed', calls: 20 },
-        { day: 'Thu', calls: 27 },
-        { day: 'Fri', calls: 22 },
-        { day: 'Sat', calls: 11 },
-        { day: 'Sun', calls: 5 },
-      ];
-
-      const OUTCOMES = [
-        { label: 'Booked', count: 93, color: '#4ade80' },
-        { label: 'Info Given', count: 16, color: '#3b9eff' },
-        { label: 'Callback', count: 11, color: '#fbbf24' },
-        { label: 'VIP Flagged', count: 7, color: '#a78bfa' },
-      ];
-
-      const CALL_REASONS = IND.callReasons;
-
-      const PEAK_HOURS = [
-        { hour: '6a', calls: 2 },
-        { hour: '7a', calls: 5 },
-        { hour: '8a', calls: 12 },
-        { hour: '9a', calls: 18 },
-        { hour: '10a', calls: 15 },
-        { hour: '11a', calls: 11 },
-        { hour: '12p', calls: 8 },
-        { hour: '1p', calls: 10 },
-        { hour: '2p', calls: 14 },
-        { hour: '3p', calls: 13 },
-        { hour: '4p', calls: 9 },
-        { hour: '5p', calls: 6 },
-        { hour: '6p', calls: 4 },
-        { hour: '7p', calls: 3 },
-        { hour: '8p', calls: 2 },
-        { hour: '9p', calls: 1 },
-      ];
-
-      const CRM_STAGES = {
-        new_lead: { label: 'New Lead', color: '#3b9eff' },
-        estimate_scheduled: { label: 'Estimate Set', color: '#fbbf24' },
-        quote_sent: { label: 'Quote Sent', color: '#a78bfa' },
-        won: { label: 'Won', color: '#4ade80' },
-      };
-
-      const CRM_LEADS = IND.leads;
-
-      /* ========================================
-   INIT: Date label
-   ======================================== */
-      document.getElementById('date-label').textContent = new Date().toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      });
-
-      /* ========================================
-   INIT: Waveform (top bar animated bars)
-   ======================================== */
-      (function buildWaveform() {
-        const container = document.getElementById('waveform');
-        for (let i = 0; i < 8; i++) {
-          const bar = document.createElement('div');
-          bar.className = 'waveform-bar';
-          bar.style.opacity = 0.4 + (i % 3) * 0.2;
-          bar.style.animation = `wave 1.2s ease-in-out ${i * 0.1}s infinite alternate`;
-          container.appendChild(bar);
-        }
-      })();
-
-      /* ========================================
-   CALL EXPAND / COLLAPSE
-   ======================================== */
-      let expandedCall = 0;
-
-      function toggleCall(idx) {
-        const prevIdx = expandedCall;
-
-        if (prevIdx === idx) {
-          setCallExpanded(idx, false);
-          expandedCall = null;
-        } else {
-          if (prevIdx !== null) setCallExpanded(prevIdx, false);
-          setCallExpanded(idx, true);
-          expandedCall = idx;
-        }
-      }
-
-      function setCallExpanded(idx, open) {
-        const header = document.getElementById('call-header-' + idx);
-        const panel = document.getElementById('call-expand-' + idx);
-        const chevron = document.getElementById('chevron-' + idx);
-        if (header) open ? header.classList.add('expanded') : header.classList.remove('expanded');
-        if (panel) open ? panel.classList.add('open') : panel.classList.remove('open');
-        if (chevron) open ? chevron.classList.add('open') : chevron.classList.remove('open');
-      }
-
-      /* ========================================
-   SHOW ALL CALLS TOGGLE
-   ======================================== */
-      let showingAllCalls = false;
-
-      function toggleShowAll() {
-        showingAllCalls = !showingAllCalls;
-        document.querySelectorAll('.extra-call').forEach((row) => {
-          row.classList.toggle('hidden', !showingAllCalls);
-        });
-        document.getElementById('show-all-text').textContent = showingAllCalls
-          ? 'Show less'
-          : 'View all 8 calls';
-        document.getElementById('show-all-chevron').classList.toggle('open', showingAllCalls);
-      }
-
-      /* ========================================
-   WEEKLY CHART
-   ======================================== */
-      (function buildWeeklyChart() {
-        const container = document.getElementById('weekly-chart');
-        const max = Math.max(...WEEKLY.map((w) => w.calls));
-        const todayIdx = (new Date().getDay() + 6) % 7; // Mon=0
-
-        WEEKLY.forEach((w, i) => {
-          const col = document.createElement('div');
-          col.className = 'weekly-col';
-
-          const countEl = document.createElement('span');
-          countEl.className = 'weekly-count';
-          countEl.textContent = w.calls;
-
-          const barWrap = document.createElement('div');
-          barWrap.className = 'weekly-bar-wrap';
-
-          const bar = document.createElement('div');
-          bar.className = 'weekly-bar';
-          bar.style.background =
-            i === todayIdx
-              ? 'linear-gradient(180deg, #3b9eff, rgba(59,158,255,0.4))'
-              : 'linear-gradient(180deg, rgba(59,158,255,0.45), rgba(59,158,255,0.12))';
-          bar.style.transitionDelay = 0.8 + i * 0.08 + 's';
-
-          barWrap.appendChild(bar);
-
-          const dayEl = document.createElement('span');
-          dayEl.className = 'weekly-day' + (i === todayIdx ? ' today' : '');
-          dayEl.textContent = w.day;
-
-          col.appendChild(countEl);
-          col.appendChild(barWrap);
-          col.appendChild(dayEl);
-          container.appendChild(col);
-
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              bar.style.height = (w.calls / max) * 100 + '%';
-            });
-          });
-        });
-      })();
-
-      /* ========================================
-   PEAK HOURS CHART
-   ======================================== */
-      (function buildPeakHours() {
-        const container = document.getElementById('peak-bars');
-        const max = Math.max(...PEAK_HOURS.map((h) => h.calls));
-
-        PEAK_HOURS.forEach((h, i) => {
-          const isAfterHours = i < 2 || i >= 12;
-          const intensity = h.calls / max;
-          const bar = document.createElement('div');
-          bar.className = 'peak-bar';
-          bar.style.background = isAfterHours
-            ? `rgba(251,191,36,${0.25 + intensity * 0.6})`
-            : `rgba(59,158,255,${0.15 + intensity * 0.6})`;
-          bar.style.transitionDelay = 1.0 + i * 0.04 + 's';
-          container.appendChild(bar);
-
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              bar.style.height = intensity * 100 + '%';
-            });
-          });
-        });
-      })();
-
-      /* ========================================
-   CALL REASONS CHART
-   ======================================== */
-      (function buildCallReasons() {
-        const container = document.getElementById('call-reasons');
-        const max = Math.max(...CALL_REASONS.map((r) => r.count));
-
-        CALL_REASONS.forEach((reason, i) => {
-          const row = document.createElement('div');
-          row.className = 'reason-row';
-
-          const header = document.createElement('div');
-          header.className = 'reason-header';
-
-          const label = document.createElement('span');
-          label.className = 'reason-label';
-          label.textContent = reason.label;
-
-          const count = document.createElement('span');
-          count.className = 'reason-count';
-          count.textContent = reason.count;
-
-          header.appendChild(label);
-          header.appendChild(count);
-
-          const track = document.createElement('div');
-          track.className = 'reason-track';
-
-          const fill = document.createElement('div');
-          fill.className = 'reason-fill';
-          fill.style.background = reason.color;
-          fill.style.transitionDelay = 0.9 + i * 0.1 + 's';
-          track.appendChild(fill);
-
-          row.appendChild(header);
-          row.appendChild(track);
-          container.appendChild(row);
-
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              fill.style.width = (reason.count / max) * 100 + '%';
-            });
-          });
-        });
-      })();
-
-      /* ========================================
-   DONUT CHART
-   ======================================== */
-      (function buildDonut() {
-        const total = OUTCOMES.reduce((s, o) => s + o.count, 0);
-        let angle = 0;
-        const stops = OUTCOMES.map((o) => {
-          const start = angle;
-          const size = (o.count / total) * 360;
-          angle += size;
-          return `${o.color} ${start.toFixed(1)}deg ${angle.toFixed(1)}deg`;
-        }).join(', ');
-
-        const donut = document.getElementById('donut-circle');
-        setTimeout(() => {
-          donut.style.background = `conic-gradient(${stops})`;
-        }, 500);
-
-        const legend = document.getElementById('donut-legend');
-        OUTCOMES.forEach((o) => {
-          const row = document.createElement('div');
-          row.className = 'legend-row';
-
-          const left = document.createElement('div');
-          left.className = 'legend-left';
-
-          const dot = document.createElement('span');
-          dot.className = 'legend-dot';
-          dot.style.background = o.color;
-
-          const name = document.createElement('span');
-          name.className = 'legend-name';
-          name.textContent = o.label;
-
-          left.appendChild(dot);
-          left.appendChild(name);
-
-          const right = document.createElement('div');
-          right.className = 'legend-right';
-
-          const cnt = document.createElement('span');
-          cnt.className = 'legend-count';
-          cnt.textContent = o.count;
-
-          const pct = document.createElement('span');
-          pct.className = 'legend-pct';
-          pct.textContent = Math.round((o.count / total) * 100) + '%';
-
-          right.appendChild(cnt);
-          right.appendChild(pct);
-
-          row.appendChild(left);
-          row.appendChild(right);
-          legend.appendChild(row);
-        });
-      })();
-
-      /* ========================================
-   CRM PIPELINE
-   ======================================== */
-      (function buildCrmPipeline() {
-        const stageKeys = ['new_lead', 'estimate_scheduled', 'quote_sent', 'won'];
-        const stagesData = stageKeys.map((key) => ({
-          key,
-          ...CRM_STAGES[key],
-          leads: CRM_LEADS.filter((l) => l.stage === key),
-        }));
-        const totalLeads = CRM_LEADS.length;
-
-        // Stage cards
-        const stagesEl = document.getElementById('pipeline-stages');
-        stagesData.forEach((s, i) => {
-          const card = document.createElement('div');
-          card.className = 'pipeline-stage-card';
-          card.style.animationName = 'fade-up';
-          card.style.animationDuration = '0.4s';
-          card.style.animationTimingFunction = 'cubic-bezier(0.16,1,0.3,1)';
-          card.style.animationDelay = 0.3 + i * 0.08 + 's';
-          card.style.animationFillMode = 'both';
-
-          card.innerHTML = `
-      <div class="stage-glow" style="background: radial-gradient(ellipse at 50% -20%, ${s.color}18 0%, transparent 70%);"></div>
-      <div class="stage-accent-bar" style="background: ${s.color};"></div>
-      <div class="stage-count" style="color: ${s.color};">${s.leads.length}</div>
-      <div class="stage-name">${s.label}</div>
-    `;
-          stagesEl.appendChild(card);
-        });
-
-        // Flow bar
-        const flowEl = document.getElementById('pipeline-flow');
-        stagesData.forEach((s) => {
-          const seg = document.createElement('div');
-          seg.className = 'flow-segment';
-          seg.style.background = s.color;
-          seg.style.width = '0%';
-          flowEl.appendChild(seg);
-
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              seg.style.width = (s.leads.length / totalLeads) * 100 + '%';
-            });
-          });
-        });
-
-        // Leads list — with "Captured by Alex" badge
-        const leadsEl = document.getElementById('leads-list');
-        CRM_LEADS.forEach((lead, i) => {
-          const stage = CRM_STAGES[lead.stage];
-          const row = document.createElement('div');
-          row.className = 'lead-row' + (i >= 5 ? ' hidden extra-lead' : '');
-          row.style.borderLeft = `3px solid ${stage.color}50`;
-          row.style.animationName = 'fade-up';
-          row.style.animationDuration = '0.4s';
-          row.style.animationTimingFunction = 'cubic-bezier(0.16,1,0.3,1)';
-          row.style.animationDelay = 0.5 + i * 0.06 + 's';
-          row.style.animationFillMode = 'both';
-
-          row.innerHTML = `
-      <div class="lead-row-1">
-        <div class="lead-row-left">
-          <div class="lead-dot" style="background: ${stage.color};"></div>
-          <span class="lead-name">${lead.name}</span>
-          <span class="lead-stage-badge" style="color: ${stage.color}; background: ${stage.color}15;">${stage.label}</span>
-          <span class="captured-badge">&#128266; Captured by Alex</span>
-        </div>
-        <span class="lead-value">${lead.value}</span>
-      </div>
-      <div class="lead-row-2">
-        <span class="lead-service">${lead.service}</span>
-        <span class="lead-phone">${lead.phone}</span>
-      </div>
-      <div class="lead-activity">${lead.lastActivity}</div>
-    `;
-
-          row.addEventListener('mouseenter', () => {
-            row.style.background = stage.color + '06';
-          });
-          row.addEventListener('mouseleave', () => {
-            row.style.background = '';
-          });
-
-          leadsEl.appendChild(row);
-        });
-      })();
-
-      /* ========================================
-   SHOW ALL LEADS TOGGLE
-   ======================================== */
-      let showingAllLeads = false;
-
-      function toggleShowAllLeads() {
-        showingAllLeads = !showingAllLeads;
-        document.querySelectorAll('.extra-lead').forEach((row) => {
-          row.classList.toggle('hidden', !showingAllLeads);
-        });
-        document.getElementById('show-all-leads-text').textContent = showingAllLeads
-          ? 'Show less'
-          : 'View all 8 leads';
-        document.getElementById('show-all-leads-chevron').classList.toggle('open', showingAllLeads);
-      }
-
-      /* ========================================
-   ANIMATED COUNTERS (easeOutCubic)
-   ======================================== */
-      function animateCounter(el, target, duration, delay, decimals, prefix, suffix, formatFull) {
-        setTimeout(() => {
-          const start = performance.now();
-          function step(now) {
-            const p = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - p, 3);
-            const current = eased * target;
-            let display;
-            if (formatFull && prefix === '$') {
-              // Show full dollar amount with comma formatting
-              display = '$' + Math.round(current).toLocaleString();
-            } else {
-              display =
-                prefix + (decimals > 0 ? current.toFixed(decimals) : Math.round(current)) + suffix;
-            }
-            el.textContent = display;
-            if (p < 1) requestAnimationFrame(step);
+      async function fetchDashboardData() {
+        try {
+          const overviewRes = await fetch(`${API_BASE}/api/dashboard/overview`).catch(() => null);
+          if (overviewRes && overviewRes.ok) {
+            const data = await overviewRes.json();
+            lastData.callsToday = data.callsToday || 0;
+            lastData.bookingsToday = data.bookingsToday || 0;
+            lastData.revenueMonth = data.revenueMonth || 0;
+            lastData.conversionRate = data.conversionRate || 0;
           }
-          requestAnimationFrame(step);
-        }, delay);
+        } catch (err) {}
+
+        try {
+          const leaderboardRes = await fetch(`${API_BASE}/api/field-sales/leaderboard`).catch(() => null);
+          if (leaderboardRes && leaderboardRes.ok) {
+            const data = await leaderboardRes.json();
+            lastData.leaderboard = data.leaderboard || [];
+            lastData.activeReps = data.activeReps || 0;
+            lastData.totalSignups = data.totalSignups || 0;
+          }
+        } catch (err) {}
+
+        try {
+          const managerRes = await fetch(`${API_BASE}/api/field-sales/manager/dashboard`).catch(() => null);
+          if (managerRes && managerRes.ok) {
+            const data = await managerRes.json();
+            lastData.teamRevenue = data.teamRevenue || 0;
+            lastData.activeReps = data.activeReps || lastData.activeReps;
+          }
+        } catch (err) {}
+
+        updateUI();
+        updateDate();
       }
 
-      // Main metric cards
-      document.querySelectorAll('[data-counter]').forEach((el) => {
-        const target = parseFloat(el.dataset.counter);
-        const prefix = el.dataset.prefix || '';
-        const suffix = el.dataset.suffix || '';
-        const decimals = parseInt(el.dataset.decimals || '0', 10);
-        const formatFull = el.dataset.format === 'full';
-        const delay = 600;
-        animateCounter(el, target, 2000, delay, decimals, prefix, suffix, formatFull);
-      });
+      function updateUI() {
+        document.getElementById('calls-today').textContent = lastData.callsToday;
+        document.getElementById('calls-today-sub').textContent = 'calls answered today';
+        document.getElementById('bookings-today').textContent = lastData.bookingsToday;
+        document.getElementById('revenue-month').textContent = '$' + Math.round(lastData.revenueMonth).toLocaleString();
+        document.getElementById('conversion-rate').textContent = Math.round(lastData.conversionRate * 100) + '%';
 
-      // Cost savings AI counter
-      (function () {
-        const el = document.querySelector('.cost-value-green[data-counter]');
-        const roiEl = document.querySelector('.roi-value[data-counter]');
-        if (el) animateCounter(el, 697, 1500, 1200, 0, '$', '/mo', false);
-        if (roiEl) animateCounter(roiEl, 26, 2000, 1400, 0, '', 'x', false);
-      })();
-
-      /* ========================================
-   LIVE NOTIFICATION SIMULATION
-   Every 35–55 seconds, show a toast
-   ======================================== */
-      let notifTimer = null;
-
-      function showNotif() {
-        const msgs = IND.notifMessages;
-        const msg = msgs[Math.floor(Math.random() * msgs.length)];
-        const el = document.getElementById('live-notif');
-        document.getElementById('notif-title').textContent = msg.title;
-        document.getElementById('notif-sub').textContent = msg.sub;
-
-        el.classList.remove('hiding');
-        el.classList.add('visible');
-
-        // Auto-hide after 5 seconds
-        setTimeout(() => hideNotif(), 5000);
-      }
-
-      function hideNotif() {
-        const el = document.getElementById('live-notif');
-        el.classList.remove('visible');
-        el.classList.add('hiding');
-        setTimeout(() => el.classList.remove('hiding'), 400);
-
-        // Schedule next
-        scheduleNextNotif();
-      }
-
-      function scheduleNextNotif() {
-        clearTimeout(notifTimer);
-        const delay = 35000 + Math.random() * 20000; // 35–55 seconds
-        notifTimer = setTimeout(showNotif, delay);
-      }
-
-      // First notification after 8 seconds
-      setTimeout(showNotif, 8000);
-
-      /* ========================================
-   REP TRACKING — Personalize CTA from ?rep= param
-   ======================================== */
-      (function () {
-        if (!PARAM_REP) return;
-        const repEl = document.getElementById('sticky-rep');
-        const repNameEl = document.getElementById('sticky-rep-name');
-        if (repEl && repNameEl) {
-          repNameEl.textContent = PARAM_REP;
-          repEl.style.display = '';
+        const tbody = document.getElementById('leaderboard-body');
+        if (lastData.leaderboard.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 24px; color: var(--muted-low);">No rep data available</td></tr>';
+        } else {
+          tbody.innerHTML = lastData.leaderboard.map((rep, i) => `
+            <tr>
+              <td class="rep-rank">#${i + 1}</td>
+              <td class="rep-name">${rep.name || 'Unknown'}</td>
+              <td class="rep-signups">${rep.signups || 0}</td>
+              <td class="rep-revenue">$${Math.round(rep.revenue || 0).toLocaleString()}</td>
+              <td class="rep-activity">${rep.lastActivity || 'No activity'}</td>
+            </tr>
+          `).join('');
         }
-      })();
+
+        document.getElementById('team-revenue').textContent = '$' + Math.round(lastData.teamRevenue).toLocaleString();
+        document.getElementById('active-reps').textContent = lastData.activeReps;
+        document.getElementById('total-signups').textContent = lastData.totalSignups;
+        const avgRev = lastData.activeReps > 0 ? lastData.teamRevenue / lastData.activeReps : 0;
+        document.getElementById('avg-revenue').textContent = '$' + Math.round(avgRev).toLocaleString();
+      }
+
+      updateDate();
+      fetchDashboardData();
+      setInterval(fetchDashboardData, POLL_INTERVAL);
     </script>
-
-    <!-- Demo disclaimer -->
-    <p class="demo-disclaimer">
-      This is a sample dashboard with simulated data for demonstration purposes only.
-    </p>
-
-    <footer
-      style="
-        text-align: center;
-        padding: 24px 16px 32px;
-        font-size: 12px;
-        color: rgba(200, 210, 220, 0.35);
-        font-family: var(--display);
-      "
-    >
-      <nav
-        aria-label="Footer navigation"
-        style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px"
-      >
-        <a href="index.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Field Kit</a>
-        <a href="terms.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none">Terms</a>
-        <a href="privacy.html" style="color: rgba(200, 210, 220, 0.5); text-decoration: none"
-          >Privacy</a
-        >
-      </nav>
-      <span>&copy; 2026 AutoScale AI</span>
-    </footer>
   </body>
 </html>

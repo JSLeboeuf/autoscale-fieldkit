@@ -1,0 +1,1759 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#09090b" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <!-- SEO + Open Graph for Facebook sharing -->
+    <title>Your Business Is Missing Calls Right Now — AutoScale AI</title>
+    <meta name="description" content="AutoScale AI answers every call, books appointments, and never calls in sick. From $23/day. Hear the AI live — call (207) 304-9892." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://app.autoscaleai.io/fieldkit/ads.html" />
+    <meta property="og:title" content="Your Business Is Missing Calls Right Now" />
+    <meta property="og:description" content="AutoScale AI answers every call, books appointments 24/7, and never calls in sick. From $23/day. Hear it live — call (207) 304-9892." />
+    <meta property="og:image" content="https://app.autoscaleai.io/fieldkit/logo.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="AutoScale AI" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Your Business Is Missing Calls Right Now" />
+    <meta name="twitter:description" content="AutoScale AI answers every call, books appointments 24/7. From $23/day." />
+
+    <!-- Google Fonts — preconnect first, then load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Facebook Pixel -->
+    <!-- FB Pixel: Replace PIXEL_ID -->
+    <!--
+    <script>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', 'PIXEL_ID');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+    -->
+
+    <!-- GA4: Replace MEASUREMENT_ID -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'MEASUREMENT_ID');
+    </script>
+    -->
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "LocalBusiness",
+          "name": "AutoScale AI",
+          "description": "AI receptionist that answers every call and books appointments 24/7",
+          "url": "https://app.autoscaleai.io",
+          "telephone": "+12073049892",
+          "priceRange": "$$"
+        },
+        {
+          "@type": "Product",
+          "name": "AutoScale AI Receptionist",
+          "description": "AI-powered call answering and appointment booking for small businesses",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Core Plan",
+              "price": "697",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "billingIncrement": 1,
+                "unitCode": "MON"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Growth Plan",
+              "price": "997",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "billingIncrement": 1,
+                "unitCode": "MON"
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+      /* ── RESET ── */
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --blue: #60a5fa;
+        --blue-2: #3b82f6;
+        --blue-dim: rgba(96, 165, 250, 0.07);
+        --blue-glow: rgba(96, 165, 250, 0.18);
+        --green: #22c55e;
+        --green-2: #16a34a;
+        --green-dim: rgba(34, 197, 94, 0.08);
+        --green-glow: rgba(34, 197, 94, 0.22);
+        --red: #f87171;
+        --red-2: #ef4444;
+        --red-dim: rgba(248, 113, 113, 0.08);
+        --red-border: rgba(248, 113, 113, 0.22);
+        --gold: #fbbf24;
+        --gold-2: #f59e0b;
+        --gold-dim: rgba(251, 191, 36, 0.08);
+        --gold-border: rgba(251, 191, 36, 0.22);
+        --radius: 14px;
+        --radius-sm: 10px;
+        --radius-lg: 20px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+        color-scheme: dark;
+      }
+
+      body {
+        font-family: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 0 0 80px;
+        position: relative;
+        font-weight: 400;
+        overflow-x: hidden;
+      }
+
+      /* Noise texture overlay */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      /* ── TYPOGRAPHY ── */
+      .bebas { font-family: 'Bebas Neue', sans-serif; }
+      .mono { font-family: 'JetBrains Mono', monospace; }
+      .michroma { font-family: 'Michroma', sans-serif; }
+
+      /* ── LAYOUT ── */
+      .section {
+        padding: 0 20px;
+        margin-bottom: 40px;
+      }
+
+      .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+        margin: 0 20px 40px;
+      }
+
+      /* ── SECTION LABEL ── */
+      .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 5px 12px;
+        border-radius: 6px;
+        margin-bottom: 16px;
+      }
+
+      .section-tag.blue {
+        color: var(--blue);
+        background: var(--blue-dim);
+        border: 1px solid rgba(96, 165, 250, 0.12);
+      }
+
+      .section-tag.red {
+        color: var(--red);
+        background: var(--red-dim);
+        border: 1px solid var(--red-border);
+      }
+
+      .section-tag.green {
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(34, 197, 94, 0.2);
+      }
+
+      .section-tag.gold {
+        color: var(--gold);
+        background: var(--gold-dim);
+        border: 1px solid var(--gold-border);
+      }
+
+      /* ── BUTTONS ── */
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 17px 20px;
+        border: none;
+        border-radius: var(--radius);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        min-height: 56px;
+        line-height: 1;
+      }
+
+      .btn:active {
+        transform: scale(0.97);
+      }
+
+      .btn-green {
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: #fff;
+        box-shadow: 0 4px 24px rgba(34, 197, 94, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-green::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
+        pointer-events: none;
+      }
+
+      .btn-green:active {
+        box-shadow: 0 2px 10px rgba(34, 197, 94, 0.2);
+      }
+
+      .btn-gold {
+        background: linear-gradient(135deg, var(--gold), var(--gold-2));
+        color: #09090b;
+        box-shadow: 0 4px 24px rgba(251, 191, 36, 0.28);
+      }
+
+      .btn-gold:active {
+        box-shadow: 0 2px 10px rgba(251, 191, 36, 0.15);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--text-2);
+        border: 1px solid var(--border-2);
+        font-weight: 600;
+      }
+
+      .btn-outline:active {
+        background: var(--surface);
+      }
+
+      /* Pulse animation for phone CTA */
+      @keyframes pulse-ring {
+        0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5), 0 4px 24px rgba(34, 197, 94, 0.3); }
+        70% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0), 0 4px 24px rgba(34, 197, 94, 0.3); }
+        100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0), 0 4px 24px rgba(34, 197, 94, 0.3); }
+      }
+
+      .btn-pulse {
+        animation: pulse-ring 2.4s cubic-bezier(0.66, 0, 0, 1) infinite;
+      }
+
+      /* ── CARDS ── */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+      }
+
+      .card.glow-red {
+        border-color: var(--red-border);
+        background: linear-gradient(145deg, var(--red-dim), var(--surface));
+      }
+
+      .card.glow-green {
+        border-color: rgba(34, 197, 94, 0.22);
+        background: linear-gradient(145deg, var(--green-dim), var(--surface));
+        box-shadow: 0 0 28px rgba(34, 197, 94, 0.06);
+      }
+
+      .card.glow-gold {
+        border-color: var(--gold-border);
+        background: linear-gradient(145deg, var(--gold-dim), var(--surface));
+        box-shadow: 0 0 24px rgba(251, 191, 36, 0.06);
+      }
+
+      .card.glow-blue {
+        border-color: rgba(96, 165, 250, 0.22);
+        background: linear-gradient(145deg, var(--blue-dim), var(--surface));
+        box-shadow: 0 0 28px rgba(96, 165, 250, 0.06);
+      }
+
+      /* ═══════════════════════════════════════════
+         STICKY TOP BAR
+         ═══════════════════════════════════════════ */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(9, 9, 11, 0.92);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .topbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .topbar-logo {
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
+        overflow: hidden;
+        border: 1px solid var(--border-2);
+        flex-shrink: 0;
+      }
+
+      .topbar-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .topbar-name {
+        font-family: 'Michroma', sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-2);
+      }
+
+      .topbar-cta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: #fff;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 800;
+        text-decoration: none;
+        letter-spacing: -0.2px;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* ═══════════════════════════════════════════
+         1. HERO — ABOVE THE FOLD
+         ═══════════════════════════════════════════ */
+      .hero {
+        padding: 40px 20px 32px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Ambient glow behind headline */
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 320px;
+        height: 320px;
+        background: radial-gradient(ellipse at center, rgba(248, 113, 113, 0.07) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .hero::after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 260px;
+        height: 200px;
+        background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.06) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .hero > * { position: relative; z-index: 1; }
+
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--red);
+        background: var(--red-dim);
+        border: 1px solid var(--red-border);
+        padding: 5px 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+      }
+
+      .hero-eyebrow-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--red);
+        animation: blink 1.4s ease-in-out infinite;
+      }
+
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.2; }
+      }
+
+      .hero-headline {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(46px, 12vw, 58px);
+        line-height: 0.96;
+        letter-spacing: 0.03em;
+        color: var(--text);
+        margin-bottom: 18px;
+      }
+
+      .hero-headline .line-red {
+        display: block;
+        color: var(--red);
+      }
+
+      .hero-sub {
+        font-size: 15px;
+        color: var(--text-2);
+        font-weight: 500;
+        line-height: 1.55;
+        margin-bottom: 28px;
+        max-width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-sub strong {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .hero-ctas {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      /* Social proof strip */
+      .social-proof {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        flex-wrap: wrap;
+        row-gap: 6px;
+      }
+
+      .proof-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+        padding: 0 12px;
+      }
+
+      .proof-item:not(:last-child) {
+        border-right: 1px solid var(--border);
+      }
+
+      .proof-item .proof-val {
+        color: var(--text-2);
+      }
+
+      .proof-stars {
+        color: var(--gold);
+        font-size: 9px;
+        letter-spacing: 1px;
+      }
+
+      /* ═══════════════════════════════════════════
+         2. PROBLEM — THE PAIN
+         ═══════════════════════════════════════════ */
+      .problem-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .pain-stat {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--red);
+        border-radius: var(--radius-sm);
+        transition: border-color 0.2s;
+      }
+
+      .pain-number {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 44px;
+        line-height: 1;
+        color: var(--red);
+        flex-shrink: 0;
+        min-width: 72px;
+        text-align: center;
+        letter-spacing: 0.02em;
+      }
+
+      .pain-text {
+        font-size: 14px;
+        color: var(--text-2);
+        font-weight: 500;
+        line-height: 1.4;
+      }
+
+      .pain-text strong {
+        display: block;
+        color: var(--text);
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+
+      .problem-closer {
+        margin-top: 16px;
+        padding: 18px 20px;
+        background: linear-gradient(135deg, rgba(248,113,113,0.1), rgba(248,113,113,0.04));
+        border: 1px solid var(--red-border);
+        border-radius: var(--radius);
+        text-align: center;
+      }
+
+      .problem-closer-amount {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 36px;
+        color: var(--red);
+        letter-spacing: 0.04em;
+        display: block;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .problem-closer-label {
+        font-size: 13px;
+        color: var(--text-2);
+        font-weight: 500;
+      }
+
+      /* ═══════════════════════════════════════════
+         3. SOLUTION — 3 CARDS
+         ═══════════════════════════════════════════ */
+      .solution-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .sol-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+
+      .sol-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+        background: var(--blue-dim);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+      }
+
+      .sol-icon.green-icon {
+        background: var(--green-dim);
+        border-color: rgba(34, 197, 94, 0.2);
+      }
+
+      .sol-icon.gold-icon {
+        background: var(--gold-dim);
+        border-color: var(--gold-border);
+      }
+
+      .sol-body {}
+
+      .sol-title {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 4px;
+        letter-spacing: -0.2px;
+      }
+
+      .sol-desc {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .sol-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(34, 197, 94, 0.2);
+        padding: 3px 8px;
+        border-radius: 4px;
+        margin-top: 8px;
+      }
+
+      /* ═══════════════════════════════════════════
+         4. ROI CALCULATOR
+         ═══════════════════════════════════════════ */
+      .calc-wrap {
+        background: var(--surface);
+        border: 1px solid var(--border-2);
+        border-radius: var(--radius-lg);
+        padding: 24px 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .calc-wrap::before {
+        content: '';
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(ellipse, rgba(34,197,94,0.06) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .calc-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 28px;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+
+      .calc-subtitle {
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 24px;
+      }
+
+      .calc-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 28px;
+      }
+
+      .calc-field label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-2);
+        margin-bottom: 10px;
+      }
+
+      .calc-field label span {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--blue);
+      }
+
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--border-2);
+        outline: none;
+        cursor: pointer;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--blue);
+        cursor: pointer;
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+        border: 2px solid #fff;
+        transition: box-shadow 0.15s;
+      }
+
+      input[type="range"]::-webkit-slider-thumb:active {
+        box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.3);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--blue);
+        cursor: pointer;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+      }
+
+      .calc-result-box {
+        background: linear-gradient(135deg, rgba(248,113,113,0.1), rgba(248,113,113,0.04));
+        border: 1px solid var(--red-border);
+        border-radius: var(--radius);
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 14px;
+      }
+
+      .calc-loss-label {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .calc-loss-amount {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 52px;
+        line-height: 1;
+        letter-spacing: 0.02em;
+        color: var(--red);
+        display: block;
+        margin-bottom: 4px;
+        transition: color 0.3s;
+      }
+
+      .calc-loss-sub {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .calc-roi-box {
+        background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.04));
+        border: 1px solid rgba(34, 197, 94, 0.22);
+        border-radius: var(--radius);
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .calc-roi-left {
+        font-size: 13px;
+        color: var(--text-2);
+        font-weight: 500;
+      }
+
+      .calc-roi-right {
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+
+      .calc-roi-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--green);
+      }
+
+      .calc-roi-label {
+        font-size: 12px;
+        color: var(--green);
+        font-weight: 600;
+        opacity: 0.8;
+      }
+
+      /* ═══════════════════════════════════════════
+         5. PRICING
+         ═══════════════════════════════════════════ */
+      .pricing-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .pricing-card {
+        padding: 22px 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+
+      .pricing-card.featured {
+        border-color: var(--gold-border);
+        background: linear-gradient(160deg, rgba(251,191,36,0.05), var(--surface));
+        box-shadow: 0 0 32px rgba(251, 191, 36, 0.06), inset 0 1px 0 rgba(251, 191, 36, 0.08);
+      }
+
+      .pricing-badge {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 5px;
+        color: var(--gold);
+        background: var(--gold-dim);
+        border: 1px solid var(--gold-border);
+      }
+
+      .pricing-plan-name {
+        font-family: 'Michroma', sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      .pricing-price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+        margin-bottom: 4px;
+      }
+
+      .pricing-price {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 46px;
+        line-height: 1;
+        color: var(--text);
+        letter-spacing: 0.02em;
+      }
+
+      .pricing-price-unit {
+        font-size: 14px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .pricing-desc {
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 16px;
+        line-height: 1.5;
+      }
+
+      .pricing-features {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .pricing-features li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--text-2);
+        font-weight: 500;
+      }
+
+      .feat-check {
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
+        background: var(--green-dim);
+        border: 1px solid rgba(34, 197, 94, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 10px;
+      }
+
+      .pricing-day-cost {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        margin-bottom: 14px;
+      }
+
+      .pricing-day-cost span {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
+      }
+
+      .pricing-day-cost small {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      /* ═══════════════════════════════════════════
+         6. LIVE DEMO CTA
+         ═══════════════════════════════════════════ */
+      .demo-section {
+        padding: 0 20px;
+        margin-bottom: 40px;
+      }
+
+      .demo-card {
+        background: linear-gradient(160deg, rgba(34,197,94,0.08) 0%, var(--surface) 60%);
+        border: 1px solid rgba(34, 197, 94, 0.22);
+        border-radius: var(--radius-lg);
+        padding: 28px 24px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 40px rgba(34, 197, 94, 0.06);
+      }
+
+      .demo-card::before {
+        content: '';
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(ellipse, rgba(34,197,94,0.12) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .demo-card > * { position: relative; z-index: 1; }
+
+      .demo-headline {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 32px;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        line-height: 1.05;
+        margin-bottom: 10px;
+      }
+
+      .demo-sub {
+        font-size: 14px;
+        color: var(--text-2);
+        line-height: 1.5;
+        margin-bottom: 24px;
+        font-weight: 500;
+      }
+
+      .demo-number {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--green);
+        display: block;
+        margin-bottom: 20px;
+        letter-spacing: 0.04em;
+      }
+
+      .demo-disclaimer {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 14px;
+        line-height: 1.5;
+      }
+
+      /* ═══════════════════════════════════════════
+         7. FAQ — CSS ACCORDION
+         ═══════════════════════════════════════════ */
+      .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .faq-item {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+
+      .faq-item:has(.faq-toggle:checked) {
+        border-color: var(--border-2);
+      }
+
+      .faq-toggle {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .faq-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 18px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+        -webkit-tap-highlight-color: transparent;
+        letter-spacing: -0.2px;
+        line-height: 1.4;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      .faq-chevron {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        color: var(--muted);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s;
+      }
+
+      .faq-toggle:checked ~ .faq-label .faq-chevron {
+        transform: rotate(180deg);
+        color: var(--blue);
+      }
+
+      .faq-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .faq-toggle:checked ~ .faq-body {
+        max-height: 200px;
+      }
+
+      .faq-answer {
+        padding: 0 18px 16px;
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+        font-weight: 500;
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
+      }
+
+      .faq-answer strong {
+        color: var(--text-2);
+        font-weight: 700;
+      }
+
+      .faq-answer a {
+        color: var(--blue);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      /* ═══════════════════════════════════════════
+         FINAL CTA BAR (sticky bottom)
+         ═══════════════════════════════════════════ */
+      .sticky-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 480px;
+        background: rgba(9, 9, 11, 0.95);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border-top: 1px solid var(--border);
+        padding: 12px 20px 16px;
+        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        z-index: 99;
+        display: flex;
+        gap: 10px;
+      }
+
+      .sticky-bottom .btn {
+        min-height: 48px;
+        font-size: 13px;
+        padding: 12px 16px;
+      }
+
+      .sticky-bottom .btn-icon {
+        font-size: 16px;
+      }
+
+      /* ═══════════════════════════════════════════
+         SECTION HEADLINES
+         ═══════════════════════════════════════════ */
+      .section-headline {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 34px;
+        line-height: 1.0;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+
+      .section-subline {
+        font-size: 14px;
+        color: var(--muted);
+        font-weight: 500;
+        line-height: 1.5;
+        margin-bottom: 22px;
+      }
+
+      /* Number animation */
+      @keyframes count-up {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: none; }
+      }
+
+      .animated { animation: count-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+      /* ═══════════════════════════════════════════
+         TRUST BAR
+         ═══════════════════════════════════════════ */
+      .trust-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        padding: 14px 20px;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 40px;
+      }
+
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+        padding: 0 8px;
+      }
+
+      .trust-icon { font-size: 12px; }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- ── STICKY TOP BAR ── -->
+    <div class="topbar">
+      <div class="topbar-brand">
+        <div class="topbar-logo">
+          <img src="logo.png" alt="AutoScale AI" />
+        </div>
+        <span class="topbar-name">AutoScale AI</span>
+      </div>
+      <a href="tel:+12073049892" class="topbar-cta">
+        <span>📞</span>
+        <span>Hear It Live</span>
+      </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 1 — HERO (above the fold)
+         ═══════════════════════════════════════════ -->
+    <section class="hero">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        <span>Happening right now</span>
+      </div>
+
+      <h1 class="hero-headline">
+        Your Business
+        <span class="line-red">Is Missing Calls</span>
+        Right Now
+      </h1>
+
+      <p class="hero-sub">
+        AutoScale AI answers every call, books appointments,
+        and <strong>never calls in sick.</strong>
+        From <strong>$23/day.</strong>
+      </p>
+
+      <div class="hero-ctas">
+        <a href="tel:+12073049892" class="btn btn-green btn-pulse">
+          <span>📞</span>
+          <span>Hear the AI Live — Call Now</span>
+        </a>
+        <a
+          href="pay.html?plan=growth&utm_source=facebook&utm_medium=paid&utm_campaign=cold"
+          class="btn btn-gold"
+        >
+          <span>Get Started — From $697/mo</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="social-proof">
+        <div class="proof-item">
+          <span class="proof-val">500+</span>
+          <span>calls/day</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-val">127</span>
+          <span>businesses</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-stars">★★★★★</span>
+          <span class="proof-val">4.9</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRUST BAR ── -->
+    <div class="trust-bar">
+      <div class="trust-item"><span class="trust-icon">⚡</span><span>Live in 3 min</span></div>
+      <div class="trust-item"><span class="trust-icon">🔒</span><span>No contract</span></div>
+      <div class="trust-item"><span class="trust-icon">🔄</span><span>Cancel anytime</span></div>
+      <div class="trust-item"><span class="trust-icon">📅</span><span>24/7/365</span></div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 2 — THE PROBLEM
+         ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-tag red">The problem</div>
+      <h2 class="section-headline">Every Ring You Miss<br>Costs You Money</h2>
+      <p class="section-subline">These aren't opinions. They're facts from your industry.</p>
+
+      <div class="problem-grid">
+        <div class="pain-stat">
+          <div class="pain-number">85%</div>
+          <div class="pain-text">
+            <strong>Won't leave a voicemail</strong>
+            If you don't pick up, they're gone. Forever.
+          </div>
+        </div>
+
+        <div class="pain-stat">
+          <div class="pain-number">78%</div>
+          <div class="pain-text">
+            <strong>Book with whoever answers first</strong>
+            Speed wins. Every time.
+          </div>
+        </div>
+
+        <div class="pain-stat">
+          <div class="pain-number">62%</div>
+          <div class="pain-text">
+            <strong>Call after business hours</strong>
+            Your competitor with AI answers. You don't.
+          </div>
+        </div>
+      </div>
+
+      <div class="problem-closer">
+        <span class="problem-closer-amount">$350</span>
+        <span class="problem-closer-label">Average value of a missed call in your pocket — walking to your competitor</span>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <a
+          href="pay.html?plan=growth&utm_source=facebook&utm_medium=paid&utm_campaign=cold_problem"
+          class="btn btn-gold"
+        >
+          Fix This Now — $23/day
+        </a>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 3 — THE SOLUTION
+         ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-tag green">The solution</div>
+      <h2 class="section-headline">One Tool.<br>Zero Missed Calls.</h2>
+      <p class="section-subline">AutoScale picks up every call, handles it, and fills your calendar.</p>
+
+      <div class="solution-cards">
+        <div class="sol-card">
+          <div class="sol-icon">📞</div>
+          <div class="sol-body">
+            <div class="sol-title">Answers Every Call</div>
+            <div class="sol-desc">Picks up in 1 ring. Available 24/7/365. Never busy, never on break, never tired.</div>
+            <div class="sol-badge">1-ring pickup</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-icon green-icon">📅</div>
+          <div class="sol-body">
+            <div class="sol-title">Books Appointments</div>
+            <div class="sol-desc">Syncs with your calendar live. Sends text confirmations. Zero back-and-forth.</div>
+            <div class="sol-badge">Works with any calendar</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-icon gold-icon">🎙️</div>
+          <div class="sol-body">
+            <div class="sol-title">Sounds Human</div>
+            <div class="sol-desc">Natural voice. Handles questions, objections, and scheduling like your best employee.</div>
+            <div class="sol-badge">96% can't tell the difference</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <a href="tel:+12073049892" class="btn btn-green">
+          <span>📞</span>
+          <span>Call It Right Now — Judge for Yourself</span>
+        </a>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 4 — ROI CALCULATOR
+         ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-tag blue">ROI calculator</div>
+      <div class="calc-wrap">
+        <div class="calc-title">How Much Are You Losing?</div>
+        <div class="calc-subtitle">Move the sliders. See the truth.</div>
+
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label>
+              Missed calls per week
+              <span id="calls-val">10</span>
+            </label>
+            <input
+              type="range"
+              id="calls-slider"
+              min="1" max="50" value="10" step="1"
+              oninput="updateCalc()"
+            />
+          </div>
+
+          <div class="calc-field">
+            <label>
+              Average customer value
+              <span id="value-val">$350</span>
+            </label>
+            <input
+              type="range"
+              id="value-slider"
+              min="50" max="2000" value="350" step="50"
+              oninput="updateCalc()"
+            />
+          </div>
+
+          <div class="calc-field">
+            <label>
+              Your close rate
+              <span id="close-val">30%</span>
+            </label>
+            <input
+              type="range"
+              id="close-slider"
+              min="10" max="80" value="30" step="5"
+              oninput="updateCalc()"
+            />
+          </div>
+        </div>
+
+        <div class="calc-result-box">
+          <div class="calc-loss-label">You're losing per month</div>
+          <span class="calc-loss-amount" id="loss-amount">$4,200</span>
+          <div class="calc-loss-sub">in missed bookings that went to your competitor</div>
+        </div>
+
+        <div class="calc-roi-box">
+          <div class="calc-roi-left">AutoScale costs $23/day. Your ROI:</div>
+          <div class="calc-roi-right">
+            <span class="calc-roi-value" id="roi-value">6.1</span>
+            <span class="calc-roi-label">x return</span>
+          </div>
+        </div>
+
+        <a
+          href="pay.html?plan=growth&utm_source=facebook&utm_medium=paid&utm_campaign=cold_calc"
+          class="btn btn-gold"
+        >
+          Start Recovering Revenue — $697/mo
+        </a>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 5 — PRICING
+         ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-tag gold">Simple pricing</div>
+      <h2 class="section-headline">Two Plans.<br>Both Beat Hiring.</h2>
+      <p class="section-subline">No setup fees. No annual contracts. Cancel any month.</p>
+
+      <div class="pricing-cards">
+
+        <!-- Growth — featured -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Most Popular</div>
+          <div class="pricing-plan-name">Growth Plan</div>
+          <div class="pricing-price-row">
+            <span class="pricing-price">$997</span>
+            <span class="pricing-price-unit">/mo</span>
+          </div>
+          <p class="pricing-desc">Best for most businesses. 1,000 minutes — handles ~20 calls/day.</p>
+          <ul class="pricing-features">
+            <li><span class="feat-check">✓</span> 1,000 call minutes/month</li>
+            <li><span class="feat-check">✓</span> 24/7 call answering</li>
+            <li><span class="feat-check">✓</span> Calendar booking + SMS confirmations</li>
+            <li><span class="feat-check">✓</span> Live in under 3 minutes</li>
+            <li><span class="feat-check">✓</span> Instant human transfer option</li>
+          </ul>
+          <div class="pricing-day-cost">
+            <span>$33/day</span>
+            <small>— less than one missed customer</small>
+          </div>
+          <a
+            href="pay.html?plan=growth&utm_source=facebook&utm_medium=paid&utm_campaign=cold_pricing"
+            class="btn btn-gold"
+          >
+            Get Started — Growth
+          </a>
+        </div>
+
+        <!-- Core -->
+        <div class="pricing-card">
+          <div class="pricing-plan-name">Core Plan</div>
+          <div class="pricing-price-row">
+            <span class="pricing-price">$697</span>
+            <span class="pricing-price-unit">/mo</span>
+          </div>
+          <p class="pricing-desc">Low-volume businesses. 500 minutes — handles ~10 calls/day.</p>
+          <ul class="pricing-features">
+            <li><span class="feat-check">✓</span> 500 call minutes/month</li>
+            <li><span class="feat-check">✓</span> 24/7 call answering</li>
+            <li><span class="feat-check">✓</span> Calendar booking included</li>
+            <li><span class="feat-check">✓</span> Live in under 3 minutes</li>
+          </ul>
+          <div class="pricing-day-cost">
+            <span>$23/day</span>
+            <small>— less than a missed oil change customer</small>
+          </div>
+          <a
+            href="pay.html?plan=core&utm_source=facebook&utm_medium=paid&utm_campaign=cold_pricing"
+            class="btn btn-outline"
+          >
+            Get Started — Core
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 6 — LIVE DEMO
+         ═══════════════════════════════════════════ -->
+    <div class="demo-section">
+      <div class="demo-card">
+        <div class="section-tag green" style="margin: 0 auto 16px; display: table;">Live demo</div>
+        <h2 class="demo-headline">Still Not Sure?<br>Call the AI Right Now.</h2>
+        <p class="demo-sub">
+          Ask it anything. Try to stump it.<br>
+          That's exactly what your customers will hear.
+        </p>
+        <a href="tel:+12073049892" class="demo-number">(207) 304-9892</a>
+        <a href="tel:+12073049892" class="btn btn-green btn-pulse">
+          <span>📞</span>
+          <span>Tap to Call the AI Now</span>
+        </a>
+        <p class="demo-disclaimer">
+          Free call. No sales pitch. Just the AI doing its thing.
+        </p>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 7 — FAQ
+         ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-tag blue">FAQ</div>
+      <h2 class="section-headline">Quick Answers</h2>
+      <p class="section-subline" style="margin-bottom: 22px;">The questions everyone asks first.</p>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <input type="checkbox" class="faq-toggle" id="faq1" />
+          <label class="faq-label" for="faq1">
+            <span>How fast can I get set up?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </label>
+          <div class="faq-body">
+            <div class="faq-answer">
+              <strong>Under 3 minutes after payment.</strong> You pick your plan, we provision your AI number, you share it with callers. That's it. No tech setup, no coding, no waiting.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <input type="checkbox" class="faq-toggle" id="faq2" />
+          <label class="faq-label" for="faq2">
+            <span>What if the AI can't answer a question?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </label>
+          <div class="faq-body">
+            <div class="faq-answer">
+              It transfers to you instantly. The AI handles 95% of calls on its own. The ones it can't, it hands off smoothly — the caller never knows.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <input type="checkbox" class="faq-toggle" id="faq3" />
+          <label class="faq-label" for="faq3">
+            <span>Do I need to change my phone number?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </label>
+          <div class="faq-body">
+            <div class="faq-answer">
+              No. We give you a new dedicated AI number. You keep your existing number exactly as is. Just start forwarding calls — or advertise the AI number directly.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <input type="checkbox" class="faq-toggle" id="faq4" />
+          <label class="faq-label" for="faq4">
+            <span>Can I try it before paying?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </label>
+          <div class="faq-body">
+            <div class="faq-answer">
+              Yes. Call <a href="tel:+12073049892">(207) 304-9892</a> right now — that's the live AI. Grill it. Ask about pricing, try to confuse it, test the booking flow. No sign-up required.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <input type="checkbox" class="faq-toggle" id="faq5" />
+          <label class="faq-label" for="faq5">
+            <span>What's the contract length?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </label>
+          <div class="faq-body">
+            <div class="faq-answer">
+              <strong>Month-to-month. Cancel anytime.</strong> No annual commitment, no cancellation fee. If it doesn't pay for itself in the first 30 days, you cancel with one email.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 24px;">
+        <a
+          href="pay.html?plan=growth&utm_source=facebook&utm_medium=paid&utm_campaign=cold_faq"
+          class="btn btn-gold"
+        >
+          Get Started — No Contract Required
+        </a>
+      </div>
+    </section>
+
+    <!-- Spacer for sticky bottom bar -->
+    <div style="height: 80px;"></div>
+
+    <!-- ═══════════════════════════════════════════
+         STICKY BOTTOM BAR
+         ═══════════════════════════════════════════ -->
+    <div class="sticky-bottom">
+      <a
+        href="tel:+12073049892"
+        class="btn btn-green"
+        style="flex: 0 0 auto; width: auto; padding: 12px 18px;"
+      >
+        <span class="btn-icon">📞</span>
+        <span>Call AI</span>
+      </a>
+      <a
+        href="pay.html?plan=growth&utm_source=facebook&utm_medium=paid&utm_campaign=cold_sticky"
+        class="btn btn-gold"
+        style="flex: 1;"
+      >
+        Get Started — $697/mo
+      </a>
+    </div>
+
+    <script>
+      // ── ROI CALCULATOR ──
+      function formatCurrency(n) {
+        if (n >= 1000) {
+          return '$' + (n / 1000).toFixed(n % 1000 === 0 ? 0 : 1) + 'k';
+        }
+        return '$' + n.toLocaleString();
+      }
+
+      function updateCalc() {
+        const calls = parseInt(document.getElementById('calls-slider').value, 10);
+        const value = parseInt(document.getElementById('value-slider').value, 10);
+        const close = parseInt(document.getElementById('close-slider').value, 10);
+
+        document.getElementById('calls-val').textContent = calls;
+        document.getElementById('value-val').textContent = '$' + value.toLocaleString();
+        document.getElementById('close-val').textContent = close + '%';
+
+        const monthlyLoss = Math.round(calls * 4.33 * value * (close / 100));
+        const monthlyCost = 697;
+        const roi = (monthlyLoss / monthlyCost).toFixed(1);
+
+        const lossEl = document.getElementById('loss-amount');
+        lossEl.textContent = monthlyLoss >= 1000
+          ? '$' + (monthlyLoss / 1000).toFixed(1) + 'k'
+          : '$' + monthlyLoss.toLocaleString();
+
+        document.getElementById('roi-value').textContent = roi + 'x';
+      }
+
+      // Initialize on load
+      updateCalc();
+
+      // ── UTM PASSTHROUGH ──
+      // Preserve UTM params when navigating to pay.html
+      (function () {
+        const search = window.location.search;
+        if (!search) return;
+        const params = new URLSearchParams(search);
+        const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'];
+        const utmParams = {};
+        utmKeys.forEach(function (k) {
+          if (params.has(k)) utmParams[k] = params.get(k);
+        });
+        if (Object.keys(utmParams).length === 0) return;
+
+        document.querySelectorAll('a[href*="pay.html"]').forEach(function (link) {
+          const url = new URL(link.href);
+          Object.entries(utmParams).forEach(function ([k, v]) {
+            if (!url.searchParams.has(k)) url.searchParams.set(k, v);
+          });
+          link.href = url.toString();
+        });
+      })();
+    </script>
+  </body>
+</html>
