@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#09090b" />
+    <title>AutoScale AI — Rep Leaderboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --green: #60a5fa;
+        --green-2: #3b82f6;
+        --green-dim: rgba(96, 165, 250, 0.07);
+        --green-glow: rgba(96, 165, 250, 0.15);
+        --red: #f87171;
+        --red-dim: rgba(248, 113, 113, 0.06);
+        --gold: #fbbf24;
+        --gold-dim: rgba(251, 191, 36, 0.08);
+        --gold-glow: rgba(251, 191, 36, 0.2);
+        --silver: #94a3b8;
+        --silver-dim: rgba(148, 163, 184, 0.08);
+        --bronze: #cd7f32;
+        --bronze-dim: rgba(205, 127, 50, 0.08);
+        --emerald: #34d399;
+        --blue: #60a5fa;
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 0 20px 100px;
+        position: relative;
+        font-weight: 400;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 28px 0 8px;
+        text-align: center;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .logo-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        font-family: 'Michroma', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .header-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 48px;
+        line-height: 1;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+
+      .header-title span {
+        color: var(--gold);
+      }
+
+      .live-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+
+      .pulse-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--emerald);
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .pulse-dot::after {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        background: var(--emerald);
+        opacity: 0.3;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.3; }
+        50% { transform: scale(1.6); opacity: 0; }
+      }
+
+      /* ── TIMEFRAME TABS ── */
+      .tabs {
+        display: flex;
+        gap: 6px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 5px;
+        margin-bottom: 20px;
+      }
+
+      .tab {
+        flex: 1;
+        padding: 10px 8px;
+        border-radius: var(--radius-sm);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.15s, background 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        text-align: center;
+      }
+
+      .tab.active {
+        background: var(--surface-2);
+        color: var(--gold);
+        border: 1px solid rgba(251, 191, 36, 0.2);
+      }
+
+      .tab:not(.active):active {
+        background: var(--surface-2);
+        color: var(--text-2);
+      }
+
+      /* ── PODIUM ── */
+      .podium {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr 1fr;
+        grid-template-rows: auto;
+        gap: 8px;
+        margin-bottom: 20px;
+        align-items: end;
+      }
+
+      .podium-card {
+        border-radius: var(--radius);
+        padding: 14px 10px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.15s;
+      }
+
+      .podium-card:active {
+        transform: scale(0.97);
+      }
+
+      .podium-card.rank-2 {
+        background: var(--silver-dim);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        order: 1;
+      }
+
+      .podium-card.rank-1 {
+        background: var(--gold-dim);
+        border: 1px solid rgba(251, 191, 36, 0.35);
+        box-shadow: 0 0 30px var(--gold-glow), 0 0 60px rgba(251, 191, 36, 0.06);
+        order: 2;
+        padding-top: 18px;
+      }
+
+      .podium-card.rank-3 {
+        background: var(--bronze-dim);
+        border: 1px solid rgba(205, 127, 50, 0.2);
+        order: 3;
+      }
+
+      .podium-rank {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 40px;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .rank-1 .podium-rank { color: var(--gold); font-size: 50px; }
+      .rank-2 .podium-rank { color: var(--silver); }
+      .rank-3 .podium-rank { color: var(--bronze); }
+
+      .podium-crown {
+        font-size: 22px;
+        display: block;
+        margin-bottom: 2px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+
+      .podium-name {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.2;
+        margin-bottom: 8px;
+        word-break: break-word;
+        hyphens: auto;
+      }
+
+      .rank-1 .podium-name { font-size: 13px; }
+
+      .podium-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .podium-signups {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .rank-1 .podium-signups { font-size: 20px; color: var(--green); }
+      .rank-2 .podium-signups { font-size: 16px; color: var(--text-2); }
+      .rank-3 .podium-signups { font-size: 14px; color: var(--text-2); }
+
+      .podium-signups-label {
+        font-size: 9px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .podium-earned {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--gold);
+        margin-top: 6px;
+        display: block;
+      }
+
+      .rank-1 .podium-earned { font-size: 13px; }
+
+      .podium-state {
+        font-size: 9px;
+        color: var(--muted);
+        margin-top: 3px;
+        font-weight: 500;
+        font-family: 'JetBrains Mono', monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      /* ── RANKING LIST ── */
+      .ranking-section {
+        margin-bottom: 20px;
+      }
+
+      .ranking-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        padding: 0 4px;
+      }
+
+      .ranking-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        flex: 1;
+      }
+
+      .ranking-cols {
+        display: grid;
+        grid-template-columns: 32px 1fr 48px 72px;
+        gap: 6px;
+        padding: 6px 12px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 4px;
+      }
+
+      .ranking-cols > *:last-child,
+      .ranking-cols > *:nth-child(3) {
+        text-align: right;
+      }
+
+      .ranking-row {
+        display: grid;
+        grid-template-columns: 32px 1fr 48px 72px;
+        gap: 6px;
+        align-items: center;
+        padding: 12px 12px;
+        border-radius: var(--radius-sm);
+        border: 1px solid transparent;
+        transition: background 0.15s, border-color 0.15s;
+        margin-bottom: 4px;
+      }
+
+      .ranking-row:nth-child(even) {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .ranking-row.current-rep {
+        background: var(--green-dim);
+        border-color: rgba(96, 165, 250, 0.2);
+      }
+
+      .ranking-row.current-rep .rank-num {
+        color: var(--green);
+      }
+
+      .rank-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .rep-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .rep-name .you-tag {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        font-weight: 700;
+        color: var(--bg);
+        background: var(--green);
+        padding: 1px 5px;
+        border-radius: 3px;
+        margin-left: 5px;
+        vertical-align: middle;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .rep-signups {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-2);
+        text-align: right;
+      }
+
+      .rep-earned {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--gold);
+        text-align: right;
+      }
+
+      /* ── SUMMARY BAR ── */
+      .summary-bar {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .summary-bar::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(251, 191, 36, 0.04) 0%, transparent 60%);
+        pointer-events: none;
+      }
+
+      .summary-item {
+        text-align: center;
+        position: relative;
+      }
+
+      .summary-item + .summary-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 10%;
+        height: 80%;
+        width: 1px;
+        background: var(--border);
+      }
+
+      .summary-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1;
+        margin-bottom: 4px;
+        display: block;
+      }
+
+      .summary-item:first-child .summary-value {
+        color: var(--green);
+      }
+
+      .summary-item:nth-child(2) .summary-value {
+        color: var(--gold);
+      }
+
+      .summary-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        display: block;
+      }
+
+      /* ── SKELETON LOADING ── */
+      .skeleton {
+        background: var(--surface);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .skeleton::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.04) 50%,
+          transparent 100%
+        );
+        animation: shimmer 1.4s ease-in-out infinite;
+        background-size: 200% 100%;
+      }
+
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+
+      .skeleton-podium {
+        height: 130px;
+      }
+
+      .skeleton-podium.tall {
+        height: 160px;
+      }
+
+      .skeleton-row {
+        height: 48px;
+        margin-bottom: 4px;
+      }
+
+      .skeleton-summary {
+        height: 68px;
+        margin-bottom: 20px;
+      }
+
+      /* ── FALLBACK STATE ── */
+      .empty-state {
+        text-align: center;
+        padding: 48px 24px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        margin-bottom: 20px;
+      }
+
+      .empty-icon {
+        font-size: 48px;
+        display: block;
+        margin-bottom: 16px;
+        filter: grayscale(0.3);
+      }
+
+      .empty-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 26px;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+
+      .empty-sub {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      /* ── CTA BUTTON ── */
+      .cta-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        height: 52px;
+        border-radius: var(--radius);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        letter-spacing: -0.2px;
+      }
+
+      .cta-btn:active {
+        transform: scale(0.97);
+      }
+
+      .cta-btn.primary {
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+        box-shadow: 0 4px 20px rgba(96, 165, 250, 0.25);
+      }
+
+      /* ── FADE IN ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(12px);
+        transition:
+          opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .footer-brand {
+        font-family: 'Michroma', sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        color: var(--text-2);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+
+      .footer-link {
+        font-size: 12px;
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+
+      .footer-link:active {
+        color: var(--green);
+      }
+
+      .footer-sub {
+        font-size: 11px;
+        color: var(--border-2);
+        margin-top: 8px;
+        font-weight: 400;
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--surface-2);
+        color: var(--green);
+        padding: 10px 24px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        z-index: 100;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+        pointer-events: none;
+        border: 1px solid var(--border-2);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        white-space: nowrap;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      /* ── LAST UPDATED ── */
+      .last-updated {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        color: var(--muted);
+        text-align: center;
+        margin-bottom: 12px;
+        letter-spacing: 0.06em;
+      }
+
+      /* ── ERROR STATE ── */
+      .error-notice {
+        background: var(--red-dim);
+        border: 1px solid rgba(248, 113, 113, 0.15);
+        border-radius: var(--radius-sm);
+        padding: 10px 14px;
+        font-size: 12px;
+        color: var(--red);
+        text-align: center;
+        margin-bottom: 12px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      /* ── REDUCED MOTION ── */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+        .fade-in { opacity: 1; transform: none; }
+        .pulse-dot::after { animation: none; }
+        .podium-crown { animation: none; }
+        .skeleton::after { animation: none; }
+      }
+
+      @media print {
+        body { background: white; color: #111; max-width: 100%; }
+        body::before { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ── HEADER ── -->
+    <header class="header">
+      <div class="logo-row">
+        <div class="logo-mark">
+          <img src="logo.png" alt="AutoScale AI" width="32" height="32" />
+        </div>
+        <span class="logo-text">AutoScale AI</span>
+      </div>
+      <div class="header-title">LEADER<span>BOARD</span></div>
+      <div class="live-badge">
+        <span class="pulse-dot"></span>
+        Updated in real-time
+      </div>
+    </header>
+
+    <!-- ── TIMEFRAME TABS ── -->
+    <div class="tabs" role="tablist" aria-label="Leaderboard timeframe">
+      <button class="tab active" data-timeframe="week" role="tab" aria-selected="true" onclick="setTimeframe('week', this)">Week</button>
+      <button class="tab" data-timeframe="month" role="tab" aria-selected="false" onclick="setTimeframe('month', this)">Month</button>
+      <button class="tab" data-timeframe="all" role="tab" aria-selected="false" onclick="setTimeframe('all', this)">All Time</button>
+    </div>
+
+    <!-- ── MAIN CONTENT (injected by JS) ── -->
+    <div id="leaderboard-content">
+      <!-- Loading skeletons -->
+      <div id="loading-state">
+        <div style="display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:8px;margin-bottom:20px;align-items:end;">
+          <div class="skeleton skeleton-podium"></div>
+          <div class="skeleton skeleton-podium tall"></div>
+          <div class="skeleton skeleton-podium"></div>
+        </div>
+        <div class="skeleton skeleton-summary"></div>
+        <div class="skeleton skeleton-row"></div>
+        <div class="skeleton skeleton-row"></div>
+        <div class="skeleton skeleton-row"></div>
+        <div class="skeleton skeleton-row"></div>
+        <div class="skeleton skeleton-row"></div>
+      </div>
+      <div id="data-state" style="display:none;"></div>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer fade-in">
+      <div class="footer-brand">AutoScale AI</div>
+      <div class="footer-links">
+        <a href="" class="footer-link" id="footer-quickstart">Quick Start</a>
+        <a href="" class="footer-link" id="footer-home">Field Kit</a>
+      </div>
+      <div class="footer-sub">&copy; 2026 AutoScale AI</div>
+    </footer>
+
+    <!-- ── TOAST ── -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      /* ── CONFIG ── */
+      var API_BASE = (
+        window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1'
+      ) ? 'http://localhost:3000/api' : 'https://api.autoscaleai.ca/api';
+
+      var currentTimeframe = 'week';
+      var refreshTimer = null;
+      var currentTid = new URLSearchParams(window.location.search).get('tid') || '';
+
+      /* ── TID PASSTHROUGH ── */
+      function buildUrl(path) {
+        var base = path;
+        if (currentTid) {
+          base += (base.indexOf('?') === -1 ? '?' : '&') + 'tid=' + encodeURIComponent(currentTid);
+        }
+        return base;
+      }
+
+      function initFooterLinks() {
+        document.getElementById('footer-quickstart').href = buildUrl('quick-start.html');
+        document.getElementById('footer-home').href = buildUrl('index.html');
+      }
+
+      /* ── FORMAT HELPERS ── */
+      function fmtMoney(val) {
+        var n = parseFloat(val) || 0;
+        if (n >= 1000) {
+          return '$' + (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+        }
+        return '$' + n.toFixed(0);
+      }
+
+      function fmtMoneyFull(val) {
+        var n = parseFloat(val) || 0;
+        return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+      }
+
+      function abbrevName(name) {
+        if (!name) return '—';
+        var parts = name.trim().split(/\s+/);
+        if (parts.length === 1) return parts[0];
+        return parts[0] + ' ' + parts[parts.length - 1].charAt(0) + '.';
+      }
+
+      /* ── TOAST ── */
+      function showToast(msg) {
+        var t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._timer);
+        t._timer = setTimeout(function() { t.classList.remove('show'); }, 2000);
+      }
+
+      /* ── TIMEFRAME SWITCH ── */
+      function setTimeframe(tf, btn) {
+        if (tf === currentTimeframe) return;
+        currentTimeframe = tf;
+        document.querySelectorAll('.tab').forEach(function(t) {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        fetchLeaderboard(true);
+      }
+
+      /* ── FETCH ── */
+      function fetchLeaderboard(showLoader) {
+        if (showLoader) {
+          document.getElementById('loading-state').style.display = '';
+          document.getElementById('data-state').style.display = 'none';
+        }
+
+        var url = API_BASE + '/field-sales/leaderboard?timeframe=' + currentTimeframe;
+
+        fetch(url, { headers: { 'Accept': 'application/json' }, cache: 'no-cache' })
+          .then(function(res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          })
+          .then(function(data) {
+            if (!data.success || !data.leaderboard) throw new Error('Invalid response');
+            renderLeaderboard(data.leaderboard);
+          })
+          .catch(function(err) {
+            renderError();
+          });
+      }
+
+      /* ── RENDER ── */
+      function renderLeaderboard(list) {
+        document.getElementById('loading-state').style.display = 'none';
+        var container = document.getElementById('data-state');
+        container.style.display = '';
+        container.innerHTML = '';
+
+        if (!list || list.length === 0) {
+          container.innerHTML = renderEmptyState();
+          scheduleRefresh();
+          activateFadeIns();
+          return;
+        }
+
+        var top3 = list.slice(0, 3);
+        var rest = list.slice(3);
+
+        // Podium (top 3)
+        container.appendChild(buildPodium(top3, list));
+
+        // Summary bar
+        container.appendChild(buildSummaryBar(list));
+
+        // Last updated
+        var updEl = document.createElement('div');
+        updEl.className = 'last-updated';
+        updEl.id = 'last-updated';
+        updEl.textContent = 'Refreshed ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        container.appendChild(updEl);
+
+        // Rest of ranking (4+)
+        if (rest.length > 0) {
+          container.appendChild(buildRankingList(rest, list));
+        }
+
+        scheduleRefresh();
+        activateFadeIns();
+      }
+
+      function buildPodium(top3, fullList) {
+        var wrap = document.createElement('div');
+        wrap.className = 'fade-in';
+
+        // Reorder for podium display: 2nd, 1st, 3rd
+        var ordered = [top3[1], top3[0], top3[2]].filter(Boolean);
+        var rankClasses = top3[1] ? ['rank-2', 'rank-1', 'rank-3'] : ['rank-1', 'rank-3'];
+        var actualRanks = top3[1] ? [2, 1, 3] : [1, 2];
+
+        var podiumEl = document.createElement('div');
+        podiumEl.className = 'podium';
+
+        ordered.forEach(function(rep, i) {
+          if (!rep) return;
+          var rank = actualRanks[i];
+          var card = document.createElement('div');
+          card.className = 'podium-card ' + rankClasses[i];
+
+          var isMe = currentTid && rep.tracking_id === currentTid;
+          var isMeTag = isMe ? '<span class="you-tag">YOU</span>' : '';
+
+          var crownHtml = rank === 1 ? '<span class="podium-crown" aria-hidden="true">&#x1F451;</span>' : '';
+
+          card.innerHTML = crownHtml +
+            '<div class="podium-rank">' + rank + '</div>' +
+            '<div class="podium-name">' + escHtml(abbrevName(rep.rep_name)) + isMeTag + '</div>' +
+            '<div class="podium-stat">' +
+              '<div class="podium-signups">' + (rep.signups || 0) + '</div>' +
+              '<div class="podium-signups-label">signups</div>' +
+            '</div>' +
+            '<span class="podium-earned">' + fmtMoney(rep.total_earned) + ' earned</span>' +
+            (rep.state ? '<div class="podium-state">' + escHtml(rep.state) + '</div>' : '');
+
+          podiumEl.appendChild(card);
+        });
+
+        // If only 1 rep, center it
+        if (top3.length === 1) {
+          podiumEl.style.gridTemplateColumns = '1fr';
+          podiumEl.style.maxWidth = '200px';
+          podiumEl.style.margin = '0 auto 20px';
+        }
+
+        wrap.appendChild(podiumEl);
+        return wrap;
+      }
+
+      function buildSummaryBar(list) {
+        var totalSignups = list.reduce(function(s, r) { return s + (r.signups || 0); }, 0);
+        var totalEarned = list.reduce(function(s, r) { return s + (parseFloat(r.total_earned) || 0); }, 0);
+        var avgSignups = list.length > 0 ? (totalSignups / list.length).toFixed(1) : '0';
+
+        var el = document.createElement('div');
+        el.className = 'summary-bar fade-in';
+        el.innerHTML =
+          '<div class="summary-item">' +
+            '<span class="summary-value">' + totalSignups + '</span>' +
+            '<span class="summary-label">Team Signups</span>' +
+          '</div>' +
+          '<div class="summary-item">' +
+            '<span class="summary-value">' + fmtMoney(totalEarned) + '</span>' +
+            '<span class="summary-label">Team Revenue</span>' +
+          '</div>' +
+          '<div class="summary-item">' +
+            '<span class="summary-value">' + avgSignups + '</span>' +
+            '<span class="summary-label">Avg / Rep</span>' +
+          '</div>';
+
+        return el;
+      }
+
+      function buildRankingList(rest, fullList) {
+        var wrap = document.createElement('div');
+        wrap.className = 'ranking-section fade-in';
+
+        var header = document.createElement('div');
+        header.className = 'ranking-header';
+        header.innerHTML = '<div class="ranking-title">FULL RANKING</div>';
+        wrap.appendChild(header);
+
+        var cols = document.createElement('div');
+        cols.className = 'ranking-cols';
+        cols.setAttribute('aria-hidden', 'true');
+        cols.innerHTML = '<span>#</span><span>Rep</span><span>Signups</span><span>Earned</span>';
+        wrap.appendChild(cols);
+
+        rest.forEach(function(rep, i) {
+          var rank = i + 4;
+          var isMe = currentTid && rep.tracking_id === currentTid;
+
+          var row = document.createElement('div');
+          row.className = 'ranking-row' + (isMe ? ' current-rep' : '');
+          row.setAttribute('role', 'row');
+
+          var youTag = isMe ? '<span class="you-tag">YOU</span>' : '';
+
+          row.innerHTML =
+            '<div class="rank-num">' + rank + '</div>' +
+            '<div class="rep-name">' + escHtml(abbrevName(rep.rep_name)) + youTag + '</div>' +
+            '<div class="rep-signups">' + (rep.signups || 0) + '</div>' +
+            '<div class="rep-earned">' + fmtMoney(rep.total_earned) + '</div>';
+
+          wrap.appendChild(row);
+        });
+
+        return wrap;
+      }
+
+      function renderEmptyState() {
+        return '<div class="empty-state fade-in">' +
+          '<span class="empty-icon" aria-hidden="true">&#x1F3C6;</span>' +
+          '<div class="empty-title">No Sales Yet</div>' +
+          '<p class="empty-sub">No sales yet this period.<br>Be the first to close!</p>' +
+          '<a href="' + escAttr(buildUrl('quick-start.html')) + '" class="cta-btn primary">Read the Quick Start Guide</a>' +
+        '</div>';
+      }
+
+      function renderError() {
+        document.getElementById('loading-state').style.display = 'none';
+        var container = document.getElementById('data-state');
+        container.style.display = '';
+        container.innerHTML =
+          '<div class="error-notice">Unable to load data. Retrying soon.</div>' +
+          '<div class="empty-state fade-in">' +
+            '<span class="empty-icon" aria-hidden="true">&#x1F4F5;</span>' +
+            '<div class="empty-title">Offline</div>' +
+            '<p class="empty-sub">Could not reach the server.<br>Check your connection and try again.</p>' +
+            '<a href="' + escAttr(buildUrl('quick-start.html')) + '" class="cta-btn primary">Back to Quick Start</a>' +
+          '</div>';
+        scheduleRefresh();
+        activateFadeIns();
+      }
+
+      /* ── AUTO-REFRESH ── */
+      function scheduleRefresh() {
+        clearTimeout(refreshTimer);
+        refreshTimer = setTimeout(function() {
+          fetchLeaderboard(false);
+        }, 60000);
+      }
+
+      /* ── FADE-IN OBSERVER ── */
+      function activateFadeIns() {
+        var items = document.querySelectorAll('.fade-in:not(.visible)');
+        var obs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+        items.forEach(function(el) { obs.observe(el); });
+      }
+
+      /* ── XSS HELPERS ── */
+      function escHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function escAttr(str) {
+        return escHtml(str);
+      }
+
+      /* ── INIT ── */
+      initFooterLinks();
+      fetchLeaderboard(true);
+      activateFadeIns();
+    </script>
+  </body>
+</html>
