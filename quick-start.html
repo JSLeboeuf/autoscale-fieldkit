@@ -1443,7 +1443,8 @@
 
       <p class="demo-note">
         Put it on speaker. Let the business owner hear it.<br />
-        The AI sells itself.<br /><br />
+        <strong style="color:var(--red)">STAY COMPLETELY SILENT during the demo.</strong><br />
+        The AI sells itself. Don't interrupt. Don't narrate.<br /><br />
         If the owner says <strong>"wow"</strong> — you're 80% closed.
       </p>
     </div>
@@ -1523,7 +1524,7 @@
       </div>
 
       <div class="cta-stack">
-        <a href="pay.html" class="cta-btn primary"> 💳 Collect Setup Fee </a>
+        <a href="pay.html" class="cta-btn primary" id="cta-pay"> 💳 Collect Setup Fee </a>
         <a href="index.html#contract" class="cta-btn secondary"> 📝 Send Contract </a>
         <a href="index.html" class="cta-btn tertiary"> 📊 Full Field Kit </a>
       </div>
@@ -1907,7 +1908,7 @@
       <a href="tel:+12073049892" class="sticky-btn demo" aria-label="Call demo line">
         📞 Demo Call
       </a>
-      <a href="pay.html" class="sticky-btn pay" aria-label="Collect payment"> 💳 Collect Pay </a>
+      <a href="pay.html" class="sticky-btn pay" aria-label="Collect payment" id="sticky-pay"> 💳 Collect Pay </a>
     </div>
 
     <script>
@@ -2042,6 +2043,18 @@
         ids.forEach(function (id) {
           var el = document.getElementById(id);
           if (el) obs.observe(el);
+        });
+      })();
+
+      /* ── TID PASSTHROUGH ── */
+      (function () {
+        var tid = new URLSearchParams(window.location.search).get('tid');
+        if (!tid) return;
+        var suffix = '?tid=' + encodeURIComponent(tid);
+        document.querySelectorAll('a[href^="pay.html"]').forEach(function (a) {
+          if (a.href.indexOf('tid=') === -1) {
+            a.href = a.href + (a.href.indexOf('?') === -1 ? '?' : '&') + 'tid=' + encodeURIComponent(tid);
+          }
         });
       })();
     </script>
