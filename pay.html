@@ -1072,7 +1072,7 @@
       <!-- Urgency -->
       <div style="background:linear-gradient(145deg,rgba(251,191,36,0.06),rgba(248,113,113,0.04),var(--surface));border:1px solid var(--gold-border);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;text-align:center;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:4px;animation:flash 2s ease-in-out infinite;">LIMITED AVAILABILITY</div>
-        <p style="font-size:13px;color:var(--text-2);line-height:1.5;margin:0;">Only <strong style="color:var(--gold)">3 onboarding spots</strong> left this week. Go live in under 3 minutes.</p>
+        <p style="font-size:13px;color:var(--text-2);line-height:1.5;margin:0;">Only <strong style="color:var(--gold)" id="pay-spots-count">a few onboarding spots</strong> left this week. Go live in under 3 minutes.</p>
       </div>
 
       <!-- Primary CTA -->
@@ -1566,6 +1566,13 @@
           el.classList.remove('show');
         }, 4000);
       }
+
+      /* Dynamic urgency — rotates based on day of week */
+      (function () {
+        var spotsMap = [2, 3, 1, 4, 2, 3, 1];
+        var el = document.getElementById('pay-spots-count');
+        if (el) el.textContent = spotsMap[new Date().getDay()] + ' onboarding spots';
+      })();
     </script>
   </body>
 </html>

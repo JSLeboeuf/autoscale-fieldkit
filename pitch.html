@@ -2122,6 +2122,26 @@
           el.classList.remove('show');
         }, 4000);
       }
+      /* Dynamic urgency — rotates spots based on day of week */
+      (function () {
+        var spotsMap = [2, 3, 1, 4, 2, 3, 1]; // Sun-Sat
+        var today = new Date().getDay();
+        var spotsLeft = spotsMap[today];
+        var label = document.querySelector('.spots-label');
+        var spots = document.querySelectorAll('.spot');
+        if (label) label.textContent = spotsLeft + ' spot' + (spotsLeft !== 1 ? 's' : '') + ' remaining';
+        // Update the visual spots
+        var taken = 10 - spotsLeft;
+        spots.forEach(function (s, i) {
+          if (i < taken) {
+            s.className = 'spot taken';
+            s.textContent = '✓';
+          } else {
+            s.className = 'spot open';
+            s.textContent = (spotsLeft - (i - taken));
+          }
+        });
+      })();
     </script>
   </body>
 </html>
