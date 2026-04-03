@@ -625,20 +625,17 @@
       <div class="doc-header">
         <div class="company-brand">
           <div class="logo-box">
-            <!-- Logo placeholder: replace with <img src="logo.png" /> -->
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
+            <img src="logo.png" alt="AutoScale AI" style="height:40px;" />
           </div>
           <div class="company-info">
             <h1>AutoScale AI Inc.</h1>
-            <p>Incorporated in Delaware, USA</p>
+            <p>Incorporated in Quebec, Canada</p>
           </div>
         </div>
         <div class="doc-title-block">
           <div class="doc-type">Legal Agreement</div>
           <h2>Independent Sales<br>Representative Agreement</h2>
-          <div class="doc-meta">Version 2.0 &nbsp;·&nbsp; Effective Date: ___________</div>
+          <div class="doc-meta">Version 2.0 &nbsp;·&nbsp; Effective Date: <span id="effective-date"></span></div>
         </div>
       </div>
 
@@ -651,7 +648,7 @@
             <div class="party-label">The Company</div>
             <div class="party-name">AutoScale AI Inc.</div>
             <div class="party-detail">
-              A Delaware Corporation<br>
+              A Quebec Corporation (NEQ: 2280833916)<br>
               ("Company," "AutoScale AI," or "We")
             </div>
           </div>
@@ -751,9 +748,9 @@
                   Core
                   <span class="plan-badge">ENTRY</span>
                 </td>
-                <td><strong>$1,197</strong></td>
+                <td><strong>$997</strong></td>
                 <td>$500</td>
-                <td>$697</td>
+                <td>$497</td>
                 <td>$697 / mo</td>
               </tr>
               <tr>
@@ -827,7 +824,7 @@
             <strong>4.4 Commission Attribution.</strong> Sales are attributed to Representative via the unique tracking ID (TID) embedded in the pay link. Representative is responsible for ensuring clients use their assigned TID link. Sales without a valid TID are not eligible for commission.
           </p>
           <p>
-            <strong>4.5 Payment Timing.</strong> Commissions are paid NET-15. Company shall disburse commissions within fifteen (15) calendar days after the client's payment has cleared and funds are available to Company. Recurring commissions are paid monthly, fifteen (15) days after the close of each billing cycle.
+            <strong>4.5 Payment Timing.</strong> Commissions are disbursed within 5 business days of commission approval. Company shall approve commissions once the client's payment has cleared and funds are available to Company. Recurring commissions are approved monthly, within 5 business days of the close of each billing cycle.
           </p>
           <p>
             <strong>4.6 Chargebacks and Refunds.</strong> If a client successfully initiates a chargeback, payment dispute, or if Company issues a refund for any reason, the corresponding commission shall be deducted from Representative's next commission payment or, if no future payment is due, Representative shall reimburse Company within thirty (30) days of written notice.
@@ -933,11 +930,6 @@
           <p>
             <strong>7.4 Geographic Scope.</strong> The non-compete restriction applies within the United States. The non-solicitation restrictions apply globally and are not geographically limited.
           </p>
-          <!-- Attorney Note removed from visible rendering
-          <div class="note-box">
-            <strong>Attorney Note:</strong> Non-compete enforceability varies significantly by state. California, Minnesota, North Dakota, and Oklahoma have strong restrictions. Florida, Texas, and Georgia generally permit non-competes with reasonable scope. Review enforceability in each Representative's state of residence. Consider blue-penciling provisions.
-          </div>
-          -->
         </div>
 
         <!-- 8. TERMINATION -->
@@ -1030,10 +1022,10 @@
             <span class="section-title">Dispute Resolution &amp; Governing Law</span>
           </div>
           <p>
-            <strong>12.1 Governing Law.</strong> This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of law provisions.
+            <strong>12.1 Governing Law.</strong> This Agreement shall be governed by and construed in accordance with the laws of the Province of Quebec, Canada, without regard to its conflict of law provisions.
           </p>
           <p>
-            <strong>12.2 Arbitration.</strong> Any dispute, controversy, or claim arising out of or relating to this Agreement, or the breach thereof, shall be settled by binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules. The arbitration shall take place in Delaware or, at the mutual agreement of the parties, via videoconference. The arbitrator's decision shall be final and binding, and judgment may be entered in any court of competent jurisdiction.
+            <strong>12.2 Arbitration.</strong> Any dispute, controversy, or claim arising out of or relating to this Agreement, or the breach thereof, shall be settled by binding arbitration administered by the ADR Institute of Canada under its Commercial Arbitration Rules. The arbitration shall take place in Quebec City, Quebec, or, at the mutual agreement of the parties, via videoconference. The arbitrator's decision shall be final and binding, and judgment may be entered in any court of competent jurisdiction.
           </p>
           <p>
             <strong>12.3 Class Action Waiver.</strong> Representative waives any right to participate in a class action lawsuit or class-wide arbitration against Company.
@@ -1156,5 +1148,8 @@
       </div>
 
     </div><!-- /document -->
+    <script>
+      document.getElementById('effective-date').textContent = new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+    </script>
   </body>
 </html>
