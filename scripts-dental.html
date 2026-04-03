@@ -1,0 +1,1640 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <title>AutoScale AI — Dental Office Script</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --green: #60a5fa;
+        --green-2: #3b82f6;
+        --green-dim: rgba(96, 165, 250, 0.07);
+        --green-glow: rgba(96, 165, 250, 0.15);
+        --red: #f87171;
+        --red-dim: rgba(248, 113, 113, 0.06);
+        --gold: #fbbf24;
+        --gold-dim: rgba(251, 191, 36, 0.08);
+        --blue: #60a5fa;
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+        scroll-padding-top: 24px;
+      }
+
+      body {
+        font-family:
+          'Plus Jakarta Sans',
+          -apple-system,
+          system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 0 20px 100px;
+        position: relative;
+        font-weight: 400;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 28px 0 8px;
+        text-align: center;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .logo-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        font-family: 'Michroma', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .header-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 42px;
+        line-height: 1;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+
+      .header-title span {
+        color: var(--green);
+      }
+
+      .header-quote {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-style: italic;
+        font-weight: 300;
+        font-size: 13px;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        margin-bottom: 24px;
+      }
+
+      /* ── VERTICAL CHIP ── */
+      .vertical-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--gold-dim);
+        border: 1px solid rgba(251, 191, 36, 0.2);
+        border-radius: 100px;
+        padding: 5px 14px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 24px;
+      }
+
+      /* ── JUMP NAV ── */
+      .jump-nav {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 40;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 8px 4px;
+        background: rgba(20, 20, 23, 0.92);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 10px 0 0 10px;
+        border: 1px solid var(--border);
+        border-right: none;
+      }
+
+      .jump-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border-2);
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          transform 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        position: relative;
+      }
+
+      .jump-dot:hover,
+      .jump-dot.active {
+        background: var(--green);
+        transform: scale(1.3);
+      }
+
+      .jump-dot[data-label]:hover::before {
+        content: attr(data-label);
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--surface-2);
+        color: var(--text);
+        font-size: 10px;
+        font-weight: 600;
+        font-family: 'JetBrains Mono', monospace;
+        white-space: nowrap;
+        padding: 3px 8px;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        pointer-events: none;
+      }
+
+      @media (max-width: 380px) {
+        .jump-nav {
+          display: none;
+        }
+      }
+
+      /* ── CARDS ── */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 16px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .card-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.12);
+        padding: 4px 10px;
+        border-radius: 6px;
+        letter-spacing: 0.06em;
+        flex-shrink: 0;
+      }
+
+      .card-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        line-height: 1;
+      }
+
+      .card-body {
+        font-size: 14px;
+        line-height: 1.8;
+        color: var(--text-2);
+      }
+
+      .card-body strong,
+      .card-body b {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .card-body em {
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      /* ── FADE IN ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(12px);
+        transition:
+          opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── STAT GRID ── */
+      .stat-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .stat-cell {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 14px 12px;
+      }
+
+      .stat-cell.accent {
+        border-color: rgba(251, 191, 36, 0.2);
+        background: var(--gold-dim);
+      }
+
+      .stat-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .stat-cell.blue .stat-num {
+        color: var(--green);
+      }
+
+      .stat-label {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.4;
+        font-weight: 500;
+      }
+
+      /* ── INSIGHT BOX ── */
+      .insight-box {
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.12);
+        border-radius: var(--radius-sm);
+        padding: 14px 16px;
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--text-2);
+      }
+
+      .insight-box strong {
+        color: var(--green);
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      /* ── SCRIPT BLOCK ── */
+      .script-block {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+        position: relative;
+      }
+
+      .script-block:active {
+        background: var(--surface-2);
+        border-color: var(--border-2);
+      }
+
+      .script-block.copied {
+        border-color: var(--green);
+        background: var(--green-dim);
+      }
+
+      .script-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .script-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--green);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+        transition: opacity 0.15s;
+      }
+
+      .copy-btn:active {
+        opacity: 0.7;
+      }
+
+      .script-text {
+        padding: 16px 14px;
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--text-2);
+        white-space: pre-wrap;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 400;
+      }
+
+      .script-text .stage {
+        color: var(--muted);
+        font-style: italic;
+        font-size: 12px;
+      }
+
+      .script-text .highlight {
+        color: var(--green);
+        font-weight: 600;
+      }
+
+      /* ── OBJECTIONS ── */
+      .objection-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .obj-item {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+      }
+
+      .obj-summary {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        cursor: pointer;
+        list-style: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.15s;
+        position: relative;
+      }
+
+      .obj-summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .obj-summary::after {
+        content: '+';
+        position: absolute;
+        right: 14px;
+        font-size: 18px;
+        font-weight: 300;
+        color: var(--muted);
+        transition: transform 0.2s;
+        line-height: 1;
+      }
+
+      details[open] > .obj-summary::after {
+        content: '−';
+      }
+
+      .obj-summary:active {
+        background: var(--surface);
+      }
+
+      .obj-q-text {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--red);
+        flex: 1;
+        padding-right: 20px;
+        line-height: 1.4;
+      }
+
+      .obj-body {
+        padding: 0 16px 16px;
+      }
+
+      .obj-answer {
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--text-2);
+        padding-left: 12px;
+        border-left: 2px solid var(--green);
+        padding-top: 4px;
+      }
+
+      .obj-answer strong {
+        color: var(--green);
+        font-weight: 700;
+      }
+
+      .obj-copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        padding: 5px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+          color 0.15s,
+          border-color 0.15s,
+          background 0.15s;
+      }
+
+      .obj-copy-btn:active,
+      .obj-copy-btn.copied {
+        color: var(--green);
+        border-color: rgba(96, 165, 250, 0.25);
+        background: var(--green-dim);
+      }
+
+      /* ── TIPS LIST ── */
+      .tips-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .tip-item {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .tip-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        display: grid;
+        place-items: center;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+
+      .tip-body {
+        flex: 1;
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: var(--text-2);
+      }
+
+      .tip-body strong {
+        color: var(--green);
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .tip-body em {
+        color: var(--muted);
+        font-style: italic;
+        font-size: 12px;
+        display: block;
+        margin-top: 4px;
+      }
+
+      .tip-item.gold {
+        border-color: rgba(251, 191, 36, 0.2);
+        background: var(--gold-dim);
+      }
+
+      .tip-item.gold .tip-icon {
+        background: rgba(251, 191, 36, 0.1);
+        border-color: rgba(251, 191, 36, 0.2);
+      }
+
+      .tip-item.gold .tip-body strong {
+        color: var(--gold);
+      }
+
+      /* ── ROI CALCULATOR ── */
+      .roi-calc {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 20px;
+      }
+
+      .roi-calc label {
+        display: block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 10px;
+      }
+
+      .roi-slider-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .roi-slider {
+        flex: 1;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 4px;
+        background: var(--border-2);
+        border-radius: 2px;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .roi-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--green);
+        cursor: pointer;
+        box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
+        transition: box-shadow 0.15s;
+      }
+
+      .roi-slider::-webkit-slider-thumb:active {
+        box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.3);
+      }
+
+      .roi-slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--green);
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
+      }
+
+      .roi-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        min-width: 36px;
+        text-align: right;
+      }
+
+      .roi-results {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .roi-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        border: 1px solid var(--border);
+      }
+
+      .roi-row-label {
+        font-size: 12.5px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .roi-row-amount {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-2);
+      }
+
+      .roi-row.lost .roi-row-amount {
+        color: var(--red);
+      }
+
+      .roi-row.cost .roi-row-amount {
+        color: var(--muted);
+      }
+
+      .roi-row.net {
+        border-color: rgba(96, 165, 250, 0.25);
+        background: var(--green-dim);
+      }
+
+      .roi-row.net .roi-row-label {
+        color: var(--green);
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .roi-row.net .roi-row-amount {
+        color: var(--green);
+        font-size: 18px;
+      }
+
+      .roi-note {
+        margin-top: 12px;
+        font-size: 11px;
+        color: var(--muted);
+        text-align: center;
+        font-style: italic;
+      }
+
+      /* ── BOTTOM NAV ── */
+      .bottom-nav {
+        margin-top: 8px;
+      }
+
+      .bottom-nav-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 10px;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .nav-link:active {
+        background: var(--surface-2);
+        border-color: var(--border-2);
+      }
+
+      .nav-link-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .nav-link-icon {
+        font-size: 18px;
+      }
+
+      .nav-link-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .nav-link-sub {
+        font-size: 11px;
+        color: var(--muted);
+        display: block;
+        margin-top: 1px;
+        font-weight: 400;
+      }
+
+      .nav-link-arrow {
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .nav-link.primary {
+        border-color: rgba(96, 165, 250, 0.2);
+        background: var(--green-dim);
+      }
+
+      .nav-link.primary .nav-link-text {
+        color: var(--green);
+      }
+
+      .nav-link.primary .nav-link-arrow {
+        color: var(--green);
+      }
+
+      .nav-link.gold {
+        border-color: rgba(251, 191, 36, 0.2);
+        background: var(--gold-dim);
+      }
+
+      .nav-link.gold .nav-link-text {
+        color: var(--gold);
+      }
+
+      .nav-link.gold .nav-link-arrow {
+        color: var(--gold);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .footer-brand {
+        font-family: 'Michroma', sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        color: var(--text-2);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 10px;
+      }
+
+      .footer-link {
+        font-size: 12px;
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+
+      .footer-link:active {
+        color: var(--green);
+      }
+
+      .footer-sub {
+        font-size: 11px;
+        color: var(--border-2);
+        margin-top: 8px;
+        font-weight: 400;
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--surface-2);
+        color: var(--green);
+        padding: 10px 24px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        z-index: 100;
+        transition:
+          transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.3s;
+        pointer-events: none;
+        border: 1px solid var(--border-2);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        white-space: nowrap;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      /* ── STICKY BAR ── */
+      .sticky-bar {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(100%);
+        z-index: 50;
+        width: 100%;
+        max-width: 460px;
+        background: rgba(9, 9, 11, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top: 1px solid var(--border);
+        padding: 10px 16px;
+        display: flex;
+        gap: 8px;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .sticky-bar.visible {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .sticky-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 12px;
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 0.15s;
+      }
+
+      .sticky-btn:active {
+        transform: scale(0.97);
+      }
+
+      .sticky-btn.demo {
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+      }
+
+      .sticky-btn.pay {
+        background: var(--surface-2);
+        color: var(--gold);
+        border: 1px solid rgba(251, 191, 36, 0.2);
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+        margin: 4px 0;
+      }
+
+      /* ── INLINE TAGS ── */
+      .tag-green {
+        display: inline;
+        color: var(--green);
+        font-weight: 700;
+      }
+
+      .tag-gold {
+        display: inline;
+        color: var(--gold);
+        font-weight: 700;
+      }
+
+      .tag-red {
+        display: inline;
+        color: var(--red);
+        font-weight: 600;
+      }
+
+      /* ── REDUCED MOTION ── */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+        .fade-in {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media print {
+        body {
+          background: white;
+          color: #111;
+          max-width: 100%;
+        }
+        body::before,
+        .sticky-bar,
+        .jump-nav {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── JUMP NAV ── -->
+    <nav class="jump-nav" aria-label="Quick navigation">
+      <button
+        class="jump-dot"
+        data-label="INTEL"
+        onclick="jumpTo('card-01')"
+        aria-label="Know your prospect"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="OPENER"
+        onclick="jumpTo('card-02')"
+        aria-label="The dental opener"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="OBJ"
+        onclick="jumpTo('card-03')"
+        aria-label="Dental objections"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="TIPS"
+        onclick="jumpTo('card-04')"
+        aria-label="Closing tips"
+      ></button>
+      <button
+        class="jump-dot"
+        data-label="ROI"
+        onclick="jumpTo('card-05')"
+        aria-label="ROI calculator"
+      ></button>
+    </nav>
+
+    <!-- ── HEADER ── -->
+    <header class="header">
+      <div class="logo-row">
+        <div class="logo-mark">
+          <img src="logo.png" alt="AutoScale AI" width="32" height="32" />
+        </div>
+        <span class="logo-text">AutoScale AI</span>
+      </div>
+      <div class="header-title">DENTAL<br /><span>OFFICE</span> SCRIPT</div>
+      <div class="header-quote">"Our #1 vertical. They GET IT fast."</div>
+      <div class="vertical-chip">&#x2B;&#x2B; Vertical: Dental Offices</div>
+    </header>
+
+    <!-- ── CARD 01: KNOW YOUR PROSPECT ── -->
+    <div id="card-01" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">01</span>
+        <span class="card-title">KNOW YOUR PROSPECT</span>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-cell accent">
+          <div class="stat-num">80–120</div>
+          <div class="stat-label">calls/day handled by front desk</div>
+        </div>
+        <div class="stat-cell blue">
+          <div class="stat-num">30–40%</div>
+          <div class="stat-label">go to voicemail during procedures</div>
+        </div>
+        <div class="stat-cell blue">
+          <div class="stat-num">$3–5K</div>
+          <div class="stat-label">lifetime value of one new patient</div>
+        </div>
+        <div class="stat-cell accent">
+          <div class="stat-num">15–20</div>
+          <div class="stat-label">calls missed every single week</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <strong>Key insight</strong>
+        Emergency calls after hours = lost patients forever. A patient who hits voicemail at 8pm calls
+        your competitor at 8:01pm. Dental offices are our <span class="tag-gold">#1 vertical</span> — they understand
+        missed calls cost them real money, and the math closes itself.
+      </div>
+    </div>
+
+    <!-- ── CARD 02: THE DENTAL OPENER ── -->
+    <div id="card-02" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">02</span>
+        <span class="card-title">THE DENTAL OPENER</span>
+      </div>
+
+      <div
+        class="script-block"
+        role="button"
+        tabindex="0"
+        aria-label="Copy dental opener script"
+        onclick="copyScript(this)"
+        onkeydown="if (event.key === 'Enter' || event.key === ' ') { copyScript(this); }"
+      >
+        <div class="script-toolbar">
+          <span class="script-label">Tap to copy script</span>
+          <span class="copy-btn">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            COPY
+          </span>
+        </div>
+        <div class="script-text">Hey! Quick question — how many new patient calls does your front desk miss when they're busy with patients in the chair? [WAIT]
+
+Right — and each one of those is worth $3,000 to $5,000 over their lifetime.
+
+We install an AI receptionist that answers those calls 24/7 — books cleanings, answers insurance questions, handles emergencies. The dentist down on [street] is using it and stopped losing new patients completely.
+
+Can I show you a quick demo?</div>
+      </div>
+
+      <div style="margin-top: 12px; font-size: 12.5px; color: var(--muted); line-height: 1.6; padding: 0 2px;">
+        <span class="tag-green">The pause after "in the chair" is everything.</span>
+        Let them answer. They will always say yes — and they've just sold themselves.
+      </div>
+    </div>
+
+    <!-- ── CARD 03: DENTAL-SPECIFIC OBJECTIONS ── -->
+    <div id="card-03" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">03</span>
+        <span class="card-title">DENTAL OBJECTIONS</span>
+      </div>
+
+      <div class="objection-list">
+
+        <details class="obj-item">
+          <summary class="obj-summary">
+            <span class="obj-q-text">"We already have a front desk person"</span>
+          </summary>
+          <div class="obj-body">
+            <div class="obj-answer">
+              "That's great — this handles the overflow. When your receptionist is checking in patients,
+              running the door, or at lunch, the AI picks up. Right now those calls go to voicemail.
+              <strong>67% of new patients who hit voicemail call your competitor instead.</strong>"
+            </div>
+            <button
+              class="obj-copy-btn"
+              onclick="copyObjection(this, 'That\'s great — this handles the overflow. When your receptionist is checking in patients, running the door, or at lunch, the AI picks up. Right now those calls go to voicemail. 67% of new patients who hit voicemail call your competitor instead.')"
+              aria-label="Copy response"
+            >
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              COPY RESPONSE
+            </button>
+          </div>
+        </details>
+
+        <details class="obj-item">
+          <summary class="obj-summary">
+            <span class="obj-q-text">"Our patients prefer talking to a real person"</span>
+          </summary>
+          <div class="obj-body">
+            <div class="obj-answer">
+              "Totally get it. The AI sounds completely human — let me play the demo.
+              <strong>[PLAY DEMO — call (207) 304-9892]</strong>
+              Plus, it's only for calls your staff CAN'T answer. Your patients would rather talk to a
+              human-sounding AI than get voicemail, right?"
+            </div>
+            <button
+              class="obj-copy-btn"
+              onclick="copyObjection(this, 'Totally get it. The AI sounds completely human — let me play the demo. [PLAY DEMO] Plus, it\'s only for calls your staff CAN\'T answer. Your patients would rather talk to a human-sounding AI than get voicemail, right?')"
+              aria-label="Copy response"
+            >
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              COPY RESPONSE
+            </button>
+          </div>
+        </details>
+
+        <details class="obj-item">
+          <summary class="obj-summary">
+            <span class="obj-q-text">"We use Dentrix / Eaglesoft — will it integrate?"</span>
+          </summary>
+          <div class="obj-body">
+            <div class="obj-answer">
+              "Great question. Our AI works alongside your existing system. It captures the caller's info,
+              schedules directly into available slots, and your staff can verify later.
+              <strong>No software changes needed.</strong>"
+            </div>
+            <button
+              class="obj-copy-btn"
+              onclick="copyObjection(this, 'Great question. Our AI works alongside your existing system. It captures the caller\'s info, schedules directly into available slots, and your staff can verify later. No software changes needed.')"
+              aria-label="Copy response"
+            >
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              COPY RESPONSE
+            </button>
+          </div>
+        </details>
+
+        <details class="obj-item">
+          <summary class="obj-summary">
+            <span class="obj-q-text">"Is it HIPAA compliant?"</span>
+          </summary>
+          <div class="obj-body">
+            <div class="obj-answer">
+              "100%. We sign a BAA, all data is encrypted, and call recordings are stored securely.
+              We work with dozens of dental offices — <strong>compliance is built in.</strong>"
+            </div>
+            <button
+              class="obj-copy-btn"
+              onclick="copyObjection(this, '100%. We sign a BAA, all data is encrypted, and call recordings are stored securely. We work with dozens of dental offices — compliance is built in.')"
+              aria-label="Copy response"
+            >
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              COPY RESPONSE
+            </button>
+          </div>
+        </details>
+
+        <details class="obj-item">
+          <summary class="obj-summary">
+            <span class="obj-q-text">"We don't have budget for this"</span>
+          </summary>
+          <div class="obj-body">
+            <div class="obj-answer">
+              "Let's do the math. If you miss 15 calls a week and just 2 of those would've booked a
+              cleaning at $300 — that's <strong>$2,400/month in lost revenue.</strong>
+              This costs $997/month and it pays for itself week one."
+            </div>
+            <button
+              class="obj-copy-btn"
+              onclick="copyObjection(this, 'Let\'s do the math. If you miss 15 calls a week and just 2 of those would\'ve booked a cleaning at $300 — that\'s $2,400/month in lost revenue. This costs $997/month and it pays for itself week one.')"
+              aria-label="Copy response"
+            >
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              COPY RESPONSE
+            </button>
+          </div>
+        </details>
+
+      </div>
+    </div>
+
+    <!-- ── CARD 04: DENTAL CLOSING TIPS ── -->
+    <div id="card-04" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">04</span>
+        <span class="card-title">DENTAL CLOSING TIPS</span>
+      </div>
+
+      <div class="tips-list">
+
+        <div class="tip-item gold">
+          <div class="tip-icon">&#x23F0;</div>
+          <div class="tip-body">
+            <strong>Best time to visit</strong>
+            Tuesday–Thursday, 11am–1pm. Lunch rush = peak missed calls. You're walking in at the exact
+            moment they feel the pain most.
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <div class="tip-icon">&#x1F3AF;</div>
+          <div class="tip-body">
+            <strong>Decision maker</strong>
+            Office manager or lead dentist — NOT the front desk person. The front desk will nod and say
+            they'll pass it along. Find the owner.
+            <em>Ask: "Is the office manager or Dr. [name] available for 60 seconds?"</em>
+          </div>
+        </div>
+
+        <div class="tip-item gold">
+          <div class="tip-icon">&#x2728;</div>
+          <div class="tip-body">
+            <strong>Magic phrase</strong>
+            "How much is a new patient worth to your practice?" — Let them say the number out loud.
+            Once they do, the ROI math does the rest.
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <div class="tip-icon">&#x1F4DE;</div>
+          <div class="tip-body">
+            <strong>Power demo move</strong>
+            Ask them to call their own office number while you're standing there.
+            If it goes to voicemail — you just proved the need live, in front of them.
+            <em>No pitch needed. Just silence and a raised eyebrow.</em>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── CARD 05: DENTAL ROI CALCULATOR ── -->
+    <div id="card-05" class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">05</span>
+        <span class="card-title">DENTAL ROI CALCULATOR</span>
+      </div>
+
+      <div class="roi-calc">
+        <label for="missed-calls-slider">Missed calls per week</label>
+        <div class="roi-slider-row">
+          <input
+            type="range"
+            id="missed-calls-slider"
+            class="roi-slider"
+            min="5"
+            max="30"
+            value="15"
+            step="1"
+            oninput="updateROI(this.value)"
+            aria-label="Missed calls per week"
+          />
+          <div class="roi-value" id="slider-display">15</div>
+        </div>
+
+        <div class="roi-results">
+          <div class="roi-row lost">
+            <span class="roi-row-label">Monthly lost revenue</span>
+            <span class="roi-row-amount" id="roi-lost">−$9,100</span>
+          </div>
+          <div class="roi-row cost">
+            <span class="roi-row-label">AutoScale AI cost</span>
+            <span class="roi-row-amount">−$997/mo</span>
+          </div>
+          <div class="roi-row net">
+            <span class="roi-row-label">Net ROI / month</span>
+            <span class="roi-row-amount" id="roi-net">+$8,103</span>
+          </div>
+        </div>
+
+        <div class="roi-note">
+          Based on 15% conversion rate × $350 avg first-visit revenue × 4.3 weeks/month
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; font-size: 12.5px; color: var(--muted); line-height: 1.6; padding: 0 2px;">
+        Show this calculator on your phone while talking to the dentist.
+        <span class="tag-green">Drag the slider together</span> — let them set their own number.
+      </div>
+    </div>
+
+    <!-- ── BOTTOM NAV ── -->
+    <div class="bottom-nav fade-in">
+      <div class="bottom-nav-title">More Resources</div>
+      <div class="nav-links">
+        <a href="quick-start.html" class="nav-link primary">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">&#x26A1;</span>
+            <div>
+              <div class="nav-link-text">Rep Quick Start</div>
+              <span class="nav-link-sub">Full onboarding guide, plans, deal flow</span>
+            </div>
+          </div>
+          <span class="nav-link-arrow">&#x2192;</span>
+        </a>
+        <a href="pitch.html" class="nav-link">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">&#x1F4CA;</span>
+            <div>
+              <div class="nav-link-text">Sales Pitch Deck</div>
+              <span class="nav-link-sub">iPad-ready presentation for the prospect</span>
+            </div>
+          </div>
+          <span class="nav-link-arrow">&#x2192;</span>
+        </a>
+        <a href="pay.html" class="nav-link gold" id="nav-pay">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">&#x1F4B3;</span>
+            <div>
+              <div class="nav-link-text">Collect Setup Fee</div>
+              <span class="nav-link-sub">Stripe checkout — close the deal now</span>
+            </div>
+          </div>
+          <span class="nav-link-arrow">&#x2192;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+      <div class="footer-brand">AutoScale AI</div>
+      <div class="footer-links">
+        <a href="quick-start.html" class="footer-link" style="color: #60a5fa; font-weight: 700;">Quick Start</a>
+        <a href="pitch.html" class="footer-link">Pitch Deck</a>
+        <a href="pay.html" class="footer-link">Collect Pay</a>
+        <a href="index.html" class="footer-link">Full Toolkit</a>
+      </div>
+      <div style="text-align: center; padding: 8px 0; font-size: 11px; color: var(--muted)">
+        <a href="terms.html" style="color: var(--text-2); text-decoration: none">Terms of Service</a>
+        &middot;
+        <a href="privacy.html" style="color: var(--text-2); text-decoration: none">Privacy Policy</a>
+        &middot; &copy; 2026 AutoScale AI
+      </div>
+      <div class="footer-sub">Questions? Text Vincenzo.</div>
+    </footer>
+
+    <!-- ── TOAST ── -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- ── STICKY BAR ── -->
+    <div class="sticky-bar" id="stickyBar">
+      <a href="tel:+12073049892" class="sticky-btn demo" aria-label="Play demo call">
+        &#x1F4DE; Demo Call
+      </a>
+      <a href="pay.html" class="sticky-btn pay" aria-label="Collect payment" id="sticky-pay">
+        &#x1F4B3; Collect Pay
+      </a>
+    </div>
+
+    <script>
+      /* ── CLIPBOARD ── */
+      function clipCopy(text, cb) {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(cb).catch(function () {
+            fallbackCopy(text, cb);
+          });
+        } else {
+          fallbackCopy(text, cb);
+        }
+      }
+
+      function fallbackCopy(text, cb) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (cb) cb();
+      }
+
+      function showToast(msg) {
+        var t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._timer);
+        t._timer = setTimeout(function () {
+          t.classList.remove('show');
+        }, 1600);
+      }
+
+      function copyScript(el) {
+        var text = el.querySelector('.script-text').textContent.trim();
+        clipCopy(text, function () {
+          el.classList.add('copied');
+          showToast('Script copied');
+          setTimeout(function () {
+            el.classList.remove('copied');
+          }, 1800);
+        });
+      }
+
+      function copyObjection(btn, text) {
+        clipCopy(text, function () {
+          btn.classList.add('copied');
+          btn.textContent = 'COPIED';
+          showToast('Response copied');
+          setTimeout(function () {
+            btn.classList.remove('copied');
+            btn.innerHTML =
+              '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> COPY RESPONSE';
+          }, 1800);
+        });
+      }
+
+      /* ── JUMP NAV ── */
+      function jumpTo(id) {
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      /* ── ROI CALCULATOR ── */
+      function updateROI(val) {
+        var calls = parseInt(val, 10);
+        document.getElementById('slider-display').textContent = calls;
+        var conversionRate = 0.15;
+        var avgRevenue = 350;
+        var weeksPerMonth = 4.3;
+        var monthlyLost = Math.round(calls * conversionRate * avgRevenue * weeksPerMonth);
+        var aiCost = 997;
+        var netROI = monthlyLost - aiCost;
+        document.getElementById('roi-lost').textContent =
+          '−$' + monthlyLost.toLocaleString('en-US');
+        var netEl = document.getElementById('roi-net');
+        if (netROI >= 0) {
+          netEl.textContent = '+$' + netROI.toLocaleString('en-US');
+          netEl.style.color = 'var(--green)';
+        } else {
+          netEl.textContent = '−$' + Math.abs(netROI).toLocaleString('en-US');
+          netEl.style.color = 'var(--red)';
+        }
+      }
+
+      // Initialize calculator on load
+      updateROI(15);
+
+      /* ── FADE-IN OBSERVER ── */
+      (function () {
+        var items = document.querySelectorAll('.fade-in');
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+        );
+        items.forEach(function (el) {
+          obs.observe(el);
+        });
+      })();
+
+      /* ── STICKY BAR ── */
+      (function () {
+        var bar = document.getElementById('stickyBar');
+        var header = document.querySelector('.header');
+        var obs = new IntersectionObserver(
+          function (entries) {
+            if (!entries[0].isIntersecting) {
+              bar.classList.add('visible');
+            } else {
+              bar.classList.remove('visible');
+            }
+          },
+          { threshold: 0 }
+        );
+        obs.observe(header);
+      })();
+
+      /* ── ACTIVE JUMP DOT ── */
+      (function () {
+        var ids = ['card-01', 'card-02', 'card-03', 'card-04', 'card-05'];
+        var dots = document.querySelectorAll('.jump-dot');
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                var idx = ids.indexOf(e.target.id);
+                dots.forEach(function (d, i) {
+                  d.classList.toggle('active', i === idx);
+                });
+              }
+            });
+          },
+          { threshold: 0.4 }
+        );
+        ids.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) obs.observe(el);
+        });
+      })();
+
+      /* ── TID PASSTHROUGH ── */
+      (function () {
+        var tid = new URLSearchParams(window.location.search).get('tid');
+        if (!tid) return;
+        document.querySelectorAll('a[href^="pay.html"]').forEach(function (a) {
+          if (a.href.indexOf('tid=') === -1) {
+            a.href = a.href + (a.href.indexOf('?') === -1 ? '?' : '&') + 'tid=' + encodeURIComponent(tid);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

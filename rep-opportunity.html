@@ -1134,6 +1134,31 @@
             <strong style="color: var(--text);">The snowball effect:</strong> Close 3 clients in month 1 → $300 setup + $418.20/mo recurring. Close 3 more in month 2 → your base just doubled. Residual builds fast — 10 clients = $1,394/mo recurring.
           </div>
         </div>
+
+        <!-- Commission timeline — 12-month visual -->
+        <div style="margin-top: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 16px; overflow: hidden; position: relative;">
+          <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.5;"></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:12px;">YOUR 12-MONTH COMMISSION RUNWAY</div>
+          <p style="font-size:12px;color:var(--text-2);line-height:1.5;margin-bottom:14px;">Each client you close pays you residual for <strong style="color:var(--text)">12 consecutive months</strong>. Here's what ONE Growth client looks like:</p>
+
+          <div id="timeline-bars" style="display:flex;flex-direction:column;gap:3px;"></div>
+
+          <div style="display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border);">
+            <div style="text-align:left;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Setup (Day 1)</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--gold);">$100</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">12-Mo Residual</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--green);">$1,672</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Total / Client</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--emerald);">$1,772</div>
+            </div>
+          </div>
+          <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px;font-style:italic;">10 Growth clients = $17,720 total earnings over 12 months</p>
+        </div>
       </section>
 
       <!-- ══════════════════════════════════════
@@ -1249,7 +1274,7 @@
             <div class="process-num">05</div>
             <div class="process-content">
               <div class="process-title">We handle onboarding <span class="process-pill green">DONE FOR YOU</span></div>
-              <div class="process-desc">Client pays setup + first month today. Your $100 setup commission hits same day. We provision their AI agent within 3 minutes. Then $139.40/mo residual for up to 12 months per client.</div>
+              <div class="process-desc">We provision their AI agent within 3 minutes — no action needed from you. Your $100 setup commission hits same day. Then $139.40/mo residual for up to 12 months per client.</div>
             </div>
           </div>
         </div>
@@ -1510,6 +1535,27 @@
 
       document.getElementById('calcSlider').addEventListener('input', updateCalc);
       updateCalc(); // initial render
+
+      // ── COMMISSION TIMELINE BARS ──
+      (function () {
+        var container = document.getElementById('timeline-bars');
+        if (!container) return;
+        var months = 12;
+        var monthlyComm = 139.40; // Growth 20% of $697
+        for (var m = 1; m <= months; m++) {
+          var pct = (m / months) * 100;
+          var cumulative = (monthlyComm * m).toFixed(0);
+          var row = document.createElement('div');
+          row.style.cssText = 'display:flex;align-items:center;gap:8px;';
+          row.innerHTML =
+            '<span style="font-family:\'JetBrains Mono\',monospace;font-size:9px;font-weight:700;color:var(--muted);min-width:22px;text-align:right;">M' + m + '</span>' +
+            '<div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;">' +
+            '<div style="width:' + pct + '%;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--green-2));"></div>' +
+            '</div>' +
+            '<span style="font-family:\'JetBrains Mono\',monospace;font-size:10px;font-weight:700;color:var(--green);min-width:48px;text-align:right;">$' + Number(cumulative).toLocaleString() + '</span>';
+          container.appendChild(row);
+        }
+      })();
 
       // ── OBJECTION ACCORDION ──
       function toggleObj(id) {

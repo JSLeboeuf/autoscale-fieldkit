@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <title>AutoScale AI — Sale Confirmed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #09090b;
+        --surface: #141417;
+        --surface-2: #1c1c21;
+        --border: #262630;
+        --border-2: #35354a;
+        --text: #f4f4f5;
+        --text-2: #d1d1d8;
+        --muted: #8e8ea0;
+        --green: #60a5fa;
+        --green-2: #3b82f6;
+        --green-dim: rgba(96, 165, 250, 0.07);
+        --green-glow: rgba(96, 165, 250, 0.15);
+        --red: #f87171;
+        --red-dim: rgba(248, 113, 113, 0.06);
+        --gold: #fbbf24;
+        --gold-dim: rgba(251, 191, 36, 0.08);
+        --gold-glow: rgba(251, 191, 36, 0.25);
+        --blue: #60a5fa;
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family:
+          'Plus Jakarta Sans',
+          -apple-system,
+          system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100dvh;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 0 20px 100px;
+        position: relative;
+        font-weight: 400;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      ::selection {
+        background: rgba(96, 165, 250, 0.25);
+        color: var(--text);
+      }
+
+      /* ── CONFETTI ── */
+      .confetti-container {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 460px;
+        height: 100vh;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 10;
+      }
+
+      .confetti-piece {
+        position: absolute;
+        top: -12px;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        opacity: 0;
+        animation: confetti-fall linear forwards;
+      }
+
+      /* 20 confetti pieces — varied positions, colors, speeds, delays */
+      .confetti-piece:nth-child(1)  { left: 5%;  background: var(--gold);   width: 7px;  height: 7px;  animation-duration: 2.4s; animation-delay: 0.0s; }
+      .confetti-piece:nth-child(2)  { left: 12%; background: var(--green);  width: 9px;  height: 6px;  animation-duration: 2.8s; animation-delay: 0.1s; }
+      .confetti-piece:nth-child(3)  { left: 20%; background: #a78bfa;       width: 6px;  height: 9px;  animation-duration: 2.2s; animation-delay: 0.2s; }
+      .confetti-piece:nth-child(4)  { left: 28%; background: var(--gold);   width: 10px; height: 6px;  border-radius: 50%; animation-duration: 3.0s; animation-delay: 0.05s; }
+      .confetti-piece:nth-child(5)  { left: 36%; background: #34d399;       width: 7px;  height: 7px;  animation-duration: 2.5s; animation-delay: 0.3s; }
+      .confetti-piece:nth-child(6)  { left: 44%; background: var(--green);  width: 8px;  height: 8px;  border-radius: 50%; animation-duration: 2.7s; animation-delay: 0.15s; }
+      .confetti-piece:nth-child(7)  { left: 52%; background: var(--gold);   width: 6px;  height: 10px; animation-duration: 2.3s; animation-delay: 0.4s; }
+      .confetti-piece:nth-child(8)  { left: 60%; background: #f472b6;       width: 9px;  height: 7px;  animation-duration: 2.9s; animation-delay: 0.0s; }
+      .confetti-piece:nth-child(9)  { left: 68%; background: var(--gold);   width: 7px;  height: 8px;  border-radius: 50%; animation-duration: 2.6s; animation-delay: 0.25s; }
+      .confetti-piece:nth-child(10) { left: 76%; background: var(--green);  width: 8px;  height: 6px;  animation-duration: 2.4s; animation-delay: 0.35s; }
+      .confetti-piece:nth-child(11) { left: 84%; background: #a78bfa;       width: 6px;  height: 8px;  animation-duration: 3.1s; animation-delay: 0.1s; }
+      .confetti-piece:nth-child(12) { left: 92%; background: var(--gold);   width: 9px;  height: 9px;  animation-duration: 2.5s; animation-delay: 0.45s; }
+      .confetti-piece:nth-child(13) { left: 9%;  background: #34d399;       width: 7px;  height: 7px;  animation-duration: 2.8s; animation-delay: 0.55s; }
+      .confetti-piece:nth-child(14) { left: 18%; background: var(--gold);   width: 8px;  height: 6px;  border-radius: 50%; animation-duration: 2.2s; animation-delay: 0.6s; }
+      .confetti-piece:nth-child(15) { left: 34%; background: var(--green);  width: 6px;  height: 9px;  animation-duration: 3.0s; animation-delay: 0.5s; }
+      .confetti-piece:nth-child(16) { left: 50%; background: #f472b6;       width: 10px; height: 7px;  animation-duration: 2.4s; animation-delay: 0.65s; }
+      .confetti-piece:nth-child(17) { left: 63%; background: var(--gold);   width: 7px;  height: 8px;  animation-duration: 2.7s; animation-delay: 0.2s; }
+      .confetti-piece:nth-child(18) { left: 74%; background: #a78bfa;       width: 8px;  height: 7px;  border-radius: 50%; animation-duration: 2.6s; animation-delay: 0.7s; }
+      .confetti-piece:nth-child(19) { left: 82%; background: #34d399;       width: 6px;  height: 6px;  animation-duration: 2.9s; animation-delay: 0.4s; }
+      .confetti-piece:nth-child(20) { left: 96%; background: var(--green);  width: 9px;  height: 8px;  animation-duration: 2.3s; animation-delay: 0.8s; }
+
+      @keyframes confetti-fall {
+        0% {
+          opacity: 1;
+          transform: translateY(0) rotate(0deg) scaleX(1);
+        }
+        25% {
+          transform: translateY(25vh) rotate(90deg) scaleX(0.6);
+        }
+        50% {
+          transform: translateY(50vh) rotate(200deg) scaleX(1);
+          opacity: 0.8;
+        }
+        75% {
+          transform: translateY(75vh) rotate(310deg) scaleX(0.5);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(105vh) rotate(420deg) scaleX(0.3);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .confetti-container { display: none; }
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 32px 0 12px;
+        text-align: center;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .logo-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        font-family: 'Michroma', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      /* ── CHECK MARK ── */
+      .check-ring {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(59, 130, 246, 0.08));
+        border: 2px solid rgba(96, 165, 250, 0.3);
+        display: grid;
+        place-items: center;
+        margin: 0 auto 20px;
+        box-shadow: 0 0 40px rgba(96, 165, 250, 0.15);
+        animation: check-pulse 3s ease-in-out infinite;
+      }
+
+      .check-ring svg {
+        width: 38px;
+        height: 38px;
+        stroke: var(--green);
+        stroke-width: 2.5;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        animation: check-draw 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        stroke-dasharray: 60;
+        stroke-dashoffset: 60;
+      }
+
+      @keyframes check-draw {
+        to { stroke-dashoffset: 0; }
+      }
+
+      @keyframes check-pulse {
+        0%, 100% { box-shadow: 0 0 30px rgba(96, 165, 250, 0.12); }
+        50%       { box-shadow: 0 0 50px rgba(96, 165, 250, 0.25); }
+      }
+
+      .header-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 48px;
+        line-height: 1;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        margin-bottom: 8px;
+        animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+      }
+
+      .header-title span {
+        color: var(--green);
+      }
+
+      .header-sub {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-2);
+        margin-bottom: 6px;
+        animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+      }
+
+      .header-sub span {
+        color: var(--gold);
+      }
+
+      .header-plan-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--gold-dim);
+        border: 1px solid rgba(251, 191, 36, 0.2);
+        color: var(--gold);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 5px 12px;
+        border-radius: 100px;
+        margin-top: 12px;
+        animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+      }
+
+      @keyframes slide-up {
+        from { opacity: 0; transform: translateY(14px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── CARDS ── */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 14px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .card-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(96, 165, 250, 0.12);
+        padding: 4px 10px;
+        border-radius: 6px;
+        letter-spacing: 0.06em;
+        flex-shrink: 0;
+      }
+
+      .card-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        line-height: 1;
+      }
+
+      /* ── FADE IN ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(12px);
+        transition:
+          opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .fade-in { opacity: 1; transform: none; }
+        .header-title, .header-sub, .header-plan-badge { animation: none; opacity: 1; transform: none; }
+        .check-ring svg { animation: none; stroke-dashoffset: 0; }
+      }
+
+      /* ── COMMISSION CARD ── */
+      .commission-card {
+        background: var(--surface);
+        border: 1px solid rgba(251, 191, 36, 0.2);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 14px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .commission-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(251, 191, 36, 0.06) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .commission-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .commission-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .commission-row-label {
+        font-size: 13px;
+        color: var(--text-2);
+        font-weight: 500;
+      }
+
+      .commission-row-label small {
+        display: block;
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 1px;
+        font-weight: 400;
+      }
+
+      .commission-row-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--gold);
+        text-align: right;
+      }
+
+      .commission-row-value small {
+        display: block;
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 400;
+        text-align: right;
+        margin-top: 1px;
+      }
+
+      /* ── BIG GOLD NUMBER ── */
+      .big-projection {
+        text-align: center;
+        padding: 20px 16px;
+        background: var(--gold-dim);
+        border: 1px solid rgba(251, 191, 36, 0.25);
+        border-radius: var(--radius-sm);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .big-projection::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(251, 191, 36, 0.08) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .big-projection-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 6px;
+        opacity: 0.8;
+      }
+
+      .big-number {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 52px;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        letter-spacing: -1px;
+        animation: gold-glow 2.5s ease-in-out infinite;
+        position: relative;
+        z-index: 1;
+      }
+
+      .big-number-sub {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 6px;
+        font-weight: 500;
+      }
+
+      @keyframes gold-glow {
+        0%, 100% { text-shadow: 0 0 20px rgba(251, 191, 36, 0.3), 0 0 40px rgba(251, 191, 36, 0.1); }
+        50%       { text-shadow: 0 0 30px rgba(251, 191, 36, 0.55), 0 0 60px rgba(251, 191, 36, 0.2); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .big-number { animation: none; text-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+        .check-ring { animation: none; }
+      }
+
+      /* ── PIPELINE TRACKER ── */
+      .pipeline-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      .pipeline-week-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .pipeline-goal-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--green);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      /* progress dots */
+      .closes-dots {
+        display: flex;
+        gap: 7px;
+        margin-bottom: 14px;
+        align-items: center;
+      }
+
+      .close-dot {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 700;
+        flex-shrink: 0;
+        transition: background 0.2s, border-color 0.2s;
+      }
+
+      .close-dot.done {
+        background: var(--green-dim);
+        border: 2px solid rgba(96, 165, 250, 0.35);
+        color: var(--green);
+      }
+
+      .close-dot.current {
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        border: 2px solid transparent;
+        color: var(--bg);
+        box-shadow: 0 0 16px rgba(96, 165, 250, 0.35);
+        animation: current-pulse 2s ease-in-out infinite;
+      }
+
+      .close-dot.empty {
+        background: var(--bg);
+        border: 2px solid var(--border);
+        color: var(--border-2);
+      }
+
+      @keyframes current-pulse {
+        0%, 100% { box-shadow: 0 0 12px rgba(96, 165, 250, 0.3); }
+        50%       { box-shadow: 0 0 22px rgba(96, 165, 250, 0.55); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .close-dot.current { animation: none; }
+      }
+
+      /* progress bar */
+      .progress-bar-wrap {
+        height: 6px;
+        background: var(--border);
+        border-radius: 100px;
+        overflow: hidden;
+        margin-bottom: 16px;
+      }
+
+      .progress-bar-fill {
+        height: 100%;
+        border-radius: 100px;
+        background: linear-gradient(90deg, var(--green-2), var(--green));
+        transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      /* weekly income rows */
+      .income-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .income-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .income-row-label {
+        font-size: 12.5px;
+        color: var(--text-2);
+        font-weight: 500;
+      }
+
+      .income-row-label small {
+        display: block;
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 1px;
+      }
+
+      .income-row-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gold);
+      }
+
+      .income-row.highlight {
+        border-color: rgba(251, 191, 36, 0.2);
+        background: var(--gold-dim);
+      }
+
+      .income-row.highlight .income-row-value {
+        font-size: 17px;
+      }
+
+      /* ── CTA BUTTONS ── */
+      .cta-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .cta-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        height: 54px;
+        border-radius: var(--radius);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        transition:
+          transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        letter-spacing: -0.2px;
+      }
+
+      .cta-btn:active {
+        transform: scale(0.97);
+      }
+
+      .cta-btn.primary {
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+        box-shadow: 0 4px 20px rgba(96, 165, 250, 0.25);
+      }
+
+      .cta-btn.primary:active {
+        box-shadow: 0 2px 10px rgba(96, 165, 250, 0.15);
+      }
+
+      .cta-btn.secondary {
+        background: var(--surface-2);
+        color: var(--green);
+        border: 1.5px solid rgba(96, 165, 250, 0.25);
+      }
+
+      .cta-btn.tertiary {
+        background: var(--surface);
+        color: var(--text-2);
+        border: 1px solid var(--border);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .footer-brand {
+        font-family: 'Michroma', sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        color: var(--text-2);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 10px;
+      }
+
+      .footer-link {
+        font-size: 12px;
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+
+      .footer-link:active {
+        color: var(--green);
+      }
+
+      .footer-sub {
+        font-size: 11px;
+        color: var(--border-2);
+        margin-top: 8px;
+        font-weight: 400;
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--surface-2);
+        color: var(--green);
+        padding: 10px 24px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        z-index: 100;
+        transition:
+          transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.3s;
+        pointer-events: none;
+        border: 1px solid var(--border-2);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        white-space: nowrap;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+        margin: 4px 0;
+      }
+
+      /* ── INLINE TAGS ── */
+      .tag-green {
+        color: var(--green);
+        font-weight: 700;
+      }
+
+      .tag-gold {
+        color: var(--gold);
+        font-weight: 700;
+      }
+
+      /* ── MOTIVATIONAL BANNER ── */
+      .motivation-banner {
+        text-align: center;
+        padding: 14px 16px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        margin-top: 14px;
+      }
+
+      .motivation-banner p {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px;
+        letter-spacing: 0.08em;
+        color: var(--gold);
+        line-height: 1.2;
+        margin-bottom: 2px;
+      }
+
+      .motivation-banner small {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ── CONFETTI ── -->
+    <div class="confetti-container" aria-hidden="true">
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+      <div class="confetti-piece"></div>
+    </div>
+
+    <!-- ── HEADER ── -->
+    <header class="header">
+      <div class="logo-row">
+        <div class="logo-mark">
+          <img src="logo.png" alt="AutoScale AI" width="32" height="32" />
+        </div>
+        <span class="logo-text">AutoScale AI</span>
+      </div>
+
+      <div class="check-ring" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+
+      <div class="header-title">SALE <span>CONFIRMED</span></div>
+      <div class="header-sub">Great work, <span id="rep-name">Rep</span>!</div>
+      <div class="header-plan-badge" id="plan-badge">
+        <span id="plan-badge-dot" style="width:6px;height:6px;border-radius:50%;background:var(--gold);display:inline-block;"></span>
+        <span id="plan-badge-text">Growth Plan</span>
+      </div>
+    </header>
+
+    <!-- ── SECTION 1: COMMISSION EARNED ── -->
+    <div class="commission-card fade-in">
+      <div class="card-header" style="margin-bottom: 14px;">
+        <span class="card-num">$$$</span>
+        <span class="card-title">COMMISSION EARNED</span>
+      </div>
+
+      <div class="commission-rows">
+        <div class="commission-row">
+          <div class="commission-row-label">
+            Setup commission
+            <small>20% of $500 setup fee</small>
+          </div>
+          <div class="commission-row-value">
+            $100
+            <small>paid this week</small>
+          </div>
+        </div>
+
+        <div class="commission-row">
+          <div class="commission-row-label">
+            Monthly residual
+            <small id="residual-desc">20% of $997/mo — Growth</small>
+          </div>
+          <div class="commission-row-value">
+            <span id="monthly-residual">$199.40</span>
+            <small>/month, every month</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="big-projection">
+        <div class="big-projection-label">12-month projection</div>
+        <div class="big-number" id="twelve-month">$2,492</div>
+        <div class="big-number-sub">$100 setup + <span id="residual-inline">$199.40</span>/mo &times; 12</div>
+      </div>
+
+      <div class="motivation-banner">
+        <p>KEEP THIS CLIENT.<br />FIND THE NEXT ONE.</p>
+        <small>Residual stacks every close. 10 clients = recurring income.</small>
+      </div>
+    </div>
+
+    <!-- ── SECTION 2: PIPELINE TRACKER ── -->
+    <div class="card fade-in">
+      <div class="card-header">
+        <span class="card-num" style="color:var(--gold);background:var(--gold-dim);border-color:rgba(251,191,36,0.12);">WK</span>
+        <span class="card-title">YOUR PIPELINE THIS WEEK</span>
+      </div>
+
+      <div class="pipeline-header">
+        <span class="pipeline-week-label">Closes this week</span>
+        <span class="pipeline-goal-text" id="goal-text">0 / 5 goal</span>
+      </div>
+
+      <div class="closes-dots" id="closes-dots" aria-label="Weekly closes progress"></div>
+
+      <div class="progress-bar-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="5" id="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+      </div>
+
+      <div class="income-rows">
+        <div class="income-row">
+          <div class="income-row-label">
+            Setup commissions
+            <small>$100 &times; closes this week</small>
+          </div>
+          <div class="income-row-value" id="weekly-setup">$100</div>
+        </div>
+
+        <div class="income-row">
+          <div class="income-row-label">
+            Weekly residual add
+            <small>New monthly income unlocked</small>
+          </div>
+          <div class="income-row-value" id="weekly-residual-add">+$199/mo</div>
+        </div>
+
+        <div class="income-row highlight">
+          <div class="income-row-label">
+            Monthly recurring (projected)
+            <small>If you close 5 this week</small>
+          </div>
+          <div class="income-row-value" id="weekly-monthly-proj">$997/mo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 3: NEXT ACTION ── -->
+    <div class="card fade-in">
+      <div class="card-header">
+        <span class="card-num">NEXT</span>
+        <span class="card-title">NEXT DOOR</span>
+      </div>
+
+      <div class="cta-stack">
+        <a href="quick-start.html" class="cta-btn primary" id="cta-next-door">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          Knock Next Door
+        </a>
+        <a href="deals.html" class="cta-btn secondary" id="cta-leaderboard">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          View Leaderboard
+        </a>
+        <a href="index.html" class="cta-btn tertiary" id="cta-fieldkit">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          Full Field Kit
+        </a>
+      </div>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+      <div class="footer-brand">AutoScale AI</div>
+      <div class="footer-links">
+        <a href="quick-start.html" class="footer-link" style="color: #60a5fa; font-weight: 700;">Quick Start</a>
+        <a href="deals.html" class="footer-link">Deal Tracker</a>
+        <a href="pay.html" class="footer-link">Collect Pay</a>
+        <a href="index.html" class="footer-link">Full Toolkit</a>
+      </div>
+      <div style="text-align: center; padding: 8px 0; font-size: 11px; color: var(--muted)">
+        <a href="terms.html" style="color: var(--text-2); text-decoration: none">Terms of Service</a>
+        &middot;
+        <a href="privacy.html" style="color: var(--text-2); text-decoration: none">Privacy Policy</a>
+        &middot; &copy; 2026 AutoScale AI
+      </div>
+      <div class="footer-sub">Commission questions? Text Vincenzo.</div>
+    </footer>
+
+    <!-- ── TOAST ── -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      /* ── PLAN CONFIG ── */
+      var PLANS = {
+        core:      { name: 'Core',      monthly: 697,  setupComm: 100, residual: 139.40 },
+        growth:    { name: 'Growth',    monthly: 997,  setupComm: 100, residual: 199.40 },
+        scale:     { name: 'Scale',     monthly: 1497, setupComm: 100, residual: 299.40 },
+        autoscale: { name: 'AutoScale', monthly: 2497, setupComm: 100, residual: 499.40 }
+      };
+
+      /* ── PARSE URL PARAMS ── */
+      var params = new URLSearchParams(window.location.search);
+      var planKey = (params.get('plan') || 'growth').toLowerCase().replace(/[^a-z]/g, '');
+      var plan = PLANS[planKey] || PLANS.growth;
+      var repName = params.get('rep') || 'Rep';
+      var closes = Math.max(1, Math.min(20, parseInt(params.get('closes') || '1', 10) || 1));
+      var WEEKLY_GOAL = 5;
+
+      /* ── INJECT REP NAME ── */
+      document.getElementById('rep-name').textContent =
+        decodeURIComponent(repName).replace(/\+/g, ' ');
+
+      /* ── INJECT PLAN BADGE ── */
+      document.getElementById('plan-badge-text').textContent = plan.name + ' Plan';
+
+      /* ── INJECT COMMISSION DETAILS ── */
+      document.getElementById('residual-desc').textContent =
+        '20% of $' + plan.monthly.toLocaleString() + '/mo \u2014 ' + plan.name;
+      document.getElementById('monthly-residual').textContent =
+        '$' + plan.residual.toFixed(2);
+      document.getElementById('residual-inline').textContent =
+        '$' + plan.residual.toFixed(2);
+
+      /* 12-month projection: $100 setup + residual * 12 */
+      var twelveMonth = plan.setupComm + (plan.residual * 12);
+      document.getElementById('twelve-month').textContent =
+        '$' + Math.round(twelveMonth).toLocaleString();
+
+      /* ── PIPELINE TRACKER ── */
+      var goalText = document.getElementById('goal-text');
+      goalText.textContent = closes + ' / ' + WEEKLY_GOAL + ' goal';
+      if (closes >= WEEKLY_GOAL) {
+        goalText.textContent = closes + ' closes — GOAL HIT!';
+        goalText.style.color = 'var(--gold)';
+      }
+
+      /* progress bar */
+      var pct = Math.min(100, Math.round((closes / WEEKLY_GOAL) * 100));
+      document.getElementById('progress-bar').style.width = pct + '%';
+      document.getElementById('progress-bar-wrap').setAttribute('aria-valuenow', closes);
+
+      /* close dots */
+      var dotsContainer = document.getElementById('closes-dots');
+      var totalDots = Math.max(WEEKLY_GOAL, closes);
+      for (var i = 1; i <= totalDots; i++) {
+        var dot = document.createElement('div');
+        dot.className = 'close-dot';
+        if (i < closes) {
+          dot.className += ' done';
+          dot.textContent = i;
+          dot.setAttribute('aria-label', 'Close ' + i + ' done');
+        } else if (i === closes) {
+          dot.className += ' current';
+          dot.textContent = i;
+          dot.setAttribute('aria-label', 'Close ' + i + ' — this sale');
+        } else {
+          dot.className += ' empty';
+          dot.textContent = i;
+          dot.setAttribute('aria-label', 'Close ' + i + ' pending');
+        }
+        dotsContainer.appendChild(dot);
+      }
+
+      /* income projections */
+      var weeklySetup = closes * plan.setupComm;
+      var weeklyResidualAdd = closes * plan.residual;
+      var projectedMonthly = WEEKLY_GOAL * plan.residual;
+
+      document.getElementById('weekly-setup').textContent =
+        '$' + weeklySetup.toLocaleString();
+      document.getElementById('weekly-residual-add').textContent =
+        '+$' + weeklyResidualAdd.toFixed(0) + '/mo';
+      document.getElementById('weekly-monthly-proj').textContent =
+        '$' + Math.round(projectedMonthly).toLocaleString() + '/mo';
+
+      /* ── FADE-IN OBSERVER ── */
+      (function () {
+        var items = document.querySelectorAll('.fade-in');
+        if (!window.IntersectionObserver) {
+          items.forEach(function (el) { el.classList.add('visible'); });
+          return;
+        }
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+        );
+        items.forEach(function (el) { obs.observe(el); });
+      })();
+
+      /* ── TID PASSTHROUGH ── */
+      (function () {
+        var tid = new URLSearchParams(window.location.search).get('tid');
+        if (!tid) return;
+        var encoded = encodeURIComponent(tid);
+        document.querySelectorAll('a[href]').forEach(function (a) {
+          var href = a.getAttribute('href');
+          if (!href || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#')) return;
+          if (href.indexOf('tid=') !== -1) return;
+          a.href = href + (href.indexOf('?') === -1 ? '?' : '&') + 'tid=' + encoded;
+        });
+      })();
+
+      /* ── TOAST UTIL ── */
+      function showToast(msg) {
+        var t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._timer);
+        t._timer = setTimeout(function () {
+          t.classList.remove('show');
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>
