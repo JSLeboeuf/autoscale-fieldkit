@@ -33,12 +33,15 @@
         --text: #f4f4f5;
         --text-2: #d1d1d8;
         --muted: #8e8ea0;
-        --green: #60a5fa;
-        --green-2: #3b82f6;
-        --green-dim: rgba(96, 165, 250, 0.07);
-        --green-glow: rgba(96, 165, 250, 0.15);
+        --blue: #60a5fa;
+        --blue-2: #3b82f6;
+        --blue-dim: rgba(96, 165, 250, 0.07);
+        --blue-glow: rgba(96, 165, 250, 0.15);
         --gold: #fbbf24;
         --gold-dim: rgba(251, 191, 36, 0.08);
+        --green: #4ade80;
+        --green-dim: rgba(74, 222, 128, 0.08);
+        --green-glow: rgba(74, 222, 128, 0.2);
         --red: #f87171;
         --red-dim: rgba(248, 113, 113, 0.06);
         --radius: 14px;
@@ -53,18 +56,14 @@
       }
 
       body {
-        font-family:
-          'Plus Jakarta Sans',
-          -apple-system,
-          system-ui,
-          sans-serif;
+        font-family: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
         background: var(--bg);
         color: var(--text);
         line-height: 1.6;
         min-height: 100dvh;
         max-width: 460px;
         margin: 0 auto;
-        padding: 0 20px 80px;
+        padding: 0 20px 100px;
         position: relative;
         font-weight: 400;
       }
@@ -137,57 +136,126 @@
         color: var(--text);
       }
 
-      .welcome-badge {
+      /* ── PHASE INDICATOR ── */
+      .phase-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin-bottom: 24px;
+      }
+
+      .phase-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--surface-2);
+        border: 1px solid var(--border-2);
+        transition: background 0.3s, border-color 0.3s, width 0.3s;
+      }
+
+      .phase-dot.active {
+        width: 24px;
+        border-radius: 4px;
+        background: var(--blue);
+        border-color: var(--blue);
+      }
+
+      .phase-dot.done {
+        background: var(--green);
+        border-color: var(--green);
+      }
+
+      /* ── PHASE PANELS ── */
+      .phase {
+        display: none;
+      }
+
+      .phase.active {
+        display: block;
+        animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── PHASE HEADER ── */
+      .phase-header {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+
+      .phase-badge {
         display: inline-flex;
         align-items: center;
         gap: 6px;
         font-family: 'JetBrains Mono', monospace;
         font-size: 9px;
         font-weight: 700;
-        color: var(--green);
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        background: var(--green-dim);
-        border: 1px solid rgba(96, 165, 250, 0.14);
         padding: 5px 14px;
         border-radius: 100px;
         margin-bottom: 14px;
       }
 
-      .welcome-badge .dot {
+      .phase-badge.blue {
+        color: var(--blue);
+        background: var(--blue-dim);
+        border: 1px solid rgba(96, 165, 250, 0.14);
+      }
+
+      .phase-badge.gold {
+        color: var(--gold);
+        background: var(--gold-dim);
+        border: 1px solid rgba(251, 191, 36, 0.14);
+      }
+
+      .phase-badge.green {
+        color: var(--green);
+        background: var(--green-dim);
+        border: 1px solid rgba(74, 222, 128, 0.14);
+      }
+
+      .phase-badge .badge-dot {
         width: 5px;
         height: 5px;
-        background: var(--green);
         border-radius: 50%;
         animation: pulse 2s ease-in-out infinite;
+        flex-shrink: 0;
       }
+
+      .phase-badge.blue .badge-dot { background: var(--blue); }
+      .phase-badge.gold .badge-dot { background: var(--gold); }
+      .phase-badge.green .badge-dot { background: var(--green); }
 
       @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-          box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.4);
-        }
-        50% {
-          opacity: 0.6;
-          box-shadow: 0 0 0 5px rgba(96, 165, 250, 0);
-        }
+        0%, 100% { opacity: 1; box-shadow: 0 0 0 0 currentColor; }
+        50% { opacity: 0.6; box-shadow: 0 0 0 4px transparent; }
       }
 
-      .header-title {
+      .phase-title {
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 38px;
+        font-size: 40px;
         line-height: 1;
         letter-spacing: 0.04em;
         color: var(--text);
         margin-bottom: 8px;
       }
 
-      .header-title span {
-        color: var(--green);
-      }
+      .phase-title .accent-blue { color: var(--blue); }
+      .phase-title .accent-gold { color: var(--gold); }
+      .phase-title .accent-green { color: var(--green); }
 
-      .header-sub {
+      .phase-sub {
         font-size: 13px;
         color: var(--muted);
         font-weight: 400;
@@ -199,8 +267,8 @@
         background: linear-gradient(145deg, rgba(96, 165, 250, 0.08), rgba(96, 165, 250, 0.02));
         border: 1px solid rgba(96, 165, 250, 0.16);
         border-radius: var(--radius);
-        padding: 16px 18px;
-        margin: 20px 0 28px;
+        padding: 14px 18px;
+        margin-bottom: 24px;
         display: none;
       }
 
@@ -209,27 +277,26 @@
       }
 
       .welcome-box-name {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 700;
         color: var(--text);
         margin-bottom: 4px;
       }
 
-      .welcome-box-detail {
-        font-size: 12px;
-        color: var(--text-2);
+      .welcome-box-meta {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
+        font-size: 11px;
       }
 
-      .welcome-box-detail span {
+      .welcome-box-meta .meta-item {
         display: flex;
         align-items: center;
         gap: 4px;
       }
 
-      .welcome-box-detail .lbl {
+      .welcome-box-meta .lbl {
         color: var(--muted);
         font-size: 10px;
         text-transform: uppercase;
@@ -237,88 +304,260 @@
         font-weight: 600;
       }
 
-      .welcome-box-detail .val {
+      .welcome-box-meta .val {
         font-family: 'JetBrains Mono', monospace;
         font-weight: 700;
         font-size: 11px;
         color: var(--gold);
       }
 
-      /* ── PROGRESS ── */
-      .progress-wrap {
+      /* ─────────────────────────────────────────
+         PHASE 1 — SETUP STATUS
+      ───────────────────────────────────────── */
+
+      .setup-checklist {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         margin-bottom: 28px;
       }
 
-      .progress-header {
+      .check-item {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        margin-bottom: 8px;
+        gap: 14px;
+        padding: 14px 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        transition: border-color 0.3s, background 0.3s;
       }
 
-      .progress-label {
+      .check-item.pending {
+        opacity: 0.45;
+      }
+
+      .check-item.checking {
+        opacity: 1;
+        border-color: var(--border-2);
+      }
+
+      .check-item.done {
+        opacity: 1;
+        border-color: rgba(74, 222, 128, 0.2);
+        background: rgba(74, 222, 128, 0.04);
+      }
+
+      .check-item.live {
+        border-color: rgba(74, 222, 128, 0.35);
+        background: linear-gradient(135deg, rgba(74, 222, 128, 0.07), rgba(74, 222, 128, 0.02));
+      }
+
+      .check-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 15px;
+        transition: background 0.3s, border-color 0.3s;
+        background: var(--surface-2);
+        border: 1px solid var(--border-2);
+      }
+
+      .check-item.done .check-icon,
+      .check-item.live .check-icon {
+        background: var(--green-dim);
+        border-color: rgba(74, 222, 128, 0.25);
+      }
+
+      .check-icon-inner {
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Checkmark SVG — hidden by default, shown when done */
+      .icon-check {
+        display: none;
+        color: var(--green);
+      }
+
+      .check-item.done .icon-check,
+      .check-item.live .icon-check {
+        display: block;
+      }
+
+      .check-item.done .icon-spinner,
+      .check-item.live .icon-spinner,
+      .check-item.pending .icon-spinner {
+        display: none;
+      }
+
+      .check-item.checking .icon-spinner {
+        display: block;
+      }
+
+      .check-item.checking .icon-check {
+        display: none;
+      }
+
+      /* Pending dot */
+      .icon-pending {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border-2);
+      }
+
+      .check-item.checking .icon-pending,
+      .check-item.done .icon-pending,
+      .check-item.live .icon-pending {
+        display: none;
+      }
+
+      /* Spinner */
+      .icon-spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid var(--border-2);
+        border-top-color: var(--blue);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        display: none;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      .check-body {
+        flex: 1;
+      }
+
+      .check-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-2);
+        line-height: 1.3;
+      }
+
+      .check-item.checking .check-label {
+        color: var(--text);
+      }
+
+      .check-item.done .check-label,
+      .check-item.live .check-label {
+        color: var(--text);
+      }
+
+      .check-sub {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 1px;
+        display: none;
+      }
+
+      .check-item.checking .check-sub,
+      .check-item.done .check-sub,
+      .check-item.live .check-sub {
+        display: block;
+      }
+
+      /* LIVE item special treatment */
+      .check-item.live .check-label {
+        color: var(--green);
+        font-weight: 700;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 18px;
+        letter-spacing: 0.04em;
+      }
+
+      /* Phone number reveal */
+      .phone-reveal {
+        display: none;
+        margin-top: 16px;
+        padding: 18px 20px;
+        background: linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(74, 222, 128, 0.03));
+        border: 1px solid rgba(74, 222, 128, 0.25);
+        border-radius: var(--radius);
+        text-align: center;
+        animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .phone-reveal.visible {
+        display: block;
+      }
+
+      .phone-reveal-label {
         font-family: 'JetBrains Mono', monospace;
         font-size: 9px;
         font-weight: 700;
         color: var(--muted);
-        letter-spacing: 0.12em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
+        margin-bottom: 6px;
       }
 
-      .progress-pct {
-        font-family: 'JetBrains Mono', monospace;
+      .phone-reveal-number {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 38px;
+        letter-spacing: 0.06em;
+        color: var(--green);
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .phone-reveal-sub {
         font-size: 11px;
+        color: var(--muted);
+      }
+
+      .phase-1-cta {
+        display: none;
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, var(--blue), var(--blue-2));
+        color: var(--bg);
+        border: none;
+        border-radius: var(--radius);
+        font-family: inherit;
+        font-size: 15px;
         font-weight: 700;
-        color: var(--green);
+        cursor: pointer;
+        margin-top: 20px;
+        letter-spacing: -0.2px;
+        box-shadow: 0 4px 24px rgba(96, 165, 250, 0.3);
+        transition: box-shadow 0.15s, transform 0.15s;
+        -webkit-tap-highlight-color: transparent;
       }
 
-      .progress-bar {
-        height: 4px;
-        background: var(--surface-2);
-        border-radius: 100px;
-        overflow: hidden;
-      }
-
-      .progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, var(--green), var(--green-2));
-        border-radius: 100px;
-        width: 0%;
-        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      .progress-steps {
+      .phase-1-cta.visible {
         display: flex;
-        justify-content: space-between;
-        margin-top: 8px;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
-      .progress-step {
-        font-size: 9px;
-        color: var(--border-2);
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        transition: color 0.2s;
+      .phase-1-cta:active {
+        transform: scale(0.97);
       }
 
-      .progress-step.done {
-        color: var(--green);
-      }
+      /* ─────────────────────────────────────────
+         PHASE 2 — CONFIGURATION FORM
+      ───────────────────────────────────────── */
 
-      .progress-step.active {
-        color: var(--text-2);
-      }
-
-      /* ── SECTION CARDS ── */
       .form-section {
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: var(--radius);
         padding: 20px;
         margin-bottom: 12px;
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
         transition: border-color 0.2s;
       }
 
@@ -337,8 +576,8 @@
         font-family: 'JetBrains Mono', monospace;
         font-size: 10px;
         font-weight: 700;
-        color: var(--green);
-        background: var(--green-dim);
+        color: var(--blue);
+        background: var(--blue-dim);
         border: 1px solid rgba(96, 165, 250, 0.12);
         padding: 4px 10px;
         border-radius: 6px;
@@ -354,7 +593,7 @@
         line-height: 1;
       }
 
-      /* ── FORM ELEMENTS ── */
+      /* ── FIELDS ── */
       .field {
         margin-bottom: 14px;
       }
@@ -379,14 +618,12 @@
       }
 
       .field-hint {
+        display: block;
         font-size: 11px;
         color: var(--border-2);
         margin-top: 5px;
         font-style: italic;
         font-weight: 400;
-        text-transform: none;
-        letter-spacing: 0;
-        display: block;
       }
 
       .field-error {
@@ -416,11 +653,10 @@
         font-size: 14px;
         font-weight: 500;
         outline: none;
-        transition:
-          border-color 0.15s,
-          box-shadow 0.15s;
+        transition: border-color 0.15s, box-shadow 0.15s;
         -webkit-appearance: none;
         appearance: none;
+        min-height: 44px;
       }
 
       input::placeholder,
@@ -432,7 +668,7 @@
       input:focus,
       textarea:focus,
       select:focus {
-        border-color: var(--green);
+        border-color: var(--blue);
         box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
       }
 
@@ -463,15 +699,31 @@
       }
 
       /* ── HOURS GRID ── */
+      .hours-preset-select {
+        margin-bottom: 14px;
+      }
+
       .hours-grid {
         display: flex;
         flex-direction: column;
         gap: 6px;
       }
 
+      .hours-custom {
+        display: none;
+      }
+
+      .hours-custom.visible {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 10px;
+        animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
       .hours-row {
         display: grid;
-        grid-template-columns: 56px 1fr 1fr;
+        grid-template-columns: 52px 1fr 1fr;
         gap: 8px;
         align-items: center;
       }
@@ -489,70 +741,12 @@
         font-size: 12px;
         padding-right: 26px;
         background-position: right 8px center;
+        min-height: 38px;
       }
 
       .hours-row select.closed-state {
         color: var(--muted);
         border-color: var(--border);
-      }
-
-      /* ── VOICE RADIO ── */
-      .voice-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-      }
-
-      .voice-option {
-        position: relative;
-      }
-
-      .voice-option input[type='radio'] {
-        position: absolute;
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-
-      .voice-label {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-        padding: 12px 14px;
-        background: var(--bg);
-        border: 1.5px solid var(--border);
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        transition:
-          border-color 0.15s,
-          background 0.15s;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      .voice-option input[type='radio']:checked + .voice-label {
-        border-color: var(--green);
-        background: var(--green-dim);
-      }
-
-      .voice-option input[type='radio']:focus-visible + .voice-label {
-        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
-      }
-
-      .voice-label-name {
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--text);
-        line-height: 1.2;
-      }
-
-      .voice-label-sub {
-        font-size: 10px;
-        color: var(--muted);
-        font-weight: 500;
-      }
-
-      .voice-option input[type='radio']:checked + .voice-label .voice-label-name {
-        color: var(--green);
       }
 
       /* ── TOGGLE ── */
@@ -561,13 +755,14 @@
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        padding: 12px 14px;
+        padding: 14px;
         background: var(--bg);
         border: 1px solid var(--border);
         border-radius: var(--radius-sm);
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
         transition: border-color 0.15s;
+        min-height: 44px;
       }
 
       .toggle-field.on {
@@ -599,9 +794,7 @@
         border-radius: 100px;
         position: relative;
         flex-shrink: 0;
-        transition:
-          background 0.2s,
-          border-color 0.2s;
+        transition: background 0.2s, border-color 0.2s;
       }
 
       .toggle-switch::after {
@@ -613,19 +806,17 @@
         height: 16px;
         background: var(--muted);
         border-radius: 50%;
-        transition:
-          transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-          background 0.2s;
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s;
       }
 
       .toggle-field.on .toggle-switch {
-        background: var(--green-dim);
+        background: var(--blue-dim);
         border-color: rgba(96, 165, 250, 0.3);
       }
 
       .toggle-field.on .toggle-switch::after {
         transform: translateX(18px);
-        background: var(--green);
+        background: var(--blue);
       }
 
       .toggle-reveal {
@@ -639,24 +830,66 @@
       }
 
       @keyframes slideDown {
-        from {
-          opacity: 0;
-          transform: translateY(-6px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
-      /* ── DIVIDER ── */
       .divider {
         height: 1px;
         background: linear-gradient(90deg, transparent, var(--border-2), transparent);
-        margin: 16px 0;
+        margin: 14px 0;
       }
 
-      /* ── SUBMIT SECTION ── */
+      /* ── CONSENT ── */
+      .consent-section {
+        margin-top: 20px;
+        padding: 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .consent-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 14px;
+      }
+
+      .consent-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 14px;
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.5;
+      }
+
+      .consent-label:last-child {
+        margin-bottom: 0;
+      }
+
+      .consent-label input[type='checkbox'] {
+        margin-top: 2px;
+        accent-color: var(--blue);
+        min-width: 18px;
+        min-height: 18px;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        cursor: pointer;
+      }
+
+      .consent-label a {
+        color: var(--blue);
+        text-decoration: underline;
+      }
+
+      /* ── SUBMIT ── */
       .submit-section {
         margin-top: 24px;
       }
@@ -664,7 +897,7 @@
       .submit-btn {
         width: 100%;
         padding: 17px;
-        background: linear-gradient(135deg, var(--green), var(--green-2));
+        background: linear-gradient(135deg, var(--blue), var(--blue-2));
         color: var(--bg);
         border: none;
         border-radius: var(--radius);
@@ -672,10 +905,7 @@
         font-size: 15px;
         font-weight: 700;
         cursor: pointer;
-        transition:
-          transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
-          box-shadow 0.15s,
-          opacity 0.15s;
+        transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s, opacity 0.15s;
         box-shadow: 0 4px 24px rgba(96, 165, 250, 0.3);
         -webkit-tap-highlight-color: transparent;
         letter-spacing: -0.2px;
@@ -683,7 +913,7 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        position: relative;
+        min-height: 56px;
       }
 
       .submit-btn:hover {
@@ -699,7 +929,6 @@
         opacity: 0.6;
         cursor: not-allowed;
         transform: none;
-        box-shadow: 0 2px 12px rgba(96, 165, 250, 0.15);
       }
 
       .submit-btn .spinner {
@@ -710,6 +939,7 @@
         border-top-color: var(--bg);
         border-radius: 50%;
         animation: spin 0.7s linear infinite;
+        flex-shrink: 0;
       }
 
       .submit-btn.loading .spinner {
@@ -718,12 +948,6 @@
 
       .submit-btn.loading .btn-text {
         opacity: 0.7;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
       }
 
       .submit-note {
@@ -744,163 +968,340 @@
         color: var(--border-2);
       }
 
-      /* ── SUCCESS STATE ── */
-      #success-screen {
-        display: none;
+      /* ─────────────────────────────────────────
+         PHASE 3 — SUCCESS + CALL FORWARDING
+      ───────────────────────────────────────── */
+
+      .success-hero {
         text-align: center;
-        padding: 40px 0;
-        animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 10px 0 28px;
       }
 
-      #success-screen.visible {
-        display: block;
-      }
-
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(16px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .success-icon {
-        width: 72px;
-        height: 72px;
-        background: var(--green-dim);
-        border: 1.5px solid rgba(96, 165, 250, 0.2);
+      .confetti-ring {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
         border-radius: 50%;
+        background: var(--green-dim);
+        border: 1.5px solid rgba(74, 222, 128, 0.25);
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 20px;
-        font-size: 32px;
+        position: relative;
+        animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
-      .success-title {
+      @keyframes scaleIn {
+        from { transform: scale(0.6); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+
+      .confetti-ring::before {
+        content: '';
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        border: 1px solid rgba(74, 222, 128, 0.1);
+        animation: ringPulse 2.5s ease-in-out infinite;
+      }
+
+      @keyframes ringPulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.08); opacity: 0.15; }
+      }
+
+      .confetti-ring svg {
+        color: var(--green);
+      }
+
+      /* ── INFO CARDS ── */
+      .info-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 12px;
+      }
+
+      .info-card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .info-card-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 18px;
+      }
+
+      .info-card-icon.green {
+        background: var(--green-dim);
+        border: 1px solid rgba(74, 222, 128, 0.15);
+        color: var(--green);
+      }
+
+      .info-card-icon.blue {
+        background: var(--blue-dim);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        color: var(--blue);
+      }
+
+      .info-card-icon.gold {
+        background: var(--gold-dim);
+        border: 1px solid rgba(251, 191, 36, 0.15);
+        color: var(--gold);
+      }
+
+      .info-card-title {
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 36px;
-        letter-spacing: 0.04em;
+        font-size: 18px;
+        letter-spacing: 0.06em;
         color: var(--text);
-        margin-bottom: 10px;
         line-height: 1;
       }
 
-      .success-title span {
+      .info-card-sub {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      /* ── AI PHONE NUMBER CARD ── */
+      .ai-phone-display {
+        text-align: center;
+        padding: 10px 0 4px;
+      }
+
+      .ai-phone-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .ai-phone-number {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 44px;
+        letter-spacing: 0.06em;
         color: var(--green);
+        line-height: 1;
+        margin-bottom: 8px;
+        display: block;
+        text-decoration: none;
+        transition: opacity 0.15s;
       }
 
-      .success-body {
-        font-size: 14px;
-        color: var(--text-2);
-        line-height: 1.65;
-        max-width: 320px;
-        margin: 0 auto 28px;
+      .ai-phone-number:hover {
+        opacity: 0.85;
       }
 
-      .success-timeline {
+      .ai-phone-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: var(--green);
+        font-weight: 600;
+      }
+
+      .ai-phone-status .status-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--green);
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      /* ── FORWARDING STEPS ── */
+      .forwarding-steps {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        text-align: left;
-        margin-bottom: 28px;
+        gap: 10px;
       }
 
-      .success-step {
+      .fwd-step {
         display: flex;
-        gap: 14px;
+        gap: 12px;
         align-items: flex-start;
-        padding: 14px 16px;
-        background: var(--surface);
+        padding: 12px 14px;
+        background: var(--bg);
         border: 1px solid var(--border);
         border-radius: var(--radius-sm);
       }
 
-      .success-step-num {
-        width: 26px;
-        height: 26px;
+      .fwd-step-num {
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
-        background: var(--green-dim);
+        background: var(--blue-dim);
         border: 1px solid rgba(96, 165, 250, 0.15);
-        color: var(--green);
+        color: var(--blue);
         display: grid;
         place-items: center;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 700;
         flex-shrink: 0;
+        margin-top: 1px;
       }
 
-      .success-step-body {
-        flex: 1;
+      .fwd-step-text {
         font-size: 13px;
         color: var(--text-2);
         line-height: 1.5;
+        flex: 1;
       }
 
-      .success-step-body strong {
-        display: block;
+      .fwd-step-text strong {
         color: var(--text);
-        font-weight: 700;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        margin-bottom: 2px;
-        font-family: 'JetBrains Mono', monospace;
-        color: var(--green);
+        font-weight: 600;
       }
 
-      .success-ref {
-        background: var(--surface-2);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 12px 16px;
-        margin-bottom: 20px;
+      .fwd-divider {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        gap: 12px;
+        margin: 6px 0;
       }
 
-      .success-ref-label {
+      .fwd-divider-line {
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      .fwd-divider-label {
         font-size: 10px;
         color: var(--muted);
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        font-weight: 600;
-        margin-bottom: 2px;
       }
 
-      .success-ref-val {
+      .fwd-shortcode {
+        padding: 12px 14px;
+        background: var(--surface-2);
+        border: 1px solid var(--border-2);
+        border-radius: var(--radius-sm);
+        text-align: center;
+      }
+
+      .fwd-shortcode-label {
+        font-size: 11px;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+
+      .fwd-shortcode-code {
         font-family: 'JetBrains Mono', monospace;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 700;
+        color: var(--blue);
+        letter-spacing: 0.05em;
+      }
+
+      .fwd-shortcode-sub {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+
+      /* ── QUICK LINKS ── */
+      .quick-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .quick-link-btn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 600;
+        transition: border-color 0.15s, background 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        min-height: 52px;
+      }
+
+      .quick-link-btn:hover,
+      .quick-link-btn:active {
+        border-color: var(--border-2);
+        background: var(--surface-2);
+      }
+
+      .quick-link-btn.primary {
+        background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.04));
+        border-color: rgba(74, 222, 128, 0.2);
+      }
+
+      .quick-link-btn.primary:hover {
+        background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(74, 222, 128, 0.07));
+        border-color: rgba(74, 222, 128, 0.35);
+      }
+
+      .quick-link-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 16px;
+      }
+
+      .quick-link-icon.green {
+        background: var(--green-dim);
         color: var(--green);
       }
 
-      /* ── FORM WRAPPER ── */
-      #form-wrapper {
-        transition: opacity 0.3s;
+      .quick-link-icon.blue {
+        background: var(--blue-dim);
+        color: var(--blue);
       }
 
-      #form-wrapper.hidden {
-        display: none;
+      .quick-link-icon.muted {
+        background: var(--surface-2);
+        color: var(--muted);
       }
 
-      /* ── FADE IN ANIMATION ── */
-      .fade-in {
-        opacity: 0;
-        transform: translateY(10px);
-        transition:
-          opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-          transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      .quick-link-body {
+        flex: 1;
       }
 
-      .fade-in.visible {
-        opacity: 1;
-        transform: translateY(0);
+      .quick-link-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.2;
+      }
+
+      .quick-link-sub {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 1px;
+      }
+
+      .quick-link-arrow {
+        color: var(--border-2);
+        flex-shrink: 0;
       }
 
       /* ── FOOTER ── */
@@ -925,6 +1326,7 @@
         justify-content: center;
         gap: 16px;
         margin-bottom: 8px;
+        flex-wrap: wrap;
       }
 
       .footer-links a {
@@ -951,20 +1353,20 @@
         left: 50%;
         transform: translateX(-50%) translateY(80px);
         background: var(--surface-2);
-        color: var(--green);
-        padding: 10px 24px;
+        color: var(--blue);
+        padding: 10px 20px;
         border-radius: 100px;
         font-size: 13px;
         font-weight: 600;
         z-index: 100;
-        transition:
-          transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-          opacity 0.3s;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
         pointer-events: none;
         border: 1px solid var(--border-2);
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
         opacity: 0;
         white-space: nowrap;
+        max-width: calc(100vw - 40px);
+        text-align: center;
       }
 
       .toast.show {
@@ -977,11 +1379,26 @@
         border-color: rgba(248, 113, 113, 0.2);
       }
 
+      .toast.success {
+        color: var(--green);
+        border-color: rgba(74, 222, 128, 0.2);
+      }
+
+      /* ── FADE IN ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       /* ── REDUCED MOTION ── */
       @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
+        *, *::before, *::after {
           animation-duration: 0.01ms !important;
           transition-duration: 0.01ms !important;
         }
@@ -997,101 +1414,207 @@
     <header class="header">
       <div class="logo-row">
         <div class="logo-mark">
-          <img src="logo.png" alt="AutoScale AI" />
+          <img src="logo.png" alt="AutoScale AI" width="32" height="32" />
         </div>
         <span class="logo-text">AutoScale AI</span>
       </div>
 
-      <div class="welcome-badge">
-        <span class="dot" aria-hidden="true"></span>
-        Contract Signed — Setup in Progress
+      <!-- Phase dots -->
+      <div class="phase-indicator" aria-hidden="true">
+        <div class="phase-dot active" id="dot-1"></div>
+        <div class="phase-dot" id="dot-2"></div>
+        <div class="phase-dot" id="dot-3"></div>
       </div>
-
-      <h1 class="header-title">Welcome to<br /><span>AutoScale AI</span></h1>
-      <p class="header-sub">Let's set up your AI receptionist.<br />Takes about 3 minutes.</p>
     </header>
 
     <!-- ── WELCOME BOX (pre-filled from URL params) ── -->
     <div class="welcome-box fade-in" id="welcome-box" role="status" aria-live="polite">
       <div class="welcome-box-name" id="welcome-name"></div>
-      <div class="welcome-box-detail">
-        <span id="welcome-email-wrap" style="display: none">
+      <div class="welcome-box-meta">
+        <span class="meta-item" id="welcome-email-wrap" style="display:none">
           <span class="lbl">Email</span>
           <span class="val" id="welcome-email"></span>
         </span>
-        <span id="welcome-plan-wrap" style="display: none">
+        <span class="meta-item" id="welcome-plan-wrap" style="display:none">
           <span class="lbl">Plan</span>
           <span class="val" id="welcome-plan"></span>
+        </span>
+        <span class="meta-item" id="welcome-tid-wrap" style="display:none">
+          <span class="lbl">Ref</span>
+          <span class="val" id="welcome-tid"></span>
         </span>
       </div>
     </div>
 
-    <!-- ── PROGRESS ── -->
-    <div class="progress-wrap fade-in">
-      <div class="progress-header">
-        <span class="progress-label">Setup Progress</span>
-        <span class="progress-pct" id="progress-pct" aria-live="polite">0%</span>
+    <!-- ══════════════════════════════════════════
+         PHASE 1 — SETUP STATUS
+    ═══════════════════════════════════════════ -->
+    <div class="phase active" id="phase-1" aria-label="Phase 1: Setup in progress">
+      <div class="phase-header">
+        <div class="phase-badge blue">
+          <span class="badge-dot" aria-hidden="true"></span>
+          Payment Confirmed
+        </div>
+        <h1 class="phase-title">SETTING UP<br /><span class="accent-blue">YOUR AI</span></h1>
+        <p class="phase-sub">This takes about 60 seconds&hellip;</p>
       </div>
-      <div
-        class="progress-bar"
-        role="progressbar"
-        aria-valuenow="0"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        aria-labelledby="progress-pct"
-      >
-        <div class="progress-fill" id="progress-fill"></div>
+
+      <div class="setup-checklist" role="list" aria-label="Setup progress">
+        <div class="check-item done" id="check-payment" role="listitem">
+          <div class="check-icon" aria-hidden="true">
+            <div class="check-icon-inner">
+              <div class="icon-pending"></div>
+              <div class="icon-spinner"></div>
+              <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+          <div class="check-body">
+            <div class="check-label">Payment confirmed</div>
+            <div class="check-sub" style="color: var(--green);">Done — thank you!</div>
+          </div>
+        </div>
+
+        <div class="check-item pending" id="check-assistant" role="listitem">
+          <div class="check-icon" aria-hidden="true">
+            <div class="check-icon-inner">
+              <div class="icon-pending"></div>
+              <div class="icon-spinner"></div>
+              <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+          <div class="check-body">
+            <div class="check-label">Creating your AI assistant</div>
+            <div class="check-sub">Provisioning voice model&hellip;</div>
+          </div>
+        </div>
+
+        <div class="check-item pending" id="check-phone" role="listitem">
+          <div class="check-icon" aria-hidden="true">
+            <div class="check-icon-inner">
+              <div class="icon-pending"></div>
+              <div class="icon-spinner"></div>
+              <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+          <div class="check-body">
+            <div class="check-label">Assigning phone number</div>
+            <div class="check-sub">Reserving your US number&hellip;</div>
+          </div>
+        </div>
+
+        <div class="check-item pending" id="check-voice" role="listitem">
+          <div class="check-icon" aria-hidden="true">
+            <div class="check-icon-inner">
+              <div class="icon-pending"></div>
+              <div class="icon-spinner"></div>
+              <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+          <div class="check-body">
+            <div class="check-label">Configuring voice &amp; language</div>
+            <div class="check-sub">Loading AI personality&hellip;</div>
+          </div>
+        </div>
+
+        <div class="check-item pending" id="check-test" role="listitem">
+          <div class="check-icon" aria-hidden="true">
+            <div class="check-icon-inner">
+              <div class="icon-pending"></div>
+              <div class="icon-spinner"></div>
+              <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+          <div class="check-body">
+            <div class="check-label">Running first test</div>
+            <div class="check-sub">Verifying call routing&hellip;</div>
+          </div>
+        </div>
+
+        <div class="check-item pending" id="check-live" role="listitem">
+          <div class="check-icon" aria-hidden="true">
+            <div class="check-icon-inner">
+              <div class="icon-pending"></div>
+              <div class="icon-spinner"></div>
+              <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+          <div class="check-body">
+            <div class="check-label" id="live-label">Your AI is LIVE</div>
+            <div class="check-sub" id="live-sub">Standing by&hellip;</div>
+          </div>
+        </div>
       </div>
-      <div class="progress-steps" aria-hidden="true">
-        <span class="progress-step" data-step="1">Business</span>
-        <span class="progress-step" data-step="2">Hours</span>
-        <span class="progress-step" data-step="3">Voice</span>
-        <span class="progress-step" data-step="4">Features</span>
-        <span class="progress-step" data-step="5">Done</span>
+
+      <!-- Phone number reveal after live -->
+      <div class="phone-reveal" id="phone-reveal" aria-live="polite">
+        <div class="phone-reveal-label">Your AI Receptionist Number</div>
+        <div class="phone-reveal-number" id="phase1-phone">(207) 304-9892</div>
+        <div class="phone-reveal-sub">Calls to this number go straight to your AI</div>
       </div>
+
+      <!-- CTA to move to Phase 2 -->
+      <button class="phase-1-cta" id="phase-1-cta" onclick="goToPhase(2)" aria-label="Continue to configure your AI">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        Customize Your AI
+      </button>
     </div>
 
-    <!-- ── FORM ── -->
-    <div id="form-wrapper">
+    <!-- ══════════════════════════════════════════
+         PHASE 2 — CONFIGURATION FORM
+    ═══════════════════════════════════════════ -->
+    <div class="phase" id="phase-2" aria-label="Phase 2: Configure your AI">
+      <div class="phase-header">
+        <div class="phase-badge gold">
+          <span class="badge-dot" aria-hidden="true"></span>
+          Step 2 of 3
+        </div>
+        <h2 class="phase-title">CUSTOMIZE<br /><span class="accent-gold">YOUR AI</span></h2>
+        <p class="phase-sub">Help us personalize your receptionist</p>
+      </div>
+
       <form id="onboarding-form" novalidate>
+        <!-- hidden fields -->
+        <input type="hidden" id="h-email" name="client_email" />
+        <input type="hidden" id="h-plan" name="plan" />
+        <input type="hidden" id="h-tid" name="tracking_id" />
+        <input type="hidden" id="h-session" name="session_id" />
+
         <!-- 01 — Business Info -->
-        <div class="form-section fade-in" id="section-01">
+        <div class="form-section fade-in">
           <div class="section-header">
             <span class="section-num">01</span>
             <span class="section-title">Business Info</span>
           </div>
 
           <div class="field">
-            <label class="field-label" for="business_name">
+            <label class="field-label" for="biz-name">
               Business Name <span class="req" aria-label="required">*</span>
             </label>
             <input
               type="text"
-              id="business_name"
+              id="biz-name"
               name="business_name"
-              placeholder="e.g. Sunrise Dental Group"
+              placeholder="e.g. Sunrise Roofing Co."
               autocomplete="organization"
               required
             />
-            <div class="field-error" id="err-business_name">Please enter your business name.</div>
+            <div class="field-error" id="err-biz-name">Please enter your business name.</div>
           </div>
 
           <div class="field">
-            <label class="field-label" for="business_phone">
+            <label class="field-label" for="biz-phone">
               Business Phone Number <span class="req" aria-label="required">*</span>
             </label>
             <input
               type="tel"
-              id="business_phone"
+              id="biz-phone"
               name="business_phone"
               placeholder="(555) 000-0000"
               autocomplete="tel"
               required
             />
-            <span class="field-hint">The number your AI will answer calls for.</span>
-            <div class="field-error" id="err-business_phone">
-              Please enter a valid phone number.
-            </div>
+            <span class="field-hint">Your main business line — clients call this number.</span>
+            <div class="field-error" id="err-biz-phone">Please enter a valid phone number.</div>
           </div>
 
           <div class="field">
@@ -1099,22 +1622,21 @@
               Industry <span class="req" aria-label="required">*</span>
             </label>
             <select id="industry" name="industry" required>
-              <option value="" disabled selected>Select your industry…</option>
-              <option value="dental">Dental</option>
-              <option value="legal">Legal</option>
+              <option value="" disabled selected>Select your industry&hellip;</option>
+              <option value="roofing">Roofing</option>
+              <option value="solar">Solar</option>
               <option value="hvac">HVAC</option>
+              <option value="pest_control">Pest Control</option>
               <option value="plumbing">Plumbing</option>
               <option value="electrical">Electrical</option>
-              <option value="roofing">Roofing</option>
-              <option value="salon">Salon / Beauty</option>
-              <option value="medical">Medical / Healthcare</option>
-              <option value="realestate">Real Estate</option>
+              <option value="dental">Dental</option>
+              <option value="med_spa">Med Spa</option>
+              <option value="legal">Legal</option>
+              <option value="real_estate">Real Estate</option>
               <option value="contractor">General Contractor</option>
-              <option value="autorepair">Auto Repair</option>
-              <option value="pestcontrol">Pest Control</option>
               <option value="landscaping">Landscaping</option>
               <option value="chiro">Chiropractic</option>
-              <option value="vet">Veterinary</option>
+              <option value="auto_repair">Auto Repair</option>
               <option value="other">Other</option>
             </select>
             <div class="field-error" id="err-industry">Please select your industry.</div>
@@ -1122,97 +1644,66 @@
         </div>
 
         <!-- 02 — Business Hours -->
-        <div class="form-section fade-in" id="section-02">
+        <div class="form-section fade-in">
           <div class="section-header">
             <span class="section-num">02</span>
             <span class="section-title">Business Hours</span>
           </div>
 
-          <div class="hours-grid" role="group" aria-label="Business hours by day">
-            <!-- Row template repeated for each day -->
+          <div class="field hours-preset-select">
+            <label class="field-label" for="hours-preset">Schedule Preset</label>
+            <select id="hours-preset" name="hours_preset" onchange="applyHoursPreset(this.value)">
+              <option value="mf_8_5">Mon–Fri 8am–5pm</option>
+              <option value="mf_9_6">Mon–Fri 9am–6pm</option>
+              <option value="ms_8_6">Mon–Sat 8am–6pm</option>
+              <option value="247">24/7 (Always Open)</option>
+              <option value="custom">Custom Hours</option>
+            </select>
+          </div>
+
+          <div class="hours-custom" id="hours-custom" role="group" aria-label="Custom business hours">
             <div class="hours-row">
               <span class="hours-day">MON</span>
-              <select id="mon_open" name="mon_open" aria-label="Monday open time">
-                <!-- Options injected by JS -->
-              </select>
+              <select id="mon_open" name="mon_open" aria-label="Monday open time" onchange="syncDayClose('mon')"></select>
               <select id="mon_close" name="mon_close" aria-label="Monday close time"></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">TUE</span>
-              <select id="tue_open" name="tue_open" aria-label="Tuesday open time"></select>
+              <select id="tue_open" name="tue_open" aria-label="Tuesday open time" onchange="syncDayClose('tue')"></select>
               <select id="tue_close" name="tue_close" aria-label="Tuesday close time"></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">WED</span>
-              <select id="wed_open" name="wed_open" aria-label="Wednesday open time"></select>
+              <select id="wed_open" name="wed_open" aria-label="Wednesday open time" onchange="syncDayClose('wed')"></select>
               <select id="wed_close" name="wed_close" aria-label="Wednesday close time"></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">THU</span>
-              <select id="thu_open" name="thu_open" aria-label="Thursday open time"></select>
+              <select id="thu_open" name="thu_open" aria-label="Thursday open time" onchange="syncDayClose('thu')"></select>
               <select id="thu_close" name="thu_close" aria-label="Thursday close time"></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">FRI</span>
-              <select id="fri_open" name="fri_open" aria-label="Friday open time"></select>
+              <select id="fri_open" name="fri_open" aria-label="Friday open time" onchange="syncDayClose('fri')"></select>
               <select id="fri_close" name="fri_close" aria-label="Friday close time"></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">SAT</span>
-              <select id="sat_open" name="sat_open" aria-label="Saturday open time"></select>
+              <select id="sat_open" name="sat_open" aria-label="Saturday open time" onchange="syncDayClose('sat')"></select>
               <select id="sat_close" name="sat_close" aria-label="Saturday close time"></select>
             </div>
             <div class="hours-row">
               <span class="hours-day">SUN</span>
-              <select id="sun_open" name="sun_open" aria-label="Sunday open time"></select>
+              <select id="sun_open" name="sun_open" aria-label="Sunday open time" onchange="syncDayClose('sun')"></select>
               <select id="sun_close" name="sun_close" aria-label="Sunday close time"></select>
             </div>
           </div>
         </div>
 
-        <!-- 03 — Voice Preference -->
-        <div class="form-section fade-in" id="section-03">
+        <!-- 03 — Greeting -->
+        <div class="form-section fade-in">
           <div class="section-header">
             <span class="section-num">03</span>
-            <span class="section-title">Voice Preference</span>
-          </div>
-
-          <div class="voice-grid" role="radiogroup" aria-label="AI voice preference">
-            <div class="voice-option">
-              <input type="radio" id="voice_pf" name="voice" value="professional_female" checked />
-              <label class="voice-label" for="voice_pf">
-                <span class="voice-label-name">Professional Female</span>
-                <span class="voice-label-sub">Warm &amp; authoritative</span>
-              </label>
-            </div>
-            <div class="voice-option">
-              <input type="radio" id="voice_pm" name="voice" value="professional_male" />
-              <label class="voice-label" for="voice_pm">
-                <span class="voice-label-name">Professional Male</span>
-                <span class="voice-label-sub">Clear &amp; confident</span>
-              </label>
-            </div>
-            <div class="voice-option">
-              <input type="radio" id="voice_ff" name="voice" value="friendly_female" />
-              <label class="voice-label" for="voice_ff">
-                <span class="voice-label-name">Friendly Female</span>
-                <span class="voice-label-sub">Upbeat &amp; approachable</span>
-              </label>
-            </div>
-            <div class="voice-option">
-              <input type="radio" id="voice_fm" name="voice" value="friendly_male" />
-              <label class="voice-label" for="voice_fm">
-                <span class="voice-label-name">Friendly Male</span>
-                <span class="voice-label-sub">Relaxed &amp; helpful</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- 04 — Greeting Message -->
-        <div class="form-section fade-in" id="section-04">
-          <div class="section-header">
-            <span class="section-num">04</span>
             <span class="section-title">Greeting Message</span>
           </div>
 
@@ -1220,22 +1711,20 @@
             <label class="field-label" for="greeting">
               Opening Greeting <span class="req" aria-label="required">*</span>
             </label>
-            <textarea id="greeting" name="greeting" rows="3" required></textarea>
-            <span class="field-hint"
-              >This is the first thing callers will hear. Keep it under 20 words.</span
-            >
+            <textarea id="greeting" name="greeting_message" rows="3" required></textarea>
+            <span class="field-hint">First thing callers hear. Keep it under 20 words.</span>
             <div class="field-error" id="err-greeting">Please enter a greeting message.</div>
           </div>
         </div>
 
-        <!-- 05 — Features -->
-        <div class="form-section fade-in" id="section-05">
+        <!-- 04 — Features -->
+        <div class="form-section fade-in">
           <div class="section-header">
-            <span class="section-num">05</span>
+            <span class="section-num">04</span>
             <span class="section-title">Features</span>
           </div>
 
-          <!-- Appointment Booking Toggle -->
+          <!-- Appointment Booking -->
           <div
             class="toggle-field"
             id="toggle-booking"
@@ -1244,41 +1733,32 @@
             aria-controls="reveal-booking"
             tabindex="0"
             onclick="toggleFeature('booking')"
-            onkeydown="
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                toggleFeature('booking');
-              }
-            "
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFeature('booking');}"
           >
             <div class="toggle-field-body">
               <span class="toggle-field-label">Appointment Booking</span>
-              <span class="toggle-field-sub"
-                >AI books appointments directly into your calendar</span
-              >
+              <span class="toggle-field-sub">AI books appointments into your calendar</span>
             </div>
             <div class="toggle-switch" aria-hidden="true"></div>
           </div>
 
           <div class="toggle-reveal" id="reveal-booking">
             <div class="field">
-              <label class="field-label" for="calendar_link">Calendar Link</label>
+              <label class="field-label" for="calendar-link">Calendar Link</label>
               <input
                 type="url"
-                id="calendar_link"
+                id="calendar-link"
                 name="calendar_link"
-                placeholder="https://calendly.com/your-link or cal.com/your-link"
+                placeholder="https://calendly.com/your-link"
               />
               <span class="field-hint">Calendly, Cal.com, Acuity, or any booking URL.</span>
-              <div class="field-error" id="err-calendar_link">
-                Please enter a valid URL (must start with https://).
-              </div>
+              <div class="field-error" id="err-calendar-link">Must start with https://</div>
             </div>
           </div>
 
           <div class="divider"></div>
 
-          <!-- Call Transfer Toggle -->
+          <!-- Call Transfer -->
           <div
             class="toggle-field"
             id="toggle-transfer"
@@ -1287,158 +1767,76 @@
             aria-controls="reveal-transfer"
             tabindex="0"
             onclick="toggleFeature('transfer')"
-            onkeydown="
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                toggleFeature('transfer');
-              }
-            "
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFeature('transfer');}"
           >
             <div class="toggle-field-body">
               <span class="toggle-field-label">Call Transfer</span>
-              <span class="toggle-field-sub">AI can transfer urgent calls to a real person</span>
+              <span class="toggle-field-sub">AI transfers urgent calls to a real person</span>
             </div>
             <div class="toggle-switch" aria-hidden="true"></div>
           </div>
 
           <div class="toggle-reveal" id="reveal-transfer">
             <div class="field">
-              <label class="field-label" for="transfer_number">Transfer Number</label>
+              <label class="field-label" for="transfer-number">Transfer Number</label>
               <input
                 type="tel"
-                id="transfer_number"
+                id="transfer-number"
                 name="transfer_number"
                 placeholder="(555) 000-0000"
               />
-              <span class="field-hint">Direct line for urgent call transfers (cell or desk).</span>
-              <div class="field-error" id="err-transfer_number">
-                Please enter a valid phone number.
-              </div>
+              <span class="field-hint">Direct line for urgent transfers — cell or desk.</span>
+              <div class="field-error" id="err-transfer-number">Please enter a valid phone number.</div>
             </div>
           </div>
         </div>
 
-        <!-- 06 — Special Instructions -->
-        <div class="form-section fade-in" id="section-06">
+        <!-- 05 — Special Instructions -->
+        <div class="form-section fade-in">
           <div class="section-header">
-            <span class="section-num">06</span>
+            <span class="section-num">05</span>
             <span class="section-title">Special Instructions</span>
           </div>
 
           <div class="field">
-            <label class="field-label" for="instructions"> Additional Instructions </label>
+            <label class="field-label" for="instructions">Additional Instructions</label>
             <textarea
               id="instructions"
-              name="instructions"
+              name="special_instructions"
               rows="4"
-              placeholder="Any special instructions for your AI? e.g. 'We're closed on Wednesdays', 'Always ask for insurance info before booking', 'Don't mention competitor names'…"
+              placeholder="e.g. 'Always ask for the address before sending a tech', 'We don't do flat roofs', 'Transfer calls about billing immediately'…"
             ></textarea>
-            <span class="field-hint"
-              >Optional. The more detail you provide, the better your AI performs.</span
-            >
+            <span class="field-hint">Optional — the more detail, the better your AI performs.</span>
           </div>
         </div>
 
         <!-- ── CONSENT ── -->
-        <div
-          class="consent-section"
-          style="
-            margin-top: 24px;
-            padding: 20px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-          "
-        >
-          <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; font-weight: 600">
-            Required Agreements
-          </p>
+        <div class="consent-section">
+          <p class="consent-title">Required Agreements</p>
 
-          <label
-            class="consent-label"
-            style="
-              display: flex;
-              align-items: flex-start;
-              gap: 12px;
-              margin-bottom: 14px;
-              cursor: pointer;
-              font-size: 0.85rem;
-              color: var(--text-2);
-              line-height: 1.5;
-            "
-          >
-            <input
-              type="checkbox"
-              id="consent-terms"
-              required
-              style="margin-top: 4px; accent-color: var(--green); min-width: 18px; min-height: 18px"
-            />
-            <span
-              >I have read and agree to the
-              <a
-                href="terms.html"
-                target="_blank"
-                style="color: var(--green); text-decoration: underline"
-                >Terms of Service</a
-              >
-              and
-              <a
-                href="privacy.html"
-                target="_blank"
-                style="color: var(--green); text-decoration: underline"
-                >Privacy Policy</a
-              >.</span
-            >
+          <label class="consent-label">
+            <input type="checkbox" id="consent-terms" required />
+            <span>
+              I have read and agree to the
+              <a href="terms.html" target="_blank" rel="noopener">Terms of Service</a>
+              and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+            </span>
           </label>
 
-          <label
-            class="consent-label"
-            style="
-              display: flex;
-              align-items: flex-start;
-              gap: 12px;
-              margin-bottom: 14px;
-              cursor: pointer;
-              font-size: 0.85rem;
-              color: var(--text-2);
-              line-height: 1.5;
-            "
-          >
-            <input
-              type="checkbox"
-              id="consent-recording"
-              required
-              style="margin-top: 4px; accent-color: var(--green); min-width: 18px; min-height: 18px"
-            />
-            <span
-              >I acknowledge that calls handled by the AI receptionist may be recorded for quality
-              assurance and service improvement purposes, and I am responsible for informing my
-              callers of this recording.</span
-            >
+          <label class="consent-label">
+            <input type="checkbox" id="consent-recording" required />
+            <span>
+              I acknowledge that calls may be recorded for quality assurance. I am responsible for
+              informing my callers of this recording.
+            </span>
           </label>
 
-          <label
-            class="consent-label"
-            style="
-              display: flex;
-              align-items: flex-start;
-              gap: 12px;
-              cursor: pointer;
-              font-size: 0.85rem;
-              color: var(--text-2);
-              line-height: 1.5;
-            "
-          >
-            <input
-              type="checkbox"
-              id="consent-ai-disclosure"
-              required
-              style="margin-top: 4px; accent-color: var(--green); min-width: 18px; min-height: 18px"
-            />
-            <span
-              >I understand that the AI receptionist will disclose its AI nature at the start of
-              each call, and I will not remove or modify this disclosure.</span
-            >
+          <label class="consent-label">
+            <input type="checkbox" id="consent-ai-disclosure" required />
+            <span>
+              I understand the AI will disclose its AI nature at the start of each call and I will
+              not remove or modify this disclosure.
+            </span>
           </label>
         </div>
 
@@ -1446,89 +1844,159 @@
         <div class="submit-section fade-in">
           <button type="submit" class="submit-btn" id="submit-btn">
             <div class="spinner" aria-hidden="true"></div>
-            <span class="btn-text">Activate My AI Receptionist</span>
+            <span class="btn-text">Save &amp; Activate &nbsp;→</span>
           </button>
           <p class="submit-note">
-            Your AI receptionist will be live within
-            <strong style="color: var(--text)">48 hours</strong> of submission.
+            Your AI is provisioned and ready — this saves your configuration.
           </p>
           <div class="submit-security" aria-label="Secure submission">
-            <svg
-              width="10"
-              height="10"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-            </svg>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
             256-bit SSL encrypted — your data is secure
           </div>
         </div>
       </form>
     </div>
 
-    <!-- ── SUCCESS SCREEN ── -->
-    <div id="success-screen" role="main" aria-live="assertive">
-      <div class="success-icon" aria-hidden="true">✓</div>
-      <h2 class="success-title">You're All <span>Set!</span></h2>
-      <p class="success-body">
-        Your AI receptionist is being configured. You'll receive a confirmation email within the
-        hour.
-      </p>
-
-      <div class="success-ref" id="success-ref" style="display: none">
-        <div>
-          <div class="success-ref-label">Reference ID</div>
-          <div class="success-ref-val" id="success-ref-val"></div>
+    <!-- ══════════════════════════════════════════
+         PHASE 3 — SUCCESS + CALL FORWARDING
+    ═══════════════════════════════════════════ -->
+    <div class="phase" id="phase-3" aria-label="Phase 3: You're all set">
+      <div class="phase-header">
+        <div class="phase-badge green">
+          <span class="badge-dot" aria-hidden="true"></span>
+          Live &amp; Ready
         </div>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="var(--green)"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
+        <h2 class="phase-title">YOU'RE ALL <span class="accent-green">SET!</span></h2>
+        <p class="phase-sub">Your AI receptionist is answering calls 24/7</p>
       </div>
 
-      <div class="success-timeline">
-        <div class="success-step">
-          <div class="success-step-num">1</div>
-          <div class="success-step-body">
-            <strong>Now → 24h</strong>
-            Our team reviews your setup and configures your AI receptionist.
+      <!-- Animated check icon -->
+      <div class="success-hero">
+        <div class="confetti-ring">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div>
+
+      <!-- Card 1: AI Phone Number -->
+      <div class="info-card">
+        <div class="info-card-header">
+          <div class="info-card-icon green">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </div>
+          <div>
+            <div class="info-card-title">Your AI Phone Number</div>
+            <div class="info-card-sub">Tap to call and test it right now</div>
           </div>
         </div>
-        <div class="success-step">
-          <div class="success-step-num">2</div>
-          <div class="success-step-body">
-            <strong>Within 48h</strong>
-            You receive a test call from your AI so you can hear it before it goes live.
-          </div>
-        </div>
-        <div class="success-step">
-          <div class="success-step-num">3</div>
-          <div class="success-step-body">
-            <strong>Go Live</strong>
-            Your AI starts answering calls 24/7. Zero missed calls from this point forward.
+        <div class="ai-phone-display">
+          <div class="ai-phone-label">AI Receptionist Line</div>
+          <a class="ai-phone-number" id="phase3-phone" href="tel:12073049892">(207) 304-9892</a>
+          <div class="ai-phone-status">
+            <span class="status-dot" aria-hidden="true"></span>
+            Active — answering calls 24/7
           </div>
         </div>
       </div>
 
-      <p style="font-size: 12px; color: var(--muted); text-align: center">
-        Questions? Text or call your rep directly.
-      </p>
+      <!-- Card 2: Call Forwarding Instructions -->
+      <div class="info-card">
+        <div class="info-card-header">
+          <div class="info-card-icon blue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+          </div>
+          <div>
+            <div class="info-card-title">Set Up Call Forwarding</div>
+            <div class="info-card-sub">2 minutes — forward your line to your AI</div>
+          </div>
+        </div>
+
+        <div class="forwarding-steps">
+          <div class="fwd-step">
+            <div class="fwd-step-num">1</div>
+            <div class="fwd-step-text">
+              On your phone, go to <strong>Settings &rarr; Phone &rarr; Call Forwarding</strong>
+            </div>
+          </div>
+          <div class="fwd-step">
+            <div class="fwd-step-num">2</div>
+            <div class="fwd-step-text">
+              Turn <strong>Call Forwarding ON</strong>
+            </div>
+          </div>
+          <div class="fwd-step">
+            <div class="fwd-step-num">3</div>
+            <div class="fwd-step-text">
+              Enter your AI number: <strong id="fwd-phone-inline">(207) 304-9892</strong>
+            </div>
+          </div>
+          <div class="fwd-step">
+            <div class="fwd-step-num">4</div>
+            <div class="fwd-step-text">
+              Tap <strong>Save</strong> — you're done!
+            </div>
+          </div>
+        </div>
+
+        <div class="fwd-divider">
+          <div class="fwd-divider-line"></div>
+          <span class="fwd-divider-label">Or dial from your phone</span>
+          <div class="fwd-divider-line"></div>
+        </div>
+
+        <div class="fwd-shortcode">
+          <div class="fwd-shortcode-label">Dial this code from your business phone</div>
+          <div class="fwd-shortcode-code" id="fwd-shortcode">*72 + (207) 304-9892</div>
+          <div class="fwd-shortcode-sub">Works on most US carriers (AT&amp;T, T-Mobile, Verizon)</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Quick Links -->
+      <div class="info-card">
+        <div class="info-card-header">
+          <div class="info-card-icon gold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+          </div>
+          <div>
+            <div class="info-card-title">Quick Links</div>
+            <div class="info-card-sub">Test, manage, and get help</div>
+          </div>
+        </div>
+
+        <div class="quick-links">
+          <a class="quick-link-btn primary" id="test-ai-link" href="tel:12073049892">
+            <div class="quick-link-icon green">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </div>
+            <div class="quick-link-body">
+              <div class="quick-link-title">Test Your AI</div>
+              <div class="quick-link-sub">Call now and hear your receptionist</div>
+            </div>
+            <svg class="quick-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+
+          <a class="quick-link-btn" href="https://app.autoscaleai.ca" target="_blank" rel="noopener">
+            <div class="quick-link-icon blue">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </div>
+            <div class="quick-link-body">
+              <div class="quick-link-title">Dashboard</div>
+              <div class="quick-link-sub">View calls, analytics, and settings</div>
+            </div>
+            <svg class="quick-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+
+          <a class="quick-link-btn" href="mailto:support@autoscaleai.ca">
+            <div class="quick-link-icon muted">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="quick-link-body">
+              <div class="quick-link-title">Need Help?</div>
+              <div class="quick-link-sub">support@autoscaleai.ca</div>
+            </div>
+            <svg class="quick-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- ── FOOTER ── -->
@@ -1537,7 +2005,8 @@
       <div class="footer-links">
         <a href="terms.html">Terms of Service</a>
         <a href="privacy.html">Privacy Policy</a>
-        <a href="mailto:contact@autoscaleai.com">Support</a>
+        <a href="mailto:support@autoscaleai.ca">Support</a>
+        <a id="footer-phone" href="tel:12073049892">(207) 304-9892</a>
       </div>
       <div class="footer-sub">&copy; 2026 AutoScale AI. All rights reserved.</div>
     </footer>
@@ -1546,30 +2015,311 @@
     <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 
     <script>
-      // ── CONSTANTS ──
-      const ENDPOINT = 'https://autoscale-ai-backend.fly.dev/api/onboarding/submit';
+      // ─────────────────────────────────────────
+      // CONSTANTS
+      // ─────────────────────────────────────────
+      var API_BASE = (function () {
+        var h = window.location.hostname;
+        if (h === 'localhost' || h === '127.0.0.1') return 'http://localhost:3000/api';
+        return 'https://api.autoscaleai.ca/api';
+      })();
 
-      const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-      const WEEKDAY_DEFAULTS = { open: '09:00', close: '17:00' };
-      const WEEKEND_DEFAULTS = { open: 'closed', close: 'closed' };
+      var DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
-      // ── TIME OPTIONS ──
+      // ─────────────────────────────────────────
+      // URL PARAMS
+      // ─────────────────────────────────────────
+      var params = new URLSearchParams(window.location.search);
+      var sessionId = params.get('session_id') || '';
+      var trackingId = params.get('tid') || '';
+      var plan = params.get('plan') || 'core';
+      var email = params.get('email') || '';
+      var clientName = decodeURIComponent(params.get('name') || '');
+      // phone will be populated from polling response; fallback to URL param or default
+      var FALLBACK_PHONE = '(207) 304-9892';
+      var aiPhone = params.get('phone') || FALLBACK_PHONE;
+      var aiPhoneRaw = aiPhone.replace(/\D/g, '');
+      var polledPhone = null; // set when API confirms provisioning
+
+      function formatPhone(raw) {
+        var d = raw.replace(/\D/g, '');
+        if (d.length === 11 && d[0] === '1') d = d.slice(1);
+        if (d.length === 10) {
+          return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+        }
+        return aiPhone; // fallback to original string
+      }
+
+      function setPhoneDisplays() {
+        var pretty = formatPhone(aiPhoneRaw);
+        var tel = 'tel:1' + aiPhoneRaw;
+        document.getElementById('phase1-phone').textContent = pretty;
+        document.getElementById('phase3-phone').textContent = pretty;
+        document.getElementById('phase3-phone').href = tel;
+        document.getElementById('fwd-phone-inline').textContent = pretty;
+        document.getElementById('fwd-shortcode').textContent = '*72 + ' + pretty;
+        document.getElementById('test-ai-link').href = tel;
+        var footerPhone = document.getElementById('footer-phone');
+        if (footerPhone) { footerPhone.textContent = pretty; footerPhone.href = tel; }
+      }
+
+      // ─────────────────────────────────────────
+      // WELCOME BOX
+      // ─────────────────────────────────────────
+      function initWelcomeBox() {
+        if (!clientName && !email && !plan && !trackingId) return;
+
+        var box = document.getElementById('welcome-box');
+
+        document.getElementById('welcome-name').textContent = clientName
+          ? 'Welcome, ' + clientName + '!'
+          : 'Welcome aboard!';
+
+        if (email) {
+          document.getElementById('welcome-email').textContent = email;
+          document.getElementById('welcome-email-wrap').style.display = 'flex';
+        }
+        if (plan) {
+          document.getElementById('welcome-plan').textContent = plan.charAt(0).toUpperCase() + plan.slice(1);
+          document.getElementById('welcome-plan-wrap').style.display = 'flex';
+        }
+        if (trackingId) {
+          document.getElementById('welcome-tid').textContent = trackingId;
+          document.getElementById('welcome-tid-wrap').style.display = 'flex';
+        }
+
+        box.classList.add('visible');
+      }
+
+      // ─────────────────────────────────────────
+      // PHASE NAVIGATION
+      // ─────────────────────────────────────────
+      var currentPhase = 1;
+
+      function goToPhase(n) {
+        // Hide current
+        var old = document.getElementById('phase-' + currentPhase);
+        if (old) old.classList.remove('active');
+
+        // Update dots
+        for (var i = 1; i <= 3; i++) {
+          var dot = document.getElementById('dot-' + i);
+          if (!dot) continue;
+          dot.classList.remove('active', 'done');
+          if (i < n) dot.classList.add('done');
+          else if (i === n) dot.classList.add('active');
+        }
+
+        currentPhase = n;
+        var next = document.getElementById('phase-' + n);
+        if (next) {
+          next.classList.add('active');
+          next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Init fade-ins for new phase
+        initFadeIn();
+      }
+
+      // ─────────────────────────────────────────
+      // PHASE 1 — REAL POLLING
+      // ─────────────────────────────────────────
+      var POLL_INTERVAL_MS = 3000;
+      var POLL_TIMEOUT_MS  = 180000; // 3 minutes
+      var POLL_MAX_ERRORS  = 3;
+
+      var _pollTimer      = null;
+      var _pollStartTime  = 0;
+      var _pollErrorCount = 0;
+      var _pollStopped    = false;
+
+      // Track which UI checkpoints have been shown to avoid replaying them
+      var _uiState = {
+        assistant: false,
+        phone:     false,
+        voice:     false,
+        test:      false,
+        live:      false,
+      };
+
+      function setCheckState(id, state, subText) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.className = 'check-item ' + state;
+        if (subText) {
+          var sub = el.querySelector('.check-sub');
+          if (sub) sub.textContent = subText;
+        }
+      }
+
+      function markSetupComplete(vapiPhone) {
+        if (_pollStopped) return;
+        _pollStopped = true;
+        clearTimeout(_pollTimer);
+
+        // Store polled phone number
+        if (vapiPhone) {
+          polledPhone = vapiPhone;
+          aiPhone     = vapiPhone;
+          aiPhoneRaw  = aiPhone.replace(/\D/g, '');
+          setPhoneDisplays();
+        }
+
+        // Ensure all checks are marked done
+        if (!_uiState.assistant) { setCheckState('check-assistant', 'done', 'AI assistant provisioned'); _uiState.assistant = true; }
+        if (!_uiState.phone)     { setCheckState('check-phone',     'done', 'Number reserved');          _uiState.phone     = true; }
+        if (!_uiState.voice)     { setCheckState('check-voice',     'done', 'Voice configured');         _uiState.voice     = true; }
+        if (!_uiState.test)      { setCheckState('check-test',      'done', 'All systems operational');  _uiState.test      = true; }
+
+        // Mark LIVE
+        var liveEl = document.getElementById('check-live');
+        if (liveEl) {
+          liveEl.className = 'check-item live done';
+          var liveSub = document.getElementById('live-sub');
+          if (liveSub) liveSub.textContent = "You're live!";
+        }
+
+        // Show phone reveal
+        var phoneReveal = document.getElementById('phone-reveal');
+        if (phoneReveal) phoneReveal.classList.add('visible');
+
+        // Show CTA
+        var cta = document.getElementById('phase-1-cta');
+        if (cta) cta.classList.add('visible');
+
+        showToast('Your AI is live!', 'success');
+      }
+
+      function showSetupError() {
+        if (_pollStopped) return;
+        _pollStopped = true;
+        clearTimeout(_pollTimer);
+
+        var errorEl = document.getElementById('setup-error-msg');
+        if (!errorEl) {
+          var wrap = document.querySelector('#phase-1 .check-list') || document.getElementById('phase-1');
+          if (wrap) {
+            errorEl = document.createElement('p');
+            errorEl.id = 'setup-error-msg';
+            errorEl.style.cssText = 'color:var(--red);font-size:0.85rem;margin-top:16px;line-height:1.5;';
+            wrap.appendChild(errorEl);
+          }
+        }
+        if (errorEl) {
+          errorEl.textContent = "Setup is taking longer than expected. Your AI receptionist is being configured \u2014 we'll email you when it's ready.";
+          errorEl.style.display = 'block';
+        }
+      }
+
+      function applyPollResponse(data) {
+        // account_created → check-assistant (start → done)
+        if (data.account_created && !_uiState.assistant) {
+          setCheckState('check-assistant', 'done', 'AI assistant provisioned');
+          _uiState.assistant = true;
+          setCheckState('check-phone', 'checking', 'Reserving your US number…');
+        }
+
+        // phone_number_assigned → check-phone (done)
+        if (data.phone_number_assigned && !_uiState.phone) {
+          setCheckState('check-phone', 'done', 'Number reserved');
+          _uiState.phone = true;
+          setCheckState('check-voice', 'checking', 'Loading AI personality…');
+        }
+
+        // ai_agent_deployed → check-voice (done) + check-test (done)
+        if (data.ai_agent_deployed && !_uiState.voice) {
+          setCheckState('check-voice', 'done', 'Voice configured');
+          _uiState.voice = true;
+          setCheckState('check-test', 'checking', 'Verifying call routing…');
+        }
+        if (data.ai_agent_deployed && !_uiState.test) {
+          setCheckState('check-test', 'done', 'All systems operational');
+          _uiState.test = true;
+          setCheckState('check-live', 'checking', 'Going live…');
+        }
+
+        // welcome_email_sent → all checkpoints complete
+        if (data.welcome_email_sent && !_uiState.live) {
+          _uiState.live = true;
+          markSetupComplete(data.vapi_phone_number || null);
+        }
+      }
+
+      function schedulePoll() {
+        if (_pollStopped) return;
+        _pollTimer = setTimeout(doPoll, POLL_INTERVAL_MS);
+      }
+
+      function doPoll() {
+        if (_pollStopped) return;
+
+        if (Date.now() - _pollStartTime >= POLL_TIMEOUT_MS) {
+          showSetupError();
+          return;
+        }
+
+        fetch(API_BASE + '/onboarding/checkout-status/' + encodeURIComponent(sessionId))
+          .then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.json();
+          })
+          .then(function (data) {
+            _pollErrorCount = 0;
+            applyPollResponse(data);
+            if (!_pollStopped) schedulePoll();
+          })
+          .catch(function () {
+            _pollErrorCount++;
+            if (_pollErrorCount >= POLL_MAX_ERRORS) {
+              showSetupError();
+            } else {
+              schedulePoll();
+            }
+          });
+      }
+
+      function runSetupSequence() {
+        // Immediately show first step as "checking"
+        setCheckState('check-assistant', 'checking', 'Provisioning voice model…');
+
+        if (!sessionId) {
+          // No session_id — graceful fallback: complete after 25s
+          setTimeout(function () { markSetupComplete(null); }, 25000);
+          return;
+        }
+
+        _pollStartTime  = Date.now();
+        _pollErrorCount = 0;
+        _pollStopped    = false;
+
+        // First poll immediately, then schedule repeats
+        doPoll();
+      }
+
+      // ─────────────────────────────────────────
+      // HOURS — BUILD SELECT OPTIONS
+      // ─────────────────────────────────────────
+      function formatTime12(h, m) {
+        var period = h < 12 ? 'AM' : 'PM';
+        var h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
+        return h12 + ':' + (m === 0 ? '00' : '30') + ' ' + period;
+      }
+
       function buildTimeOptions(selectEl, defaultVal) {
-        const closed = document.createElement('option');
+        var closed = document.createElement('option');
         closed.value = 'closed';
         closed.textContent = 'Closed';
         selectEl.appendChild(closed);
 
-        for (let h = 0; h < 24; h++) {
-          for (const m of [0, 30]) {
-            const totalMins = h * 60 + m;
-            const padH = String(h).padStart(2, '0');
-            const padM = String(m).padStart(2, '0');
-            const value = `${padH}:${padM}`;
-            const label12 = formatTime12(h, m);
-            const opt = document.createElement('option');
+        for (var h = 0; h < 24; h++) {
+          for (var mi = 0; mi < 2; mi++) {
+            var m = mi * 30;
+            var padH = (h < 10 ? '0' : '') + h;
+            var padM = m === 0 ? '00' : '30';
+            var value = padH + ':' + padM;
+            var opt = document.createElement('option');
             opt.value = value;
-            opt.textContent = label12;
+            opt.textContent = formatTime12(h, m);
             selectEl.appendChild(opt);
           }
         }
@@ -1577,133 +2327,118 @@
         updateHoursStyle(selectEl);
       }
 
-      function formatTime12(h, m) {
-        const period = h < 12 ? 'AM' : 'PM';
-        const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
-        return `${h12}:${String(m).padStart(2, '0')} ${period}`;
-      }
-
       function updateHoursStyle(sel) {
-        if (sel.value === 'closed') {
-          sel.classList.add('closed-state');
-        } else {
-          sel.classList.remove('closed-state');
-        }
+        if (sel.value === 'closed') sel.classList.add('closed-state');
+        else sel.classList.remove('closed-state');
       }
 
-      // ── INIT HOURS ──
-      function initHours() {
-        DAYS.forEach((day, i) => {
-          const isWeekend = i >= 5;
-          const defaults = isWeekend ? WEEKEND_DEFAULTS : WEEKDAY_DEFAULTS;
-          const openSel = document.getElementById(`${day}_open`);
-          const closeSel = document.getElementById(`${day}_close`);
-          buildTimeOptions(openSel, defaults.open);
-          buildTimeOptions(closeSel, defaults.close);
+      function syncDayClose(day) {
+        var openSel = document.getElementById(day + '_open');
+        var closeSel = document.getElementById(day + '_close');
+        if (openSel && closeSel && openSel.value === 'closed') {
+          closeSel.value = 'closed';
+          updateHoursStyle(closeSel);
+        }
+        updateHoursStyle(openSel);
+      }
 
-          openSel.addEventListener('change', () => {
-            updateHoursStyle(openSel);
-            // Mirror close to closed when open is closed
-            if (openSel.value === 'closed') {
-              closeSel.value = 'closed';
-              updateHoursStyle(closeSel);
-            }
-          });
-          closeSel.addEventListener('change', () => updateHoursStyle(closeSel));
+      function setDayHours(day, open, close) {
+        var o = document.getElementById(day + '_open');
+        var c = document.getElementById(day + '_close');
+        if (o) { o.value = open; updateHoursStyle(o); }
+        if (c) { c.value = close; updateHoursStyle(c); }
+      }
+
+      function initHours() {
+        DAYS.forEach(function (day, i) {
+          var isWeekend = i >= 5;
+          var openSel = document.getElementById(day + '_open');
+          var closeSel = document.getElementById(day + '_close');
+          if (!openSel || !closeSel) return;
+          buildTimeOptions(openSel, isWeekend ? 'closed' : '09:00');
+          buildTimeOptions(closeSel, isWeekend ? 'closed' : '17:00');
+          closeSel.addEventListener('change', function () { updateHoursStyle(closeSel); });
         });
       }
 
-      // ── URL PARAMS ──
-      function readUrlParams() {
-        const params = new URLSearchParams(window.location.search);
-        const business = params.get('business') || '';
-        const email = params.get('email') || '';
-        const plan = params.get('plan') || '';
-
-        if (business) {
-          const input = document.getElementById('business_name');
-          input.value = business;
-          updateGreeting(business);
+      function applyHoursPreset(preset) {
+        var custom = document.getElementById('hours-custom');
+        if (preset === 'custom') {
+          custom.classList.add('visible');
+          return;
         }
+        custom.classList.remove('visible');
 
-        const welcomeBox = document.getElementById('welcome-box');
-        if (business || email || plan) {
-          document.getElementById('welcome-name').textContent = business
-            ? `Welcome, ${business}!`
-            : 'Welcome aboard!';
+        var presets = {
+          mf_8_5:  { weekday: ['08:00', '17:00'], sat: 'closed', sun: 'closed' },
+          mf_9_6:  { weekday: ['09:00', '18:00'], sat: 'closed', sun: 'closed' },
+          ms_8_6:  { weekday: ['08:00', '18:00'], sat: ['08:00', '18:00'], sun: 'closed' },
+          '247':   { weekday: ['00:00', '23:30'], sat: ['00:00', '23:30'], sun: ['00:00', '23:30'] }
+        };
 
-          if (email) {
-            document.getElementById('welcome-email').textContent = email;
-            document.getElementById('welcome-email-wrap').style.display = 'flex';
-          }
-          if (plan) {
-            document.getElementById('welcome-plan').textContent = plan.toUpperCase();
-            document.getElementById('welcome-plan-wrap').style.display = 'flex';
-          }
-          welcomeBox.classList.add('visible');
-        }
+        var p = presets[preset];
+        if (!p) return;
+
+        ['mon', 'tue', 'wed', 'thu', 'fri'].forEach(function (day) {
+          setDayHours(day, p.weekday[0], p.weekday[1]);
+        });
+
+        var satVal = Array.isArray(p.sat) ? p.sat : [p.sat, p.sat];
+        setDayHours('sat', satVal[0], satVal[1] || satVal[0]);
+
+        var sunVal = Array.isArray(p.sun) ? p.sun : [p.sun, p.sun];
+        setDayHours('sun', sunVal[0], sunVal[1] || sunVal[0]);
       }
 
-      // ── GREETING AUTO-UPDATE ──
-      function updateGreeting(name) {
-        const greetingEl = document.getElementById('greeting');
-        const placeholder = name
-          ? `Thank you for calling ${name}. How can I help you today?`
-          : `Thank you for calling [Business Name]. How can I help you today?`;
-        if (!greetingEl.dataset.manuallyEdited) {
-          greetingEl.value = placeholder;
-        }
-      }
-
-      // ── TOGGLE FEATURES ──
+      // ─────────────────────────────────────────
+      // TOGGLE FEATURES
+      // ─────────────────────────────────────────
       function toggleFeature(key) {
-        const toggleEl = document.getElementById(`toggle-${key}`);
-        const revealEl = document.getElementById(`reveal-${key}`);
-        const isOn = toggleEl.classList.contains('on');
-
+        var toggleEl = document.getElementById('toggle-' + key);
+        var revealEl = document.getElementById('reveal-' + key);
+        var isOn = toggleEl.classList.contains('on');
         toggleEl.classList.toggle('on', !isOn);
         toggleEl.setAttribute('aria-checked', String(!isOn));
         revealEl.classList.toggle('visible', !isOn);
-        updateProgress();
       }
 
-      // ── PROGRESS ──
-      function updateProgress() {
-        const fields = [
-          document.getElementById('business_name').value.trim(),
-          document.getElementById('business_phone').value.trim(),
-          document.getElementById('industry').value,
-          document.getElementById('greeting').value.trim(),
-        ];
-        const filled = fields.filter(Boolean).length;
-        const total = 5; // 4 required fields + submit
-        const pct = Math.min(Math.round((filled / total) * 90), 90);
+      // ─────────────────────────────────────────
+      // FORM PRE-FILL
+      // ─────────────────────────────────────────
+      function prefillForm() {
+        document.getElementById('h-email').value = email;
+        document.getElementById('h-plan').value = plan;
+        document.getElementById('h-tid').value = trackingId;
+        document.getElementById('h-session').value = sessionId;
 
-        document.getElementById('progress-fill').style.width = pct + '%';
-        document.getElementById('progress-pct').textContent = pct + '%';
-
-        const progressBar = document.querySelector('.progress-bar');
-        progressBar.setAttribute('aria-valuenow', pct);
-
-        // Update step indicators
-        const steps = document.querySelectorAll('.progress-step');
-        const thresholds = [20, 40, 60, 80, 100];
-        steps.forEach((step, i) => {
-          step.classList.toggle('done', pct >= thresholds[i]);
-          step.classList.toggle('active', pct >= (thresholds[i - 1] || 0) && pct < thresholds[i]);
-        });
+        if (clientName) {
+          var bizInput = document.getElementById('biz-name');
+          if (bizInput) bizInput.value = clientName;
+          updateGreeting(clientName);
+        }
       }
 
-      // ── VALIDATION ──
+      function updateGreeting(name) {
+        var el = document.getElementById('greeting');
+        if (!el || el.dataset.manuallyEdited) return;
+        el.value = name
+          ? 'Thank you for calling ' + name + '. How can I help you today?'
+          : 'Thank you for calling [Business Name]. How can I help you today?';
+      }
+
+      // ─────────────────────────────────────────
+      // VALIDATION
+      // ─────────────────────────────────────────
       function validateForm() {
-        let valid = true;
+        var valid = true;
 
-        function check(id, errorId, testFn) {
-          const el = document.getElementById(id);
-          const err = document.getElementById(errorId);
-          const ok = testFn(el.value.trim());
+        function check(id, errId, testFn) {
+          var el = document.getElementById(id);
+          var err = document.getElementById(errId);
+          if (!el) return true;
+          var ok = testFn(el.value.trim());
           el.classList.toggle('invalid', !ok);
-          err.classList.toggle('visible', !ok);
+          if (err) err.classList.toggle('visible', !ok);
           if (!ok && valid) {
             el.scrollIntoView({ behavior: 'smooth', block: 'center' });
             el.focus();
@@ -1712,203 +2447,216 @@
           return ok;
         }
 
-        check('business_name', 'err-business_name', (v) => v.length > 0);
-        check('business_phone', 'err-business_phone', (v) => /^\+?[\d\s\-().]{7,}$/.test(v));
-        check('industry', 'err-industry', (v) => v.length > 0);
-        check('greeting', 'err-greeting', (v) => v.length > 0);
+        check('biz-name', 'err-biz-name', function (v) { return v.length > 0; });
+        check('biz-phone', 'err-biz-phone', function (v) { return /^\+?[\d\s\-().]{7,}$/.test(v); });
+        check('industry', 'err-industry', function (v) { return v.length > 0; });
+        check('greeting', 'err-greeting', function (v) { return v.length > 0; });
 
-        // Conditional: calendar link if booking is on
         if (document.getElementById('toggle-booking').classList.contains('on')) {
-          const calVal = document.getElementById('calendar_link').value.trim();
-          const calEl = document.getElementById('calendar_link');
-          const calErr = document.getElementById('err-calendar_link');
-          const calOk = calVal === '' || calVal.startsWith('https://');
-          calEl.classList.toggle('invalid', !calOk);
-          calErr.classList.toggle('visible', !calOk);
-          if (!calOk && valid) {
-            calEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            calEl.focus();
-            valid = false;
-          }
+          check('calendar-link', 'err-calendar-link', function (v) {
+            return v === '' || v.startsWith('https://');
+          });
         }
 
-        // Conditional: transfer number if transfer is on
         if (document.getElementById('toggle-transfer').classList.contains('on')) {
-          const tVal = document.getElementById('transfer_number').value.trim();
-          const tEl = document.getElementById('transfer_number');
-          const tErr = document.getElementById('err-transfer_number');
-          const tOk = tVal === '' || /^\+?[\d\s\-().]{7,}$/.test(tVal);
-          tEl.classList.toggle('invalid', !tOk);
-          tErr.classList.toggle('visible', !tOk);
-          if (!tOk && valid) {
-            tEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            tEl.focus();
-            valid = false;
-          }
+          check('transfer-number', 'err-transfer-number', function (v) {
+            return v === '' || /^\+?[\d\s\-().]{7,}$/.test(v);
+          });
         }
 
         return valid;
       }
 
-      // ── COLLECT FORM DATA ──
-      function collectData() {
-        const hours = {};
-        DAYS.forEach((day) => {
-          const open = document.getElementById(`${day}_open`).value;
-          const close = document.getElementById(`${day}_close`).value;
-          hours[day] = open === 'closed' ? { open: null, close: null } : { open, close };
-        });
+      // ─────────────────────────────────────────
+      // COLLECT HOURS
+      // ─────────────────────────────────────────
+      var DAY_FULL = { mon: 'monday', tue: 'tuesday', wed: 'wednesday', thu: 'thursday', fri: 'friday', sat: 'saturday', sun: 'sunday' };
 
-        return {
-          business_name: document.getElementById('business_name').value.trim(),
-          business_phone: document.getElementById('business_phone').value.trim(),
-          industry: document.getElementById('industry').value,
-          voice_preference: document.querySelector('input[name="voice"]:checked').value,
-          greeting: document.getElementById('greeting').value.trim(),
-          appointment_booking: document.getElementById('toggle-booking').classList.contains('on'),
-          calendar_link: document.getElementById('calendar_link').value.trim() || null,
-          call_transfer: document.getElementById('toggle-transfer').classList.contains('on'),
-          transfer_number: document.getElementById('transfer_number').value.trim() || null,
-          special_instructions: document.getElementById('instructions').value.trim() || null,
-          business_hours: hours,
-          submitted_at: new Date().toISOString(),
-          source_url: window.location.href,
-        };
+      function collectHours() {
+        var preset = document.getElementById('hours-preset').value;
+        if (preset !== 'custom') {
+          // Expand preset to full day objects so backend Zod schema accepts it
+          var allDays = { open: '00:00', close: '23:59' };
+          var closed = { open: null, close: null };
+          var presets = {
+            'mf_8_5': { wk: { open: '08:00', close: '17:00' }, sat: closed, sun: closed },
+            'mf_9_6': { wk: { open: '09:00', close: '18:00' }, sat: closed, sun: closed },
+            'ms_8_6': { wk: { open: '08:00', close: '18:00' }, sat: { open: '08:00', close: '18:00' }, sun: closed },
+            '247':    { wk: allDays, sat: allDays, sun: allDays },
+          };
+          var p = presets[preset] || presets['mf_8_5'];
+          return {
+            monday: p.wk, tuesday: p.wk, wednesday: p.wk,
+            thursday: p.wk, friday: p.wk,
+            saturday: p.sat, sunday: p.sun,
+          };
+        }
+        var hours = {};
+        DAYS.forEach(function (day) {
+          var open = document.getElementById(day + '_open');
+          var close = document.getElementById(day + '_close');
+          var o = open ? open.value : 'closed';
+          var c = close ? close.value : 'closed';
+          hours[DAY_FULL[day]] = o === 'closed' ? { open: null, close: null } : { open: o, close: c };
+        });
+        return hours;
       }
 
-      // ── TOAST ──
-      let toastTimer = null;
-      function showToast(msg, isError = false) {
-        const el = document.getElementById('toast');
+      // ─────────────────────────────────────────
+      // TOAST
+      // ─────────────────────────────────────────
+      var toastTimer = null;
+
+      function showToast(msg, type) {
+        var el = document.getElementById('toast');
         el.textContent = msg;
-        el.classList.toggle('error', isError);
+        el.className = 'toast';
+        if (type) el.classList.add(type);
         el.classList.add('show');
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+        toastTimer = setTimeout(function () { el.classList.remove('show'); }, 3500);
       }
 
-      // ── SHOW SUCCESS ──
-      function showSuccess(refId) {
-        document.getElementById('form-wrapper').classList.add('hidden');
-
-        const screen = document.getElementById('success-screen');
-        screen.classList.add('visible');
-
-        if (refId) {
-          document.getElementById('success-ref-val').textContent = refId;
-          document.getElementById('success-ref').style.display = 'flex';
-        }
-
-        // Update progress to 100%
-        document.getElementById('progress-fill').style.width = '100%';
-        document.getElementById('progress-pct').textContent = '100%';
-        document.querySelector('.progress-bar').setAttribute('aria-valuenow', 100);
-        document.querySelectorAll('.progress-step').forEach((s) => {
-          s.classList.add('done');
-          s.classList.remove('active');
-        });
-
-        screen.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      // ── FORM SUBMIT ──
-      document.getElementById('onboarding-form').addEventListener('submit', async (e) => {
+      // ─────────────────────────────────────────
+      // FORM SUBMIT
+      // ─────────────────────────────────────────
+      document.getElementById('onboarding-form').addEventListener('submit', function (e) {
         e.preventDefault();
 
         if (!validateForm()) return;
 
-        if (
-          !document.getElementById('consent-terms').checked ||
-          !document.getElementById('consent-recording').checked ||
-          !document.getElementById('consent-ai-disclosure').checked
-        ) {
-          showToast('Please accept all required agreements before submitting.', true);
-          document
-            .querySelector('.consent-section')
-            .scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var consents = ['consent-terms', 'consent-recording', 'consent-ai-disclosure'];
+        var allChecked = consents.every(function (id) {
+          var el = document.getElementById(id);
+          return el && el.checked;
+        });
+
+        if (!allChecked) {
+          showToast('Please accept all required agreements.', 'error');
+          document.querySelector('.consent-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
           return;
         }
 
-        const btn = document.getElementById('submit-btn');
+        var btn = document.getElementById('submit-btn');
         btn.disabled = true;
         btn.classList.add('loading');
 
-        const data = collectData();
+        var payload = {
+          business_name: document.getElementById('biz-name').value.trim(),
+          business_phone: document.getElementById('biz-phone').value.trim(),
+          industry: document.getElementById('industry').value,
+          voice_preference: 'professional_male',
+          greeting_message: document.getElementById('greeting').value.trim() || null,
+          appointment_booking: document.getElementById('toggle-booking').classList.contains('on'),
+          calendar_link: document.getElementById('calendar-link').value.trim() || null,
+          call_transfer: document.getElementById('toggle-transfer').classList.contains('on'),
+          transfer_number: document.getElementById('transfer-number').value.trim() || null,
+          special_instructions: document.getElementById('instructions').value.trim() || null,
+          client_email: email,
+          plan: plan,
+          tracking_id: trackingId,
+          session_id: sessionId,
+          business_hours: collectHours(),
+          submitted_at: new Date().toISOString(),
+        };
 
-        try {
-          const res = await fetch(ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-          });
-
-          if (!res.ok) {
-            const body = await res.json().catch(() => ({}));
-            throw new Error(body.message || `Server error (${res.status})`);
-          }
-
-          const json = await res.json().catch(() => ({}));
-          showSuccess(json.reference_id || json.id || null);
-        } catch (err) {
-          btn.disabled = false;
-          btn.classList.remove('loading');
-
-          const msg =
-            err.message && err.message.length < 120
+        fetch(API_BASE + '/onboarding/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+          .then(function (r) {
+            if (!r.ok) {
+              return r.json().catch(function () { return {}; }).then(function (body) {
+                throw new Error(body.message || ('Server error (' + r.status + ')'));
+              });
+            }
+            return r.json().catch(function () { return {}; });
+          })
+          .then(function (data) {
+            // Update phone if API returned one
+            if (data.phone_number) {
+              aiPhone = data.phone_number;
+              aiPhoneRaw = aiPhone.replace(/\D/g, '');
+              setPhoneDisplays();
+            }
+            goToPhase(3);
+          })
+          .catch(function (err) {
+            btn.disabled = false;
+            btn.classList.remove('loading');
+            var msg = err.message && err.message.length < 120
               ? err.message
               : 'Something went wrong. Please try again or contact support.';
-          showToast(msg, true);
-        }
+            showToast(msg, 'error');
+          });
       });
 
-      // ── LIVE VALIDATION CLEAR ──
-      document.querySelectorAll('input, textarea, select').forEach((el) => {
-        el.addEventListener('input', () => {
+      // ─────────────────────────────────────────
+      // LIVE VALIDATION CLEAR
+      // ─────────────────────────────────────────
+      document.querySelectorAll('input, textarea, select').forEach(function (el) {
+        el.addEventListener('input', function () {
           el.classList.remove('invalid');
-          const errEl = document.getElementById(`err-${el.id}`);
+          var errEl = document.getElementById('err-' + el.id);
           if (errEl) errEl.classList.remove('visible');
-          updateProgress();
         });
       });
 
-      // ── GREETING SYNC ──
-      const businessInput = document.getElementById('business_name');
-      const greetingEl = document.getElementById('greeting');
+      // Greeting auto-sync
+      var bizNameInput = document.getElementById('biz-name');
+      var greetingEl = document.getElementById('greeting');
 
-      greetingEl.addEventListener('input', () => {
-        greetingEl.dataset.manuallyEdited = '1';
-      });
+      if (greetingEl) {
+        greetingEl.addEventListener('input', function () {
+          greetingEl.dataset.manuallyEdited = '1';
+        });
+      }
 
-      businessInput.addEventListener('input', () => {
-        updateGreeting(businessInput.value.trim());
-      });
+      if (bizNameInput) {
+        bizNameInput.addEventListener('input', function () {
+          updateGreeting(bizNameInput.value.trim());
+        });
+      }
 
-      // ── SCROLL FADE-IN ──
+      // ─────────────────────────────────────────
+      // SCROLL FADE-IN
+      // ─────────────────────────────────────────
       function initFadeIn() {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
+        if (!('IntersectionObserver' in window)) {
+          document.querySelectorAll('.fade-in').forEach(function (el) {
+            el.classList.add('visible');
+          });
+          return;
+        }
+
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
               if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
                 observer.unobserve(entry.target);
               }
             });
           },
-          { threshold: 0.08 }
+          { threshold: 0.05 }
         );
 
-        document.querySelectorAll('.fade-in').forEach((el, i) => {
-          el.style.transitionDelay = `${i * 40}ms`;
+        document.querySelectorAll('.fade-in:not(.visible)').forEach(function (el, i) {
+          el.style.transitionDelay = (i * 45) + 'ms';
           observer.observe(el);
         });
       }
 
-      // ── INIT ──
+      // ─────────────────────────────────────────
+      // INIT
+      // ─────────────────────────────────────────
+      setPhoneDisplays();
+      initWelcomeBox();
       initHours();
-      readUrlParams();
-      updateGreeting(document.getElementById('business_name').value.trim());
-      updateProgress();
+      prefillForm();
       initFadeIn();
+      runSetupSequence();
     </script>
   </body>
 </html>

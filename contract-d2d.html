@@ -55,22 +55,7 @@
         min-height: 100vh;
       }
 
-      /* ── DRAFT WATERMARK ── */
-      body::before {
-        content: 'DRAFT';
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-35deg);
-        font-size: 18vw;
-        font-weight: 800;
-        color: rgba(37, 99, 235, 0.04);
-        pointer-events: none;
-        z-index: 0;
-        white-space: nowrap;
-        font-family: var(--font);
-        letter-spacing: 0.15em;
-      }
+      /* ── WATERMARK (removed for production) ── */
 
       /* ── DOCUMENT WRAPPER ── */
       .document {
@@ -599,9 +584,7 @@
           page-break-before: always;
         }
 
-        body::before {
-          color: rgba(37, 99, 235, 0.06);
-        }
+        /* watermark removed */
       }
 
       @page {
@@ -625,16 +608,16 @@
   <body>
     <div class="document">
 
-      <!-- DISCLAIMER BANNER -->
-      <div class="disclaimer-banner">
-        <div class="icon">
+      <!-- LEGAL NOTICE -->
+      <div class="disclaimer-banner" style="background: var(--accent-light); border-bottom-color: var(--accent);">
+        <div class="icon" style="background: var(--accent);">
           <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 3a1 1 0 011 1v4a1 1 0 11-2 0V6a1 1 0 011-1zm0 8a1 1 0 100 2 1 1 0 000-2z"/>
           </svg>
         </div>
-        <p>
-          <strong>THIS IS A DRAFT TEMPLATE — NOT LEGAL ADVICE</strong>
-          This document is provided as a starting point for discussion only. It does not constitute legal advice and creates no attorney-client relationship. Have a qualified attorney licensed in your jurisdiction review, revise, and approve this agreement before use or signature. AutoScale AI Inc. disclaims all liability for use of this template without independent legal counsel.
+        <p style="color: var(--accent);">
+          <strong>INDEPENDENT SALES REPRESENTATIVE AGREEMENT</strong>
+          This agreement governs the relationship between AutoScale AI Inc. and its independent sales representatives. Both parties should review carefully before signing.
         </p>
       </div>
 
@@ -655,11 +638,7 @@
         <div class="doc-title-block">
           <div class="doc-type">Legal Agreement</div>
           <h2>Independent Sales<br>Representative Agreement</h2>
-          <div class="doc-meta">Version 1.0 &nbsp;·&nbsp; Effective Date: ___________</div>
-          <div class="draft-badge">
-            <svg width="10" height="10" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 3a1 1 0 011 1v4a1 1 0 11-2 0V6a1 1 0 011-1zm0 8a1 1 0 100 2 1 1 0 000-2z"/></svg>
-            Draft — Lawyer Review Required
-          </div>
+          <div class="doc-meta">Version 2.0 &nbsp;·&nbsp; Effective Date: ___________</div>
         </div>
       </div>
 
@@ -772,9 +751,9 @@
                   Core
                   <span class="plan-badge">ENTRY</span>
                 </td>
-                <td><strong>$997</strong></td>
+                <td><strong>$1,197</strong></td>
                 <td>$500</td>
-                <td>$497</td>
+                <td>$697</td>
                 <td>$697 / mo</td>
               </tr>
               <tr>
@@ -782,8 +761,8 @@
                   Growth
                   <span class="plan-badge">POPULAR</span>
                 </td>
-                <td><strong>$1,497</strong></td>
-                <td>$500</td>
+                <td><strong>$1,747</strong></td>
+                <td>$750</td>
                 <td>$997</td>
                 <td>$997 / mo</td>
               </tr>
@@ -792,8 +771,8 @@
                   Scale
                   <span class="plan-badge">ADVANCED</span>
                 </td>
-                <td><strong>$1,997</strong></td>
-                <td>$500</td>
+                <td><strong>$2,497</strong></td>
+                <td>$1,000</td>
                 <td>$1,497</td>
                 <td>$1,497 / mo</td>
               </tr>
@@ -802,8 +781,8 @@
                   AutoScale
                   <span class="plan-badge">ENTERPRISE</span>
                 </td>
-                <td><strong>$2,997</strong></td>
-                <td>$500</td>
+                <td><strong>$3,997</strong></td>
+                <td>$1,500</td>
                 <td>$2,497</td>
                 <td>$2,497 / mo</td>
               </tr>
@@ -824,37 +803,72 @@
 
           <div class="commission-highlight">
             <div class="commission-item">
-              <span class="rate">50%</span>
-              <span class="rate-label">Initial Sale</span>
-              <span class="rate-desc">of gross profit on setup fee + first month payment</span>
+              <span class="rate">20%</span>
+              <span class="rate-label">Rep Commission</span>
+              <span class="rate-desc">of gross revenue (what the client pays) on setup + monthly</span>
             </div>
             <div class="commission-item">
-              <span class="rate">10%</span>
-              <span class="rate-label">Recurring</span>
-              <span class="rate-desc">monthly commission on active client subscriptions</span>
+              <span class="rate">8%</span>
+              <span class="rate-label">Area Manager Override</span>
+              <span class="rate-desc">on all sales made by reps under their supervision</span>
             </div>
           </div>
 
           <p>
-            <strong>4.1 Initial Sale Commission.</strong> Representative shall earn a commission equal to fifty percent (50%) of the gross profit from each closed sale. Gross profit on the initial sale is calculated as the total of the setup fee plus the first month's payment, minus any applicable payment processing fees (typically 2.9% + $0.30 per Stripe transaction). No deduction shall be made for Company overhead, infrastructure, or operational costs.
+            <strong>4.1 Rep Commission.</strong> Representative shall earn a commission equal to <strong>twenty percent (20%)</strong> of the gross revenue collected from each client they close. Gross revenue means the total amount billed to the client (setup fee + monthly subscription), before any deductions. This commission applies to both the one-time setup fee and each monthly subscription payment.
           </p>
           <p>
-            <strong>4.2 Recurring Commission.</strong> Representative shall earn a monthly recurring commission of ten percent (10%) of each active client's monthly subscription fee (the stated recurring rate) for as long as the client remains an active paying subscriber and this Agreement remains in effect, plus the post-termination tail period described in Section 8.4.
+            <strong>4.2 Commission Duration.</strong> Rep commission on each client is paid for a maximum of <strong>twelve (12) months</strong> from the client's initial payment date. After 12 months, no further commission is owed on that client. Representative continues to earn commission on new clients they close.
           </p>
           <p>
-            <strong>4.3 Commission Attribution.</strong> Sales are attributed to Representative via the unique tracking ID (TID) embedded in the pay link. Representative is responsible for ensuring clients use their assigned TID link. Sales without a valid TID are not eligible for commission.
+            <strong>4.3 Area Manager Override.</strong> If Representative serves as an Area Manager supervising other Representatives, they shall earn an additional override of <strong>eight percent (8%)</strong> of gross revenue collected from clients closed by Representatives under their supervision. The override follows the same 12-month duration per client. When an Area Manager closes a sale personally, they earn both the 20% rep commission and the 8% override (28% total).
           </p>
           <p>
-            <strong>4.4 Payment Timing.</strong> Commissions are paid NET-15. Company shall disburse commissions within fifteen (15) calendar days after the client's payment has cleared and funds are available to Company. Recurring commissions are paid monthly, fifteen (15) days after the close of each billing cycle.
+            <strong>4.4 Commission Attribution.</strong> Sales are attributed to Representative via the unique tracking ID (TID) embedded in the pay link. Representative is responsible for ensuring clients use their assigned TID link. Sales without a valid TID are not eligible for commission.
           </p>
           <p>
-            <strong>4.5 Chargebacks and Refunds.</strong> If a client successfully initiates a chargeback, payment dispute, or if Company issues a refund for any reason, the corresponding commission shall be deducted from Representative's next commission payment or, if no future payment is due, Representative shall reimburse Company within thirty (30) days of written notice.
+            <strong>4.5 Payment Timing.</strong> Commissions are paid NET-15. Company shall disburse commissions within fifteen (15) calendar days after the client's payment has cleared and funds are available to Company. Recurring commissions are paid monthly, fifteen (15) days after the close of each billing cycle.
+          </p>
+          <p>
+            <strong>4.6 Chargebacks and Refunds.</strong> If a client successfully initiates a chargeback, payment dispute, or if Company issues a refund for any reason, the corresponding commission shall be deducted from Representative's next commission payment or, if no future payment is due, Representative shall reimburse Company within thirty (30) days of written notice.
           </p>
           <div class="note-box">
-            <strong>Early Cancellation Clawback:</strong> If a client cancels their subscription or fails to pay within the first thirty (30) days following their initial payment, the initial sale commission shall be forfeited in its entirety. If already paid, such commission shall be deducted from future earnings or refunded within thirty (30) days.
+            <strong>Clawback — 90 Days:</strong> If a client cancels their subscription or fails to pay within the first <strong>ninety (90) days</strong> following their initial payment, all commissions paid on that client shall be deducted from Representative's future earnings. After 90 days, commissions on that client are fully earned and non-recoverable.
           </div>
           <p>
-            <strong>4.6 Commission Statements.</strong> Company shall provide Representative with a written commission statement for each payment issued, itemizing the clients, amounts, and calculation basis for all commissions paid.
+            <strong>4.7 Commission Adjustment Schedule.</strong> Commission rates may be adjusted as the Company scales, per the following schedule tied to Company's Annual Recurring Revenue (ARR):
+          </p>
+          <table class="pricing-table" style="margin: 0.75rem 0;">
+            <thead>
+              <tr>
+                <th>Company ARR</th>
+                <th>Rep Commission</th>
+                <th>Manager Override</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>$0 — $1M</strong></td>
+                <td>20%</td>
+                <td>8%</td>
+              </tr>
+              <tr>
+                <td><strong>$1M — $3M</strong></td>
+                <td>15%</td>
+                <td>5%</td>
+              </tr>
+              <tr>
+                <td><strong>$3M+</strong></td>
+                <td>10%</td>
+                <td>3%</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Commission adjustments apply to new clients closed after the ARR threshold is reached. Existing client commissions remain at the rate in effect when the client was closed, for the remainder of their 12-month commission period.
+          </p>
+          <p>
+            <strong>4.8 Commission Statements.</strong> Company shall provide Representative with a written commission statement for each payment issued, itemizing the clients, amounts, and calculation basis for all commissions paid.
           </p>
         </div>
 
@@ -934,13 +948,13 @@
             <strong>8.1 Term.</strong> This Agreement commences on the Effective Date and continues until terminated by either party pursuant to the provisions of this Section.
           </p>
           <p>
-            <strong>8.2 Termination Without Cause.</strong> Either party may terminate this Agreement without cause upon thirty (30) days' prior written notice to the other party.
+            <strong>8.2 Termination Without Cause.</strong> Either party may terminate this Agreement without cause upon ninety (90) days' prior written notice to the other party.
           </p>
           <p>
             <strong>8.3 Termination for Cause.</strong> Company may terminate this Agreement immediately upon written notice if Representative: (a) commits fraud or makes material misrepresentations to customers; (b) violates any applicable law or regulation; (c) breaches Section 5 (Data Ownership), Section 6 (Confidentiality), Section 7 (Non-Compete), or engages in misconduct that could harm Company's reputation; or (d) fails to cure a material breach within ten (10) days of written notice. Representative may terminate for cause if Company materially breaches its payment obligations and fails to cure within fifteen (15) days of written notice.
           </p>
           <p>
-            <strong>8.4 Post-Termination Commissions.</strong> Following termination for any reason other than for cause by Company, Representative shall continue to receive recurring commissions (Section 4.2) on existing active clients for a period of <strong>six (6) months</strong> following the termination effective date. No commissions shall be owed for new clients acquired after the termination date. Termination for cause by Company results in immediate forfeiture of all unpaid and future commissions.
+            <strong>8.4 Post-Termination Commissions.</strong> Following termination for any reason other than for cause by Company, Representative shall continue to receive commissions on existing active clients for the remainder of each client's 12-month commission period (Section 4.2), but no longer than <strong>six (6) months</strong> following the termination effective date. No commissions shall be owed for new clients acquired after the termination date. Termination for cause by Company results in immediate forfeiture of all unpaid and future commissions.
           </p>
           <p>
             <strong>8.5 Effect of Termination.</strong> Upon termination: (a) Representative shall immediately cease representing themselves as affiliated with Company; (b) all rights and licenses granted herein terminate immediately; (c) Representative shall return all Company materials; and (d) the following provisions survive: Sections 5, 6, 7, 9, 12, and 14.
@@ -980,13 +994,16 @@
             <span class="section-title">Territory</span>
           </div>
           <p>
-            <strong>10.1 Non-Exclusive Territory.</strong> Company grants Representative a non-exclusive license to solicit customers in the following United States markets: <strong>Florida, Texas, Arizona, California, and Georgia</strong> (collectively, the "Territory").
+            <strong>10.1 Assigned Territory.</strong> Company assigns Representative the following United States market(s): <strong><span class="fill-line" style="min-width: 250px;">&nbsp;</span></strong> (the "Territory"). Territory is non-exclusive unless Performance Exclusivity is earned per Section 10.3.
           </p>
           <p>
-            <strong>10.2 No Exclusive Rights.</strong> This Agreement does not grant Representative any exclusive rights to any territory. Company reserves the right to appoint additional representatives in the same Territory, sell directly to customers in the Territory, and to expand or modify territory boundaries.
+            <strong>10.2 No Default Exclusive Rights.</strong> This Agreement does not grant Representative any exclusive rights to any territory by default. Company reserves the right to appoint additional representatives in the same Territory, sell directly to customers in the Territory, and to expand or modify territory boundaries at any time.
           </p>
           <p>
-            <strong>10.3 Territory Expansion.</strong> Additional territories may be added by mutual written agreement of the parties.
+            <strong>10.3 Performance Exclusivity.</strong> Representative may earn exclusive rights to their Territory by maintaining a minimum of <strong>ten (10) active paying clients per calendar quarter</strong> within the Territory. If Representative falls below this threshold for two consecutive quarters, exclusivity reverts to non-exclusive status automatically.
+          </p>
+          <p>
+            <strong>10.4 Territory Expansion.</strong> Additional territories may be added by mutual written agreement of the parties.
           </p>
         </div>
 
@@ -1130,8 +1147,8 @@
       <!-- FOOTER -->
       <div class="doc-footer">
         <p>
-          AutoScale AI Inc. &nbsp;·&nbsp; Independent Sales Representative Agreement v1.0<br>
-          <strong>DRAFT — FOR ATTORNEY REVIEW ONLY — NOT LEGAL ADVICE</strong>
+          AutoScale AI Inc. &nbsp;·&nbsp; Independent Sales Representative Agreement v2.0<br>
+          Confidential &nbsp;·&nbsp; autoscaleai.ca
         </p>
         <div class="page-num">Page 1 of 1 &nbsp;·&nbsp; Confidential</div>
       </div>

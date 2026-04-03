@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <meta name="theme-color" content="#0A0A0A" />
-    <title>AutoScale AI — Collect Payment</title>
+    <title>AutoScale AI — Activate Your AI Receptionist</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -69,7 +69,6 @@
         font-weight: 400;
       }
 
-      /* Noise texture overlay */
       body::before {
         content: '';
         position: fixed;
@@ -142,7 +141,7 @@
         letter-spacing: 0.04em;
       }
 
-      /* ── TABS ── */
+      /* ── TABS (REP MODE only) ── */
       .tabs {
         display: flex;
         gap: 0;
@@ -356,6 +355,12 @@
         box-shadow: 0 2px 8px rgba(96, 165, 250, 0.15);
       }
 
+      .btn-pay:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
       .plan-card.featured .btn-pay {
         background: linear-gradient(135deg, #fbbf24, #f59e0b);
         color: #0a0a0b;
@@ -450,7 +455,7 @@
         margin-bottom: 12px;
       }
 
-      /* ── ALERT TOAST ── */
+      /* ── TOAST ── */
       .toast {
         position: fixed;
         bottom: 24px;
@@ -471,11 +476,17 @@
         white-space: nowrap;
         max-width: calc(100vw - 40px);
         text-align: center;
+        opacity: 0;
       }
 
       .toast.show {
         transform: translateX(-50%) translateY(0);
         opacity: 1;
+      }
+
+      .toast.success {
+        color: var(--green);
+        border-color: rgba(96, 165, 250, 0.2);
       }
 
       /* ── RESPONSIVE ── */
@@ -501,6 +512,439 @@
           transition-duration: 0.01ms !important;
         }
       }
+
+      /* ════════════════════════════════════════════
+         CLIENT MODE STYLES
+         ════════════════════════════════════════════ */
+
+      /* Plan banner (when pre-selected via URL) */
+      .plan-banner {
+        background: var(--surface);
+        border: 1px solid var(--border-2);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .plan-banner-left {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .plan-banner-label {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .plan-banner-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.3px;
+      }
+
+      .plan-banner-meta {
+        font-size: 12px;
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 500;
+      }
+
+      .plan-banner-price {
+        text-align: right;
+      }
+
+      .plan-banner-amount {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--green);
+        letter-spacing: -0.5px;
+        line-height: 1;
+        display: block;
+      }
+
+      .plan-banner-period {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      /* Tier selector (when no plan pre-selected) */
+      .tier-selector {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .tier-option {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius);
+        padding: 14px 16px;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+        position: relative;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .tier-option:hover {
+        border-color: var(--border-2);
+      }
+
+      .tier-option.selected {
+        border-color: var(--green);
+        background: var(--green-dim);
+      }
+
+      .tier-option.featured-tier {
+        border-color: var(--gold-border);
+        background: var(--gold-dim);
+      }
+
+      .tier-option.featured-tier.selected {
+        border-color: var(--gold);
+        background: rgba(251, 191, 36, 0.12);
+      }
+
+      .tier-radio {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--border-2);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.15s;
+      }
+
+      .tier-option.selected .tier-radio {
+        border-color: var(--green);
+      }
+
+      .tier-option.selected .tier-radio::after {
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--green);
+        display: block;
+      }
+
+      .tier-option.featured-tier.selected .tier-radio {
+        border-color: var(--gold);
+      }
+
+      .tier-option.featured-tier.selected .tier-radio::after {
+        background: var(--gold);
+      }
+
+      .tier-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .tier-name-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 2px;
+      }
+
+      .tier-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .badge-pop {
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--gold);
+        background: var(--gold-dim);
+        border: 1px solid var(--gold-border);
+        padding: 2px 7px;
+        border-radius: 100px;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+
+      .tier-meta {
+        font-size: 11px;
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 500;
+      }
+
+      .tier-price-col {
+        text-align: right;
+        flex-shrink: 0;
+      }
+
+      .tier-price {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        display: block;
+        letter-spacing: -0.3px;
+      }
+
+      .tier-sub {
+        font-size: 10px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      /* Client form */
+      .client-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .field-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-2);
+        letter-spacing: 0.02em;
+      }
+
+      .field-label .required {
+        color: var(--red);
+        margin-left: 2px;
+      }
+
+      .field-input,
+      .field-select {
+        width: 100%;
+        padding: 12px 14px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--text);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        outline: none;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .field-input::placeholder {
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .field-input:focus,
+      .field-select:focus {
+        border-color: var(--green);
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+      }
+
+      .field-select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238e8ea0' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 36px;
+        cursor: pointer;
+      }
+
+      .field-select option {
+        background: var(--surface-2);
+        color: var(--text);
+      }
+
+      /* Price breakdown */
+      .price-breakdown {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-bottom: 16px;
+      }
+
+      .price-breakdown-header {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .price-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px;
+        font-size: 13px;
+        color: var(--text-2);
+      }
+
+      .price-row + .price-row {
+        border-top: 1px solid var(--border);
+      }
+
+      .price-row-label {
+        font-weight: 500;
+      }
+
+      .price-row-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .price-row.total {
+        background: var(--surface-2);
+        border-top: 1px solid var(--border-2) !important;
+      }
+
+      .price-row.total .price-row-label {
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .price-row.total .price-row-value {
+        color: var(--green);
+        font-size: 16px;
+      }
+
+      .price-row.recurring .price-row-value {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      /* Trust strip */
+      .trust-strip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 12px 0;
+        margin-bottom: 8px;
+      }
+
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .trust-icon {
+        font-size: 13px;
+      }
+
+      /* Primary CTA */
+      .btn-primary-cta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 16px 20px;
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: var(--bg);
+        border: none;
+        border-radius: var(--radius);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        cursor: pointer;
+        transition:
+          transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.15s,
+          opacity 0.2s;
+        box-shadow: 0 4px 24px rgba(96, 165, 250, 0.25);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .btn-primary-cta:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 12px rgba(96, 165, 250, 0.15);
+      }
+
+      .btn-primary-cta:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-primary-cta .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(9, 9, 11, 0.3);
+        border-top-color: #09090b;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        display: none;
+      }
+
+      .btn-primary-cta.loading .spinner {
+        display: block;
+      }
+
+      .btn-primary-cta.loading .btn-label {
+        opacity: 0.7;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Client mode wrapper */
+      #client-mode {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      #client-mode.active {
+        display: flex;
+      }
+
+      /* Rep mode wrapper */
+      #rep-mode {
+        display: none;
+      }
+
+      #rep-mode.active {
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -512,219 +956,315 @@
         </div>
         <span class="logo-text">AutoScale AI</span>
       </div>
-      <h1 class="page-title">COLLECT PAYMENT</h1>
-      <p class="page-subtitle">Select a plan and collect the client's payment</p>
+      <h1 class="page-title" id="page-title">ACTIVATE YOUR AI</h1>
+      <p class="page-subtitle" id="page-subtitle">Complete your payment to get started today</p>
     </header>
 
-    <!-- TABS -->
-    <div class="tabs" role="tablist" aria-label="Payment type">
-      <button
-        class="tab-btn active"
-        role="tab"
-        aria-selected="true"
-        aria-controls="tab-setup"
-        id="btn-setup"
-        onclick="switchTab('setup')"
-      >
-        Setup Fee
-        <span class="tab-price">One-time</span>
-      </button>
-      <button
-        class="tab-btn"
-        role="tab"
-        aria-selected="false"
-        aria-controls="tab-monthly"
-        id="btn-monthly"
-        onclick="switchTab('monthly')"
-      >
-        Monthly Subscription
-        <span class="tab-price">Recurring</span>
+    <!-- ══════════════════════════════════════
+         CLIENT MODE — shown when ?tid= or ?plan=
+         ══════════════════════════════════════ -->
+    <div id="client-mode">
+
+      <!-- Plan banner (injected by JS when plan is pre-selected) -->
+      <div id="plan-banner" style="display:none"></div>
+
+      <!-- Tier selector (shown when no plan pre-selected) -->
+      <div id="tier-selector" style="display:none">
+        <div class="section-tag">SELECT YOUR PLAN</div>
+        <div class="tier-selector" id="tier-list">
+          <!-- injected by JS -->
+        </div>
+      </div>
+
+      <!-- Client info form -->
+      <div class="section-tag" style="margin-top: 4px;">YOUR INFORMATION</div>
+      <div class="client-form">
+        <div class="field-group">
+          <label class="field-label" for="field-business">Business Name <span class="required">*</span></label>
+          <input
+            id="field-business"
+            class="field-input"
+            type="text"
+            placeholder="e.g. Sunrise Roofing LLC"
+            autocomplete="organization"
+          />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="field-email">Email Address <span class="required">*</span></label>
+          <input
+            id="field-email"
+            class="field-input"
+            type="email"
+            placeholder="you@yourbusiness.com"
+            autocomplete="email"
+          />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="field-phone">Phone Number</label>
+          <input
+            id="field-phone"
+            class="field-input"
+            type="tel"
+            placeholder="+1 (555) 000-0000"
+            autocomplete="tel"
+          />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="field-industry">Industry</label>
+          <select id="field-industry" class="field-select">
+            <option value="">Select your industry...</option>
+            <option value="roofing">Roofing</option>
+            <option value="solar">Solar</option>
+            <option value="hvac">HVAC</option>
+            <option value="pest_control">Pest Control</option>
+            <option value="windows_doors">Windows &amp; Doors</option>
+            <option value="gutters">Gutters</option>
+            <option value="landscaping">Landscaping</option>
+            <option value="painting">Painting</option>
+            <option value="security">Home Security</option>
+            <option value="plumbing">Plumbing</option>
+            <option value="electrical">Electrical</option>
+            <option value="real_estate">Real Estate</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Price breakdown -->
+      <div class="price-breakdown" id="price-breakdown">
+        <div class="price-breakdown-header">Order Summary</div>
+        <div class="price-row">
+          <span class="price-row-label">Activation Fee (one-time)</span>
+          <span class="price-row-value">$500</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">1st Month — <span id="breakdown-plan-name">Core</span></span>
+          <span class="price-row-value" id="breakdown-first-month">$497</span>
+        </div>
+        <div class="price-row total">
+          <span class="price-row-label">Due Today</span>
+          <span class="price-row-value" id="breakdown-total">$997</span>
+        </div>
+        <div class="price-row recurring">
+          <span class="price-row-label">Then monthly</span>
+          <span class="price-row-value" id="breakdown-recurring">$697/mo</span>
+        </div>
+      </div>
+
+      <!-- Trust strip -->
+      <div class="trust-strip">
+        <span class="trust-item"><span class="trust-icon">🔒</span> Secured by Stripe</span>
+        <span class="trust-item"><span class="trust-icon">✓</span> No hidden fees</span>
+        <span class="trust-item"><span class="trust-icon">⚡</span> Live in &lt; 3 min</span>
+      </div>
+
+      <!-- Primary CTA -->
+      <button class="btn-primary-cta" id="btn-checkout" onclick="submitClientCheckout()">
+        <div class="spinner"></div>
+        <span class="btn-label">Activate AI Receptionist →</span>
       </button>
     </div>
 
-    <!-- TAB: SETUP FEE -->
-    <div id="tab-setup" class="tab-panel active" role="tabpanel" aria-labelledby="btn-setup">
-      <div class="section-tag">SETUP FEES — ONE-TIME</div>
+    <!-- ══════════════════════════════════════
+         REP MODE — shown when no URL params
+         ══════════════════════════════════════ -->
+    <div id="rep-mode">
 
-      <!-- Core -->
-      <div class="card-wrapper" data-plan="core">
+      <!-- TABS -->
+      <div class="tabs" role="tablist" aria-label="Payment type">
+        <button
+          class="tab-btn active"
+          role="tab"
+          aria-selected="true"
+          aria-controls="tab-setup"
+          id="btn-setup"
+          onclick="switchTab('setup')"
+        >
+          Setup Fee
+          <span class="tab-price">One-time</span>
+        </button>
+        <button
+          class="tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-monthly"
+          id="btn-monthly"
+          onclick="switchTab('monthly')"
+        >
+          Monthly Subscription
+          <span class="tab-price">Recurring</span>
+        </button>
+      </div>
+
+      <!-- TAB: SETUP FEE -->
+      <div id="tab-setup" class="tab-panel active" role="tabpanel" aria-labelledby="btn-setup">
+        <div class="section-tag">SETUP FEES — ONE-TIME</div>
+
+        <!-- Core -->
         <div class="plan-card">
           <div class="card-top">
             <span class="card-name">Core</span>
           </div>
           <div class="card-price-row">
-            <span class="card-price">$500</span>
+            <span class="card-price">$997</span>
           </div>
           <div class="card-details">500 min/mo &nbsp;·&nbsp; $697/mo after</div>
           <div class="card-features">
             AI Receptionist &nbsp;·&nbsp; <span>24/7 Coverage</span> &nbsp;·&nbsp; Booking
             Automation
           </div>
-          <div class="btn-slot pay-slot" id="pay-slot-setup-core">
-            <button class="btn-pay" onclick="handlePayment('setup', 'core')">
-              Collect $500 Setup Fee &nbsp;→
-            </button>
-          </div>
+          <button class="btn-pay" onclick="handleRepPayment('setup', 'core')">
+            Collect $997 Today &nbsp;→
+          </button>
         </div>
-      </div>
 
-      <!-- Growth (featured) -->
-      <div class="card-wrapper" data-plan="growth">
+        <!-- Growth (featured) -->
         <div class="plan-card featured">
           <div class="card-top">
             <span class="card-name">Growth</span>
             <span class="badge-popular">⭐ Most Popular</span>
           </div>
           <div class="card-price-row">
-            <span class="card-price">$750</span>
+            <span class="card-price">$1,497</span>
           </div>
           <div class="card-details">1,000 min/mo &nbsp;·&nbsp; $997/mo after</div>
           <div class="card-features">
             Everything in Core <span>+</span> SMS Follow-Up <span>+</span> Review Automation
           </div>
-          <div class="btn-slot pay-slot" id="pay-slot-setup-growth">
-            <button class="btn-pay" onclick="handlePayment('setup', 'growth')">
-              Collect $750 Setup Fee &nbsp;→
-            </button>
-          </div>
+          <button class="btn-pay" onclick="handleRepPayment('setup', 'growth')">
+            Collect $1,497 Today &nbsp;→
+          </button>
         </div>
-      </div>
 
-      <!-- Scale -->
-      <div class="card-wrapper" data-plan="scale">
+        <!-- Scale -->
         <div class="plan-card">
           <div class="card-top">
             <span class="card-name">Scale</span>
           </div>
           <div class="card-price-row">
-            <span class="card-price">$1,000</span>
+            <span class="card-price">$1,997</span>
           </div>
           <div class="card-details">2,000 min/mo &nbsp;·&nbsp; $1,497/mo after</div>
           <div class="card-features">
             Everything in Growth <span>+</span> No-Show Prevention <span>+</span> Multi-Language
           </div>
-          <div class="btn-slot pay-slot" id="pay-slot-setup-scale">
-            <button class="btn-pay" onclick="handlePayment('setup', 'scale')">
-              Collect $1,000 Setup Fee &nbsp;→
-            </button>
-          </div>
+          <button class="btn-pay" onclick="handleRepPayment('setup', 'scale')">
+            Collect $1,997 Today &nbsp;→
+          </button>
         </div>
-      </div>
 
-      <!-- AutoScale -->
-      <div class="card-wrapper" data-plan="autoscale">
+        <!-- AutoScale -->
         <div class="plan-card">
           <div class="card-top">
             <span class="card-name">AutoScale</span>
           </div>
           <div class="card-price-row">
-            <span class="card-price">$1,500</span>
+            <span class="card-price">$2,997</span>
           </div>
           <div class="card-details">5,000 min/mo &nbsp;·&nbsp; $2,497/mo after</div>
           <div class="card-features">
             Everything in Scale <span>+</span> Multi-Location <span>+</span> Dedicated AM
             <span>+</span> Priority Support
           </div>
-          <div class="btn-slot pay-slot" id="pay-slot-setup-autoscale">
-            <button class="btn-pay" onclick="handlePayment('setup', 'autoscale')">
-              Collect $1,500 Setup Fee &nbsp;→
-            </button>
+          <button class="btn-pay" onclick="handleRepPayment('setup', 'autoscale')">
+            Collect $2,997 Today &nbsp;→
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB: MONTHLY SUBSCRIPTION -->
+      <div id="tab-monthly" class="tab-panel" role="tabpanel" aria-labelledby="btn-monthly">
+        <div class="section-tag">MONTHLY SUBSCRIPTIONS — RECURRING</div>
+
+        <!-- Core Monthly -->
+        <div class="plan-card">
+          <div class="card-top">
+            <span class="card-name">Core</span>
           </div>
+          <div class="card-price-row">
+            <span class="card-price">$697</span>
+            <span class="card-period">/mo</span>
+          </div>
+          <div class="card-details">500 min/mo &nbsp;·&nbsp; 12-month contract</div>
+          <div class="card-features">
+            AI Receptionist &nbsp;·&nbsp; <span>24/7 Coverage</span> &nbsp;·&nbsp; Booking Automation
+          </div>
+          <button class="btn-pay" onclick="handleRepPayment('monthly', 'core')">
+            Subscribe $697/mo &nbsp;→
+          </button>
+        </div>
+
+        <!-- Growth Monthly (featured) -->
+        <div class="plan-card featured">
+          <div class="card-top">
+            <span class="card-name">Growth</span>
+            <span class="badge-popular">⭐ Most Popular</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">$997</span>
+            <span class="card-period">/mo</span>
+          </div>
+          <div class="card-details">1,000 min/mo &nbsp;·&nbsp; 12-month contract</div>
+          <div class="card-features">
+            Everything in Core <span>+</span> SMS Follow-Up <span>+</span> Review Automation
+          </div>
+          <button class="btn-pay" onclick="handleRepPayment('monthly', 'growth')">
+            Subscribe $997/mo &nbsp;→
+          </button>
+        </div>
+
+        <!-- Scale Monthly -->
+        <div class="plan-card">
+          <div class="card-top">
+            <span class="card-name">Scale</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">$1,497</span>
+            <span class="card-period">/mo</span>
+          </div>
+          <div class="card-details">2,000 min/mo &nbsp;·&nbsp; 12-month contract</div>
+          <div class="card-features">
+            Everything in Growth <span>+</span> No-Show Prevention <span>+</span> Multi-Language
+          </div>
+          <button class="btn-pay" onclick="handleRepPayment('monthly', 'scale')">
+            Subscribe $1,497/mo &nbsp;→
+          </button>
+        </div>
+
+        <!-- AutoScale Monthly -->
+        <div class="plan-card">
+          <div class="card-top">
+            <span class="card-name">AutoScale</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">$2,497</span>
+            <span class="card-period">/mo</span>
+          </div>
+          <div class="card-details">5,000 min/mo &nbsp;·&nbsp; 12-month contract</div>
+          <div class="card-features">
+            Everything in Scale <span>+</span> Multi-Location <span>+</span> Dedicated AM
+            <span>+</span> Priority Support
+          </div>
+          <button class="btn-pay" onclick="handleRepPayment('monthly', 'autoscale')">
+            Subscribe $2,497/mo &nbsp;→
+          </button>
         </div>
       </div>
-    </div>
 
-    <!-- TAB: MONTHLY SUBSCRIPTION -->
-    <div id="tab-monthly" class="tab-panel" role="tabpanel" aria-labelledby="btn-monthly">
-      <div class="section-tag">MONTHLY SUBSCRIPTIONS — RECURRING</div>
-
-      <!-- Core Monthly -->
-      <div class="plan-card">
-        <div class="card-top">
-          <span class="card-name">Core</span>
-        </div>
-        <div class="card-price-row">
-          <span class="card-price">$697</span>
-          <span class="card-period">/mo</span>
-        </div>
-        <div class="card-details">500 min/mo &nbsp;·&nbsp; 12-month contract</div>
-        <div class="card-features">
-          AI Receptionist &nbsp;·&nbsp; <span>24/7 Coverage</span> &nbsp;·&nbsp; Booking Automation
-        </div>
-        <button class="btn-pay" onclick="handlePayment('monthly', 'core')">
-          Subscribe $697/mo &nbsp;→
-        </button>
-      </div>
-
-      <!-- Growth Monthly (featured) -->
-      <div class="plan-card featured">
-        <div class="card-top">
-          <span class="card-name">Growth</span>
-          <span class="badge-popular">⭐ Most Popular</span>
-        </div>
-        <div class="card-price-row">
-          <span class="card-price">$997</span>
-          <span class="card-period">/mo</span>
-        </div>
-        <div class="card-details">1,000 min/mo &nbsp;·&nbsp; 12-month contract</div>
-        <div class="card-features">
-          Everything in Core <span>+</span> SMS Follow-Up <span>+</span> Review Automation
-        </div>
-        <button class="btn-pay" onclick="handlePayment('monthly', 'growth')">
-          Subscribe $997/mo &nbsp;→
-        </button>
-      </div>
-
-      <!-- Scale Monthly -->
-      <div class="plan-card">
-        <div class="card-top">
-          <span class="card-name">Scale</span>
-        </div>
-        <div class="card-price-row">
-          <span class="card-price">$1,497</span>
-          <span class="card-period">/mo</span>
-        </div>
-        <div class="card-details">2,000 min/mo &nbsp;·&nbsp; 12-month contract</div>
-        <div class="card-features">
-          Everything in Growth <span>+</span> No-Show Prevention <span>+</span> Multi-Language
-        </div>
-        <button class="btn-pay" onclick="handlePayment('monthly', 'scale')">
-          Subscribe $1,497/mo &nbsp;→
-        </button>
-      </div>
-
-      <!-- AutoScale Monthly -->
-      <div class="plan-card">
-        <div class="card-top">
-          <span class="card-name">AutoScale</span>
-        </div>
-        <div class="card-price-row">
-          <span class="card-price">$2,497</span>
-          <span class="card-period">/mo</span>
-        </div>
-        <div class="card-details">5,000 min/mo &nbsp;·&nbsp; 12-month contract</div>
-        <div class="card-features">
-          Everything in Scale <span>+</span> Multi-Location <span>+</span> Dedicated AM
-          <span>+</span> Priority Support
-        </div>
-        <button class="btn-pay" onclick="handlePayment('monthly', 'autoscale')">
-          Subscribe $2,497/mo &nbsp;→
-        </button>
-      </div>
-    </div>
+    </div><!-- /rep-mode -->
 
     <!-- BOTTOM NAV -->
     <nav class="bottom-nav" aria-label="Field kit navigation">
-      <a href="quick-start.html" class="nav-link">
+      <a href="quick-start.html" class="nav-link" id="back-link">
         <span>← Back to Quick Start</span>
         <span class="nav-link-arrow">›</span>
       </a>
-      <a href="index.html#contract" class="nav-link">
-        <span>📝 Send Contract</span>
+      <a href="index.html#contract" class="nav-link" id="contract-link">
+        <span>Send Contract</span>
         <span class="nav-link-arrow">›</span>
       </a>
       <a href="index.html" class="nav-link primary">
-        <span>📊 Full Field Kit</span>
+        <span>Full Field Kit</span>
         <span class="nav-link-arrow">›</span>
       </a>
     </nav>
@@ -743,29 +1283,233 @@
     <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 
     <script>
-      /* ═══════════════════════════════════════════
-         STRIPE PAYMENT LINKS (LIVE / PRODUCTION)
-         ═══════════════════════════════════════════ */
+      /* ════════════════════════════════════════════
+         PRICING CONFIG
+         Mirrors D2D_PRICING in field-sales.routes.ts
+         ════════════════════════════════════════════ */
+      var PLANS = {
+        core:      { label: 'Core',      minutes: '500',   firstMonth: 497, monthly: 697,  total: 997  },
+        growth:    { label: 'Growth',    minutes: '1,000', firstMonth: 997, monthly: 997,  total: 1497 },
+        scale:     { label: 'Scale',     minutes: '2,000', firstMonth: 1497, monthly: 1497, total: 1997 },
+        autoscale: { label: 'AutoScale', minutes: '5,000', firstMonth: 2497, monthly: 2497, total: 2997 },
+      };
+
+      /* ════════════════════════════════════════════
+         STRIPE DIRECT LINKS (REP MODE fallback)
+         ════════════════════════════════════════════ */
       var STRIPE_LINKS = {
         setup: {
-          core: 'https://buy.stripe.com/8x200jfyigMh9uJdVJ6c00t',
-          growth: 'https://buy.stripe.com/7sY8wP0Do1Rn8qF2d16c00u',
-          scale: 'https://buy.stripe.com/aFa14nadY9jPeP3aJx6c00v',
+          core:      'https://buy.stripe.com/8x200jfyigMh9uJdVJ6c00t',
+          growth:    'https://buy.stripe.com/7sY8wP0Do1Rn8qF2d16c00u',
+          scale:     'https://buy.stripe.com/aFa14nadY9jPeP3aJx6c00v',
           autoscale: 'https://buy.stripe.com/aFa28r3PA0Nj8qFbNB6c00w',
         },
         monthly: {
-          core: 'https://buy.stripe.com/9B65kDdqadA50YdcRF6c00x',
-          growth: 'https://buy.stripe.com/dRm28r71M8fL4ap2d16c00y',
-          scale: 'https://buy.stripe.com/bJe28r0Docw15et04T6c00z',
+          core:      'https://buy.stripe.com/9B65kDdqadA50YdcRF6c00x',
+          growth:    'https://buy.stripe.com/dRm28r71M8fL4ap2d16c00y',
+          scale:     'https://buy.stripe.com/bJe28r0Docw15et04T6c00z',
           autoscale: 'https://buy.stripe.com/6oU7sL85Q0Nj9uJ5pd6c00A',
         },
       };
 
-      /* ── TAB SWITCHING ── */
+      /* Auto-detect API base */
+      var API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api'
+        : 'https://api.autoscaleai.ca/api';
+
+      /* Parse URL params */
+      var params        = new URLSearchParams(window.location.search);
+      var trackingId    = params.get('tid')  || '';
+      var urlPlan       = params.get('plan') || '';
+      var isClientMode  = !!(trackingId || urlPlan);
+
+      /* Active plan state (client mode) */
+      var activePlan = urlPlan in PLANS ? urlPlan : 'core';
+
+      /* ════════════════════════════════════════════
+         INIT
+         ════════════════════════════════════════════ */
+      document.addEventListener('DOMContentLoaded', function () {
+        if (isClientMode) {
+          initClientMode();
+        } else {
+          initRepMode();
+        }
+      });
+
+      /* ── CLIENT MODE INIT ── */
+      function initClientMode() {
+        document.getElementById('client-mode').classList.add('active');
+        document.getElementById('page-title').textContent = 'ACTIVATE YOUR AI';
+        document.getElementById('page-subtitle').textContent = 'Complete your information to get started';
+
+        if (urlPlan && urlPlan in PLANS) {
+          // Pre-selected plan — show banner
+          renderPlanBanner(urlPlan);
+        } else {
+          // No plan — show tier selector
+          renderTierSelector();
+        }
+
+        updatePriceBreakdown(activePlan);
+      }
+
+      /* ── REP MODE INIT ── */
+      function initRepMode() {
+        document.getElementById('rep-mode').classList.add('active');
+        document.getElementById('page-title').textContent = 'COLLECT PAYMENT';
+        document.getElementById('page-subtitle').textContent = "Select a plan and collect the client's payment";
+        // Hide bottom nav items that are rep-specific in client context
+        var contractLink = document.getElementById('contract-link');
+        if (contractLink) contractLink.style.display = 'flex';
+      }
+
+      /* ── RENDER PLAN BANNER ── */
+      function renderPlanBanner(plan) {
+        var p = PLANS[plan];
+        var banner = document.getElementById('plan-banner');
+        banner.innerHTML = [
+          '<div class="plan-banner">',
+          '  <div class="plan-banner-left">',
+          '    <div class="plan-banner-label">Your Selected Plan</div>',
+          '    <div class="plan-banner-name">' + p.label + '</div>',
+          '    <div class="plan-banner-meta">' + p.minutes + ' min/mo</div>',
+          '  </div>',
+          '  <div class="plan-banner-price">',
+          '    <span class="plan-banner-amount">$' + p.total.toLocaleString() + '</span>',
+          '    <div class="plan-banner-period">due today</div>',
+          '  </div>',
+          '</div>',
+        ].join('');
+        banner.style.display = 'block';
+      }
+
+      /* ── RENDER TIER SELECTOR ── */
+      function renderTierSelector() {
+        var container = document.getElementById('tier-selector');
+        var list      = document.getElementById('tier-list');
+        var order     = ['core', 'growth', 'scale', 'autoscale'];
+
+        list.innerHTML = order.map(function (key) {
+          var p          = PLANS[key];
+          var isGrowth   = key === 'growth';
+          var isSelected = key === activePlan;
+          return [
+            '<div class="tier-option' + (isGrowth ? ' featured-tier' : '') + (isSelected ? ' selected' : '') + '" ',
+            '  onclick="selectTier(\'' + key + '\')" role="radio" aria-checked="' + isSelected + '" tabindex="0"',
+            '  onkeydown="if(event.key===\'Enter\'||event.key===\' \') selectTier(\'' + key + '\')">',
+            '  <div class="tier-radio"></div>',
+            '  <div class="tier-info">',
+            '    <div class="tier-name-row">',
+            '      <span class="tier-name">' + p.label + '</span>',
+            (isGrowth ? '      <span class="badge-pop">Most Popular</span>' : ''),
+            '    </div>',
+            '    <div class="tier-meta">' + p.minutes + ' min/mo &middot; $' + p.monthly + '/mo after</div>',
+            '  </div>',
+            '  <div class="tier-price-col">',
+            '    <span class="tier-price">$' + p.total.toLocaleString() + '</span>',
+            '    <div class="tier-sub">due today</div>',
+            '  </div>',
+            '</div>',
+          ].join('');
+        }).join('');
+
+        container.style.display = 'block';
+      }
+
+      /* ── SELECT TIER ── */
+      function selectTier(plan) {
+        activePlan = plan;
+        var options = document.querySelectorAll('.tier-option');
+        options.forEach(function (el) { el.classList.remove('selected'); el.setAttribute('aria-checked', 'false'); });
+        var allPlanKeys = ['core', 'growth', 'scale', 'autoscale'];
+        var idx = allPlanKeys.indexOf(plan);
+        if (idx !== -1 && options[idx]) {
+          options[idx].classList.add('selected');
+          options[idx].setAttribute('aria-checked', 'true');
+        }
+        updatePriceBreakdown(plan);
+      }
+
+      /* ── UPDATE PRICE BREAKDOWN ── */
+      function updatePriceBreakdown(plan) {
+        var p = PLANS[plan];
+        if (!p) return;
+        document.getElementById('breakdown-plan-name').textContent  = p.label;
+        document.getElementById('breakdown-first-month').textContent = '$' + p.firstMonth.toLocaleString();
+        document.getElementById('breakdown-total').textContent       = '$' + p.total.toLocaleString();
+        document.getElementById('breakdown-recurring').textContent   = '$' + p.monthly.toLocaleString() + '/mo';
+      }
+
+      /* ════════════════════════════════════════════
+         CLIENT MODE — SUBMIT CHECKOUT
+         ════════════════════════════════════════════ */
+      function submitClientCheckout() {
+        var business = document.getElementById('field-business').value.trim();
+        var email    = document.getElementById('field-email').value.trim();
+        var phone    = document.getElementById('field-phone').value.trim();
+        var industry = document.getElementById('field-industry').value;
+
+        if (!business) {
+          showToast('Business name is required.');
+          document.getElementById('field-business').focus();
+          return;
+        }
+
+        if (!email || email.indexOf('@') === -1) {
+          showToast('Valid email address required.');
+          document.getElementById('field-email').focus();
+          return;
+        }
+
+        var btn = document.getElementById('btn-checkout');
+        btn.disabled = true;
+        btn.classList.add('loading');
+
+        var payload = {
+          email:      email,
+          name:       business,
+          phone:      phone || undefined,
+          plan:       activePlan,
+          trackingId: trackingId || undefined,
+          industry:   industry || undefined,
+        };
+
+        // Remove undefined keys
+        Object.keys(payload).forEach(function (k) {
+          if (payload[k] === undefined) delete payload[k];
+        });
+
+        fetch(API_BASE + '/field-sales/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data.success && data.checkoutUrl) {
+              showToast('Redirecting to payment...', true);
+              window.location.href = data.checkoutUrl;
+            } else {
+              showToast('Error: ' + (data.error || 'Checkout failed. Try again.'));
+              btn.disabled = false;
+              btn.classList.remove('loading');
+            }
+          })
+          .catch(function (err) {
+            showToast('Network error. Please try again.');
+            btn.disabled = false;
+            btn.classList.remove('loading');
+          });
+      }
+
+      /* ════════════════════════════════════════════
+         REP MODE — TAB SWITCHING
+         ════════════════════════════════════════════ */
       function switchTab(tab) {
         var tabs = ['setup', 'monthly'];
         tabs.forEach(function (t) {
-          var btn = document.getElementById('btn-' + t);
+          var btn   = document.getElementById('btn-' + t);
           var panel = document.getElementById('tab-' + t);
           if (t === tab) {
             btn.classList.add('active');
@@ -779,28 +1523,25 @@
         });
       }
 
-      /* ── (waive toggle removed — setup fee is rep commission) ── */
-
-      /* ── PAYMENT HANDLER ── */
-      function handlePayment(type, plan) {
-        var url = STRIPE_LINKS[type][plan];
-
-        if (!url || url.indexOf('REPLACE_') === 0) {
-          showToast(
-            '⚠️ Stripe link not configured yet. Contact Jean-Samuel to set up payment links.'
-          );
+      /* ── REP MODE PAYMENT HANDLER ── */
+      function handleRepPayment(type, plan) {
+        var url = STRIPE_LINKS[type] && STRIPE_LINKS[type][plan];
+        if (!url) {
+          showToast('Payment link not configured. Contact support.');
           return;
         }
-
         window.open(url, '_blank', 'noopener,noreferrer');
       }
 
-      /* ── TOAST ── */
+      /* ════════════════════════════════════════════
+         TOAST
+         ════════════════════════════════════════════ */
       var toastTimer = null;
 
-      function showToast(message) {
+      function showToast(message, isSuccess) {
         var el = document.getElementById('toast');
         el.textContent = message;
+        el.classList.toggle('success', !!isSuccess);
         el.classList.add('show');
 
         if (toastTimer) clearTimeout(toastTimer);

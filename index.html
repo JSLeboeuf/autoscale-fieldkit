@@ -3029,7 +3029,7 @@
     <!-- OBJECTIONS -->
     <div class="section fade-in" id="sec-obj">
       <div class="section-tag">Objections</div>
-      <h2 class="section-title">12 Comebacks</h2>
+      <h2 class="section-title">13 Comebacks</h2>
       <div class="objections">
         <div class="obj">
           <div class="obj-q">
@@ -3342,6 +3342,41 @@
             15%."
           </div>
         </div>
+        <div
+          class="obj"
+          style="border-left: 3px solid var(--gold); background: rgba(251, 191, 36, 0.03)"
+        >
+          <div class="obj-q" style="color: var(--gold)">
+            "Why buy it now when in five years it'll only be better?"
+            <span
+              style="
+                font-size: 9px;
+                font-family: 'JetBrains Mono', monospace;
+                color: var(--gold);
+                background: rgba(251, 191, 36, 0.1);
+                border: 1px solid rgba(251, 191, 36, 0.2);
+                border-radius: 4px;
+                padding: 1px 5px;
+                margin-left: 6px;
+                font-weight: 600;
+                vertical-align: middle;
+              "
+              >[Seller — timing objection]</span
+            >
+          </div>
+          <div class="obj-a">
+            "You're right — the tech will keep improving. But here's what most people miss:
+            <strong>early adopters compound a data advantage</strong>. Our system uses RSI —
+            Recursive Self-Improvement. The longer it runs on YOUR business, the smarter it gets
+            about YOUR customers, YOUR services, YOUR peak hours. A competitor who starts in five
+            years? They start at zero. Your AI will already have thousands of calls of training
+            data, optimized scripts, and conversion patterns they can't buy."<br /><br />
+            <em style="font-size: 11px; color: var(--muted)"
+              >The question isn't whether AI gets better — it's whether YOU are the one with 5 years
+              of compounding data, or the one starting from scratch.</em
+            >
+          </div>
+        </div>
       </div>
     </div>
 
@@ -3560,7 +3595,7 @@
                 "
               >
                 <div style="color: var(--gold)">
-                  &#9733; You earn 20% commission — $100 per setup + $139.40/mo residual per client
+                  &#9733; You earn 20% setup ($100) + 20% monthly residual ($139.40/mo) per client
                 </div>
                 <div style="color: var(--green)">
                   &#10003; Minimum setup fees listed per plan — you can charge more
@@ -5448,7 +5483,7 @@
           line-height: 1.5;
         "
       >
-        Your 20% commission ($100 setup + $139.40/mo residual per client) is paid within 5 business days. Split: You 20% · Area Manager 20% · AutoScale 60%. Your residual builds fast — 10 clients = $1,394/mo recurring.
+        Your commission (20% setup = $100 + 20% monthly = $139.40/mo per client) is paid within 5 business days. Split: You 20% setup / 20% recurring · Area Manager 8% override · AutoScale remainder. Your residual builds fast — 10 clients = $1,394/mo recurring.
       </div>
     </div>
 
@@ -5522,7 +5557,7 @@
             "
           >
             <span style="font-size: 12px; color: var(--muted)"
-              >20 clients &times; 10% monthly residual</span
+              >20 clients &times; 20% monthly residual</span
             >
             <span
               style="
@@ -5572,7 +5607,7 @@
             padding-top: 10px;
           "
         >
-          <strong style="color: var(--text-2)">Commission structure (20/20/60):</strong> You keep 20% ($100 setup + $139.40/mo residual per client). Area Manager gets 20% override. AutoScale retains 60% (ops, tech, support). Your 20% residual builds to $1,394/mo at just 10 clients. Commissions paid within 5 business days.
+          <strong style="color: var(--text-2)">Commission structure (20/20):</strong> You keep 20% setup ($100) + 20% monthly residual ($139.40/mo per client). Area Manager gets 8% override. AutoScale retains remainder (ops, tech, support). Your 20% residual builds to $1,394/mo at just 10 clients. Commissions paid within 5 business days.
         </div>
       </div>
     </details>
@@ -8442,7 +8477,7 @@
         >
         &middot; &copy; 2026 AutoScale AI
       </div>
-      <div class="footer-sub">autoscaleai.com &middot; Internal use only</div>
+      <div class="footer-sub">autoscaleai.ca &middot; Internal use only</div>
     </footer>
 
     <script>
@@ -8661,7 +8696,7 @@
           rep_id: _repId || undefined,
         };
 
-        fetch('https://autoscale-ai-backend.fly.dev/api/contracts/send', {
+        fetch('https://api.autoscaleai.ca/api/contracts/send', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
@@ -8680,7 +8715,7 @@
           .catch(function (err) {
             /* Fallback: open email client */
             window.location.href =
-              'mailto:contact@autoscaleai.com?subject=' + subject + '&body=' + body;
+              'mailto:contact@autoscaleai.ca?subject=' + subject + '&body=' + body;
             contractSuccess(btn, null, null);
           });
 

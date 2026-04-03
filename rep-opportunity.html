@@ -1079,7 +1079,7 @@
         </h1>
         <p class="hero-sub">
           Knock doors. Demo an AI phone agent that books appointments 24/7.
-          Earn $250 setup + $69.70/month <em>per client — for life.</em>
+          Earn $100 setup + $139.40/month <em>per client — for life.</em>
         </p>
 
         <div class="live-payout">
@@ -1091,7 +1091,7 @@
             <div class="payout-amount">$350</div>
             <div class="payout-context">within 30 days</div>
           </div>
-          <div class="payout-note">$250 setup commission + $100 retention bonus when client stays ≥30 days</div>
+          <div class="payout-note">$100 setup commission + $100 retention bonus when client stays ≥30 days</div>
         </div>
       </section>
 
@@ -1110,18 +1110,18 @@
 
           <div class="commission-row highlight">
             <div class="comm-label">Setup commission</div>
-            <div class="comm-math">$500 × 50%</div>
+            <div class="comm-math">$500 × 20%</div>
             <div class="comm-value green">
-              $250
+              $100
               <span class="comm-value-sub">paid same day</span>
             </div>
           </div>
 
           <div class="commission-row gold-highlight">
             <div class="comm-label">Monthly residual</div>
-            <div class="comm-math">$697 × 10%</div>
+            <div class="comm-math">$697 × 20%</div>
             <div class="comm-value gold">
-              $69.70
+              $139.40
               <span class="comm-value-sub">every month, per client</span>
             </div>
           </div>
@@ -1131,7 +1131,7 @@
         <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;">
           <div style="font-size: 20px; flex-shrink: 0; line-height: 1;">💡</div>
           <div style="font-size: 12px; color: var(--text-2); line-height: 1.6;">
-            <strong style="color: var(--text);">The snowball effect:</strong> Close 3 clients in month 1 → $750 setup + $209.10/mo recurring. Close 3 more in month 2 → your base just doubled. Residual builds fast — 10 clients = $697/mo recurring.
+            <strong style="color: var(--text);">The snowball effect:</strong> Close 3 clients in month 1 → $300 setup + $418.20/mo recurring. Close 3 more in month 2 → your base just doubled. Residual builds fast — 10 clients = $1,394/mo recurring.
           </div>
         </div>
       </section>
@@ -1246,7 +1246,7 @@
             <div class="process-num">05</div>
             <div class="process-content">
               <div class="process-title">Collect $250 <span class="process-pill gold">$$$ PAID</span></div>
-              <div class="process-desc">Trial converts to $500 setup + $697/mo subscription. Your commission hits same day. $100 retention bonus drops at day 30 if they stay. Then $69.70/mo, every month, forever.</div>
+              <div class="process-desc">Trial converts to $500 setup + $697/mo subscription. Your commission hits same day. $100 retention bonus drops at day 30 if they stay. Then $139.40/mo, every month, forever.</div>
             </div>
           </div>
         </div>
@@ -1446,12 +1446,12 @@
       // ── EARNINGS CALCULATOR ──
       const SETUP_FEE = 500;
       const MONTHLY_FEE = 697;
-      const SETUP_PCT = 0.50;
-      const RECURRING_PCT = 0.10;
+      const SETUP_PCT = 0.20;
+      const RECURRING_PCT = 0.20;
       const RETENTION_BONUS = 100;
 
-      const setupComm = SETUP_FEE * SETUP_PCT;         // $250
-      const recurringComm = MONTHLY_FEE * RECURRING_PCT; // $69.70
+      const setupComm = SETUP_FEE * SETUP_PCT;         // $100
+      const recurringComm = MONTHLY_FEE * RECURRING_PCT; // $139.40
 
       function fmt(n) {
         return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
