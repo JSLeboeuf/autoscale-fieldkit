@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D2D Route Sheet — Portland ME</title>
+<style>
+  :root { --bg: #0a0a0a; --card: #141414; --border: #222; --accent: #3b82f6; --green: #22c55e; --yellow: #eab308; --red: #ef4444; --text: #e5e5e5; --muted: #737373; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .header { position: sticky; top: 0; z-index: 50; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 16px 20px; }
+  .header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+  .header p { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .stats { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 13px; }
+  .stat strong { color: var(--accent); font-size: 18px; display: block; }
+  .filters { padding: 12px 20px; display: flex; gap: 8px; flex-wrap: wrap; position: sticky; top: 110px; z-index: 40; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); }
+  .filter-btn { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 13px; color: var(--muted); cursor: pointer; transition: all 0.2s; }
+  .filter-btn:hover, .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .list { padding: 8px 20px 100px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 8px; transition: all 0.2s; }
+  .card.visited { opacity: 0.5; border-left: 3px solid var(--green); }
+  .card.skipped { opacity: 0.4; border-left: 3px solid var(--yellow); }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .biz-name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+  .vertical-tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .tag-plumbing { background: #1e3a5f; color: #60a5fa; }
+  .tag-dental { background: #1a3a2a; color: #4ade80; }
+  .tag-medspa { background: #3b1f4a; color: #c084fc; }
+  .tag-landscaping { background: #2a3a1a; color: #a3e635; }
+  .tag-electrical { background: #3a3a1a; color: #facc15; }
+  .tag-chiropractic { background: #1a3a3a; color: #2dd4bf; }
+  .tag-auto { background: #3a2a1a; color: #fb923c; }
+  .tag-realestate { background: #3a1a2a; color: #f472b6; }
+  .tag-roofing { background: #2a2a2a; color: #a8a29e; }
+  .tag-veterinary { background: #1a2a3a; color: #38bdf8; }
+  .card-details { margin-top: 8px; font-size: 13px; color: var(--muted); }
+  .card-details .addr { margin-bottom: 4px; }
+  .card-details a { color: var(--accent); text-decoration: none; }
+  .card-actions { display: flex; gap: 6px; margin-top: 10px; }
+  .action-btn { border: none; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .btn-call { background: #166534; color: #4ade80; }
+  .btn-nav { background: #1e3a5f; color: #60a5fa; }
+  .btn-visited { background: #1a1a1a; color: var(--green); border: 1px solid #1a3a2a; }
+  .btn-skip { background: #1a1a1a; color: var(--yellow); border: 1px solid #2a2a1a; }
+  .count-display { font-size: 12px; color: var(--muted); padding: 4px 20px; }
+  .search-box { width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 14px; color: var(--text); outline: none; margin-top: 8px; }
+  .search-box:focus { border-color: var(--accent); }
+  @media (min-width: 768px) {
+    .list { max-width: 600px; margin: 0 auto; }
+    .header, .filters, .count-display { max-width: 640px; margin-left: auto; margin-right: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>D2D Route Sheet — Portland ME</h1>
+  <p>AutoScale AI • Updated April 3, 2026</p>
+  <div class="stats">
+    <div class="stat"><strong id="total-count">70</strong>Total Leads</div>
+    <div class="stat"><strong id="visited-count">0</strong>Visited</div>
+    <div class="stat"><strong id="remaining-count">70</strong>Remaining</div>
+  </div>
+  <input type="text" class="search-box" placeholder="Search business name, address, vertical..." oninput="filterLeads()">
+</div>
+
+<div class="filters" id="filter-bar"></div>
+<div class="count-display" id="count-display"></div>
+<div class="list" id="lead-list"></div>
+
+<script>
+const leads = [
+  // PLUMBING / HVAC
+  {n:"Maietta Titus Blaschke Plumbing & Heating",v:"Plumbing/HVAC",a:"1566 Forest Ave, Portland ME 04103",p:"(207) 797-2685",w:"maiettaplumbingandheating.com",note:"Since 1986"},
+  {n:"Pine State Services",v:"Plumbing/HVAC",a:"Portland, ME",p:"(207) 489-2851",w:"pinestateservices.com",note:"Since 1996 — HVAC + plumbing + electrical"},
+  {n:"Gelinas HVAC Services",v:"Plumbing/HVAC",a:"Portland, ME",p:"(207) 261-0288",w:"gelinashvac.com",note:"Since 1994 — 30+ yrs"},
+  {n:"S&K Mechanical",v:"Plumbing/HVAC",a:"Portland, ME",p:"(207) 347-0943",w:"skmechme.com",note:"Family-owned 18+ yrs"},
+  {n:"Mainely Plumbing & Heating",v:"Plumbing/HVAC",a:"Gorham, ME (serves Portland)",p:"",w:"mainelyplumbing.com",note:"Family-owned since 1969"},
+  {n:"Jim Godbout Plumbing & Heating",v:"Plumbing/HVAC",a:"Southern Maine (York to Freeport)",p:"",w:"jimgodbout.com",note:"30+ yrs Southern Maine"},
+
+  // DENTAL
+  {n:"1330 Dental Associates",v:"Dental",a:"1330 Congress St Ste 2, Portland ME 04102",p:"(207) 773-3738",w:"1330dental.com",note:"General/restorative/cosmetic"},
+  {n:"Dental Wellness of Portland",v:"Dental",a:"295 Forest Ave, Portland ME 04101",p:"(207) 370-0575",w:"dentalwellnessme.com",note:"Preventative & personalized"},
+  {n:"Inspire Dental of Maine",v:"Dental",a:"1355 Congress St Ste B, Portland ME",p:"(207) 221-5578",w:"inspiredental.me",note:"Since 2014 — affordable family"},
+  {n:"Aspen Dental Portland",v:"Dental",a:"1200 Brighton Ave, Portland ME 04102",p:"(207) 773-2150",w:"aspendental.com",note:"Chain — cleanings/implants"},
+  {n:"Portland Dental Health Care",v:"Dental",a:"Portland, ME",p:"",w:"portlandmainedental.com",note:"Since 1978 — implants/cosmetic"},
+  {n:"The Dental Loft",v:"Dental",a:"Portland, ME",p:"(207) 773-2446",w:"thedentalloftme.com",note:"Dr. Heather Keeling DDS"},
+  {n:"Gannett Drive Dental",v:"Dental",a:"324 Gannett Dr Ste 500, South Portland ME 04106",p:"(207) 253-5600",w:"gannettdrivedental.com",note:"High-tech — CT/Invisalign"},
+
+  // MED SPA
+  {n:"Esthetic Medspa Portland",v:"Med Spa",a:"15 Middle St Ste A2, Portland ME 04101",p:"(207) 618-5792",w:"portlandesthetic.com",note:"Dr. Lawlor — cosmetic"},
+  {n:"Maine Aesthetic Medicine",v:"Med Spa",a:"163 Fore St Fl 2, Portland ME 04101",p:"(207) 495-8148",w:"",note:"Downtown — intimate wellness"},
+  {n:"Cosmetic Enhancement Center of NE",v:"Med Spa",a:"Portland, ME (multi-location)",p:"",w:"cecofne.com",note:"BOTOX/fillers/laser/CoolSculpting"},
+  {n:"MedMatrix",v:"Med Spa",a:"198 Maine Mall Rd, South Portland ME 04106",p:"(207) 544-4643",w:"medmatrixusa.com",note:"Laser/microderm/Botox"},
+  {n:"Bevara Med Spa",v:"Med Spa",a:"Portland, ME",p:"",w:"bevaramedspa.com",note:"New — personalized beauty"},
+  {n:"Elle Medical Aesthetics",v:"Med Spa",a:"Portland, ME",p:"",w:"ellemedicalaesthetics.online",note:"Female-owned since 2018"},
+
+  // LANDSCAPING
+  {n:"Greencare Landscape Management",v:"Landscaping",a:"Portland, ME",p:"(207) 699-4240",w:"gclandscape.com",note:"Residential & commercial + snow"},
+  {n:"LST Landscaping Inc",v:"Landscaping",a:"Portland, ME",p:"(207) 878-1578",w:"lstlandscapinginc.com",note:"Family-owned since 1969"},
+  {n:"Lawn Dawg",v:"Landscaping",a:"460 Riverside St Unit 1, Portland ME 04103",p:"(207) 878-6400",w:"lawndawg.com",note:"Lawn care/fertilization"},
+  {n:"C.K.C. Landscaping",v:"Landscaping",a:"South Portland, ME",p:"",w:"portlandmainelandscaping.com",note:"Since 1989 — high-end design"},
+  {n:"J.L.P. Services",v:"Landscaping",a:"South Portland, ME",p:"",w:"jlpservicesmaine.com",note:"Since 1993 — lawncare/plowing"},
+
+  // ELECTRICAL
+  {n:"Mancini Electric Inc",v:"Electrical",a:"179 Sheridan St, Portland ME 04101",p:"(207) 774-5829",w:"mancinielectric.com",note:"Since 1966 — 30+ electricians"},
+  {n:"Hannan's Electric",v:"Electrical",a:"385 Main St, South Portland ME",p:"(207) 799-4444",w:"hannanselectric.com",note:"Since 1974"},
+  {n:"John A Perry Electric",v:"Electrical",a:"381 Danforth St, Portland ME 04106",p:"",w:"",note:"Directory listing"},
+  {n:"Martens Electric",v:"Electrical",a:"88½ Exchange St, Portland ME 04101",p:"",w:"",note:"Directory listing"},
+  {n:"Milliken Brothers Inc",v:"Electrical",a:"474 Riverside Ind Pkwy #1, Portland ME 04106",p:"",w:"",note:"Directory listing"},
+  {n:"MJR Electric",v:"Electrical",a:"68 Roberts St, Portland ME 04106",p:"",w:"",note:"Directory listing"},
+  {n:"Pete's Electric Service",v:"Electrical",a:"835 Ocean Ave, Portland ME 04106",p:"",w:"",note:"Directory listing"},
+  {n:"Peter L Doria Electric",v:"Electrical",a:"135 Bolton St, Portland ME 04106",p:"",w:"",note:"Directory listing"},
+  {n:"Place Electric Inc",v:"Electrical",a:"173 Summit St, Portland ME 04106",p:"",w:"",note:"Directory listing"},
+  {n:"Scott Arnold Electric Inc",v:"Electrical",a:"999 Forest Ave, Portland ME 04106",p:"",w:"",note:"Directory listing"},
+  {n:"Casco Bay Electric",v:"Electrical",a:"Portland, ME (multi-location)",p:"",w:"cascobayelectric.com",note:"24/7 emergency"},
+  {n:"P & D Electric",v:"Electrical",a:"Portland, ME",p:"",w:"pdelectricme.com",note:"Since 1990"},
+  {n:"Bell Electric",v:"Electrical",a:"Southern Maine",p:"",w:"thebellelectric.com",note:"Since 2016 — residential/commercial"},
+
+  // CHIROPRACTIC
+  {n:"Portland Chiropractic Neurology",v:"Chiropractic",a:"959 Congress St Suite 1, Portland ME 04102",p:"(207) 699-5600",w:"",note:"Chiropractic neurology"},
+  {n:"Atlantic Chiropractic LLC",v:"Chiropractic",a:"449 Forest Ave Suite 206, Portland ME 04101",p:"(207) 772-6411",w:"atlanticchiromaine.com",note:"Dr. Kathleen Norris DC"},
+  {n:"Chiropractic Health Alternatives",v:"Chiropractic",a:"558 Main St, South Portland ME 04106",p:"(207) 775-2265",w:"meportlandchiropractor.com",note:""},
+  {n:"Back on Track Chiropractic",v:"Chiropractic",a:"260 Western Ave, South Portland ME 04106",p:"(207) 899-0806",w:"",note:"Dr. Sara Littlefield DC"},
+  {n:"Chiropractic & Sports Health",v:"Chiropractic",a:"Portland & South Portland, ME",p:"(207) 347-2205",w:"chirosportshealth.com",note:"Since 2013"},
+  {n:"Greater Portland Chiropractic",v:"Chiropractic",a:"Scarborough, ME",p:"(207) 883-6630",w:"greaterportlandchiropractic.com",note:"Dr. Kenneth Cayer"},
+  {n:"Mend Health & Wellness",v:"Chiropractic",a:"560 US Route 1, Scarborough ME 04074",p:"(207) 289-6005",w:"gomendhealth.com",note:"Husband-wife team"},
+
+  // AUTO REPAIR
+  {n:"Paul's Services",v:"Auto Repair",a:"Portland, ME",p:"(207) 772-5772",w:"paulsservicesinc.com",note:"30+ yrs — NAPA Autocare"},
+  {n:"Meineke Portland #243",v:"Auto Repair",a:"1155 Forest Ave, Portland ME",p:"(207) 321-0055",w:"meineke.com",note:"Hero/military discounts"},
+  {n:"Midas of Portland",v:"Auto Repair",a:"570 Forest Ave, Portland ME 04101",p:"(207) 221-8999",w:"",note:"Mon-Sat"},
+  {n:"Duval's Service Center",v:"Auto Repair",a:"20 Park Ave, South Portland ME 04106",p:"(207) 799-7314",w:"duvals.com",note:"Since 1985 — family-owned — AAA"},
+  {n:"Ocean Street Auto Repair",v:"Auto Repair",a:"310 Main St, South Portland ME 04106",p:"",w:"oceanstreetautorepair.com",note:"Since 1976"},
+  {n:"VIP Tires & Service",v:"Auto Repair",a:"522 Riverside St, Portland ME 04103",p:"",w:"",note:"AAA approved"},
+  {n:"Moody's Collision Center",v:"Auto Repair",a:"495 Presumpscot St, Portland ME 04103",p:"",w:"",note:"AAA approved"},
+
+  // REAL ESTATE
+  {n:"Town & Shore Real Estate",v:"Real Estate",a:"1 Union Wharf, Portland ME 04101",p:"(207) 773-0262",w:"townandshore.com",note:"70+ years — industry leader"},
+  {n:"Morrison Real Estate",v:"Real Estate",a:"Portland ME — West End Historic District",p:"(207) 671-2523",w:"morrisonrealtors.com",note:"30 years"},
+  {n:"Gardner Real Estate Group",v:"Real Estate",a:"Portland, ME",p:"(207) 427-3637",w:"gardnerregroup.com",note:""},
+  {n:"Cottage & Co Real Estate",v:"Real Estate",a:"South Portland, ME",p:"(207) 653-1188",w:"cottageandcomaine.com",note:"Jason Bisson"},
+
+  // ROOFING
+  {n:"The Roof Doctors",v:"Roofing",a:"Portland & Hollis, ME",p:"(207) 772-2719",w:"theroofdoc.com",note:"New roof/repairs/replacement"},
+  {n:"Maine Roofing Inc",v:"Roofing",a:"24 Bishop Ave, South Portland ME 04106",p:"(207) 767-4243",w:"maineroofinginc.com",note:"24hr emergency"},
+  {n:"Horch Roofing",v:"Roofing",a:"South Portland, ME",p:"(207) 273-1111",w:"horchroofing.com",note:"Since 2003"},
+  {n:"David Deschaine Roofing",v:"Roofing",a:"12 Dunscombe St, Portland ME 04106",p:"(207) 774-9200",w:"daviddeschaine.com",note:"25 yrs — Select Shingle Master"},
+  {n:"Summit Exteriors LLC",v:"Roofing",a:"Portland, ME",p:"(207) 754-7650",w:"summitexteriorsllc.com",note:"Residential & commercial"},
+
+  // VETERINARY
+  {n:"Brackett Street Veterinary",v:"Veterinary",a:"Portland ME — West End",p:"(207) 772-3385",w:"brackettstveterinaryclinic.com",note:"Dogs & cats"},
+  {n:"Animal Emergency Clinic",v:"Veterinary",a:"739 Warren Ave, Portland ME 04103",p:"(207) 878-3121",w:"",note:"24/7 emergency"},
+  {n:"South Portland Vet Hospital",v:"Veterinary",a:"177 Main St, South Portland ME 04106",p:"(207) 767-7784",w:"",note:""},
+  {n:"The Cat Doctor",v:"Veterinary",a:"183 Brighton Ave, Portland ME 04102",p:"(207) 874-2287",w:"catdocmaine.com",note:"Since 1988 — feline exclusive"},
+  {n:"Casco Bay Veterinary Hospital",v:"Veterinary",a:"Portland, ME",p:"(207) 761-8033",w:"cascobayvet.com",note:""},
+];
+
+const tagClass = {
+  "Plumbing/HVAC":"tag-plumbing","Dental":"tag-dental","Med Spa":"tag-medspa",
+  "Landscaping":"tag-landscaping","Electrical":"tag-electrical","Chiropractic":"tag-chiropractic",
+  "Auto Repair":"tag-auto","Real Estate":"tag-realestate","Roofing":"tag-roofing","Veterinary":"tag-veterinary"
+};
+
+let state = JSON.parse(localStorage.getItem('d2d-portland') || '{}');
+let activeFilter = 'all';
+let searchQuery = '';
+
+function saveState() { localStorage.setItem('d2d-portland', JSON.stringify(state)); }
+
+function toggleVisited(i) {
+  if (state[i] === 'visited') delete state[i];
+  else state[i] = 'visited';
+  saveState(); render();
+}
+function toggleSkipped(i) {
+  if (state[i] === 'skipped') delete state[i];
+  else state[i] = 'skipped';
+  saveState(); render();
+}
+
+function filterLeads() {
+  searchQuery = document.querySelector('.search-box').value.toLowerCase();
+  render();
+}
+
+function setFilter(v) {
+  activeFilter = v;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.v === v));
+  render();
+}
+
+function render() {
+  const list = document.getElementById('lead-list');
+  let html = '';
+  let shown = 0;
+  const visited = Object.values(state).filter(s => s === 'visited').length;
+
+  leads.forEach((l, i) => {
+    if (activeFilter !== 'all' && l.v !== activeFilter) return;
+    const searchStr = `${l.n} ${l.a} ${l.v} ${l.note}`.toLowerCase();
+    if (searchQuery && !searchStr.includes(searchQuery)) return;
+    shown++;
+    const st = state[i] || '';
+    const tc = tagClass[l.v] || '';
+    html += `<div class="card ${st}">
+      <div class="card-top">
+        <div class="biz-name">${l.n}</div>
+        <span class="vertical-tag ${tc}">${l.v}</span>
+      </div>
+      <div class="card-details">
+        <div class="addr">${l.a}</div>
+        ${l.p ? `<div><a href="tel:${l.p.replace(/[^+\d]/g,'')}">${l.p}</a></div>` : '<div style="color:#ef4444;font-size:12px">No phone — check website</div>'}
+        ${l.w ? `<div><a href="https://${l.w}" target="_blank">${l.w}</a></div>` : ''}
+        ${l.note ? `<div style="color:#a3a3a3;font-size:12px;margin-top:2px">${l.note}</div>` : ''}
+      </div>
+      <div class="card-actions">
+        ${l.p ? `<button class="action-btn btn-call" onclick="window.location.href='tel:${l.p.replace(/[^+\d]/g,'')}'">Call</button>` : ''}
+        ${l.a && !l.a.includes('(') ? `<button class="action-btn btn-nav" onclick="window.open('https://maps.google.com/maps?q='+encodeURIComponent('${l.a.replace(/'/g,"\\'")}'))">Navigate</button>` : ''}
+        <button class="action-btn btn-visited" onclick="toggleVisited(${i})">${st==='visited'?'Undo':'Visited'}</button>
+        <button class="action-btn btn-skip" onclick="toggleSkipped(${i})">${st==='skipped'?'Undo':'Skip'}</button>
+      </div>
+    </div>`;
+  });
+
+  list.innerHTML = html;
+  document.getElementById('visited-count').textContent = visited;
+  document.getElementById('remaining-count').textContent = leads.length - visited;
+  document.getElementById('count-display').textContent = `Showing ${shown} of ${leads.length} leads`;
+}
+
+// Build filter bar
+const verticals = [...new Set(leads.map(l => l.v))];
+const bar = document.getElementById('filter-bar');
+bar.innerHTML = `<button class="filter-btn active" data-v="all" onclick="setFilter('all')">All (${leads.length})</button>`;
+verticals.forEach(v => {
+  const count = leads.filter(l => l.v === v).length;
+  bar.innerHTML += `<button class="filter-btn" data-v="${v}" onclick="setFilter('${v}')">${v} (${count})</button>`;
+});
+
+render();
+</script>
+</body>
+</html>

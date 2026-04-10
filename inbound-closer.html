@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your AI Receptionist Is Ready to Talk — AutoScale AI</title>
+<meta name="description" content="Click to speak with our AI. It will qualify your business, give you a live demo, and get you set up in under 5 minutes. No forms. No waiting.">
+<meta property="og:title" content="Your AI Receptionist Is Ready to Talk">
+<meta property="og:description" content="No forms. No waiting. Talk to our AI now and go live in 5 minutes.">
+<meta property="og:type" content="website">
+
+<!-- Meta Pixel — UNCOMMENT AND REPLACE PIXEL_ID
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'YOUR_PIXEL_ID');
+fbq('track', 'PageView');
+</script>
+-->
+
+<!-- Google Tag Manager — UNCOMMENT AND REPLACE GTM-XXXXXXX
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-XXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'GTM-XXXXXXX');
+</script>
+-->
+
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #0f0f1a;
+    --card: #111827;
+    --card2: #1a1a2e;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(59,130,246,0.3);
+    --blue: #3b82f6;
+    --blue-glow: rgba(59,130,246,0.4);
+    --blue-dim: rgba(59,130,246,0.15);
+    --green: #10b981;
+    --green-glow: rgba(16,185,129,0.4);
+    --green-dim: rgba(16,185,129,0.12);
+    --text: #f1f5f9;
+    --muted: #64748b;
+    --muted2: #94a3b8;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── Background gradient ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(16,185,129,0.1) 0%, transparent 50%),
+      linear-gradient(180deg, #0a0a0a 0%, #0d0d1a 40%, #0a0a0a 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap { position: relative; z-index: 1; }
+
+  /* ── Nav ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--blue); }
+  .nav-cta {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: #2563eb; transform: translateY(-1px); }
+
+  /* ── Sections ── */
+  section { padding: 80px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: calc(100vh - 57px);
+    display: flex;
+    align-items: center;
+    padding: 60px 24px;
+    text-align: center;
+  }
+  .hero .container { display: flex; flex-direction: column; align-items: center; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(16,185,129,0.12);
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 32px;
+    animation: fadeInDown 0.6s ease both;
+  }
+  .hero-badge .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse-dot 2s infinite;
+  }
+
+  h1 {
+    font-size: clamp(36px, 7vw, 72px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.6s 0.1s ease both;
+  }
+  h1 .accent { color: var(--blue); }
+
+  .hero-sub {
+    font-size: clamp(17px, 2.5vw, 21px);
+    color: var(--muted2);
+    max-width: 620px;
+    line-height: 1.55;
+    margin-bottom: 48px;
+    animation: fadeInUp 0.6s 0.2s ease both;
+  }
+
+  /* ── Call button ── */
+  .call-btn-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: fadeInUp 0.6s 0.3s ease both;
+  }
+  .call-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    padding: 20px 44px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 0 0 0 var(--blue-glow), 0 8px 32px rgba(59,130,246,0.35);
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+  .call-btn:hover {
+    background: #2563eb;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 0 8px rgba(59,130,246,0.15), 0 16px 48px rgba(59,130,246,0.5);
+  }
+  .call-btn:active { transform: translateY(0) scale(0.99); }
+  .call-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+  /* Call status states */
+  .call-btn.connecting { background: #f59e0b; animation: none; box-shadow: 0 0 32px rgba(245,158,11,0.4); }
+  .call-btn.active { background: var(--green); animation: none; box-shadow: 0 0 32px rgba(16,185,129,0.5); cursor: default; }
+  .call-btn.ended { background: #374151; animation: none; box-shadow: none; }
+
+  .call-tagline {
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .call-tagline span { display: flex; align-items: center; gap: 5px; }
+  .call-tagline svg { width: 14px; height: 14px; color: var(--green); }
+
+  /* ── Trust badges ── */
+  .trust-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 52px;
+    animation: fadeInUp 0.6s 0.4s ease both;
+  }
+  .trust-badge {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 20px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+  }
+  .trust-badge strong {
+    display: block;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .trust-badge small { font-size: 12px; color: var(--muted); }
+
+  /* ── Audio visualizer ── */
+  .audio-viz {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 40px;
+    margin-top: 16px;
+  }
+  .audio-viz.active { display: flex; }
+  .viz-bar {
+    width: 4px;
+    border-radius: 2px;
+    background: var(--green);
+    animation: viz-bounce 0.8s ease-in-out infinite;
+  }
+  .viz-bar:nth-child(1) { height: 12px; animation-delay: 0s; }
+  .viz-bar:nth-child(2) { height: 20px; animation-delay: 0.1s; }
+  .viz-bar:nth-child(3) { height: 28px; animation-delay: 0.2s; }
+  .viz-bar:nth-child(4) { height: 20px; animation-delay: 0.3s; }
+  .viz-bar:nth-child(5) { height: 14px; animation-delay: 0.4s; }
+  .viz-bar:nth-child(6) { height: 24px; animation-delay: 0.15s; }
+  .viz-bar:nth-child(7) { height: 16px; animation-delay: 0.35s; }
+
+  .call-status-msg {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted2);
+    text-align: center;
+    margin-top: 8px;
+    min-height: 22px;
+    transition: all 0.3s;
+  }
+  .call-status-msg.green { color: var(--green); }
+  .call-status-msg.yellow { color: #f59e0b; }
+  .call-ended-cta {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .call-ended-cta.visible { display: flex; }
+  .call-again-btn {
+    background: transparent;
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    border-radius: 100px;
+    padding: 10px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .call-again-btn:hover { background: var(--blue); color: #fff; }
+
+  /* ── Social proof strip ── */
+  .proof-strip {
+    background: rgba(255,255,255,0.025);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 24px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted2);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .proof-strip span { color: var(--muted2); }
+  .proof-strip strong { color: var(--text); font-weight: 600; }
+
+  /* ── How it works ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .step-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px 28px;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .step-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .step-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+  .step-card:hover::before { opacity: 1; }
+  .step-number {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+  .step-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  .step-icon.blue { background: var(--blue-dim); }
+  .step-icon.green { background: var(--green-dim); }
+  .step-icon.purple { background: rgba(139,92,246,0.12); }
+  .step-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .step-card p { font-size: 14px; color: var(--muted2); line-height: 1.6; }
+
+  /* ── ROI Calculator ── */
+  .roi-section { background: transparent; }
+  .roi-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px;
+    backdrop-filter: blur(12px);
+    max-width: 720px;
+    margin: 48px auto 0;
+  }
+  .roi-card h2 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .roi-card .sub { font-size: 15px; color: var(--muted2); margin-bottom: 36px; }
+
+  .slider-wrap { margin-bottom: 32px; }
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .slider-label { font-size: 14px; color: var(--muted2); }
+  .slider-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue);
+    background: var(--blue-dim);
+    padding: 2px 10px;
+    border-radius: 100px;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.1);
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--blue);
+    cursor: pointer;
+    box-shadow: 0 0 12px var(--blue-glow);
+    transition: transform 0.15s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 100px;
+  }
+
+  .roi-result {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .roi-result .loss-icon { font-size: 28px; }
+  .roi-result .loss-text { flex: 1; }
+  .roi-result .loss-text p { font-size: 13px; color: var(--muted2); margin-bottom: 4px; }
+  .roi-result .loss-text strong {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #f87171;
+  }
+
+  .roi-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .roi-compare-card {
+    border-radius: 14px;
+    padding: 18px 20px;
+    text-align: center;
+  }
+  .roi-compare-card.bad { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2); }
+  .roi-compare-card.good { background: var(--green-dim); border: 1px solid rgba(16,185,129,0.3); }
+  .roi-compare-card .price {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 4px;
+  }
+  .roi-compare-card.bad .price { color: #f87171; }
+  .roi-compare-card.good .price { color: var(--green); }
+  .roi-compare-card .label { font-size: 12px; color: var(--muted); }
+
+  /* ── Testimonials ── */
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .testi-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    position: relative;
+  }
+  .testi-card .stars {
+    color: #f59e0b;
+    font-size: 15px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+  .testi-card blockquote {
+    font-size: 15px;
+    color: var(--muted2);
+    line-height: 1.65;
+    font-style: italic;
+    margin-bottom: 18px;
+  }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .testi-author .name { font-size: 14px; font-weight: 600; }
+  .testi-author .role { font-size: 12px; color: var(--muted); }
+
+  /* ── FAQ ── */
+  .faq-list {
+    max-width: 720px;
+    margin: 48px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .faq-item.open { border-color: var(--border2); }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    text-align: left;
+    padding: 22px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: -0.01em;
+  }
+  .faq-q svg {
+    width: 18px; height: 18px;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .faq-item.open .faq-q svg { transform: rotate(45deg); color: var(--blue); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0,1,0,1);
+  }
+  .faq-item.open .faq-a { max-height: 400px; transition: max-height 0.5s ease-in-out; }
+  .faq-a-inner {
+    padding: 0 24px 22px;
+    font-size: 15px;
+    color: var(--muted2);
+    line-height: 1.7;
+  }
+
+  /* ── Bottom CTA ── */
+  .bottom-cta {
+    text-align: center;
+    padding: 100px 24px;
+    position: relative;
+  }
+  .bottom-cta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--border));
+  }
+  .bottom-cta h2 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    margin-bottom: 16px;
+  }
+  .bottom-cta p { font-size: 17px; color: var(--muted2); margin-bottom: 44px; }
+
+  /* ── Floating button ── */
+  .float-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 200;
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--blue);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(59,130,246,0.5);
+    transition: all 0.25s;
+    animation: float-pulse 3s ease-in-out infinite;
+  }
+  .float-btn:hover { transform: scale(1.12); box-shadow: 0 12px 40px rgba(59,130,246,0.7); }
+  .float-btn.active { background: var(--green); animation: none; }
+  .float-btn svg { width: 26px; height: 26px; }
+  .float-btn .float-label {
+    position: absolute;
+    right: 76px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--text);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(8px);
+    transition: all 0.2s;
+  }
+  .float-btn:hover .float-label { opacity: 1; transform: translateX(0); }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer a { color: var(--muted); text-decoration: none; margin: 0 10px; }
+  footer a:hover { color: var(--text); }
+
+  /* ── Animations ── */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.4), 0 8px 32px rgba(59,130,246,0.35); }
+    50% { box-shadow: 0 0 0 14px rgba(59,130,246,0), 0 8px 32px rgba(59,130,246,0.5); }
+  }
+  @keyframes float-pulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(59,130,246,0.5), 0 0 0 0 rgba(59,130,246,0.4); }
+    50% { box-shadow: 0 8px 32px rgba(59,130,246,0.5), 0 0 0 10px rgba(59,130,246,0); }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+  @keyframes viz-bounce {
+    0%, 100% { transform: scaleY(0.4); }
+    50% { transform: scaleY(1); }
+  }
+
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    section { padding: 60px 20px; }
+    .hero { padding: 48px 20px; min-height: calc(100svh - 57px); }
+    .roi-card { padding: 28px 20px; }
+    .roi-compare { grid-template-columns: 1fr; }
+    .call-btn { padding: 18px 32px; font-size: 18px; }
+    h1 { font-size: clamp(32px, 9vw, 52px); }
+    .testi-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .float-btn .float-label { display: none; }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .steps-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ── Navigation ── -->
+<nav>
+  <a href="/" class="nav-logo">AutoScale <span>AI</span></a>
+  <button class="nav-cta" onclick="triggerCall()">Talk to AI Now</button>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      AI is online and ready
+    </div>
+
+    <h1>Your AI Receptionist<br><span class="accent">Is Ready to Talk</span></h1>
+
+    <p class="hero-sub">
+      Click the button below. Our AI will qualify your business, give you a live demo, and get you set up — all in under 5 minutes.
+    </p>
+
+    <div class="call-btn-wrap" id="call-section">
+      <button class="call-btn" id="call-btn" onclick="triggerCall()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/>
+        </svg>
+        <span id="call-btn-text">Talk to Our AI Now</span>
+      </button>
+
+      <div class="call-tagline">
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          No forms
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          No waiting
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          No humans
+        </span>
+      </div>
+
+      <div class="audio-viz" id="audio-viz">
+        <div class="viz-bar"></div>
+        <div class="viz-bar"></div>
+        <div class="viz-bar"></div>
+        <div class="viz-bar"></div>
+        <div class="viz-bar"></div>
+        <div class="viz-bar"></div>
+        <div class="viz-bar"></div>
+      </div>
+
+      <div class="call-status-msg" id="call-status"></div>
+
+      <div class="call-ended-cta" id="call-ended-cta">
+        <button class="call-again-btn" onclick="triggerCall()">Call Again</button>
+        <span style="font-size:13px;color:var(--muted)">Or call us directly: <a href="tel:+12073049892" style="color:var(--blue)">(207) 304-9892</a></span>
+      </div>
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-badge">
+        <strong>500+</strong>
+        <small>businesses served</small>
+      </div>
+      <div class="trust-badge">
+        <strong>24/7</strong>
+        <small>coverage</small>
+      </div>
+      <div class="trust-badge">
+        <strong>$23</strong>
+        <small>per day</small>
+      </div>
+      <div class="trust-badge">
+        <strong>&lt; 5 min</strong>
+        <small>to go live</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Social Proof Strip ── -->
+<div class="proof-strip">
+  <span>Trusted by <strong>dental clinics</strong>, <strong>HVAC companies</strong>, <strong>legal firms</strong>, and <strong>veterinary practices</strong> across North America</span>
+</div>
+
+<!-- ── How It Works ── -->
+<section id="how-it-works">
+  <div class="container">
+    <p class="section-label reveal">How it works</p>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-0.03em;max-width:520px;" class="reveal reveal-delay-1">
+      From click to live in 3 steps
+    </h2>
+
+    <div class="steps-grid">
+      <div class="step-card reveal reveal-delay-1">
+        <div class="step-number">Step 01</div>
+        <div class="step-icon blue">📞</div>
+        <h3>Click to Call</h3>
+        <p>Hit the button above. Our AI answers instantly — no hold music, no transfers, no IVR maze. Just a real conversation.</p>
+      </div>
+      <div class="step-card reveal reveal-delay-2">
+        <div class="step-number">Step 02</div>
+        <div class="step-icon green">▶️</div>
+        <h3>Get a Live Demo</h3>
+        <p>The AI qualifies your business, shows you exactly how it handles your calls, and answers every question you have — live.</p>
+      </div>
+      <div class="step-card reveal reveal-delay-3">
+        <div class="step-number">Step 03</div>
+        <div class="step-icon purple">🚀</div>
+        <h3>Go Live in 5 Min</h3>
+        <p>Say yes and your AI receptionist is deployed within minutes. It starts capturing leads and booking appointments immediately.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROI Calculator ── -->
+<section class="roi-section" id="roi">
+  <div class="container">
+    <div class="roi-card reveal">
+      <p class="section-label">ROI Calculator</p>
+      <h2>How much are missed calls costing you?</h2>
+      <p class="sub">Drag the slider to see your actual monthly loss.</p>
+
+      <div class="slider-wrap">
+        <div class="slider-labels">
+          <span class="slider-label">Calls per week</span>
+          <span class="slider-value" id="slider-display">50 calls/wk</span>
+        </div>
+        <input type="range" id="roi-slider" min="20" max="200" value="50" step="5">
+      </div>
+
+      <div class="roi-result">
+        <span class="loss-icon">📉</span>
+        <div class="loss-text">
+          <p>Estimated monthly revenue lost to missed calls</p>
+          <strong id="roi-loss">$5,000</strong>
+        </div>
+      </div>
+
+      <div class="roi-compare">
+        <div class="roi-compare-card bad">
+          <div class="price">$116<span style="font-size:14px;font-weight:500">/day</span></div>
+          <div class="label">Human receptionist</div>
+        </div>
+        <div class="roi-compare-card good">
+          <div class="price">$23<span style="font-size:14px;font-weight:500">/day</span></div>
+          <div class="label">AutoScale AI — 24/7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ── -->
+<section id="testimonials">
+  <div class="container">
+    <p class="section-label reveal">What businesses say</p>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-0.03em;max-width:480px;" class="reveal reveal-delay-1">
+      Real results from real businesses
+    </h2>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="stars">★★★★★</div>
+        <blockquote>"We were missing 30% of our after-hours calls. AutoScale captures every single one now. Booked 8 new patients in the first week."</blockquote>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#1e40af;">DR</div>
+          <div>
+            <div class="name">Dr. Rachel Simmons</div>
+            <div class="role">Dental Clinic — Portland, ME</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="stars">★★★★★</div>
+        <blockquote>"HVAC season is brutal. The AI handles the overflow calls perfectly — qualifies the lead, books the dispatch. I don't even need an office manager."</blockquote>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#065f46;">MK</div>
+          <div>
+            <div class="name">Mike Kowalski</div>
+            <div class="role">HVAC Services — Boston, MA</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-3">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Clients call at 11pm expecting answers. The AI handles intake, qualifies urgency, and has a consultation booked before I wake up."</blockquote>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#7c2d12;">AP</div>
+          <div>
+            <div class="name">Amanda Pierce, Esq.</div>
+            <div class="role">Family Law Practice — NYC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="container">
+    <p class="section-label reveal">FAQ</p>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-0.03em;margin-bottom:0;" class="reveal reveal-delay-1">
+      Common questions
+    </h2>
+
+    <div class="faq-list reveal reveal-delay-2">
+      <div class="faq-item" id="faq-1">
+        <button class="faq-q" onclick="toggleFaq('faq-1')">
+          How does the AI handle complex calls?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            The AI is trained on thousands of real conversations from your industry. It handles scheduling, FAQs, pricing questions, and lead qualification naturally. For anything outside its scope, it collects contact info and flags it for your team — nothing falls through the cracks. You can listen to every call recording in your dashboard.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq-2">
+        <button class="faq-q" onclick="toggleFaq('faq-2')">
+          Can I customize what it says?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Completely. Your AI receptionist uses your business name, your tone, your services, and your exact booking flow. You can define how it greets callers, what information it collects, which questions it asks, and where it routes hot leads. Most clients are customized and live within the same day.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq-3">
+        <button class="faq-q" onclick="toggleFaq('faq-3')">
+          What if I don't like it?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            We offer a 30-day trial. If you're not capturing more leads and saving time by day 30, we'll refund you in full — no questions, no hoops. We're confident because we've seen it work in 500+ businesses. But your success is the only thing that matters to us.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Bottom CTA ── -->
+<section class="bottom-cta" id="bottom-cta">
+  <div class="container">
+    <p class="section-label reveal">Ready to start?</p>
+    <h2 class="reveal reveal-delay-1">Every missed call is a<br><span style="color:var(--blue)">missed customer</span></h2>
+    <p class="reveal reveal-delay-2">Talk to our AI now. It takes 5 minutes and it's free to try.</p>
+    <div class="call-btn-wrap reveal reveal-delay-3">
+      <button class="call-btn" onclick="triggerCall()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/>
+        </svg>
+        Talk to Our AI Now
+      </button>
+      <div class="call-tagline">
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          30-day money back
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Live in 5 minutes
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div>&copy; 2026 AutoScale AI — All rights reserved</div>
+  <div style="margin-top:8px;">
+    <a href="/fieldkit/privacy.html">Privacy</a>
+    <a href="/fieldkit/terms.html">Terms</a>
+    <a href="tel:+12073049892">(207) 304-9892</a>
+  </div>
+</footer>
+
+<!-- ── Floating Call Button ── -->
+<button class="float-btn" id="float-btn" onclick="triggerCall()" title="Talk to AI Now">
+  <svg id="float-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/>
+  </svg>
+  <span class="float-label">Talk to AI</span>
+</button>
+
+</div><!-- /page-wrap -->
+
+<!-- ── VAPI Web SDK ── -->
+<script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web@latest/dist/vapi.umd.js"></script>
+
+<script>
+// ── UTM capture ──────────────────────────────────────────────────────────────
+const params = new URLSearchParams(window.location.search);
+const utm = {
+  source:   params.get('utm_source')   || 'direct',
+  medium:   params.get('utm_medium')   || '',
+  campaign: params.get('utm_campaign') || '',
+  content:  params.get('utm_content')  || '',
+};
+
+// ── Analytics helpers ─────────────────────────────────────────────────────────
+const pageLoadTime = Date.now();
+
+function trackEvent(name, data) {
+  // Google Analytics conversion tracking
+  // if (typeof gtag !== 'undefined') gtag('event', name, data);
+
+  // Meta Pixel conversion tracking
+  // if (typeof fbq !== 'undefined') fbq('track', name === 'call_start' ? 'InitiateCheckout' : name, data);
+
+  // Internal: log to console in dev
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    console.info('[analytics]', name, data);
+  }
+}
+
+trackEvent('page_view', { utm, load_time: pageLoadTime });
+
+// ── ROI Calculator ────────────────────────────────────────────────────────────
+const roiSlider = document.getElementById('roi-slider');
+const roiLoss   = document.getElementById('roi-loss');
+const sliderDisp = document.getElementById('slider-display');
+
+function updateRoi() {
+  const callsPerWeek = parseInt(roiSlider.value);
+  const missRate = 0.3;           // 30% of calls missed on average
+  const avgValue = 50;            // $50 avg customer value
+  const weeksPerMonth = 4.33;
+  const missed = Math.round(callsPerWeek * missRate * weeksPerMonth);
+  const loss = missed * avgValue;
+  roiLoss.textContent = '$' + loss.toLocaleString('en-US');
+  sliderDisp.textContent = callsPerWeek + ' calls/wk';
+
+  // Dynamic track color
+  const pct = ((callsPerWeek - 20) / (200 - 20)) * 100;
+  roiSlider.style.background = `linear-gradient(to right, var(--blue) ${pct}%, rgba(255,255,255,0.1) ${pct}%)`;
+}
+
+if (roiSlider) {
+  roiSlider.addEventListener('input', updateRoi);
+  updateRoi();
+}
+
+// ── FAQ Accordion ─────────────────────────────────────────────────────────────
+function toggleFaq(id) {
+  const item = document.getElementById(id);
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── Scroll Reveal ─────────────────────────────────────────────────────────────
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── VAPI Integration ──────────────────────────────────────────────────────────
+const VAPI_PUBLIC_KEY    = 'VAPI_PUBLIC_KEY_PLACEHOLDER';
+const INBOUND_ASSISTANT  = 'INBOUND_CLOSER_ASSISTANT_ID_PLACEHOLDER';
+
+let vapi = null;
+let callActive = false;
+let callStartTime = null;
+
+function initVapi() {
+  if (vapi) return;
+  if (typeof Vapi === 'undefined') {
+    console.warn('VAPI SDK not loaded');
+    return;
+  }
+  vapi = new Vapi(VAPI_PUBLIC_KEY);
+
+  vapi.on('call-start', () => {
+    callActive = true;
+    callStartTime = Date.now();
+    setCallState('active', 'Connected — AI is listening');
+    trackEvent('call_start', { utm, assistant: INBOUND_ASSISTANT });
+    // Meta Pixel call-start conversion
+    // if (typeof fbq !== 'undefined') fbq('track', 'Contact', { utm_source: utm.source });
+  });
+
+  vapi.on('call-end', () => {
+    const duration = callStartTime ? Math.round((Date.now() - callStartTime) / 1000) : 0;
+    callActive = false;
+    callStartTime = null;
+    setCallState('ended', 'Call ended — Thanks for chatting!');
+    document.getElementById('call-ended-cta').classList.add('visible');
+    document.getElementById('audio-viz').classList.remove('active');
+    trackEvent('call_end', { utm, duration_seconds: duration });
+  });
+
+  vapi.on('speech-start', () => {
+    document.getElementById('audio-viz').classList.add('active');
+  });
+
+  vapi.on('speech-end', () => {
+    if (callActive) {
+      document.getElementById('audio-viz').classList.remove('active');
+    }
+  });
+
+  vapi.on('error', (error) => {
+    callActive = false;
+    setCallState('idle', '');
+    document.getElementById('call-ended-cta').classList.add('visible');
+    document.getElementById('audio-viz').classList.remove('active');
+    trackEvent('call_error', { utm, error: error?.message || 'unknown' });
+  });
+}
+
+function triggerCall() {
+  trackEvent('call_btn_click', { utm });
+
+  if (callActive) return;
+
+  // Hide previous ended CTA
+  document.getElementById('call-ended-cta').classList.remove('visible');
+
+  // Scroll to hero
+  document.getElementById('hero').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  setCallState('connecting', 'Connecting…');
+
+  if (VAPI_PUBLIC_KEY === 'VAPI_PUBLIC_KEY_PLACEHOLDER') {
+    // Dev mode: simulate a call for UI testing
+    simulateCallDev();
+    return;
+  }
+
+  initVapi();
+
+  if (!vapi) {
+    setCallState('idle', '');
+    document.getElementById('call-ended-cta').classList.add('visible');
+    document.getElementById('call-ended-cta').querySelector('.call-again-btn').style.display = 'none';
+    return;
+  }
+
+  vapi.start({
+    assistantId: INBOUND_ASSISTANT,
+    assistantOverrides: {
+      variableValues: {
+        utm_source:    utm.source,
+        utm_medium:    utm.medium,
+        utm_campaign:  utm.campaign,
+        utm_content:   utm.content,
+        landing_page:  'inbound-closer',
+      }
+    }
+  });
+}
+
+function setCallState(state, msg) {
+  const btn      = document.getElementById('call-btn');
+  const btnText  = document.getElementById('call-btn-text');
+  const floatBtn = document.getElementById('float-btn');
+  const status   = document.getElementById('call-status');
+
+  btn.className = 'call-btn ' + (state === 'idle' ? '' : state);
+  floatBtn.className = 'float-btn' + (state === 'active' ? ' active' : '');
+  status.textContent = msg;
+  status.className = 'call-status-msg' + (state === 'active' ? ' green' : state === 'connecting' ? ' yellow' : '');
+
+  if (state === 'connecting') {
+    btnText.textContent = 'Connecting…';
+  } else if (state === 'active') {
+    btnText.textContent = 'AI is live';
+    document.getElementById('audio-viz').classList.add('active');
+  } else if (state === 'ended') {
+    btnText.textContent = 'Call Ended';
+  } else {
+    btnText.textContent = 'Talk to Our AI Now';
+  }
+}
+
+// Dev-mode call simulation (no real VAPI credentials needed)
+function simulateCallDev() {
+  setTimeout(() => {
+    setCallState('active', 'Connected — AI is listening');
+    callActive = true;
+    document.getElementById('audio-viz').classList.add('active');
+  }, 1200);
+  setTimeout(() => {
+    callActive = false;
+    setCallState('ended', 'Call ended — Thanks for chatting!');
+    document.getElementById('call-ended-cta').classList.add('visible');
+    document.getElementById('audio-viz').classList.remove('active');
+  }, 8000);
+}
+
+// ── Hide float btn when hero CTA is visible ──────────────────────────────────
+const heroSection = document.getElementById('hero');
+const floatBtn = document.getElementById('float-btn');
+const floatObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    floatBtn.style.opacity = e.isIntersecting ? '0' : '1';
+    floatBtn.style.pointerEvents = e.isIntersecting ? 'none' : 'auto';
+  });
+}, { threshold: 0.4 });
+floatObs.observe(heroSection);
+</script>
+
+</body>
+</html>

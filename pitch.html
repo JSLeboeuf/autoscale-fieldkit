@@ -2045,9 +2045,10 @@
         var p = new URLSearchParams(window.location.search);
         return p.get('tid') || '';
       })();
+      var partnerCode = new URLSearchParams(window.location.search).get('partner') || '';
 
-      /* Show sticky CTA only if tid is present */
-      if (trackingId) {
+      /* Show sticky CTA if tid or partner is present */
+      if (trackingId || partnerCode) {
         document.getElementById('stickyCta').classList.add('visible');
       }
 
@@ -2119,8 +2120,8 @@
          ═══════════════════════════════════════════ */
       function selectPlan(plan) {
         if (!trackingId) {
-          /* No tid — redirect to pay.html */
-          window.location.href = 'pay.html?plan=' + plan;
+          /* No tid — redirect to pay.html (preserve partner code) */
+          window.location.href = 'pay.html?plan=' + plan + (partnerCode ? '&partner=' + encodeURIComponent(partnerCode) : '');
           return false;
         }
 
@@ -2271,6 +2272,7 @@
           name: bizName,
           plan: plan,
         };
+        if (partnerCode) payload.partnerCode = partnerCode;
 
         fetch('https://api.autoscaleai.ca/api/field-sales/checkout', {
           method: 'POST',
@@ -2286,13 +2288,13 @@
               window.location.href = data.checkoutUrl;
             } else {
               /* No checkout URL — redirect to pay.html as fallback */
-              var fallback = 'pay.html?plan=' + plan + (trackingId ? '&tid=' + trackingId : '');
+              var fallback = 'pay.html?plan=' + plan + (trackingId ? '&tid=' + trackingId : '') + (partnerCode ? '&partner=' + encodeURIComponent(partnerCode) : '');
               window.location.href = fallback;
             }
           })
           .catch(function (err) {
             /* Fallback to pay.html if API is unreachable */
-            var fallback = 'pay.html?plan=' + plan + (trackingId ? '&tid=' + trackingId : '');
+            var fallback = 'pay.html?plan=' + plan + (trackingId ? '&tid=' + trackingId : '') + (partnerCode ? '&partner=' + encodeURIComponent(partnerCode) : '');
             window.location.href = fallback;
           })
           .finally(function () {

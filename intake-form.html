@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Quick Setup Form — AutoScale AI</title>
+<meta name="robots" content="noindex, nofollow">
+
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #0f0f1a;
+    --card: #111827;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(59,130,246,0.3);
+    --blue: #3b82f6;
+    --blue-glow: rgba(59,130,246,0.4);
+    --blue-dim: rgba(59,130,246,0.15);
+    --green: #10b981;
+    --green-glow: rgba(16,185,129,0.4);
+    --green-dim: rgba(16,185,129,0.12);
+    --text: #f1f5f9;
+    --muted: #64748b;
+    --muted2: #94a3b8;
+    --error: #f87171;
+    --error-bg: rgba(239,68,68,0.08);
+    --error-border: rgba(239,68,68,0.3);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    /* Prevent bounce on iOS while keeping scroll */
+    height: -webkit-fill-available;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    overflow-x: hidden;
+  }
+
+  /* Background gradient — same as inbound-closer */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(16,185,129,0.08) 0%, transparent 50%),
+      linear-gradient(180deg, #0a0a0a 0%, #0d0d1a 40%, #0a0a0a 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+
+  /* ── Header ── */
+  .form-header {
+    padding: 16px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-text {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+  .logo-text span { color: var(--blue); }
+
+  .secure-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.25);
+    border-radius: 100px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 0.02em;
+  }
+  .secure-badge svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+
+  /* ── Progress bar ── */
+  .progress-wrap {
+    padding: 14px 20px 10px;
+    background: rgba(10,10,10,0.3);
+    border-bottom: 1px solid var(--border);
+  }
+  .progress-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .progress-label .step-text { color: var(--blue); }
+  .progress-track {
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 33.33%;
+    background: linear-gradient(90deg, var(--blue), #60a5fa);
+    border-radius: 100px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── Main content ── */
+  .form-main {
+    flex: 1;
+    padding: 24px 20px 32px;
+    animation: fadeInUp 0.45s ease both;
+  }
+
+  .form-intro {
+    margin-bottom: 24px;
+  }
+  .form-intro h1 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .form-intro h1 .accent { color: var(--blue); }
+  .form-intro p {
+    font-size: 14px;
+    color: var(--muted2);
+    line-height: 1.5;
+  }
+
+  /* ── Active call indicator ── */
+  .call-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.25);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+  }
+  .call-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse-dot 1.5s infinite;
+    flex-shrink: 0;
+  }
+
+  /* ── Form ── */
+  form { display: flex; flex-direction: column; gap: 16px; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted2);
+    letter-spacing: 0.01em;
+  }
+  label .req {
+    color: var(--blue);
+    margin-left: 2px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  select {
+    width: 100%;
+    min-height: 52px;
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 0 16px;
+    font-size: 16px; /* 16px minimum prevents iOS auto-zoom */
+    font-family: inherit;
+    color: var(--text);
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    /* Ensure tap targets */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* iOS select arrow fix */
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 42px;
+    cursor: pointer;
+  }
+  select option {
+    background: #1a1a2e;
+    color: var(--text);
+  }
+
+  input:focus,
+  select:focus {
+    border-color: var(--blue);
+    background: rgba(59,130,246,0.06);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+  }
+
+  /* Valid state */
+  input:valid:not(:placeholder-shown),
+  select.has-value {
+    border-color: rgba(16,185,129,0.4);
+  }
+  input:focus:valid:not(:placeholder-shown) {
+    border-color: var(--green);
+    background: rgba(16,185,129,0.05);
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+  }
+
+  /* Error state */
+  .field.error input,
+  .field.error select {
+    border-color: var(--error);
+    background: var(--error-bg);
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+  }
+  .field-error {
+    font-size: 12px;
+    color: var(--error);
+    font-weight: 500;
+    display: none;
+    align-items: center;
+    gap: 4px;
+  }
+  .field.error .field-error { display: flex; }
+
+  /* Number input: hide arrows */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type="number"] { -moz-appearance: textfield; }
+
+  /* ── Submit button ── */
+  .submit-btn {
+    width: 100%;
+    min-height: 56px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 24px rgba(59,130,246,0.35);
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .submit-btn:hover { background: #2563eb; transform: translateY(-1px); }
+  .submit-btn:active { transform: scale(0.98); }
+  .submit-btn:disabled {
+    background: #374151;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+  .submit-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* Spinner inside button */
+  .btn-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+
+  /* ── Error banner ── */
+  .error-banner {
+    display: none;
+    background: var(--error-bg);
+    border: 1px solid var(--error-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--error);
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .error-banner.visible { display: flex; }
+  .error-banner svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
+  .error-banner-content { flex: 1; }
+  .error-banner-content strong { display: block; margin-bottom: 4px; }
+  .error-banner-content p { font-size: 13px; color: var(--muted2); }
+  .retry-btn {
+    margin-top: 10px;
+    background: none;
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .retry-btn:hover { background: var(--error); color: #fff; }
+
+  /* ── Success state ── */
+  .success-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 48px 24px 64px;
+    animation: fadeInUp 0.5s ease both;
+  }
+  .success-screen.visible { display: flex; }
+
+  .checkmark-wrap {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--green-dim);
+    border: 2px solid rgba(16,185,129,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .checkmark-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px solid rgba(16,185,129,0.15);
+    animation: ring-expand 2s ease-in-out infinite;
+  }
+  .checkmark-svg {
+    width: 36px;
+    height: 36px;
+    color: var(--green);
+  }
+  .checkmark-svg .check-path {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: draw-check 0.5s 0.15s ease forwards;
+  }
+
+  .success-screen h2 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .success-screen p {
+    font-size: 15px;
+    color: var(--muted2);
+    max-width: 300px;
+    line-height: 1.55;
+    margin-bottom: 28px;
+  }
+
+  .success-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 320px;
+    text-align: left;
+  }
+  .success-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--muted2);
+  }
+  .success-step.done { border-color: rgba(16,185,129,0.25); }
+  .success-step.done .step-num { background: var(--green-dim); color: var(--green); }
+  .success-step.active { border-color: rgba(59,130,246,0.3); }
+  .success-step.active .step-num { background: var(--blue-dim); color: var(--blue); animation: pulse-num 1.5s infinite; }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: var(--muted);
+  }
+
+  /* ── Footer ── */
+  .form-footer {
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    line-height: 1.5;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.8); }
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes draw-check {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes ring-expand {
+    0% { transform: scale(1); opacity: 0.4; }
+    100% { transform: scale(1.35); opacity: 0; }
+  }
+  @keyframes pulse-num {
+    0%, 100% { box-shadow: none; }
+    50% { box-shadow: 0 0 10px rgba(59,130,246,0.4); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ── Header ── -->
+  <header class="form-header">
+    <div class="logo-wrap">
+      <div class="logo-text">AutoScale <span>AI</span></div>
+    </div>
+    <div class="secure-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0110 0v4"/>
+      </svg>
+      Secure Form
+    </div>
+  </header>
+
+  <!-- ── Progress indicator ── -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Setup Progress</span>
+      <span class="step-text">Step 1 of 3 — Your Info</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- ── Main form ── -->
+  <main class="form-main" id="form-main">
+
+    <div class="form-intro">
+      <h1>Almost there — <span class="accent">stay on the call</span></h1>
+      <p>Fill this out in 60 seconds. Your AI receptionist will be ready while we're talking.</p>
+    </div>
+
+    <!-- Active call indicator -->
+    <div class="call-indicator">
+      <span class="call-dot"></span>
+      <span>You're still connected — don't hang up</span>
+    </div>
+
+    <form id="intake-form" novalidate>
+
+      <!-- Full Name -->
+      <div class="field" id="field-name">
+        <label for="name">Full Name <span class="req">*</span></label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="John Smith"
+          autocomplete="name"
+          required
+          inputmode="text"
+        >
+        <span class="field-error">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Name is required
+        </span>
+      </div>
+
+      <!-- Business Name -->
+      <div class="field" id="field-company">
+        <label for="company">Business Name <span class="req">*</span></label>
+        <input
+          type="text"
+          id="company"
+          name="company"
+          placeholder="Smith Dental Group"
+          autocomplete="organization"
+          required
+          inputmode="text"
+        >
+        <span class="field-error">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Business name is required
+        </span>
+      </div>
+
+      <!-- Email -->
+      <div class="field" id="field-email">
+        <label for="email">Email Address <span class="req">*</span></label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="john@yourbusiness.com"
+          autocomplete="email"
+          required
+          inputmode="email"
+        >
+        <span class="field-error">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          A valid email is required
+        </span>
+      </div>
+
+      <!-- Business Type -->
+      <div class="field" id="field-business-type">
+        <label for="businessType">Business Type <span class="req">*</span></label>
+        <select id="businessType" name="businessType" required>
+          <option value="" disabled selected>Select your industry…</option>
+          <option value="dental">Dental</option>
+          <option value="hvac">HVAC</option>
+          <option value="legal">Legal</option>
+          <option value="roofing">Roofing</option>
+          <option value="veterinary">Veterinary</option>
+          <option value="salon">Salon / Spa</option>
+          <option value="medical">Medical</option>
+          <option value="other">Other</option>
+        </select>
+        <span class="field-error">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Please select your business type
+        </span>
+      </div>
+
+      <!-- Weekly Call Volume -->
+      <div class="field" id="field-callVolume">
+        <label for="callVolume">Estimated Weekly Call Volume <span class="req">*</span></label>
+        <input
+          type="number"
+          id="callVolume"
+          name="callVolume"
+          placeholder="e.g. 75"
+          min="1"
+          max="10000"
+          required
+          inputmode="numeric"
+        >
+        <span class="field-error">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Enter a number greater than 0
+        </span>
+      </div>
+
+      <!-- Hidden fields -->
+      <input type="hidden" id="phone" name="phone">
+      <input type="hidden" id="plan" name="plan" value="core">
+      <input type="hidden" id="callId" name="callId">
+      <input type="hidden" id="sid" name="sid">
+
+      <!-- Error banner -->
+      <div class="error-banner" id="error-banner" role="alert">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div class="error-banner-content">
+          <strong>Submission failed</strong>
+          <p id="error-msg">Something went wrong. Please check your connection and try again.</p>
+          <button type="button" class="retry-btn" onclick="retrySubmit()">Try again</button>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="submit-btn" id="submit-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 11 12 14 22 4"/>
+          <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+        </svg>
+        <span id="btn-label">Submit — Generate My Contract</span>
+      </button>
+
+    </form>
+  </main>
+
+  <!-- ── Success screen ── -->
+  <div class="success-screen" id="success-screen">
+    <div class="checkmark-wrap">
+      <svg class="checkmark-svg" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path class="check-path" d="M14 26 L22 34 L38 18"/>
+      </svg>
+    </div>
+
+    <h2>Form received!</h2>
+    <p>Go back to your call — we're generating your contract now and will send it to your email.</p>
+
+    <div class="success-steps">
+      <div class="success-step done">
+        <div class="step-num">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span>Your info collected</span>
+      </div>
+      <div class="success-step active">
+        <div class="step-num">2</div>
+        <span>Contract being generated…</span>
+      </div>
+      <div class="success-step">
+        <div class="step-num">3</div>
+        <span>Payment &amp; go live</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="form-footer" id="form-footer">
+    This information is used to set up your AI receptionist. We never share your data.
+  </footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+(function () {
+  // ── Environment detection ────────────────────────────────────────────────────
+  const isProd = !['localhost', '127.0.0.1'].includes(window.location.hostname);
+  const API_BASE = isProd
+    ? 'https://api.autoscaleai.ca/api'
+    : 'http://localhost:3000/api';
+
+  // ── Parse URL params ─────────────────────────────────────────────────────────
+  const params = new URLSearchParams(window.location.search);
+
+  function getParam(key, fallback) {
+    return params.get(key) || fallback || '';
+  }
+
+  // Pre-fill visible fields
+  const nameInput        = document.getElementById('name');
+  const companyInput     = document.getElementById('company');
+  const emailInput       = document.getElementById('email');
+  const businessTypeEl   = document.getElementById('businessType');
+  const callVolumeInput  = document.getElementById('callVolume');
+
+  // Pre-fill hidden fields
+  const phoneInput  = document.getElementById('phone');
+  const planInput   = document.getElementById('plan');
+  const callIdInput = document.getElementById('callId');
+  const sidInput    = document.getElementById('sid');
+
+  nameInput.value    = getParam('name');
+  companyInput.value = getParam('company');
+  emailInput.value   = getParam('email');
+  phoneInput.value   = getParam('phone');
+  planInput.value    = getParam('plan', 'core');
+  callIdInput.value  = getParam('callId');
+  sidInput.value     = getParam('sid');
+
+  // Mark select as having value if pre-filled
+  if (businessTypeEl.value) businessTypeEl.classList.add('has-value');
+
+  // ── Field validation helpers ─────────────────────────────────────────────────
+  function setFieldError(fieldId, hasError) {
+    const el = document.getElementById('field-' + fieldId);
+    if (!el) return;
+    if (hasError) {
+      el.classList.add('error');
+    } else {
+      el.classList.remove('error');
+    }
+  }
+
+  function validateEmail(val) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+  }
+
+  function validateForm() {
+    let valid = true;
+
+    if (!nameInput.value.trim()) {
+      setFieldError('name', true);
+      valid = false;
+    } else {
+      setFieldError('name', false);
+    }
+
+    if (!companyInput.value.trim()) {
+      setFieldError('company', true);
+      valid = false;
+    } else {
+      setFieldError('company', false);
+    }
+
+    if (!emailInput.value.trim() || !validateEmail(emailInput.value)) {
+      setFieldError('email', true);
+      valid = false;
+    } else {
+      setFieldError('email', false);
+    }
+
+    if (!businessTypeEl.value) {
+      setFieldError('business-type', true);
+      valid = false;
+    } else {
+      setFieldError('business-type', false);
+    }
+
+    const vol = parseInt(callVolumeInput.value, 10);
+    if (!callVolumeInput.value || isNaN(vol) || vol < 1) {
+      setFieldError('callVolume', true);
+      valid = false;
+    } else {
+      setFieldError('callVolume', false);
+    }
+
+    return valid;
+  }
+
+  // Clear error state on input
+  [nameInput, companyInput, emailInput, callVolumeInput].forEach(function (input) {
+    input.addEventListener('input', function () {
+      const fieldId = input.name === 'businessType' ? 'business-type' : input.name;
+      setFieldError(fieldId, false);
+      hideBanner();
+    });
+  });
+
+  businessTypeEl.addEventListener('change', function () {
+    businessTypeEl.classList.add('has-value');
+    setFieldError('business-type', false);
+    hideBanner();
+  });
+
+  // ── Error banner ─────────────────────────────────────────────────────────────
+  function showBanner(msg) {
+    const banner = document.getElementById('error-banner');
+    const msgEl  = document.getElementById('error-msg');
+    if (msg) msgEl.textContent = msg;
+    banner.classList.add('visible');
+  }
+  function hideBanner() {
+    document.getElementById('error-banner').classList.remove('visible');
+  }
+
+  // ── Submit state helpers ──────────────────────────────────────────────────────
+  const submitBtn  = document.getElementById('submit-btn');
+  const btnLabel   = document.getElementById('btn-label');
+  let submitted = false;
+
+  function setSubmitting(isSubmitting) {
+    submitBtn.disabled = isSubmitting;
+    if (isSubmitting) {
+      submitBtn.innerHTML = '<div class="btn-spinner"></div><span>Submitting…</span>';
+    } else {
+      submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span id="btn-label">Submit — Generate My Contract</span>';
+    }
+  }
+
+  // ── Success transition ────────────────────────────────────────────────────────
+  function showSuccess() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('form-main').style.display = 'none';
+    document.getElementById('success-screen').classList.add('visible');
+  }
+
+  // ── Retry ────────────────────────────────────────────────────────────────────
+  window.retrySubmit = function () {
+    hideBanner();
+    submitted = false;
+    setSubmitting(false);
+    document.getElementById('intake-form').dispatchEvent(new Event('submit'));
+  };
+
+  // ── Form submit ───────────────────────────────────────────────────────────────
+  document.getElementById('intake-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    if (submitted) return;
+    hideBanner();
+
+    if (!validateForm()) {
+      // Scroll to first error
+      const firstError = document.querySelector('.field.error input, .field.error select');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstError.focus();
+      }
+      return;
+    }
+
+    submitted = true;
+    setSubmitting(true);
+
+    const payload = {
+      name:         nameInput.value.trim(),
+      company:      companyInput.value.trim(),
+      email:        emailInput.value.trim().toLowerCase(),
+      businessType: businessTypeEl.value,
+      callVolume:   parseInt(callVolumeInput.value, 10),
+      phone:        phoneInput.value,
+      plan:         planInput.value || 'core',
+      callId:       callIdInput.value,
+      sid:          sidInput.value,
+      submittedAt:  new Date().toISOString(),
+    };
+
+    try {
+      const resp = await fetch(API_BASE + '/inbound-closer/form-submitted', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(12000),
+      });
+
+      if (!resp.ok) {
+        let errMsg = 'Server error (' + resp.status + '). Please try again.';
+        try {
+          const body = await resp.json();
+          if (body && body.message) errMsg = body.message;
+        } catch (_) { /* ignore parse error */ }
+        throw new Error(errMsg);
+      }
+
+      // Success
+      showSuccess();
+    } catch (err) {
+      submitted = false;
+      setSubmitting(false);
+
+      let msg = 'Something went wrong. Please check your connection and try again.';
+      if (err && err.name === 'TimeoutError') {
+        msg = 'Request timed out. Please check your signal and try again.';
+      } else if (err && err.message && !err.message.includes('fetch')) {
+        msg = err.message;
+      }
+
+      showBanner(msg);
+    }
+  });
+
+  // ── Animate progress bar on load ─────────────────────────────────────────────
+  // Small delay to let the CSS paint first
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      document.getElementById('progress-fill').style.width = '33.33%';
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

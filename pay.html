@@ -1337,8 +1337,9 @@
       /* Parse URL params */
       var params        = new URLSearchParams(window.location.search);
       var trackingId    = params.get('tid')  || '';
+      var partnerCode   = params.get('partner') || '';
       var urlPlan       = params.get('plan') || '';
-      var isClientMode  = !!(trackingId || urlPlan);
+      var isClientMode  = !!(trackingId || urlPlan || partnerCode);
 
       /* Active plan state (client mode) */
       var activePlan = urlPlan in PLANS ? urlPlan : 'core';
@@ -1489,6 +1490,7 @@
           phone:      phone || undefined,
           plan:       activePlan,
           trackingId: trackingId || undefined,
+          partnerCode: partnerCode || undefined,
           industry:   industry || undefined,
         };
 
