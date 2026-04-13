@@ -3234,7 +3234,7 @@
             >
           </div>
           <div class="obj-a">
-            "We've handled thousands of calls across 200+ businesses across North America — dental,
+            "We've handled thousands of calls across businesses in North America — dental,
             legal, HVAC, roofing, salons, contractors. Which one are you? I'll pull up a case
             study."
           </div>
@@ -3935,8 +3935,8 @@
             -webkit-tap-highlight-color: transparent;
           "
         >
-          <option value="697">Core — $697/mo</option>
-          <option value="997" selected>Growth — $997/mo ⭐ Most Popular</option>
+          <option value="697" selected>Core — $697/mo</option>
+          <option value="997">Growth — $997/mo ⭐ Most Popular</option>
           <option value="1497">Scale — $1,497/mo</option>
           <option value="2497">AutoScale — $2,497/mo</option>
         </select>
@@ -4689,7 +4689,7 @@
         </div>
       </div>
       <div style="font-size: 10px; color: var(--border-2); margin-top: 8px; text-align: center">
-        * Real client outcomes across 200+ businesses across North America. Names abbreviated for
+        * Real client outcomes across businesses in North America. Names abbreviated for
         privacy. Individual results may vary.
       </div>
     </div>
@@ -6897,9 +6897,9 @@
               <span class="q-num" style="color: var(--gold); font-size: 10px">18</span>
               <div class="q-body">
                 <div class="q-main">
-                  "42 businesses in the area use our system. The plumber on your street has had it
-                  for 6 weeks. The dentist on the corner signed last week. And honestly, the reason
-                  I'm at your door today is your neighbor told me you should look at this."
+                  "Several businesses in the area use our system. And honestly, the reason
+                  I'm at your door today is I think this could help you capture more calls
+                  and book more appointments on autopilot."
                 </div>
                 <span class="q-hint"
                   >SOCIAL PROOF CASCADE — Stack multiple local examples in sequence.</span
@@ -6969,7 +6969,7 @@
               <span class="q-num" style="color: var(--gold); font-size: 10px">23</span>
               <div class="q-body">
                 <div class="q-main">
-                  "We've analyzed 200+ service businesses in the [area code] this year. The data
+                  "We've analyzed service businesses in the [area code] this year. The data
                   shows the average business loses 23% of incoming leads to unanswered calls. We
                   specialize in this specific problem."
                 </div>
@@ -8591,7 +8591,7 @@
       }
 
       var PLAN_PRICES = { core: 697, growth: 997, scale: 1497, autoscale: 2497 };
-      var PLAN_SETUP = { core: 500, growth: 750, scale: 1000, autoscale: 1500 };
+      var PLAN_SETUP = { core: 500, growth: 500, scale: 500, autoscale: 500 };
       var PLAN_OVERAGE = {
         core: '$0.25/min',
         growth: '$0.20/min',
@@ -8793,7 +8793,7 @@
         var calls = parseInt(document.getElementById('roi-calls-range').value);
         var value = parseInt(document.getElementById('roi-value-range').value);
         var planSel = document.getElementById('roi-plan-select');
-        var monthlyCost = planSel ? parseInt(planSel.value) : 997;
+        var monthlyCost = planSel ? parseInt(planSel.value) : 697;
         var convRate = 0.3;
         var lostMo = Math.round(calls * 4.3 * value * convRate);
         var lostYr = lostMo * 12;
