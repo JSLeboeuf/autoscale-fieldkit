@@ -8753,22 +8753,26 @@
           var linkArea = document.createElement('div');
           linkArea.id = 'signing-link-area';
           linkArea.style.cssText = 'margin-top:12px;display:flex;gap:8px;';
-          linkArea.innerHTML =
-            '<button type="button" onclick="window.open(\'' +
-            signingUrl.replace(/'/g, "\\'") +
-            "','_blank')\" " +
-            'style="flex:1;padding:10px;background:var(--color-primary);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;">' +
-            'Sign Now</button>' +
-            '<button type="button" id="copyLinkBtn" ' +
-            'style="padding:10px 16px;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:8px;cursor:pointer;">' +
-            'Copy Link</button>';
-          btn.parentNode.insertBefore(linkArea, btn.nextSibling);
 
-          document.getElementById('copyLinkBtn').onclick = function () {
+          var signBtn = document.createElement('button');
+          signBtn.type = 'button';
+          signBtn.textContent = 'Sign Now';
+          signBtn.style.cssText = 'flex:1;padding:10px;background:var(--color-primary);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;';
+          signBtn.addEventListener('click', function () { window.open(signingUrl, '_blank'); });
+
+          var copyBtn = document.createElement('button');
+          copyBtn.type = 'button';
+          copyBtn.textContent = 'Copy Link';
+          copyBtn.style.cssText = 'padding:10px 16px;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:8px;cursor:pointer;';
+          copyBtn.addEventListener('click', function () {
             navigator.clipboard.writeText(signingUrl).then(function () {
               showToast('Signing link copied!');
             });
-          };
+          });
+
+          linkArea.appendChild(signBtn);
+          linkArea.appendChild(copyBtn);
+          btn.parentNode.insertBefore(linkArea, btn.nextSibling);
         } else {
           btn.textContent = 'Contract Sent';
           showToast(

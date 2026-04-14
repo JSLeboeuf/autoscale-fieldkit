@@ -1842,7 +1842,7 @@
         });
 
         // Preserve UTM params when navigating to pay.html
-        var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'];
+        var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'tid'];
         var utmParams = {};
         utmKeys.forEach(function (k) {
           if (params.has(k)) utmParams[k] = params.get(k);

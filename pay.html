@@ -1483,12 +1483,14 @@
         btn.disabled = true;
         btn.classList.add('loading');
 
+        // Forward UTM/attribution params from URL to checkout API
+        var sp = new URLSearchParams(window.location.search);
         var payload = {
           email:      email,
           name:       business,
           phone:      phone || undefined,
           plan:       activePlan,
-          trackingId: trackingId || undefined,
+          trackingId: trackingId || sp.get('tid') || undefined,
           partnerCode: partnerCode || undefined,
           industry:   industry || undefined,
         };
@@ -1498,12 +1500,16 @@
           if (payload[k] === undefined) delete payload[k];
         });
 
+        var ctrl = new AbortController();
+        var fetchTimer = setTimeout(function () { ctrl.abort(); }, 15000);
+
         fetch(API_BASE + '/field-sales/checkout', {
           method: 'POST',
+          signal: ctrl.signal,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         })
-          .then(function (res) { return res.json(); })
+          .then(function (res) { clearTimeout(fetchTimer); return res.json(); })
           .then(function (data) {
             if (data.success && data.checkoutUrl) {
               showToast('Redirecting to payment...', true);
@@ -1515,7 +1521,11 @@
             }
           })
           .catch(function (err) {
-            showToast('Network error. Please try again.');
+            clearTimeout(fetchTimer);
+            var msg = err.name === 'AbortError'
+              ? 'Request timed out. Check your connection and try again.'
+              : 'Network error. Please try again.';
+            showToast(msg);
             btn.disabled = false;
             btn.classList.remove('loading');
           });
