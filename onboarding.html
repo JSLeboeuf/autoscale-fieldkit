@@ -2036,8 +2036,8 @@
       var email = params.get('email') || '';
       var clientName = decodeURIComponent(params.get('name') || '');
       // phone will be populated from polling response; fallback to URL param or default
-      var FALLBACK_PHONE = '(207) 304-9892';
-      var aiPhone = params.get('phone') || FALLBACK_PHONE;
+      var FALLBACK_PHONE = null; // Do not show demo number as client's number
+      var aiPhone = params.get('phone') || '';
       var aiPhoneRaw = aiPhone.replace(/\D/g, '');
       var polledPhone = null; // set when API confirms provisioning
 
@@ -2283,8 +2283,8 @@
         setCheckState('check-assistant', 'checking', 'Provisioning voice model…');
 
         if (!sessionId) {
-          // No session_id — graceful fallback: complete after 25s
-          setTimeout(function () { markSetupComplete(null); }, 25000);
+          // No session_id — show message instead of faking success
+          setCheckState('check-assistant', 'error', 'No checkout session found. Please use the link from your confirmation email.');
           return;
         }
 
