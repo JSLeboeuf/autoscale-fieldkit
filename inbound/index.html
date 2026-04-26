@@ -150,15 +150,14 @@
         width: 36px;
         height: 36px;
         border-radius: 8px;
-        background: linear-gradient(145deg, rgba(96, 165, 250, 0.18), rgba(96, 165, 250, 0.04));
-        border: 1px solid rgba(96, 165, 250, 0.25);
-        display: grid;
-        place-items: center;
+        overflow: hidden;
         flex-shrink: 0;
-        font-family: 'JetBrains Mono', monospace;
-        font-weight: 700;
-        color: var(--green);
-        font-size: 18px;
+      }
+
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
       }
 
       .logo-text {
@@ -799,7 +798,9 @@
 
     <header class="header">
       <div class="logo-row">
-        <div class="logo-mark" aria-hidden="true">A</div>
+        <div class="logo-mark">
+          <img src="../logo.png" alt="AutoScale AI" width="36" height="36" />
+        </div>
         <div class="logo-text">AutoScale AI</div>
       </div>
     </header>
