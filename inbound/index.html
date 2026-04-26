@@ -13,9 +13,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Michroma&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
       rel="stylesheet"
     />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://hook.us1.make.com; media-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; form-action 'self' https://hook.us1.make.com; base-uri 'self';" />
     <style>
       *,
       *::before,
@@ -909,6 +910,12 @@
         <p class="form-sub">We call you within 24 hours. No demo deck, no sales pressure — just your line, working.</p>
 
         <form id="lead-form" novalidate>
+          <!-- Honeypot field — hidden from humans, bots fill it. Submission rejected if non-empty. -->
+          <div class="field" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden;">
+            <label for="f-website">Website (leave blank)</label>
+            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
           <div class="field">
             <label for="f-name">Your name<span class="req" aria-hidden="true">*</span><span class="sr-only"> (required)</span></label>
             <input id="f-name" name="name" type="text" placeholder="John Smith" required aria-required="true" autocomplete="name" />
@@ -1015,6 +1022,10 @@
         // TODO: replace with the real Make.com webhook URL before launch.
         var WEBHOOK_URL = 'https://hook.us1.make.com/PLACEHOLDER_WEBHOOK';
 
+        // Bot/spam protection: track when the page loaded so we can reject sub-3s submissions.
+        var pageLoadedAt = Date.now();
+        var MIN_FORM_TIME_MS = 3000;
+
         var form = document.getElementById('lead-form');
         var btn = document.getElementById('submit-btn');
         var errorEl = document.getElementById('form-error');
@@ -1030,15 +1041,34 @@
         }
 
         function normalizePhone(raw) {
-          var digits = String(raw || '').replace(/\D/g, '');
+          // Strip extensions ("ext 123", "x123", "#123") before counting digits.
+          var cleaned = String(raw || '').replace(/(?:\s*(?:ext|x|#)\.?\s*\d+)$/i, '');
+          var digits = cleaned.replace(/\D/g, '');
           if (digits.length === 10) return '+1' + digits;
           if (digits.length === 11 && digits.charAt(0) === '1') return '+' + digits;
-          return digits.length >= 7 ? '+' + digits : '';
+          // International: 11-15 digits NOT starting with 1.
+          if (digits.length >= 11 && digits.length <= 15) return '+' + digits;
+          return ''; // anything <10 digits is not a dialable number
         }
 
         form.addEventListener('submit', function (e) {
           e.preventDefault();
           clearError();
+
+          // Bot trap 1: honeypot must be empty (humans never see it).
+          var honeypot = document.getElementById('f-website').value;
+          if (honeypot) {
+            // Silently fake-success so bots don't retry.
+            form.style.display = 'none';
+            successEl.classList.add('visible');
+            return;
+          }
+
+          // Bot trap 2: form filled in <3s = automated.
+          var elapsed = Date.now() - pageLoadedAt;
+          if (elapsed < MIN_FORM_TIME_MS) {
+            return showError('Slow down — please review your info before submitting.');
+          }
 
           var data = {
             name: document.getElementById('f-name').value.trim(),
@@ -1050,11 +1080,12 @@
             referrer: document.referrer || '',
             page: window.location.href,
             ts: new Date().toISOString(),
+            time_on_page_ms: elapsed,
           };
 
           if (!data.name) return showError('Please enter your name.');
           if (!data.business) return showError('Please enter your business name.');
-          if (!data.phone) return showError('Please enter a valid phone number.');
+          if (!data.phone) return showError('Please enter a valid phone number (10+ digits).');
           if (!data.vertical) return showError('Please pick a business type.');
 
           btn.disabled = true;
